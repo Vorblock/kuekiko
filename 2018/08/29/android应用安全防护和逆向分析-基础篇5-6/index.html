@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Android应用安全防护和逆向分析-基础篇5-6 &middot; zzzZ</title>
+    <meta name="generator" content="Hugo 0.54.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="var_var">
+    
+      <meta name="description" content="AndroidManifest.xml和resourec.arsc解析">
+    
+    
+    <link rel="canonical" href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/"/>
+    <link rel="icon" href="https://naivete.cc/favicon.ico">
+    <link rel="apple-touch-icon" href="https://naivete.cc/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://naivete.cc/css/style.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/monokai.css">
+    <link rel="stylesheet" href="https://naivete.cc/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Android应用安全防护和逆向分析-基础篇5-6" />
+<meta property="og:description" content="AndroidManifest.xml和resourec.arsc解析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" />
+<meta property="article:published_time" content="2018-08-29T20:39:26&#43;08:00"/>
+<meta property="article:modified_time" content="2018-08-29T20:39:26&#43;08:00"/>
+
+    
+    
+<meta itemprop="name" content="Android应用安全防护和逆向分析-基础篇5-6">
+<meta itemprop="description" content="AndroidManifest.xml和resourec.arsc解析">
+
+
+<meta itemprop="datePublished" content="2018-08-29T20:39:26&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-29T20:39:26&#43;08:00" />
+<meta itemprop="wordCount" content="1032">
+
+
+
+<meta itemprop="keywords" content="android安全,读书笔记," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android应用安全防护和逆向分析-基础篇5-6"/>
+<meta name="twitter:description" content="AndroidManifest.xml和resourec.arsc解析"/>
+<meta name="twitter:site" content="@Sunkkang666"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://naivete.cc/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://naivete.cc/css/images/logo.png')"></i>
+          
+          <span class="site-title">zzzZ</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://naivete.cc/css/images/favicon.ico"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"/>
+      
+      <h2 id="name">var_var</h2>
+      <h3 id="title">TTTT - CTFer - 移动安全</h3>
+      
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        16
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          19
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/Naivetesun" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//twitter.com/Sunkkang666" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+
+<td><a href="//weibo.com/274077334" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+
+
+
+<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fa fa-email"></i></a></td>
+
+
+
+
+          <td><a href="https://naivete.cc/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+
+        <header class="article-header">
+    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/">
+    <h1 class="article-title" itemprop="name">
+        Android应用安全防护和逆向分析-基础篇5-6
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
+            &middot;
+            1032
+            words
+            &middot;
+            5
+            minute read
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">android安全</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="一-基础篇⑤-⑥">一、 基础篇⑤-⑥</h2>
+
+<p>这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面是两章的笔记。</p>
+
+<h3 id="第五章-androidmanifest-xml格式解析">第五章 AndroidManifest.xml格式解析</h3>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829165213.png" alt="AndroidManifest.xml" /></p>
+
+<p><center>AndroidManifest.xml文件格式图</center></p>
+
+<h5 id="头部信息">头部信息</h5>
+
+<ul>
+<li><p>文件魔数：4bytes。</p></li>
+
+<li><p>文件大小：4bytes。</p></li>
+
+<li><p>Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。</p>
+
+<ul>
+<li><p><strong>Sting Chunk</strong> ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。</p></li>
+
+<li><p>ChunkType：类型，固定4bytes（0x001C001)。</p></li>
+
+<li><p>ChunkSize：大小，4bytes。</p></li>
+
+<li><p>StringCount：字符串的个数 ，4bytes。</p></li>
+
+<li><p>StyleCount ：样式的个数，4bytes。</p></li>
+
+<li><p>Unknown ：位置区域。4bytes。</p></li>
+
+<li><p>StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。</p></li>
+
+<li><p>StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。</p></li>
+
+<li><p>StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。</p></li>
+
+<li><p>StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。</p></li>
+</ul>
+
+<p>如何读取这个文件？</p>
+
+<ul>
+<li><p><strong>Resourceld Chunk</strong> ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID</p></li>
+
+<li><p>ChunkType：类型，固定4bytes（0x00080108）。</p></li>
+
+<li><p>ChunkSize：大小，4bytes。</p></li>
+
+<li><p>ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。</p></li>
+</ul>
+
+<p>解析？</p>
+
+<ul>
+<li><p><strong>Start Namespace Chunk</strong>：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。</p></li>
+
+<li><p>Chunk Type：类型，固定4bytes。（0x00100100)。</p></li>
+
+<li><p>Chunk Size：大小，4bytes。</p></li>
+
+<li><p>Line Number ：AndroidMaifest文件中行号，4bytes。</p></li>
+
+<li><p>Unknown：未知区域,4bytes。</p></li>
+
+<li><p>Prefix：命名空间的前缀（在字符串中的索引值），eg:<code>android</code>。</p></li>
+
+<li><p>Uri：命名空间的URI（在字符串中的索引值），eg:<code>http://schemas.android.com/apk/res/android</code></p></li>
+
+<li><p><strong>Start Tag Chunk</strong>：AndroidMaifest.xml的标签信息，最核心的内容，也是最复杂的内容。</p></li>
+
+<li><p>Chunk Type：类型，固定4bytes。（0x00100102)。</p></li>
+
+<li><p>Chunk Size：大小，4bytes。</p></li>
+
+<li><p>Line Number ：对应AndroidMaifest中的行号，4bytes。</p></li>
+
+<li><p>Unknown：未知区域,4bytes。</p></li>
+
+<li><p>Namespace Uri ：命名空间的Uri，4bytes。</p></li>
+
+<li><p>Name：标签名称（在字符串中的索引值），4bytes。</p></li>
+
+<li><p>Flags：标签的类型，4bytes。eg：是开始标签还是结束标签？</p></li>
+
+<li><p>Attributes Counk：便签中包含的属性的个数，4bytes。</p></li>
+
+<li><p>Class Attribute：标签包含的类属性，4bytes。</p></li>
+
+<li><p>Attributes ：属性内容，每个属性算是一个Entry，Entry是一个大小5的字节数组[Namespace,URI,Name,ValueString,Data]，大小为”属性个数* 5 *4&rdquo;个字节。</p></li>
+</ul></li>
+</ul>
+
+<h5 id="axmlprinter工具">AXMLPrinter工具</h5>
+
+<h5 id="aapt-工具">aapt 工具</h5>
+
+<h3 id="第六章-resourec-arsc文件格式解析">第六章 resourec.arsc文件格式解析</h3>
+
+<h5 id="资源文件id格式">资源文件id格式</h5>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200453.png" alt="" /></p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200408.png" alt="" /></p>
+
+<p><center> resourec.arsc文件格式</center></p>
+
+<h5 id="数据结构">数据结构</h5>
+
+<p>上图</p>
+
+<ul>
+<li><strong>头部信息</strong><br />
+<br /></li>
+</ul>
+
+<p>resourec.arsc文件格式由一系列chunk组成，每一个chunk均包含一个ResChunk_header</p>
+
+<pre><code class="language-java">  public class ResChunkHeader{
+      public short type;  //当前chunk的类型
+      public short headerSize; //当前chunk的头部大小
+      public int size;  //当前chunk的大小
+      
+      public int getHeaderSize(){
+        return 2+2+4    
+      }
+      @Override
+      public String toString(){
+          return &quot;type:&quot;+Utils.bytesToHexString(
+          Utils.int2Byte(type))+&quot;,headerSize:&quot;+headerSize+&quot;,size:&quot;+size;
+      }
+  }
+  
+</code></pre>
+
+<ul>
+<li><strong>资源索引表的头部信息</strong><br />
+<br /></li>
+</ul>
+
+<p>resourec.arsc的第一个结构，结构描述了Resource.arsc文件的大小和资源包数量：</p>
+
+<pre><code class="language-java">   public class ResTableHeader {
+    
+    public ResChunkHeader header;  //就是标准的Chunk头部信息格式
+    public int packageCount;  //被编译的资源包的个数
+    
+    public ResTableHeader(){
+        header = new ResChunkHeader();
+    }
+    
+    public int getHeaderSize(){
+        return header.getHeaderSize() + 4;
+    }
+    
+    @Override
+    public String toString(){
+        return &quot;header:&quot;+header.toString()+&quot;\n&quot; + &quot;packageCount:&quot;+packageCount;
+    }
+    
+   }
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829204728.png" alt="" /></p>
+
+<ul>
+<li><strong>资源项的值字符串资源池</strong><br />
+<br /></li>
+</ul>
+
+<p>包含了所有在资源包里面定义的资源项的值字符串，结构如下：</p>
+
+<pre><code class="language-java">  public class ResStringPoolHeader {
+    
+    public ResChunkHeader header;  //标准的Chunk头部信息结构
+    public int stringCount;  //字符串的个数
+    public int styleCount;  //字符串样式的个数
+    
+    public final static int SORTED_FLAG = 1;
+    public final static int UTF8_FLAG = (1&lt;&lt;8);
+    
+    public int flags;  //字符串的属性,可取值包括0x000(UTF-16),0x001(字符串经过排序)、0X100(UTF-8)和他们的组合值
+    public int stringsStart;  //字符串内容块相对于其头部的距离
+    public int stylesStart;  //字符串样式块相对于其头部的距离
+    
+    public ResStringPoolHeader(){
+        header = new ResChunkHeader();
+    }
+    
+    public int getHeaderSize(){
+        return header.getHeaderSize() + 4 + 4 + 4 + 4 + 4;
+    }
+    
+    @Override
+    public String toString(){
+        return &quot;header:&quot;+header.toString()+&quot;\n&quot; + &quot;stringCount:&quot;+stringCount+&quot;,styleCount:&quot;+styleCount+&quot;,flags:&quot;+flags+&quot;,stringStart:&quot;+stringsStart+&quot;,stylesStart:&quot;+stylesStart;
+    }
+    
+  }
+</code></pre>
+
+<p>接着头部的的是两个偏移数组，分别是字符串偏移数组和字符串样式偏移数组。这两个偏移数组的大小分别等于stringCount和styleCount的值，而每一个元素的类型都是无符号整型。整个字符中资源池结构如下。<img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205108.png" alt="" /></p>
+
+<p>字符串资源池中的字符串前两个字节为字符串长度,长度计算方法如下：</p>
+
+<p><code>len = (((hbyte &amp; 0x7F) &lt;&lt; 8)) | lbyte;</code></p>
+
+<p>如果字符串编码格式为UTF-8则字符串以0X00作为结束符,UTF-16则以0X0000作为结束符。</p>
+
+<ul>
+<li><strong>Package数据块</strong><br />
+<br /></li>
+</ul>
+
+<p>这个数据块记录编译包的元数据，头部信息如下：</p>
+
+<pre><code class="language-java">  public class ResTablePackage {
+    
+    public ResChunkHeader header;  //Chunk的头部信息数据结构
+    public int id;  //包的ID,等于Package Id,一般用户包的值Package Id为0X7F,系统资源包的Package Id为0X01；
+    public char[] name = new char[128]; //包名
+    public int typeStrings;  //类型字符串资源池相对头部的偏移
+    public int lastPublicType;  //最后一个导出的Public类型字符串在类型字符串资源池中的索引，目前这个值设置为类型字符串资源池的元素个数。在解析的过程中没发现他的用途
+    public int keyStrings;  //资源项名称字符串相对头部的偏移
+    public int lastPublicKey; // 最后一个导出的Public资源项名称字符串在资源项名称字符串资源池中的索引，目前这个值设置为资源项名称字符串资源池的元素个数。在解析的过程中没发现他的用途
+    
+    public ResTablePackage(){
+        header = new ResChunkHeader();
+    }
+    
+    @Override
+    public String toString(){
+        return &quot;header:&quot;+header.toString()+&quot;\n&quot;+&quot;,id=&quot;+id+&quot;,name:&quot;+name.toString()+&quot;,typeStrings:&quot;+typeStrings+&quot;,lastPublicType:&quot;+lastPublicType+&quot;,keyStrings:&quot;+keyStrings+&quot;,lastPublicKey:&quot;+lastPublicKey;
+    }
+   
+  }
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205652.png" alt="" /></p>
+
+<ul>
+<li><strong>类型规范数据块</strong><br />
+<br /></li>
+</ul>
+
+<p>用来描述资源项的配置差异性。每一种类型都对应有一个类型规范数据块。</p>
+
+<pre><code class="language-java">  
+  public class ResTableTypeSpec {
+    
+    public final static int SPEC_PUBLIC = 0x40000000;
+    
+    public ResChunkHeader header;  //Chunk的头部信息结构
+    public byte id;  //标识资源的Type ID,Type ID是指资源的类型ID。资源的类型有animator、anim、color、drawable、layout、menu、raw、string和xml等等若干种，每一种都会被赋予一个ID。
+    public byte res0;  //保留,始终为0
+    public short res1;  //保留,始终为0
+    public int entryCount;  //等于本类型的资源项个数,指名称相同的资源项的个数。
+    
+    public ResTableTypeSpec(){
+        header = new ResChunkHeader();
+    }
+    
+    @Override
+    public String toString(){
+        return &quot;header:&quot;+header.toString()+&quot;,id:&quot;+id+&quot;,res0:&quot;+res0+&quot;,res1:&quot;+res1+&quot;,entryCount:&quot;+entryCount;
+    }
+    
+  }
+</code></pre>
+
+<ul>
+<li><strong>资源类型项数据块</strong><br />
+<br /></li>
+</ul>
+
+<p>描述资源项的具体信息，名称、值、配置等信息</p>
+
+<pre><code class="language-java">  public class ResTableType {
+    
+    public ResChunkHeader header;  //Chunk的头部信息结构
+    
+    public final static int NO_ENTRY = 0xFFFFFFFF;
+    
+    public byte id;  //标识资源的Type ID
+    public byte res0;  //保留,始终为0
+    public short res1;  //保留,始终为0
+    public int entryCount;  //等于本类型的资源项个数,指名称相同的资源项的个数。
+    public int entriesStart;  //等于资源项数据块相对头部的偏移值。
+    
+    public ResTableConfig resConfig;  //指向一个ResTable_config,用来描述配置信息,地区,语言,分辨率等
+    
+    public ResTableType(){
+        header = new ResChunkHeader();
+        resConfig = new ResTableConfig();
+    }
+   
+    public int getSize(){
+        return header.getHeaderSize() + 1 + 1 + 2 + 4 + 4;
+    }
+    
+    @Override
+    public String toString(){
+        return &quot;header:&quot;+header.toString()+&quot;,id:&quot;+id+&quot;,res0:&quot;+res0+&quot;,res1:&quot;+res1+&quot;,entryCount:&quot;+entryCount+&quot;,entriesStart:&quot;+entriesStart;
+    }
+   
+  }
+</code></pre>
+
+<p>ResTable_type后接着是一个大小为entryCount的uint32_t数组，每一个数组元素都用来描述一个资源项数据块的偏移位置。 紧跟在这个偏移数组后面的是一个大小为entryCount的ResTable_entry数组,每一个数组元素都用来描述一个资源项的具体信息。ResTable_entry的结构如下：</p>
+
+<pre><code class="language-java">  public class ResTableEntry {
+    
+    public final static int FLAG_COMPLEX = 0x0001;
+    public final static int FLAG_PUBLIC = 0x0002;
+    
+    public short size;
+    public short flags;
+    
+    public ResStringPoolRef key;
+    
+    public ResTableEntry(){
+        key = new ResStringPoolRef();
+    }
+    
+    public int getSize(){
+        return 2+2+key.getSize();
+    }
+    
+    @Override
+    public String toString(){
+        return &quot;size:&quot;+size+&quot;,flags:&quot;+flags+&quot;,key:&quot;+key.toString()+&quot;,str:&quot;+ParseResourceUtils.getKeyString(key.index);
+    }
+   
+  }
+</code></pre>
+
+<p>ResTable_entry根据flags的不同,后面跟随的数据也不相同,如果flags此位为1,则ResTable_entry是ResTable_map_entry,ResTable_map_entry继承自ResTable_entry,其结构如下。</p>
+
+<pre><code class="language-java">  public class ResTableMapEntry extends ResTableEntry{
+    
+    public ResTableRef parent;
+    public int count;
+    
+    public ResTableMapEntry(){
+        parent = new ResTableRef();
+    }
+    
+    @Override
+    public int getSize(){
+        return super.getSize() + parent.getSize() + 4;
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString() + &quot;,parent:&quot;+parent.toString()+&quot;,count:&quot;+count;
+    }
+   
+  }
+</code></pre>
+
+<p>ResTable_map_entry其后跟随则count个ResTable_map类型的数组,ResTable_map的结构如下：</p>
+
+<pre><code class="language-java">  package com.wjdiankong.parseresource.type;
+   
+  /**
+   struct ResTable_map
+   {
+       //bag资源项ID
+       ResTable_ref name;
+       //bag资源项值
+       Res_value value;
+   };
+   * @author i
+   *
+   */
+  public class ResTableMap {
+    
+    public ResTableRef name;
+    public ResValue value;
+    
+    public ResTableMap(){
+        name = new ResTableRef();
+        value = new ResValue();
+    }
+    
+    public int getSize(){
+        return name.getSize() + value.getSize();
+    }
+    
+    @Override
+    public String toString(){
+        return name.toString()+&quot;,value:&quot;+value.toString();
+    }
+   
+  }
+</code></pre>
+
+<p>如果flags此位为0,则ResTable_entry其后跟随的是一个Res_value,描述一个普通资源的值,Res_value结构如下。</p>
+
+<pre><code class="language-java">  public class ResValue {
+    
+    //dataType字段使用的常量
+    public final static int TYPE_NULL = 0x00;
+    public final static int TYPE_REFERENCE = 0x01;
+    public final static int TYPE_ATTRIBUTE = 0x02;
+    public final static int TYPE_STRING = 0x03;
+    public final static int TYPE_FLOAT = 0x04;
+    public final static int TYPE_DIMENSION = 0x05;
+    public final static int TYPE_FRACTION = 0x06;
+    public final static int TYPE_FIRST_INT = 0x10;
+    public final static int TYPE_INT_DEC = 0x10;
+    public final static int TYPE_INT_HEX = 0x11;
+    public final static int TYPE_INT_BOOLEAN = 0x12;
+    public final static int TYPE_FIRST_COLOR_INT = 0x1c;
+    public final static int TYPE_INT_COLOR_ARGB8 = 0x1c;
+    public final static int TYPE_INT_COLOR_RGB8 = 0x1d;
+    public final static int TYPE_INT_COLOR_ARGB4 = 0x1e;
+    public final static int TYPE_INT_COLOR_RGB4 = 0x1f;
+    public final static int TYPE_LAST_COLOR_INT = 0x1f;
+    public final static int TYPE_LAST_INT = 0x1f;
+    
+    public static final int
+      COMPLEX_UNIT_PX           =0,
+      COMPLEX_UNIT_DIP      =1,
+      COMPLEX_UNIT_SP           =2,
+      COMPLEX_UNIT_PT           =3,
+      COMPLEX_UNIT_IN           =4,
+      COMPLEX_UNIT_MM           =5,
+    COMPLEX_UNIT_SHIFT      =0,
+      COMPLEX_UNIT_MASK     =15,
+      COMPLEX_UNIT_FRACTION =0,
+      COMPLEX_UNIT_FRACTION_PARENT=1,
+      COMPLEX_RADIX_23p0        =0,
+      COMPLEX_RADIX_16p7        =1,
+      COMPLEX_RADIX_8p15        =2,
+      COMPLEX_RADIX_0p23        =3,
+      COMPLEX_RADIX_SHIFT       =4,
+      COMPLEX_RADIX_MASK        =3,
+      COMPLEX_MANTISSA_SHIFT    =8,
+      COMPLEX_MANTISSA_MASK =0xFFFFFF;
+    
+    
+    public short size;  //ResValue的头部大小
+    public byte res0;  //保留，始终为0
+    public byte dataType;  //数据的类型,可以从上面的枚举类型中获取
+    public int data;  //数据对应的索引
+    
+    public int getSize(){
+        return 2 + 1 + 1 + 4;
+    }
+    
+    public String getTypeStr(){
+        switch(dataType){
+            case TYPE_NULL:
+                return &quot;TYPE_NULL&quot;;
+            case TYPE_REFERENCE:
+                return &quot;TYPE_REFERENCE&quot;;
+            case TYPE_ATTRIBUTE:
+                return &quot;TYPE_ATTRIBUTE&quot;;
+            case TYPE_STRING:
+                return &quot;TYPE_STRING&quot;;
+            case TYPE_FLOAT:
+                return &quot;TYPE_FLOAT&quot;;
+            case TYPE_DIMENSION:
+                return &quot;TYPE_DIMENSION&quot;;
+            case TYPE_FRACTION:
+                return &quot;TYPE_FRACTION&quot;;
+            case TYPE_FIRST_INT:
+                return &quot;TYPE_FIRST_INT&quot;;
+            case TYPE_INT_HEX:
+                return &quot;TYPE_INT_HEX&quot;;
+            case TYPE_INT_BOOLEAN:
+                return &quot;TYPE_INT_BOOLEAN&quot;;
+            case TYPE_FIRST_COLOR_INT:
+                return &quot;TYPE_FIRST_COLOR_INT&quot;;
+            case TYPE_INT_COLOR_RGB8:
+                return &quot;TYPE_INT_COLOR_RGB8&quot;;
+            case TYPE_INT_COLOR_ARGB4:
+                return &quot;TYPE_INT_COLOR_ARGB4&quot;;
+            case TYPE_INT_COLOR_RGB4:
+                return &quot;TYPE_INT_COLOR_RGB4&quot;;
+        }
+        return &quot;&quot;;
+    }
+    
+    /*public String getDataStr(){
+        if(dataType == TYPE_STRING){
+            return ParseResourceUtils.getResString(data);
+        }else if(dataType == TYPE_FIRST_COLOR_INT){
+            return Utils.bytesToHexString(Utils.int2Byte(data));
+        }else if(dataType == TYPE_INT_BOOLEAN){
+            return data==0 ? &quot;false&quot; : &quot;true&quot;;
+        }
+        return data+&quot;&quot;;
+    }*/
+    
+    public String getDataStr() {
+        if (dataType == TYPE_STRING) {
+            return ParseResourceUtils.getResString(data);
+        }
+        if (dataType == TYPE_ATTRIBUTE) {
+            return String.format(&quot;?%s%08X&quot;,getPackage(data),data);
+        }
+        if (dataType == TYPE_REFERENCE) {
+            return String.format(&quot;@%s%08X&quot;,getPackage(data),data);
+        }
+        if (dataType == TYPE_FLOAT) {
+            return String.valueOf(Float.intBitsToFloat(data));
+        }
+        if (dataType == TYPE_INT_HEX) {
+            return String.format(&quot;0x%08X&quot;,data);
+        }
+        if (dataType == TYPE_INT_BOOLEAN) {
+            return data!=0?&quot;true&quot;:&quot;false&quot;;
+        }
+        if (dataType == TYPE_DIMENSION) {
+            return Float.toString(complexToFloat(data))+
+                DIMENSION_UNITS[data &amp; COMPLEX_UNIT_MASK];
+        }
+        if (dataType == TYPE_FRACTION) {
+            return Float.toString(complexToFloat(data))+
+                FRACTION_UNITS[data &amp; COMPLEX_UNIT_MASK];
+        }
+        if (dataType &gt;= TYPE_FIRST_COLOR_INT &amp;&amp; dataType &lt;= TYPE_LAST_COLOR_INT) {
+            return String.format(&quot;#%08X&quot;,data);
+        }
+        if (dataType &gt;= TYPE_FIRST_INT &amp;&amp; dataType &lt;= TYPE_LAST_INT) {
+            return String.valueOf(data);
+        }
+        return String.format(&quot;&lt;0x%X, type 0x%02X&gt;&quot;,data, dataType);
+    }
+    
+    private static String getPackage(int id) {
+        if (id&gt;&gt;&gt;24==1) {
+            return &quot;android:&quot;;
+        }
+        return &quot;&quot;;
+    }
+    
+    public static float complexToFloat(int complex) {
+        return (float)(complex &amp; 0xFFFFFF00)*RADIX_MULTS[(complex&gt;&gt;4) &amp; 3];
+    }
+    
+    private static final float RADIX_MULTS[]={
+        0.00390625F,3.051758E-005F,1.192093E-007F,4.656613E-010F
+    };
+    
+    private static final String DIMENSION_UNITS[]={
+        &quot;px&quot;,&quot;dip&quot;,&quot;sp&quot;,&quot;pt&quot;,&quot;in&quot;,&quot;mm&quot;,&quot;&quot;,&quot;&quot;
+    };
+    
+    private static final String FRACTION_UNITS[]={
+        &quot;%&quot;,&quot;%p&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;
+    };
+    
+    @Override
+    public String toString(){
+        return &quot;size:&quot;+size+&quot;,res0:&quot;+res0+&quot;,dataType:&quot;+getTypeStr()+&quot;,data:&quot;+getDataStr();
+    }
+   
+  }
+</code></pre>
+
+<p>以上代码来自于书的原作者的博客：<a href="https://blog.csdn.net/jiangwei0910410003/article/details/50628894">https://blog.csdn.net/jiangwei0910410003/article/details/50628894</a></p>
+
+<p>博客里还有如何解析操作，留看。</p>
+
+<h3 id="总结">总结</h3>
+
+<p>这两章讲的还是挺详细的，可以留着备用查阅，这两个文件都能加以混淆来保护应用，所以还是挺重要的。</p>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" data-id="4be514e13b9eb9eebb33bfd5fabf422f" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">ARM汇编基础</div>
+    </a>
+    
+
+    
+    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">UAF漏洞（释放后使用）学习记录</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/ai">
+                        AI
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="title">Pytorch学习_1安装</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-12-08 23:40:51 &#43;0800 CST" itemprop="datePublished">2018-12-08</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                        日常生活
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="title">死肥宅的国庆节</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-10-01 19:47:05 &#43;0800 CST" itemprop="datePublished">2018-10-01</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="title">UAF漏洞（释放后使用）学习记录</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                        读书笔记
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="title">Android应用安全防护和逆向分析-基础篇5-6</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/arm">
+                        ARM
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="title">ARM汇编基础</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80">
+                    android基础
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/arm">
+                    arm
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8">
+                    linux内核
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                    日常生活
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">
+                    漏洞分析
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E7%AC%94%E8%AE%B0">
+                    笔记
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/androd">
+                    androd
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android">
+                    android
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">7</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/arm">
+                    arm
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/hook">
+                    hook
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/qume">
+                    qume
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD">
+                    吐槽
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7">
+                    工具
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D">
+                    指令修复
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
+                    日常
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">
+                    机器学习
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE">
+                    树莓派
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8">
+                    模拟器
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">
+                    环境
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB">
+                    生活
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://naivete.cc/tags/ai" style="font-size: 12px;">ai</a>
+        
+        
+        <a href="https://naivete.cc/tags/androd" style="font-size: 12px;">androd</a>
+        
+        
+        <a href="https://naivete.cc/tags/android" style="font-size: 12px;">android</a>
+        
+        
+        <a href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8" style="font-size: 12px;">android安全</a>
+        
+        
+        <a href="https://naivete.cc/tags/arm" style="font-size: 12px;">arm</a>
+        
+        
+        <a href="https://naivete.cc/tags/cve" style="font-size: 12px;">cve</a>
+        
+        
+        <a href="https://naivete.cc/tags/hook" style="font-size: 12px;">hook</a>
+        
+        
+        <a href="https://naivete.cc/tags/java" style="font-size: 12px;">java</a>
+        
+        
+        <a href="https://naivete.cc/tags/qume" style="font-size: 12px;">qume</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD" style="font-size: 12px;">吐槽</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7" style="font-size: 12px;">工具</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D" style="font-size: 12px;">指令修复</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8" style="font-size: 12px;">日常</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" style="font-size: 12px;">机器学习</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE" style="font-size: 12px;">树莓派</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8" style="font-size: 12px;">模拟器</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83" style="font-size: 12px;">环境</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB" style="font-size: 12px;">生活</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" style="font-size: 12px;">读书笔记</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="https://github.com/digitalcraftsman/hugo-icarus-theme/tree/master">Icarus</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://naivete.cc/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://naivete.cc/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

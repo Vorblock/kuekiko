@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>吐槽 on zzzZ</title>
+    <link>https://naivete.cc/tags/%E5%90%90%E6%A7%BD/</link>
+    <description>Recent content in 吐槽 on zzzZ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Jul 2018 17:31:24 +0800</lastBuildDate>
+    
+	<atom:link href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>New Blog</title>
+      <link>https://naivete.cc/2018/07/02/new-blog/</link>
+      <pubDate>Mon, 02 Jul 2018 17:31:24 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/02/new-blog/</guid>
+      <description> 关于这个新博客 折腾了两天，终于弄得差不多了，接下来只差把自动化部署搞定就OK啦。。  先列个计划：
+ 以后就一直维护，不改了，先列一个flag
+ 后面吧相关文章转过来
+ 尽量更新吧
+ 以后总结就更新过来吧 微信公众号同步更新
+  </description>
+    </item>
+    
+  </channel>
+</rss>

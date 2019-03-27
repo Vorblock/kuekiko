@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>指令修复 on zzzZ</title>
+    <link>https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D/</link>
+    <description>Recent content in 指令修复 on zzzZ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 30 Jul 2018 15:03:41 +0800</lastBuildDate>
+    
+	<atom:link href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>(转)Android Inline Hook中的指令修复详解</title>
+      <link>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Mon, 30 Jul 2018 15:03:41 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/</guid>
+      <description>前言  本文是另一篇《Android Native Hook工具实践》的一份补充文章，本人建议各位学习者先去看该篇主文以了解本文的需求背景。本文将会对该文中指令修复部分的技术细节进行阐述。本文的部分源码来自于ele7enxxh大神的项目，由于大神的技术博客里解释省略了较多细节，所以出于学习的目的，本人也会一点一点慢慢啃。同时由于该库并不完善，因此本文将补充该库没考虑到的一些修复指令方案，并且对许多特殊状况和Bug也尽力解决。
+ 目前需要进行指令修复的ARM32指令主要可以分为如下几类：
+ BLX_ARM, BL_ARM, B_ARM（不包含条件跳转）, BX_ARM
+ 条件跳转BEQ_ARM BNE_ARM BCS_ARM BCC_ARM BMI_ARM BPL_ARM BVS_ARM BVC_ARM BHI_ARM BLS_ARM BGE_ARM BLT_ARM BGT_ARM BLE_ARM
+ ADD_ARM
+ ADR_ARM, LDR_ARM, MOV_ARM
+ 其它指令 OTHER_ARM
+  Thumb16指令主要可以分为如下几类：
+ B1_THUMB16（不包含条件跳转）, B2_THUMB16, BX_THUMB16
+ 条件跳转B1_BEQ_THUMB16, B1_BNE_THUMB16, B1_BCS_THUMB16, B1_BCC_THUMB16, B1_BMI_THUMB16, B1_BPL_THUMB16, B1_BVS_THUMB16, B1_BVC_THUMB16, B1_BHI_THUMB16, B1_BLS_THUMB16, B1_BGE_THUMB16, B1_BLT_THUMB16, B1_BGT_THUMB16, B1_BLE_THUMB16
+ ADD_THUMB16
+ MOV_THUMB16, ADR_THUMB16, LDR_THUMB16
+ 其它指令 OTHER_THUMB16
+  Thumb32指令主要可以分为如下几类：</description>
+    </item>
+    
+  </channel>
+</rss>

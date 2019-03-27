@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Android应用安全防护和逆向分析 基础篇② &middot; zzzZ</title>
+    <meta name="generator" content="Hugo 0.54.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="var_var">
+    
+      <meta name="description" content="Android中NDK的开发">
+    
+    
+    <link rel="canonical" href="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
+    <link rel="icon" href="https://naivete.cc/favicon.ico">
+    <link rel="apple-touch-icon" href="https://naivete.cc/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://naivete.cc/css/style.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/monokai.css">
+    <link rel="stylesheet" href="https://naivete.cc/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Android应用安全防护和逆向分析 基础篇②" />
+<meta property="og:description" content="Android中NDK的开发" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" />
+<meta property="article:published_time" content="2018-07-13T15:01:09&#43;08:00"/>
+<meta property="article:modified_time" content="2018-07-13T15:01:09&#43;08:00"/>
+
+    
+    
+<meta itemprop="name" content="Android应用安全防护和逆向分析 基础篇②">
+<meta itemprop="description" content="Android中NDK的开发">
+
+
+<meta itemprop="datePublished" content="2018-07-13T15:01:09&#43;08:00" />
+<meta itemprop="dateModified" content="2018-07-13T15:01:09&#43;08:00" />
+<meta itemprop="wordCount" content="903">
+
+
+
+<meta itemprop="keywords" content="android安全,读书笔记," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android应用安全防护和逆向分析 基础篇②"/>
+<meta name="twitter:description" content="Android中NDK的开发"/>
+<meta name="twitter:site" content="@Sunkkang666"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://naivete.cc/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://naivete.cc/css/images/logo.png')"></i>
+          
+          <span class="site-title">zzzZ</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://naivete.cc/css/images/favicon.ico"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"/>
+      
+      <h2 id="name">var_var</h2>
+      <h3 id="title">TTTT - CTFer - 移动安全</h3>
+      
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        16
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          19
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/Naivetesun" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//twitter.com/Sunkkang666" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+
+<td><a href="//weibo.com/274077334" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+
+
+
+<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fa fa-email"></i></a></td>
+
+
+
+
+          <td><a href="https://naivete.cc/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+
+        <header class="article-header">
+    <a href="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+    <h1 class="article-title" itemprop="name">
+        Android应用安全防护和逆向分析 基础篇②
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2018-07-13 15:01:09 &#43;0800 CST" itemprop="datePublished">2018-07-13</time>
+            &middot;
+            903
+            words
+            &middot;
+            5
+            minute read
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">android安全</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h1 id="一-基础篇②">一、 基础篇②</h1>
+
+<h2 id="第二章-android中ndk的开发">第二章 Android中NDK的开发</h2>
+
+<h3 id="1-相关环境">1.  相关环境</h3>
+
+<p>相关环境参考另外一篇文章<a href="https://naivete.cc/post/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Android安全和开发环境搭建</a></p>
+
+<h3 id="2-jni基础">2.  JNI基础</h3>
+
+<h4 id="2-1-第一行代码-书上使用eclipse-我使用as-简单方便很多">2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多))</h4>
+
+<p>​   参考文章<a href="https://naivete.cc/post/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Android安全和开发环境搭建</a>中的JNI开发章节</p>
+
+<h4 id="2-2-jnienv类型和jobject类型">2.2  JNIEnv类型和jobject类型</h4>
+
+<ul>
+<li><strong>AS 默认自动生成</strong><br />
+<br /></li>
+</ul>
+
+<pre><code class="language-JAVA"> public native String stringFromJNI();
+</code></pre>
+
+<pre><code class="language-java">Java_com_naivete_jni_1study_MainActivity_stringFromJNI(
+        JNIEnv *env,
+        jobject /* this */) {
+    std::string hello = &quot;Hello from C++&quot;;
+    return env-&gt;NewStringUTF(hello.c_str());
+</code></pre>
+
+<ul>
+<li><strong>JNIEnv类型</strong><br />
+<br /></li>
+</ul>
+
+<p>通过JNIEnv* 指针就可以对Java端的代码进行操作</p>
+
+<p>Jni的所有函数可以查看jni.h文件</p>
+
+<p>下面是一些函数eg：</p>
+
+<ul>
+<li><p>NewObject : 创建Java类中的对象。</p></li>
+
+<li><p>NewString : 创建Java类中的String对象。</p></li>
+
+<li><p>New<Type>Array : 创建类型为Type的数组对象</p></li>
+
+<li><p>Get<Type>Field: 获取型为Type的字段。</p></li>
+
+<li><p>Set<Type>Fileld: 设置类型为Type的字段的值。</p></li>
+
+<li><p>GetStatic<Type>Field: 获取类型为Type的static的字段。</p></li>
+
+<li><p>SetStatic<Type>Field:设置类型为Typede的static的字段的值。</p></li>
+
+<li><p>Call<type>Method: 调用返回类型为Type的方法。</p></li>
+
+<li><p>CallStatic<Type>Method: 调用返回值类型为Type的Static方法</p>
+
+<p>&hellip;..</p></li>
+
+<li><p><strong>Jobject参数obj</strong></p></li>
+</ul>
+
+<p>如果native 方法不是static ,obj就代表native方法的实例。</p>
+
+<p>如果narive方法是static,obj 就代表native方法的类的class对象实例。</p>
+
+<ul>
+<li><strong>Java和C++中的基本类型的映射关系</strong>：<br />
+<br /></li>
+</ul>
+
+<p>具体查看jni.h文件的详细说明</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Java类型</th>
+<th align="center">本地类型</th>
+<th align="center">JNI定义的别名</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">int</td>
+<td align="center">long</td>
+<td align="center">jint/jsize</td>
+</tr>
+
+<tr>
+<td align="center">long</td>
+<td align="center">_int64</td>
+<td align="center">jlong</td>
+</tr>
+
+<tr>
+<td align="center">byte</td>
+<td align="center">signed char</td>
+<td align="center">jbyte</td>
+</tr>
+
+<tr>
+<td align="center">boolean</td>
+<td align="center">unsigned char</td>
+<td align="center">jboolean</td>
+</tr>
+
+<tr>
+<td align="center">char</td>
+<td align="center">unsigned short</td>
+<td align="center">jchar</td>
+</tr>
+
+<tr>
+<td align="center">short</td>
+<td align="center">short</td>
+<td align="center">jshort</td>
+</tr>
+
+<tr>
+<td align="center">float</td>
+<td align="center">float</td>
+<td align="center">jfloat</td>
+</tr>
+
+<tr>
+<td align="center">double</td>
+<td align="center">double</td>
+<td align="center">jdouble</td>
+</tr>
+
+<tr>
+<td align="center">Object</td>
+<td align="center">_jobject*</td>
+<td align="center">jobject</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>jclass类型</strong><br />
+<br /></li>
+</ul>
+
+<p>jclass 表示java中的class 类：</p>
+
+<p>JNIEnv 类中有如下几个简单的函数可以取得jclass:</p>
+
+<ul>
+<li><p>jclass FindClass( const char* clsName):通过类的名称来获取jclass</p></li>
+
+<li><p>jcalss GetObjectClass( jobject obj ):通过对象实例来获取jcalss,相当于java 中的getclass方法</p></li>
+
+<li><p>jclass GetSuperClass(jclass obj):通过jclass 可以获取其父类的jclass对象。</p></li>
+
+<li><p><strong>native中访问Java层代码</strong></p></li>
+</ul>
+
+<p>常见的应用就是获取类的属性和调用类的方法</p>
+
+<p>JNi在jni.h头文件中定义了jfieldId、jmethodID类型分别代表JAVA端的属性和方法。</p>
+
+<p>使用JNI的以下方法来取得相应的jfieldId、jmethodID：</p>
+
+<ul>
+<li>GetFieldID、GetMethodID<br /></li>
+<li>GetStaticFieldID、GetStaticMethodID<br />
+<br /></li>
+</ul>
+
+<p>查看jni.h中源函数</p>
+
+<pre><code class="language-java"> GetFieldID(jclass clazz, const char* name, const char* sig)
+</code></pre>
+
+<p>​   参数说明：</p>
+
+<ul>
+<li><p>clazz 方法依赖的类对象的class对象</p></li>
+
+<li><p>name: 字段的名称</p></li>
+
+<li><p>sig : 字段的签名</p></li>
+</ul>
+
+<p>查看签名命令</p>
+
+<p><code>javap -s -p 字节码.class 文件</code></p>
+
+<p>GetMethodID 也能够会的构造函数的jmethodID，创建一个Java对象是可以调用指定的构造方法，eg：</p>
+
+<p><code>env-&gt;GetmethodID(data_class,&quot;&lt;init&gt;&quot;,&quot;()v&quot;);</code></p>
+
+<p>签名的格式：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th>相应的签名</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">boolean</td>
+<td>Z</td>
+</tr>
+
+<tr>
+<td align="center">byte</td>
+<td>B</td>
+</tr>
+
+<tr>
+<td align="center">chat</td>
+<td>C</td>
+</tr>
+
+<tr>
+<td align="center">short</td>
+<td>S</td>
+</tr>
+
+<tr>
+<td align="center">int</td>
+<td>I</td>
+</tr>
+
+<tr>
+<td align="center">long</td>
+<td>L</td>
+</tr>
+
+<tr>
+<td align="center">float</td>
+<td>F</td>
+</tr>
+
+<tr>
+<td align="center">double</td>
+<td>D</td>
+</tr>
+
+<tr>
+<td align="center">void</td>
+<td>V</td>
+</tr>
+
+<tr>
+<td align="center">object</td>
+<td>L用/分割包的完整类名；Ljava/lang/String;</td>
+</tr>
+
+<tr>
+<td align="center">Array</td>
+<td>[签名 [I [Ljava/lang/Object</td>
+</tr>
+
+<tr>
+<td align="center">Method</td>
+<td>(参数类型签名··· .) 返回值类型签名</td>
+</tr>
+</tbody>
+</table>
+
+<p>eg:</p>
+
+<pre><code class="language-java">package com.naivete.jni_study;
+
+import java.util.Date;
+
+public class Hello {
+    public int property;
+    public int function(int foo, Date date,int[] arr){
+        System.out.println(&quot;function&quot;);
+        return 0;
+    }
+
+    public native void test();
+}
+</code></pre>
+
+<pre><code class="language-C++">extern &quot;C&quot;
+JNIEXPORT void JNICALL
+Java_com_naivete_jni_1study_Hello_test(JNIEnv *env, jobject instance) {
+
+    // TODO
+    jclass helloclazz = env-&gt;GetObjectClass(instance);
+    jfieldID field_prop = env-&gt;GetFieldID(helloclazz,&quot;property&quot;,&quot;I&quot;);   //取到property字段
+    jmethodID method_fun = env-&gt;GetMethodID(helloclazz,&quot;function&quot;,&quot;ILjava/util/Date;[I)I&quot;); //取到function函数
+    env-&gt;CallIntMethod(instance,method_fun,0L,NULL,NULL);
+}
+</code></pre>
+
+<p>GetStaticFieldID与GetStaticMethodID这两个方法的用法大同小异。</p>
+
+<h4 id="2-3-jnienv类型中方法的使用">2.3 JNIEnv类型中方法的使用</h4>
+
+<ul>
+<li>在java中定义一个属性，再从C++代码中将其设置成另外的值<br />
+<br /></li>
+</ul>
+
+<h5 id="2-3-1-native中获取方法的id">2.3.1 native中获取方法的ID</h5>
+
+<pre><code class="language-java">       private static String TAG = &quot;Hello&quot;;
+       public int number = 0;
+       public native void sayHello();
+   
+       public static void main() {
+           Hello hello = new Hello();
+           hello.sayHello();
+           System.out.print(hello.number);
+           Log.d(TAG, &quot;&quot;+hello.number);
+       }
+   }
+</code></pre>
+
+<pre><code class="language-C++">   JNIEXPORT void JNICALL
+   Java_com_naivete_jni_1study_Hello_sayHello(JNIEnv *env, jobject instance) {
+   
+       // TODO
+       jclass helloclazz = env-&gt;GetObjectClass(instance);
+       jfieldID id_number = env-&gt;GetFieldID(helloclazz,&quot;number&quot;,&quot;I&quot;); //获取numberID
+       jint number = env-&gt;GetIntField(instance,id_number); //获取number的值;
+       cout&lt;&lt;number&lt;&lt;endl;  //输出到控制台
+       env-&gt;SetIntField(instance,id_number,100L); //设置number的值;注意jint对应c++ long类型
+   }
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-2-1.png" alt="1" /></p>
+
+<p>JNIEnv 还提供了许多Call<Type>Method 和CallStatic<Type>Method 还有CallNovirtual<Type>Method函数，需要通过GetMethodID来取得相应的方法的jmethodId传入到上述函数的参数中</p>
+
+<p>调用示例方法的三种形式如下：</p>
+
+<p><code>Call&lt;Type&gt;Method(jobject obj,jmethodID id,id,·······);</code> //常用的方式</p>
+
+<p><code>Call&lt;Type&gt;Method(jobject obj,jmethodID id,id,va_list lst);</code> //有指向参数表的va_list变量（很少使用）</p>
+
+<p><code>Call&lt;Type&gt;Method(jobject obj,jmethodID id,id,jvalue * v);</code> //有指向jvalue或jvalue数组指针时用的</p>
+
+<p>jvalue 是union联合体，定义jvalue数组传递到方法中，这样可以包含多种类型的参数：</p>
+
+<pre><code class="language-C">   typedef union jvalue{
+       jboolean z;
+       jbytpe   b;
+       jchar    c;
+       jshort   s;
+       jint     i;
+       jlong    j;
+       jfloat   f;
+       jdouble  d;
+       jobject  l;
+   }jvalue;
+</code></pre>
+
+<p>比如在Java中有这样一个方法：</p>
+
+<pre><code class="language-java">   boolean function(int a,double b,char c){
+   
+   ·····
+   
+   }
+   
+</code></pre>
+
+<p>1）在C++中使用第一种方法调用function方法：</p>
+
+<p><code>env-&gt;CallbooleanMethod(obj,id_function,10L，3.4，L'a')</code></p>
+
+<p>obj:functon对象，id_function:functiond的id,10L、3.4、L&rsquo;a&rsquo;是对应的参数。</p>
+
+<p>L&rsquo;a&rsquo; 中的L是因为Java中的字符是Unicode双字节的，而C++中的字节是单字节的，所以要变成宽字符。</p>
+
+<p>2）在C++中使用第三种方法function调用：</p>
+
+<pre><code class="language-C++">   jvalue* args = new Jvalue[3]
+   args[0] = 10L;
+   args[1] = 3.22;
+   args[2] = L'a';
+   env-&gt;GetBooleanMethod(obj,id_function,args);
+   delete[] args;  //是否指针堆内存
+</code></pre>
+
+<h5 id="2-3-2-java和c-中的多态机制">2.3.2 Java和C++中的多态机制</h5>
+
+<p>JNIEnv中的特殊方法CallNovirtual<type>Method。来帮助java调用Java中父类的方法。</p>
+
+<ul>
+<li>介绍了-C++和java多态的基础知识。<br /></li>
+<li>步骤：<br />
+
+<ul>
+<li>获取obj中对象的class 对象 GetObjectClass(obj)<br /></li>
+<li>获取java中father字段的id GetFieldID()<br /></li>
+<li>获取father字段的对象类型 GetObjectField<br /></li>
+<li>获取father对象的class对象 FindClass<br /></li>
+<li>获取father对象中function方法ID GetMethodID()<br /></li>
+<li>调用父类中的function方法（会执行子类的方法）CallvoidMethod<br /></li>
+<li>调用父类中的function方法（会执行父类的方法）CallNonvirtualVoidMethod()<br />
+<br />
+<br /></li>
+</ul></li>
+</ul>
+
+<h4 id="2-4-创建java对象及字符串的操作方法">2.4 创建Java对象及字符串的操作方法</h4>
+
+<h5 id="2-4-1-native中创建java对象">2.4.1 native中创建Java对象</h5>
+
+<p>​   两种方法：</p>
+
+<ul>
+<li>第一种：<br />
+<br /></li>
+</ul>
+
+<p><code>jobject Newobject(jclass clazz,jmethodID methodID,·····)</code></p>
+
+<ul>
+<li>clazz 需要创建的Java对象的Class对象。<br /></li>
+<li>methodID :传递一个方法的ID: 构造方法<br /></li>
+<li>第三个参数：构造函数需要传入的参数值（默认不传递） 默认构造方法返回值签名始终是&rdquo;()V&rdquo;,方法的名称始终是&rdquo;<init>&ldquo;。<br />
+<br /></li>
+</ul>
+
+<p>在C++中构造Java中的Date对象调用方法getTime():</p>
+
+<pre><code class="language-C++">   jclass clazz_date = env-&gt;FindClass(&quot;java/util/Date&quot;); //获取date对象
+   jmethodID mid_date = env-&gt;GetMethodID(clazz_date,&quot;&lt;init&gt;&quot;,&quot;()V&quot;); //获取构造方法的ID
+   jobject now = env-&gt;NewObject(clazz_date,mid_date); //生成Date对象
+   jmethodID mid_date_getTime = env-&gt;GetMethodID(clazz_date,&quot;getTime()&quot;,&quot;()J&quot;); //获取getTime的ID
+   jlong time = env-&gt;CallLongMethod(now,mid_date_getTime);//调用getTime返回时间
+   printf(&quot;%I64d&quot;,time);
+</code></pre>
+
+<ul>
+<li>第二种：<br />
+<br /></li>
+</ul>
+
+<p>用AllocObject函数创建一个对象，可以根据传入的jclass创建一个java对象，但是状态时未初始化的，在这个对象之前绝对要用CallNonvirtualVoidMethod来调用该jclass的构造函数这样可以延迟构造函数的调用。用的比较少。</p>
+
+<p>eg：略；</p>
+
+<h5 id="2-4-2-native中操作java字符串">2.4.2 native中操作Java字符串</h5>
+
+<p>​   Java-String对象是Unicode(UTF-16)码 一个字符总是占用两个字节 可以通过JNI接口将Java中的字符串转换到C++的宽字符串（wchar_t*),或者传回一个UTF-8编码的字符串（char * )到C++ 反过来同理。</p>
+
+<p>JNIEnv中的一些C++方法：</p>
+
+<p>1）获取字符串的长度：</p>
+
+<p>​   <code>jsize GetStringLength(jstring j_msg)</code></p>
+
+<p>1) 将jstring 对象拷贝到const jchar* 指针字符串：</p>
+
+<p>​   //拷贝Java字符串并以UTF-8编码传入jstr:</p>
+
+<p>​   <code>env-&gt;GetStringRegion(jstring j_msg.jsize start,jszie len,jchar* jstr);</code></p>
+
+<p>​   ////拷贝Java字符串并以UTF-16编码传入jstr:</p>
+
+<p>​   <code>env-&gt;GetStringUTFRegion(jstring j_msg.jsize start,jszie len, char* jstr);</code></p>
+
+<p>3) 生成一个jstring 对象</p>
+
+<p>​   <code>jobject NewString(const jchar* jstr,int size);</code></p>
+
+<p>​   将字符串指针jstr转换成jstring。</p>
+
+<p>4) 将jstring对象转换成const jchar* 字符串指。</p>
+
+<ul>
+<li>GetStringChars 开内存 指针指向先开的内存<br />
+<br /></li>
+</ul>
+
+<p><code>const* jchar * GetStringChars(jstring j_msg,jboolean* copied)</code></p>
+
+<p>返回一个UTF-16编码的宽字符串（jchar*);</p>
+
+<p>对应的释放内存方法：</p>
+
+<p><code>ReleaseStringChars(jstring j_msg,const jchar* jstr)</code></p>
+
+<ul>
+<li>GetStringUTFChars 不开内存直接指向Java中string的指针<br />
+<br /></li>
+</ul>
+
+<p><code>const char* GetStringUTFChars(jstring str,jboolean* copied)</code></p>
+
+<p>取得UTF-8编码的字符串</p>
+
+<p>释放：</p>
+
+<p><code>ReleaseStringUTFChars(jstring j_msg,const jchar* jstr)</code></p>
+
+<p>5) 将jstring 对象转化成const jchar* 字符串指针：</p>
+
+<p>​   <code>const jchar* GetStringCritical(jstring j_msg,Jboolean* copied)</code></p>
+
+<p>​   作用:增加直接传回指向Java字符串的指针的可能性（而不是拷贝）；</p>
+
+<p>​   在<code>GetStringCritical/ReleaseStringCritical</code>之间的关键区域之间不能调用任何其他JNI函数。否则会造成关键区域代码执行期间垃圾回收器停止工作。任何触发垃圾回收器的的线程也将暂停。</p>
+
+<p>​   释放：</p>
+
+<p>​   <code>ReleaseStringCritical(jstring j_msg,const jchar* jstr)</code></p>
+
+<p>实例eg：（与书上不同,思路大概相同）</p>
+
+<pre><code class="language-java">public class MainActivity extends AppCompatActivity {
+    private EditText et;
+    private TextView tv;
+    private Button bt;
+    public String text = null;
+
+    // Used to load the 'native-lib' library on application startup.
+    static {
+        System.loadLibrary(&quot;native-lib&quot;);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        et = findViewById(R.id.editText);
+        tv = findViewById(R.id.tv);
+        bt = findViewById(R.id.button);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                text = et.getText().toString().trim();
+                callCppFunction();
+                tv.setText(text);
+            }
+        });
+
+    }
+
+    public native void callCppFunction();
+}
+</code></pre>
+
+<pre><code class="language-C++">#include &lt;jni.h&gt;
+#include &lt;string&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+extern &quot;C&quot;
+JNIEXPORT void JNICALL
+Java_com_example_naivete_jnidemo_MainActivity_callCppFunction(JNIEnv *env, jobject instance) {
+
+    // TODO
+    //获取text
+    jfieldID  fid_tx = env-&gt;GetFieldID(env-&gt;GetObjectClass(instance),&quot;text&quot;,&quot;Ljava/lang/String;&quot;);
+    //获取ext对象
+    jstring j_tx = (jstring)env-&gt;GetObjectField(instance,fid_tx);
+    //第一种方式
+    //获得字符串指针：
+    const jchar* jstr1 = env-&gt;GetStringChars(j_tx,NULL);
+    //z转换成宽字符
+    wstring wstr((const wchar_t*)jstr1);
+    //释放指针
+    env-&gt;ReleaseStringChars(j_tx,jstr1);
+    //第一种END
+
+    //第二种
+    const jchar * jstr2 = env-&gt;GetStringCritical(j_tx,NULL);
+    wstring wstr2((const wchar_t*)jstr2);
+    env-&gt;ReleaseStringCritical(j_tx,jstr2);
+    //END
+
+    //第三种
+    jsize len = env-&gt;GetStringLength(j_tx);  //获取长度
+    jchar * jstr3 = new jchar[len+1];
+    jstr3[len]=L'\0';
+    //复制
+    env-&gt;GetStringRegion(j_tx,0,len,jstr3);
+    wstring wstr3((const wchar_t*)jstr3);
+    delete[] jstr3;
+    //End
+
+    //倒序
+    reverse(wstr.begin(),wstr.end());
+    jstring j_new_str = env-&gt;NewString((const jchar*)wstr.c_str(),(jint)wstr.size());
+    env-&gt;SetObjectField(instance,fid_tx,j_new_str);
+}
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-2-2.png" alt="" /></p>
+
+<p>​</p>
+
+<h4 id="2-5-c-c-中操作java中的数组">2.5 C/C++中操作Java中的数组</h4>
+
+<p>​   在java中数组分为两种：</p>
+
+<ul>
+<li><p>基本类型数组</p></li>
+
+<li><p>对象类型数组</p></li>
+</ul>
+
+<p>一个能用于两种不同类型数组的函数是：GetArrayLength(jarray array)。</p>
+
+<h5 id="2-5-1-操作基本类型的数组">2.5.1 操作基本类型的数组</h5>
+
+<ol>
+<li><p>Get<Type>ArrayElements方法<br />
+<code>Get&lt;Type&gt;ArrayElements(&lt;Type&gt;Array arr,jboolean* isCopide)</code></p>
+
+<p>把Java中的基本类型的数组转换成C++中的数组 两种方式：</p>
+
+<p>一是拷贝一份传回本地，另外一种是把指向Java数组的指针直接传回到本地代码中</p>
+
+<p>处理完后，通过Release<Type>Arrayelements 来释放数组。</p></li>
+
+<li><p>Release<Type>Arrayelement 方法<br />
+<code>Release&lt;Type&gt;Arrayelement(Type&gt;Array arr,&lt;Type&gt;* array,jint mode)</code></p>
+
+<p>这个函数可以选择如何处理Java和C++中的数组，是提交还是撤销····内存是否释放等等。</p>
+
+<p>mode的取值：</p>
+
+<ul>
+<li>0：对Java的数组进行更新并且释放C/C++数组<br /></li>
+<li>JNI_COMMIT：更新但是不释放<br /></li>
+<li>JNI_ABOUT：不更新，释放。<br />
+<br /></li>
+</ul></li>
+
+<li><p>GetPrimittiveArrayCritical方法<br />
+<code>GetPrimittiveArrayCritical(jarray arr,jboolean* isCopied)</code></p></li>
+
+<li><p>ReleasePrimittiveArrayCritical方法<br />
+<code>ReleasePrimittiveArrayCritical(jarray arr,void* array,jint mode)</code></p></li>
+
+<li><p>Get<type>ArrayRegion方法<br />
+<code>Get&lt;type&gt;ArrayRegion(&lt;Type&gt;Arryay arr,jsize strat ,jsize len,&lt;Type&gt;* buffer)</code></p>
+
+<p>在C++中开辟内存，拷贝数组到内存中。</p></li>
+
+<li><p>Set<type>ArrayRegion<br />
+<code>Set&lt;type&gt;ArrayRegion(&lt;Type&gt;Arryay arr,jsize strat ,jsize len,const &lt;Type&gt;* buffer)</code></p>
+
+<p>把Java基本类型数组中的指定范围的元素用C++数组中的元素来赋值。</p></li>
+
+<li><p><Type>ArrayNew方法<br />
+<code>&lt;Type&gt;ArrayNew&lt;Type&gt;Array(jszie sz)</code></p>
+
+<p>指定一个长度然后返回相应的Java基本类型的数组。</p></li>
+</ol>
+
+<h5 id="2-5-2-操作对象数组类型">2.5.2 操作对象数组类型</h5>
+
+<p>​   JNI未提供把Java对象数组 直接转到C++对象数组的函数。而是通过<code>Get/SetObjectArrayaElement</code>这样的函数来对java中的对象数组进行操作。因为未拷贝 所以没有释放操作。<code>NewObjectArray</code>可以通过指定长度和初始值来创建某一个类的数组。</p>
+
+<p>例子：两种类型的操作：</p>
+
+<p>​  略·····</p>
+
+<p>​   注：书本P34-36</p>
+
+<h4 id="2-6-c-c中的引用类型和id缓存">2.6 C++/C中的引用类型和ID缓存</h4>
+
+<h5 id="2-6-1-引用类型">2.6.1 引用类型</h5>
+
+<p>​   从Java创建对象传到本地C/C++代码时会产生引用，根据Java的垃圾回收机制，只要存在引用就不会触发改引用所指的Java对象垃圾回收。</p>
+
+<p>​   几种C/C++中的引用类型：</p>
+
+<ol>
+<li><p>局部引用：（最常见）</p>
+
+<p>局部引用只在该native函数中有用，所有在该函数中产生的局部引用，都会在函数返回时自动释放，也可以使用DeleteLocalRef函数手动释放。</p>
+
+<p>有效期中能传递到别的本地函数中，千万不要用C++全局变量保存它，或者把它定义为C++静态局部变量。</p></li>
+
+<li><p>全局引用：</p>
+
+<p>可以跨越当前线程，在对个native函数中有效，需要手动释放。会阻止垃圾回收器回收这个引用所指的对象。</p>
+
+<p>不同于局部引用，全局引用的创建不是由JNI自动创建的，全局引用是需要调用NewGlobalRef函数，释放使用ReleaseGlobalRef函数。</p></li>
+
+<li><p>弱全局引用</p>
+
+<p>与全局引用相似。不一样的为不会阻止垃圾回收器回收这个引用所指对象，使用NewWeakGlobalRef和ReleaseWeakGlobalRef来产生和释放。</p>
+
+<p>关于引用的一些函数：</p>
+
+<p><code>jobject NewGlobalRef(jobject obj)</code></p>
+
+<p><code>jobject NewLocalRef(jobject obj)</code></p>
+
+<p><code>jobject New WeakGlobalRef(jobject obj)</code></p>
+
+<p><code>void DeleteGlobalRef(jobject obj)</code></p>
+
+<p><code>void DeleteLocalRef(jobject obj)</code></p>
+
+<p><code>void DeleteWeakGlobalRef(jobject obj)</code></p>
+
+<p>很容易理解上面6个函数</p>
+
+<p><code>jboolean IsSameObject(jobject obj1,jobject obj2)</code></p>
+
+<p>这个函数用来比较两个引用是否相等，但是对于弱引用有一个特别的功能，如果把NULL传入要比较的对象中就能判断弱全局引用所指的Java对象是否被回收。</p>
+
+<p>缓存jfieldID/jmethodID.减小查询开销。</p></li>
+</ol>
+
+<h5 id="2-6-2-缓存方法">2.6.2 缓存方法</h5>
+
+<ol>
+<li><p>在用的时候缓存</p>
+
+<p>在native代码中使用static局部变量来保存已经查询过的id,就缓存下了id。</p></li>
+
+<li><p>在Java类初始化时缓存</p>
+
+<p>比较好的方法，在native调用前把所有ID全部保存下来。可以让Java代码在第一次加载这个类的时候首先调用本地代码初始化所有的jfildID/jmethodID.这样可以省去多次确定ID是否存在的语句。这些jfildID/jmethodID定义在C++的全局。当java类卸载或者重新加载的时候，也会重新计算ID.</p>
+
+<pre><code class="language-java">public class TestNative{
+    static{
+        initNativeIDs();  //静态代码块进行初始化
+    }
+    static native void initNativeIDs();
+    int propInt = 0;
+    String propStr = &quot;&quot;;
+    public native void otherNative();
+    ···········
+}
+</code></pre>
+
+<pre><code class="language-C++">//全局变量
+jfieldID g_propInt_id = 0;
+jfieldID g_propStr_id = 0;
+    
+JNIEXPORT void JNICALL Java_····init（JNIEnv* env,jobject clazz）{
+    jfieldID g_propInt_id = GetfieldID(clazz,&quot;propInt&quot;,&quot;I&quot;);
+    jfieldID g_propStr_id = GetfieldID(clazz,&quot;propStr&quot;,&quot;/Ljava/lang/String;&quot;);
+}
+JNIEXPORT void JNICALL Java_····other（JNIEnv* env,jobject clazz）{
+    ············
+}
+    
+</code></pre></li>
+</ol>
+
+<h3 id="总结">总结</h3>
+
+<p>​   主要是NDK开发相关。</p>
+
+<p>​   感觉系统的学了一遍还是感觉不错的。</p>
+
+<p>​   可以多找网上的例子来练习练习，加深对JNI 的了解。</p>
+
+<p>​</p>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="01256ae424fc6ceeea03d2941cc5fbf3" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Android安全和开发环境搭建</div>
+    </a>
+    
+
+    
+    <a href="https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Android应用安全防护和逆向分析 基础篇③</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/ai">
+                        AI
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="title">Pytorch学习_1安装</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-12-08 23:40:51 &#43;0800 CST" itemprop="datePublished">2018-12-08</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                        日常生活
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="title">死肥宅的国庆节</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-10-01 19:47:05 &#43;0800 CST" itemprop="datePublished">2018-10-01</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="title">UAF漏洞（释放后使用）学习记录</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                        读书笔记
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="title">Android应用安全防护和逆向分析-基础篇5-6</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/arm">
+                        ARM
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="title">ARM汇编基础</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80">
+                    android基础
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/arm">
+                    arm
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8">
+                    linux内核
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                    日常生活
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">
+                    漏洞分析
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E7%AC%94%E8%AE%B0">
+                    笔记
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/androd">
+                    androd
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android">
+                    android
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">7</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/arm">
+                    arm
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/hook">
+                    hook
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/qume">
+                    qume
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD">
+                    吐槽
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7">
+                    工具
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D">
+                    指令修复
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
+                    日常
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">
+                    机器学习
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE">
+                    树莓派
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8">
+                    模拟器
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">
+                    环境
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB">
+                    生活
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://naivete.cc/tags/ai" style="font-size: 12px;">ai</a>
+        
+        
+        <a href="https://naivete.cc/tags/androd" style="font-size: 12px;">androd</a>
+        
+        
+        <a href="https://naivete.cc/tags/android" style="font-size: 12px;">android</a>
+        
+        
+        <a href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8" style="font-size: 12px;">android安全</a>
+        
+        
+        <a href="https://naivete.cc/tags/arm" style="font-size: 12px;">arm</a>
+        
+        
+        <a href="https://naivete.cc/tags/cve" style="font-size: 12px;">cve</a>
+        
+        
+        <a href="https://naivete.cc/tags/hook" style="font-size: 12px;">hook</a>
+        
+        
+        <a href="https://naivete.cc/tags/java" style="font-size: 12px;">java</a>
+        
+        
+        <a href="https://naivete.cc/tags/qume" style="font-size: 12px;">qume</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD" style="font-size: 12px;">吐槽</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7" style="font-size: 12px;">工具</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D" style="font-size: 12px;">指令修复</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8" style="font-size: 12px;">日常</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" style="font-size: 12px;">机器学习</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE" style="font-size: 12px;">树莓派</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8" style="font-size: 12px;">模拟器</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83" style="font-size: 12px;">环境</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB" style="font-size: 12px;">生活</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" style="font-size: 12px;">读书笔记</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="https://github.com/digitalcraftsman/hugo-icarus-theme/tree/master">Icarus</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://naivete.cc/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://naivete.cc/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

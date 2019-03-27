@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Androd on zzzZ</title>
+    <link>https://naivete.cc/tags/androd/</link>
+    <description>Recent content in Androd on zzzZ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 05 Jul 2018 17:35:46 +0800</lastBuildDate>
+    
+	<atom:link href="https://naivete.cc/tags/androd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android安全和开发环境搭建</title>
+      <link>https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Thu, 05 Jul 2018 17:35:46 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Android安全和开发环境搭建  补充中·····
+JAVA环境   JDK下载与安装。
+ 环境变量配置
+  Android Studio  官网下载（扶墙）
+ SDK
+  NDK（JNI）开发  NDK下载
+ 使用
+  Eclipse (还是推荐上面的AS) 不喜欢界面，弃用。</description>
+    </item>
+    
+  </channel>
+</rss>

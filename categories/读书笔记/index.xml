@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>读书笔记 on zzzZ</title>
+    <link>https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 读书笔记 on zzzZ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 29 Aug 2018 20:39:26 +0800</lastBuildDate>
+    
+	<atom:link href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android应用安全防护和逆向分析-基础篇5-6</title>
+      <link>https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</link>
+      <pubDate>Wed, 29 Aug 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</guid>
+      <description>一、 基础篇⑤-⑥ 这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面是两章的笔记。
+第五章 AndroidManifest.xml格式解析 AndroidManifest.xml文件格式图
+头部信息  文件魔数：4bytes。
+ 文件大小：4bytes。
+ Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。
+ Sting Chunk ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。
+ ChunkType：类型，固定4bytes（0x001C001)。
+ ChunkSize：大小，4bytes。
+ StringCount：字符串的个数 ，4bytes。
+ StyleCount ：样式的个数，4bytes。
+ Unknown ：位置区域。4bytes。
+ StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。
+ StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。
+ StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。
+ StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。
+  如何读取这个文件？
+ Resourceld Chunk ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID
+ ChunkType：类型，固定4bytes（0x00080108）。
+ ChunkSize：大小，4bytes。
+ ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。
+  解析？
+ Start Namespace Chunk：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。
+ Chunk Type：类型，固定4bytes。（0x00100100)。</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析-基础篇④</title>
+      <link>https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Sun, 22 Jul 2018 14:15:38 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>一、 基础篇④ 第四章 so文件格式解析  ELF文件格式
+  so文件-&amp;gt;elf文件，文件格式看图（引用自@非虫）：
+ 解析工具
+ readelf 常用命令
+ readelf -h xxx.so 查头部信息
+ readelf -S xxx.so 查节（Section）信息
+ readelf -l xxx.so 查段（Program）信息
+ readelf -a xxx.so 查全部信息
+   解析ELF文件
+  动手解析一个elf文件 。。。
+太水 这里的内容
+直接去看源码实现用java解析elf文件信息https://github.com/fourbrother/parse_androidso
+ELF 相关内容还是单独详细分析 单独写一篇吧
+ELF书籍《Linux二进制分析》
+### 总结
+加固脱壳必须掌握的知识点。</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析 基础篇③</title>
+      <link>https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Mon, 16 Jul 2018 13:51:50 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>一、 基础篇③ 第三章 Android中开发与逆向常用命令总结 1. 基础命令 1.1 cat命令 ​ 查看文件内容 结合grep进行过滤
+1.2 echo/touch命令 ​ 写文件 配个定向符使用
+2. 非shell命令 2.1 adb shell dumpsys sctivity top ​ 说明：查看当前应用的activity信息
+​ 用法：运行需要查看的应用
+​ 如果直接运行 adb shell dmpsys会把当前系统中的所有应用运行的四大组件都打印出来 内容非常多 使用信息重定向来进行选择：可借助Windows的start命令
+2.2 adb shell dumpsys package ​ 说明：查看指定包名应用的详细信息 （相当于AndroidManifest.xml的内容）
+​ 用法：adb shell dumpsys package [pkgname]
+2.3 adb shell dumpsys meminfo ​ 说明：查看指定进程名或者进程id的内存信息
+​ 用法：adb shell dumpsys meminfo [pname/pid]
+​ 和后面的top命令结合使用 可以分析应用的性能消耗情况
+2.4 adb shell dump dbnfo ​ 说明：查看指定包名应用的数据库存储信息（包括存储的SQL语句）</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析 基础篇②</title>
+      <link>https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Fri, 13 Jul 2018 15:01:09 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建
+2. JNI基础 2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多)) ​ 参考文章Android安全和开发环境搭建中的JNI开发章节
+2.2 JNIEnv类型和jobject类型  AS 默认自动生成
+  public native String stringFromJNI();  Java_com_naivete_jni_1study_MainActivity_stringFromJNI( JNIEnv *env, jobject /* this */) { std::string hello = &amp;quot;Hello from C++&amp;quot;; return env-&amp;gt;NewStringUTF(hello.c_str());   JNIEnv类型
+  通过JNIEnv* 指针就可以对Java端的代码进行操作
+Jni的所有函数可以查看jni.h文件
+下面是一些函数eg：
+ NewObject : 创建Java类中的对象。
+ NewString : 创建Java类中的String对象。
+ NewArray : 创建类型为Type的数组对象
+ GetField: 获取型为Type的字段。
+ SetFileld: 设置类型为Type的字段的值。
+ GetStaticField: 获取类型为Type的static的字段。</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析 基础篇①</title>
+      <link>https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Mon, 02 Jul 2018 17:33:05 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式：  手势
+ 九宫格连线
+ 输入密码
+ 指纹、人脸、虹膜
+ 可穿戴设备
+  2. 这儿分析手势密码和输入密码 找到android源代码中的LockPatternUtils,java 这个工具类
+路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
+ 2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
+ public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) { return null; } try { byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;quot;SHA-1&amp;quot;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;quot;MD5&amp;quot;).digest(saltedPassword); //首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length]; System.</description>
+    </item>
+    
+  </channel>
+</rss>

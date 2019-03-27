@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Android应用安全防护和逆向分析 基础篇① &middot; zzzZ</title>
+    <meta name="generator" content="Hugo 0.54.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="var_var">
+    
+      <meta name="description" content="Android中锁屏密码加密算法分析">
+    
+    
+    <link rel="canonical" href="https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
+    <link rel="icon" href="https://naivete.cc/favicon.ico">
+    <link rel="apple-touch-icon" href="https://naivete.cc/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://naivete.cc/css/style.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/monokai.css">
+    <link rel="stylesheet" href="https://naivete.cc/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Android应用安全防护和逆向分析 基础篇①" />
+<meta property="og:description" content="Android中锁屏密码加密算法分析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" />
+<meta property="article:published_time" content="2018-07-02T17:33:05&#43;08:00"/>
+<meta property="article:modified_time" content="2018-07-02T17:33:05&#43;08:00"/>
+
+    
+    
+<meta itemprop="name" content="Android应用安全防护和逆向分析 基础篇①">
+<meta itemprop="description" content="Android中锁屏密码加密算法分析">
+
+
+<meta itemprop="datePublished" content="2018-07-02T17:33:05&#43;08:00" />
+<meta itemprop="dateModified" content="2018-07-02T17:33:05&#43;08:00" />
+<meta itemprop="wordCount" content="647">
+
+
+
+<meta itemprop="keywords" content="android安全,读书笔记," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android应用安全防护和逆向分析 基础篇①"/>
+<meta name="twitter:description" content="Android中锁屏密码加密算法分析"/>
+<meta name="twitter:site" content="@Sunkkang666"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://naivete.cc/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://naivete.cc/css/images/logo.png')"></i>
+          
+          <span class="site-title">zzzZ</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://naivete.cc/css/images/favicon.ico"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"/>
+      
+      <h2 id="name">var_var</h2>
+      <h3 id="title">TTTT - CTFer - 移动安全</h3>
+      
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        16
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          19
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/Naivetesun" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//twitter.com/Sunkkang666" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+
+<td><a href="//weibo.com/274077334" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+
+
+
+<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fa fa-email"></i></a></td>
+
+
+
+
+          <td><a href="https://naivete.cc/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+
+        <header class="article-header">
+    <a href="https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+    <h1 class="article-title" itemprop="name">
+        Android应用安全防护和逆向分析 基础篇①
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2018-07-02 17:33:05 &#43;0800 CST" itemprop="datePublished">2018-07-02</time>
+            &middot;
+            647
+            words
+            &middot;
+            4
+            minute read
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">android安全</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="第一章-android中锁屏密码加密算法分析">第一章 Android中锁屏密码加密算法分析</h2>
+
+<h4 id="1-锁屏密码方式">1. 锁屏密码方式：</h4>
+
+<ul>
+<li>手势<br /></li>
+<li>九宫格连线<br /></li>
+<li>输入密码<br /></li>
+<li>指纹、人脸、虹膜<br /></li>
+<li>可穿戴设备<br />
+<br /></li>
+</ul>
+
+<h4 id="2-这儿分析手势密码和输入密码">2. 这儿分析手势密码和输入密码</h4>
+
+<p>找到android源代码中的LockPatternUtils,java 这个工具类<br />
+   路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget</p>
+
+<blockquote>
+<p>2.1 输入密码算法分析    (5.1版本的源代码 和书上细微差异)</p>
+</blockquote>
+
+<pre><code class="language-java">   public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0
+           if (password == null) {
+               return null;
+           }
+   
+           try {
+               byte[] saltedPassword = (password + getSalt(userId)).getBytes();  
+               byte[] sha1 = MessageDigest.getInstance(&quot;SHA-1&quot;).digest(saltedPassword);
+               byte[] md5 = MessageDigest.getInstance(&quot;MD5&quot;).digest(saltedPassword);
+   //首先让 password+salt值 再SHA-1和MD5
+               byte[] combined = new byte[sha1.length + md5.length];
+               System.arraycopy(sha1, 0, combined, 0, sha1.length);
+               System.arraycopy(md5, 0, combined, sha1.length, md5.length);
+   //装换成hex值 再拼接起来
+               final char[] hexEncoded = HexEncoding.encode(combined);
+               return new String(hexEncoded).getBytes(StandardCharsets.UTF_8);
+           } catch (NoSuchAlgorithmException e) {
+               throw new AssertionError(&quot;Missing digest algorithm: &quot;, e);
+           }
+       }
+</code></pre>
+
+<p>如何获取设备对应的salt值：</p>
+
+<pre><code class="language-java">       private String getSalt(int userId) {
+           long salt = getLong(LOCK_PASSWORD_SALT_KEY, 0, userId);
+           if (salt == 0) {   //值为0  重新生成
+               try {
+                   salt = SecureRandom.getInstance(&quot;SHA1PRNG&quot;).nextLong();
+                   setLong(LOCK_PASSWORD_SALT_KEY, salt, userId);  //保存值
+                   Log.v(TAG, &quot;Initialized lock password salt for user: &quot; + userId);
+               } catch (NoSuchAlgorithmException e) {
+                   throw new IllegalStateException(&quot;Couldn't get SecureRandom number&quot;, e);
+               }
+           }
+           return Long.toHexString(salt);       //  hex之后返回
+       }
+</code></pre>
+
+<p>继续跟踪 看保存的地方</p>
+
+<pre><code class="language-java">   private long getLong(String secureSettingKey, long defaultValue, int userHandle) {
+           try {
+               return getLockSettings().getLong(secureSettingKey, defaultValue, userHandle);
+           } catch (RemoteException re) {
+               return defaultValue;
+           }
+       }
+</code></pre>
+
+<p>继续跟踪代码</p>
+
+<pre><code class="language-java">   @VisibleForTesting
+       public ILockSettings getLockSettings() {
+           if (mLockSettingsService == null) {
+               ILockSettings service = ILockSettings.Stub.asInterface(
+                       ServiceManager.getService(&quot;lock_settings&quot;));   //获取服务来操作
+               mLockSettingsService = service;
+           }
+           return mLockSettingsService;
+       }
+</code></pre>
+
+<p>在android中 这种获取服务的方式最终实现逻辑都是在XXXService类中</p>
+
+<p>这里在LockSettingService.java中  找到这个类的getLong方法</p>
+
+<pre><code class="language-java">   public long getLong(String key, long defaultValue, int userId) {
+           checkReadPermission(key, userId);
+           String value = getStringUnchecked(key, null, userId);
+           return TextUtils.isEmpty(value) ? defaultValue : Long.parseLong(value);
+       }
+</code></pre>
+
+<p>保存在数据库？</p>
+
+<p>继续跟踪</p>
+
+<pre><code class="language-java">   static class Injector {
+   
+           protected Context mContext;
+   
+           public Injector(Context context) {
+               mContext = context;
+           }
+   
+           public Context getContext() {
+               return mContext;
+           }
+   
+           public Handler getHandler() {
+               return new Handler();
+           }
+   
+           public LockSettingsStorage getStorage() {
+               final LockSettingsStorage storage = new LockSettingsStorage(mContext);
+               storage.setDatabaseOnCreateCallback(new LockSettingsStorage.Callback() {
+                   @Override
+                   public void initialize(SQLiteDatabase db) {
+                       // Get the lockscreen default from a system property, if available
+                       boolean lockScreenDisable = SystemProperties.getBoolean(
+                               &quot;ro.lockscreen.disable.default&quot;, false);
+                       if (lockScreenDisable) {
+                           storage.writeKeyValue(db, LockPatternUtils.DISABLE_LOCKSCREEN_KEY, &quot;1&quot;, 0);
+                       }
+                   }
+               });
+               return storage;
+           }
+   
+   public LockSettingsService(Context context) {
+           this(new Injector(context));
+       }
+   
+   
+</code></pre>
+
+<p>继续  查看LockSettingsStorage.java 类中   存在数据库中</p>
+
+<pre><code class="language-java">   static class DatabaseHelper extends SQLiteOpenHelper {
+           private static final String TAG = &quot;LockSettingsDB&quot;;
+           private static final String DATABASE_NAME = &quot;locksettings.db&quot;;
+   
+           private static final int DATABASE_VERSION = 2;
+           private static final int IDLE_CONNECTION_TIMEOUT_MS = 30000;
+   
+           private Callback mCallback;
+   
+           public DatabaseHelper(Context context) {
+               super(context, DATABASE_NAME, null, DATABASE_VERSION);
+               setWriteAheadLoggingEnabled(true);
+               // Memory optimization - close idle connections after 30s of inactivity
+               setIdleConnectionTimeout(IDLE_CONNECTION_TIMEOUT_MS);
+           }
+   
+           public void setCallback(Callback callback) {
+               mCallback = callback;
+           }
+   
+           private void createTable(SQLiteDatabase db) {
+               db.execSQL(&quot;CREATE TABLE &quot; + TABLE + &quot; (&quot; +
+                       &quot;_id INTEGER PRIMARY KEY AUTOINCREMENT,&quot; +
+                       COLUMN_KEY + &quot; TEXT,&quot; +
+                       COLUMN_USERID + &quot; INTEGER,&quot; +
+                       COLUMN_VALUE + &quot; TEXT&quot; +
+                       &quot;);&quot;);
+           }
+   
+           @Override
+           public void onCreate(SQLiteDatabase db) {
+               createTable(db);
+               if (mCallback != null) {
+                   mCallback.initialize(db);
+               }
+           }
+   
+           @Override
+           public void onUpgrade(SQLiteDatabase db, int oldVersion, int currentVersion) {
+               int upgradeVersion = oldVersion;
+               if (upgradeVersion == 1) {
+                   // Previously migrated lock screen widget settings. Now defunct.
+                   upgradeVersion = 2;
+               }
+   
+               if (upgradeVersion != DATABASE_VERSION) {
+                   Log.w(TAG, &quot;Failed to upgrade database!&quot;);
+               }
+           }
+       }
+</code></pre>
+
+<p>看到了数据库的名字叫作：locksettings.db  保存在了：</p>
+
+<pre><code class="language-java">       private static final String SYSTEM_DIRECTORY = &quot;/system/&quot;;    //目录
+       private static final String LOCK_PATTERN_FILE = &quot;gatekeeper.pattern.key&quot;;   
+       private static final String BASE_ZERO_LOCK_PATTERN_FILE = &quot;gatekeeper.gesture.key&quot;;
+       private static final String LEGACY_LOCK_PATTERN_FILE = &quot;gesture.key&quot;;    //key1
+       private static final String LOCK_PASSWORD_FILE = &quot;gatekeeper.password.key&quot;;
+       private static final String LEGACY_LOCK_PASSWORD_FILE = &quot;password.key&quot;;    //key2
+       private static final String CHILD_PROFILE_LOCK_FILE = &quot;gatekeeper.profile.key&quot;;
+       private static final String SYNTHETIC_PASSWORD_DIRECTORY = &quot;spblob/&quot;;
+</code></pre>
+
+<p>数据库文件存在/data/system/locksetting.db</p>
+
+<p>测试  在/data/system/下看到password.key</p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-1-1.png" alt="" /></p>
+
+<p>打开看看：<img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-1-2.png" alt="" /></p>
+
+<p>手动简单实现加密算法：</p>
+
+<pre><code class="language-java">   public byte[] passwordToHash(String password) {
+           if (password == null) {
+               return null;
+           }
+           byte [] hashed = null;
+           try {
+               byte[] saltedPassword = (password + SALT).getBytes();    //SALT 值从数据库中得到 拿到之后进行hex转换
+               byte[] sha1 = MessageDigest.getInstance(&quot;SHA-1&quot;).digest(saltedPassword);
+               byte[] md5 = MessageDigest.getInstance(&quot;MD5&quot;).digest(saltedPassword);
+               hashed = (toHex(sha1)+toHex(md5)).getBytes();
+           } catch(Exception e){
+               
+           }
+           return hashed;
+       }
+       private static String toHex(byte[] ary){
+           final String hex = &quot;102031398sjdfklaj&quot;;
+           String ret = &quot;&quot;;
+           for(int i=0;i&lt;ary.length;i++){
+               ret += hex.charAt((ary[i]&gt;&gt; 4)&amp; 0xf);
+               ret += hex.charAt(ary[i]&amp; 0xf);
+           }
+           return ret;
+       }
+</code></pre>
+
+<p>SALT 的值可以从数据库中拿到 也可以利用反射获取</p>
+
+<p>总结：</p>
+
+<p>​    MD5(输的明文密码+设备的salt).hex+ SHA1(输的的明文密码+设备的salt值).hex</p>
+
+<blockquote>
+<p>2.2 手势密码分析</p>
+</blockquote>
+
+<p>大致同上</p>
+
+<h4 id="3-简要">3. 简要：</h4>
+
+<p>​    九宫格团装化成字节数组-&gt;sha1 加密  即可</p>
+
+<p>​     其实大致流程和分析输入密码差不多   保存到本地的目录、/data/system/gesture.key 文件</p>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="a95ab361cd9d5ef387e3e1db83da1b3f" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://naivete.cc/2018/07/02/new-blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">New Blog</div>
+    </a>
+    
+
+    
+    <a href="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Android安全和开发环境搭建</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/ai">
+                        AI
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="title">Pytorch学习_1安装</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-12-08 23:40:51 &#43;0800 CST" itemprop="datePublished">2018-12-08</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                        日常生活
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="title">死肥宅的国庆节</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-10-01 19:47:05 &#43;0800 CST" itemprop="datePublished">2018-10-01</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="title">UAF漏洞（释放后使用）学习记录</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                        读书笔记
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="title">Android应用安全防护和逆向分析-基础篇5-6</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/arm">
+                        ARM
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="title">ARM汇编基础</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80">
+                    android基础
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/arm">
+                    arm
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8">
+                    linux内核
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                    日常生活
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">
+                    漏洞分析
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E7%AC%94%E8%AE%B0">
+                    笔记
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/androd">
+                    androd
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android">
+                    android
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">7</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/arm">
+                    arm
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/hook">
+                    hook
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/qume">
+                    qume
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD">
+                    吐槽
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7">
+                    工具
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D">
+                    指令修复
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
+                    日常
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">
+                    机器学习
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE">
+                    树莓派
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8">
+                    模拟器
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">
+                    环境
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB">
+                    生活
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://naivete.cc/tags/ai" style="font-size: 12px;">ai</a>
+        
+        
+        <a href="https://naivete.cc/tags/androd" style="font-size: 12px;">androd</a>
+        
+        
+        <a href="https://naivete.cc/tags/android" style="font-size: 12px;">android</a>
+        
+        
+        <a href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8" style="font-size: 12px;">android安全</a>
+        
+        
+        <a href="https://naivete.cc/tags/arm" style="font-size: 12px;">arm</a>
+        
+        
+        <a href="https://naivete.cc/tags/cve" style="font-size: 12px;">cve</a>
+        
+        
+        <a href="https://naivete.cc/tags/hook" style="font-size: 12px;">hook</a>
+        
+        
+        <a href="https://naivete.cc/tags/java" style="font-size: 12px;">java</a>
+        
+        
+        <a href="https://naivete.cc/tags/qume" style="font-size: 12px;">qume</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD" style="font-size: 12px;">吐槽</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7" style="font-size: 12px;">工具</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D" style="font-size: 12px;">指令修复</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8" style="font-size: 12px;">日常</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" style="font-size: 12px;">机器学习</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE" style="font-size: 12px;">树莓派</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8" style="font-size: 12px;">模拟器</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83" style="font-size: 12px;">环境</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB" style="font-size: 12px;">生活</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" style="font-size: 12px;">读书笔记</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="https://github.com/digitalcraftsman/hugo-icarus-theme/tree/master">Icarus</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://naivete.cc/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://naivete.cc/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>日常 on zzzZ</title>
+    <link>https://naivete.cc/tags/%E6%97%A5%E5%B8%B8/</link>
+    <description>Recent content in 日常 on zzzZ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Oct 2018 19:47:05 +0800</lastBuildDate>
+    
+	<atom:link href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>死肥宅的国庆节</title>
+      <link>https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/</link>
+      <pubDate>Mon, 01 Oct 2018 19:47:05 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/</guid>
+      <description>七天国庆，死肥宅的日常修炼 10.1 昨晚大约3天才睡，第二天更是没精神。学了一个晚上Linux提权。
+早上8点钟醒，下雨ing，开始懒床。又不小心睡着了。醒来已经是11点。起床，吃饭，打开电脑，开始了修炼的第一天。心里很是烦躁，天气又冷，好想回到被窝里继续暖着。（这才是死肥宅该过的日子）。
+下午出去吃了碗米线，买了一些备战粮食，晚上继续刚。不弄懂坚决不睡觉！
+10.2 停电时怎么一肥事。起床就发现停电了，电脑无法开机，手机没充电。热水也没有。好恐怖，随便洗漱，直接冲到实验室。
+今天的打算是看完同态加密的那篇论文。然而，看完一脸懵逼，计组、电路、离散的知识早就不记得那么多了。明天继续理解，做点其他的吧。放松了一下。然后不小心把招新的网站调崩了，算了，睡觉去了。
+10.3 不想通宵的晚上，聊着聊着就差不多2点了。早上起床失败，12点钟到实验室，真是怠惰呀。先把招新网站调好。话了好几个小时，终于搞完了。后面还是看论文。心累呀，作业还没做。计划的C++复习又耽搁了。zoom了一下，被指导之后忽然有点豁然开朗。明天真的要按计划完成作业。后面吧知识点补上，要补的知识点有：逻辑门运算，加法器相关知识、硬件上二进制的加减乘除。
+10.4 今天也很元气满满的哟。早上不知道做了什么，中午吃了冒菜。下午好困，还是坚持看完了同态加密的BGV的基础知识，虽然还是有点懵逼，但是比之前完全懵逼好很多了。
+ 知识点：
+  10.5 躺尸ing。C++知识补充ing。调HElib加密操作。终于是弄懂了这个库的基本操作。
+10.6 搞一整天的HElib，二进制的XOR门什么的。作业什么的，完全没做呀。
+10.7 不知不觉国庆长假（？）就没了，怎么感觉什么都没发生。。就没了？明天开学，今天补作业。</description>
+    </item>
+    
+    <item>
+      <title>New Blog</title>
+      <link>https://naivete.cc/2018/07/02/new-blog/</link>
+      <pubDate>Mon, 02 Jul 2018 17:31:24 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/07/02/new-blog/</guid>
+      <description> 关于这个新博客 折腾了两天，终于弄得差不多了，接下来只差把自动化部署搞定就OK啦。。  先列个计划：
+ 以后就一直维护，不改了，先列一个flag
+ 后面吧相关文章转过来
+ 尽量更新吧
+ 以后总结就更新过来吧 微信公众号同步更新
+  </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>ARM汇编基础 &middot; zzzZ</title>
+    <meta name="generator" content="Hugo 0.54.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="var_var">
+    
+      <meta name="description" content="ARM汇编">
+    
+    
+    <link rel="canonical" href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/"/>
+    <link rel="icon" href="https://naivete.cc/favicon.ico">
+    <link rel="apple-touch-icon" href="https://naivete.cc/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://naivete.cc/css/style.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://naivete.cc/css/monokai.css">
+    <link rel="stylesheet" href="https://naivete.cc/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="ARM汇编基础" />
+<meta property="og:description" content="ARM汇编" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" />
+<meta property="article:published_time" content="2018-08-10T19:34:10&#43;08:00"/>
+<meta property="article:modified_time" content="2018-08-10T19:34:10&#43;08:00"/>
+
+    
+    
+<meta itemprop="name" content="ARM汇编基础">
+<meta itemprop="description" content="ARM汇编">
+
+
+<meta itemprop="datePublished" content="2018-08-10T19:34:10&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-10T19:34:10&#43;08:00" />
+<meta itemprop="wordCount" content="857">
+
+
+
+<meta itemprop="keywords" content="ARM," />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ARM汇编基础"/>
+<meta name="twitter:description" content="ARM汇编"/>
+<meta name="twitter:site" content="@Sunkkang666"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://naivete.cc/" id="logo">
+          
+          <i class="logo" style="background-image: url('https://naivete.cc/css/images/logo.png')"></i>
+          
+          <span class="site-title">zzzZ</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://naivete.cc/css/images/favicon.ico"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://naivete.cc/tags/">Tags</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"/>
+      
+      <h2 id="name">var_var</h2>
+      <h3 id="title">TTTT - CTFer - 移动安全</h3>
+      
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        16
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          19
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/Naivetesun" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//twitter.com/Sunkkang666" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+
+<td><a href="//weibo.com/274077334" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+
+
+
+<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fa fa-email"></i></a></td>
+
+
+
+
+          <td><a href="https://naivete.cc/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+
+        <header class="article-header">
+    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/">
+    <h1 class="article-title" itemprop="name">
+        ARM汇编基础
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
+            &middot;
+            857
+            words
+            &middot;
+            5
+            minute read
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/categories/arm">ARM</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/arm">ARM</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>##ARM汇编基础(简)</p>
+
+<p>经常忘记，做个笔记，好作复习。。</p>
+
+<p>内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 <a href="https://www.anquanke.com/post/id/86383">ARM 汇编</a> 和<a href="https://azeria-labs.com/writing-arm-assembly-part-1/">Azeria-labs</a></p>
+
+<h3 id="arm架构">ARM架构</h3>
+
+<p>ARM属于RISC CPU，</p>
+
+<ul>
+<li>ARM模式   4个字节opcode  32位<br /></li>
+<li>Thumb模式  2个字节opcode  16位<br /></li>
+<li>Thumb-2模式  同上（只是有部分4个字节的opcode)<br /></li>
+<li>64位ARM  4个字节opcode<br /></li>
+<li>ARM机器码在版本3之前是小端。但是之后默认采用大端格式，但可以设置切换到小端。<br />
+<br /></li>
+</ul>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810112415.png" alt="" /></p>
+
+<h3 id="数据类型">数据类型</h3>
+
+<p>数据类型在汇编语言中的扩展后缀为<strong>-h</strong>或者<strong>-sh</strong>对应着半字，<strong>-b</strong>或者<strong>-sb</strong>对应着字节，但是对于字并没有对应的扩展</p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810113108.png" alt="" /></p>
+
+<pre><code class="language-asm">ldr = 加载字，宽度四字节
+ldrh = 加载无符号的半字，宽度两字节
+ldrsh = 加载有符号的半字，宽度两字节
+ldrb = 加载无符号的字节
+ldrsb = 加载有符号的字节
+str = 存储字，宽度四字节
+strh = 存储无符号的半字，宽度两字节
+strsh = 存储有符号的半字，宽度两字节
+strb = 存储无符号的字节
+strsb = 存储有符号的字节
+</code></pre>
+
+<h3 id="字节序">字节序</h3>
+
+<p>在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。</p>
+
+<p><img src="https://p0.ssl.qhimg.com/t01b6d7f41b02b0a58d.png" alt="" /></p>
+
+<p>数据访问时采取大端序还是小端序使用程序状态寄存器(CPSR)的第9比特位来决定的。</p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810120701.png" alt="" /></p>
+
+<h3 id="寄存器">寄存器</h3>
+
+<p>37个32位寄存器，其中31个为基础寄存器，6个为状态寄存器。</p>
+
+<p>用户模式下有</p>
+
+<ul>
+<li>不分组寄存器（R0-R7） R7一般存放系统调用号<br /></li>
+<li>分组寄存器（R8-R14）<br /></li>
+<li>程序计数器（R15）<br /></li>
+<li>单前程序状态寄存器（CPSR）<br />
+<br /></li>
+</ul>
+
+<p>两种状态：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">ARM状态（32位对齐）</th>
+<th align="center">Thumb状态(16位对齐)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R0-R7</td>
+<td align="center">R0-R7(相同)</td>
+</tr>
+
+<tr>
+<td align="center">CPSR</td>
+<td align="center">CPSR（同）</td>
+</tr>
+
+<tr>
+<td align="center">R11</td>
+<td align="center">FP（栈帧指针）</td>
+</tr>
+
+<tr>
+<td align="center">R12</td>
+<td align="center">IP（内部程序调用）</td>
+</tr>
+
+<tr>
+<td align="center">R13</td>
+<td align="center">SP（栈指针）</td>
+</tr>
+
+<tr>
+<td align="center">R14</td>
+<td align="center">LR（链接寄存器）一般存放函数返回地址</td>
+</tr>
+
+<tr>
+<td align="center">R15</td>
+<td align="center">PC（程序计数器）</td>
+</tr>
+</tbody>
+</table>
+
+<p>和x86对比：<img src="https://p5.ssl.qhimg.com/t01a8e5d24fa91f9f0f.jpg" alt="" /></p>
+
+<p>CSPR:<img src="http://my-md-1253484710.coscd.myqcloud.com/20180810122226.png" alt="" /></p>
+
+<p>32位的CPSR寄存器的比特位含义，左边是最大比特位，右边是最小比特位。每个单元代表一个比特。</p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810122258.png" alt="" /></p>
+
+<table>
+<thead>
+<tr>
+<th>条件码</th>
+<th>助记符后缀</th>
+<th>标志</th>
+<th>含义</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>0000</td>
+<td>EQ</td>
+<td>Z置位</td>
+<td>相等</td>
+</tr>
+
+<tr>
+<td>0001</td>
+<td>NE</td>
+<td>Z清零</td>
+<td>不相等</td>
+</tr>
+
+<tr>
+<td>0010</td>
+<td>CS</td>
+<td>C置位</td>
+<td>无符号数大于或等于</td>
+</tr>
+
+<tr>
+<td>0011</td>
+<td>CC</td>
+<td>C清零</td>
+<td>无符号数小于</td>
+</tr>
+
+<tr>
+<td>0100</td>
+<td>MI</td>
+<td>N置位</td>
+<td>负数</td>
+</tr>
+
+<tr>
+<td>0101</td>
+<td>PL</td>
+<td>N清零</td>
+<td>正数或零</td>
+</tr>
+
+<tr>
+<td>0110</td>
+<td>VS</td>
+<td>V置位</td>
+<td>溢出</td>
+</tr>
+
+<tr>
+<td>0111</td>
+<td>VC</td>
+<td>V清零</td>
+<td>未溢出</td>
+</tr>
+
+<tr>
+<td>1000</td>
+<td>HI</td>
+<td>C置位Z清零</td>
+<td>无符号数大于</td>
+</tr>
+
+<tr>
+<td>1001</td>
+<td>LS</td>
+<td>C清零Z置位</td>
+<td>无符号数小于或等于</td>
+</tr>
+
+<tr>
+<td>1010</td>
+<td>GE</td>
+<td>N等于V</td>
+<td>带符号数大于或等于</td>
+</tr>
+
+<tr>
+<td>1011</td>
+<td>LT</td>
+<td>N不等于V</td>
+<td>带符号数小于</td>
+</tr>
+
+<tr>
+<td>1100</td>
+<td>GT</td>
+<td>Z清零且（N等于V）</td>
+<td>带符号数大于</td>
+</tr>
+
+<tr>
+<td>1101</td>
+<td>LE</td>
+<td>Z置位或（N不等于V）</td>
+<td>带符号数小于或等于</td>
+</tr>
+
+<tr>
+<td>1110</td>
+<td>AL</td>
+<td>忽略</td>
+<td>无条件执行</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="程序结构">程序结构</h3>
+
+<p>Android平台采用的是GUN ARM汇编格式，汇编器为GAS</p>
+
+<p>参数传递：R0-R3这4个寄存器用来传递函数调用的第1到4个参数，超出的参数通过堆栈来传递。R0还用来存放函数调用的返回值。</p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810112712.gif" alt="" /></p>
+
+<h5 id="汇编器指令">汇编器指令</h5>
+
+<ul>
+<li><code>.file</code>:源文件名<br /></li>
+<li><code>.align</code>:代码对齐方式<br /></li>
+<li><code>.ascii</code>:声明字符串<br /></li>
+<li><code>.global</code>:声明全局符号<br /></li>
+<li><code>.type</code>：指定符号的类型<br /></li>
+<li><code>.word</code>：存放地址值<br /></li>
+<li><code>.size</code>：设置指定符号的大小<br /></li>
+<li><code>.ident</code>：编译器标识<br />
+<br /></li>
+</ul>
+
+<h3 id="寻址方式">寻址方式</h3>
+
+<ul>
+<li>立即寻址<br />
+<br /></li>
+</ul>
+
+<p><code>MOV R0, #1234</code>     -&gt;R0=1234</p>
+
+<ul>
+<li>寄存器寻址<br />
+<br /></li>
+</ul>
+
+<p><code>MOV R1 = R2</code>   -&gt;R0=R1</p>
+
+<ul>
+<li><p>寄存器移位寻址</p>
+
+<ul>
+<li>LSL ：逻辑左移，移位后寄存器空出的低位补0<br /></li>
+<li>LSR：逻辑右移，移位后寄存器空出的高位补0<br /></li>
+<li>ASR：算术右移，移位过程中符号位保持不变，若源操作数为正数，则移位后空出的高位补0，否则补1。<br /></li>
+<li>ROR：循环右移，移位后移出的低位填入移位空出的高位。<br /></li>
+<li>RRX：带扩展的循环右移，操作数右移一位，移出的空位用C标志的值填充。<br />
+<br /></li>
+</ul></li>
+</ul>
+
+<p><code>MOV R0, R1, LSL #2</code>  -&gt;R1左移两位（R1&lt;&lt;2）赋值给R0,相当于R0 = R1*4</p>
+
+<ul>
+<li>寄存器间接寻址<br />
+<br /></li>
+</ul>
+
+<p><code>LDR RO, [R1]</code>  -&gt;将R1寄存器的数值作为地址，取出此地址中的值赋给R0寄存器</p>
+
+<ul>
+<li>基址寻址<br />
+<br /></li>
+</ul>
+
+<p>多用于查表、数组访问操作。</p>
+
+<p><code>LDR R0, [R1,#-4]</code> -&gt;将R1寄存器的数值减4作为地址，取出此地址的值赋给R0寄存器。</p>
+
+<ul>
+<li>多寄存器寻址<br />
+<br /></li>
+</ul>
+
+<p>一条指令最多完成16个通用寄存器值的传送。</p>
+
+<p><code>LDMIA R0,{R1,R2,R3,R4}</code> -&gt;LDM为数据加载指令，指令的后缀IA表示每次执行完加载操作后R0寄存器的值自增1个字，ARM指令集中，子表示的是一个32位数值。这条指令作用为：R1 = [R0],R2 = [R0+#4],R3 = [R0+#8],R4 = [R0+#12]。</p>
+
+<ul>
+<li>堆栈寻址<br />
+<br /></li>
+</ul>
+
+<p>特定的指令来完成：<code>LDMFA/STMFA</code>、<code>LDMEA/STMEA</code>、<code>LDMFD/STMFD</code>、<code>LDMED/STMED</code>。</p>
+
+<p>LDM和STM为指令前缀，表示多寄存器寻址，即一次传送多个寄存器的值。后面的后缀为指令后缀。</p>
+
+<p><code>STMFD SP!, {R1-R7,LR}</code>  -&gt;将R1~R7,LR入栈，多用于保存子程序的现场。</p>
+
+<p><code>LDMFD SP!, {R1-R7,LR}</code> -&gt;出栈，恢复现场。</p>
+
+<ul>
+<li>块拷贝寻址<br />
+<br /></li>
+</ul>
+
+<p>实现从连续地址数据从存储器的某一位置拷贝到另外一个位置，指令有：<code>LDMIA/STMIA</code>、<code>LDMDA/STMDA</code>、<code>LDMIB/STMIB</code>、<code>LDMDB/STMDB</code>。</p>
+
+<p><code>LDMIA R0! {R0-R3}</code>  从R0寄存器指向的存储单元中读取3个字到R1-R3寄存器</p>
+
+<p><code>STMIA R0! {R0-R3}</code> 存储从R1-R3寄存器的内容到R0寄存器指向的存储单元</p>
+
+<ul>
+<li>相对寻址<br />
+<br /></li>
+</ul>
+
+<p>以程序计数器PC的当前值为基地址，指令中的地址标号作为偏移量，将两者相加之后得到操作数的有效地址。</p>
+
+<pre><code class="language-asm">  BL NEXT
+    ····
+  NEXT:
+    ········
+</code></pre>
+
+<h3 id="arm和thumb指令集">ARM和Thumb指令集</h3>
+
+<h5 id="基本指令简述">基本指令简述</h5>
+
+<p><code>MNEMONIC{S}{condition} {Rd}, Operand1, Operand2</code></p>
+
+<p><code>助记符{是否使用CPSR}{是否条件执行以及条件} {目的寄存器}, 操作符1, 操作符2</code></p>
+
+<blockquote>
+<p>MNEMONIC     - 指令的助记符如ADD</p>
+
+<p>{S}                      - 可选的扩展位，如果指令后加了S，则需要依据计算结果更新CPSR寄存器中的条件跳转相关    的FLAG</p>
+
+<p>{condition}        - 如果机器码要被条件执行，那它需要满足的条件标示</p>
+
+<p>{Rd}                    - 存储结果的目的寄存器</p>
+
+<p>Operand1     - 第一个操作数，寄存器或者是一个立即数</p>
+
+<p>Operand2     - 第二个(可变的)操作数，可以是一个立即数或者寄存器或者有偏移量的寄存器</p>
+</blockquote>
+
+<p>第二操作数还有如下操作：</p>
+
+<pre><code class="language-asm">#123                    - 立即数
+Rx                      - 寄存器比如R1
+Rx, ASR n               - 对寄存器中的值进行算术右移n位后的值
+Rx, LSL n               - 对寄存器中的值进行逻辑左移n位后的值
+Rx, LSR n               - 对寄存器中的值进行逻辑右移n位后的值
+Rx, ROR n               - 对寄存器中的值进行循环右移n位后的值
+Rx, RRX                 - 对寄存器中的值进行带扩展的循环右移1位后的值
+</code></pre>
+
+<pre><code class="language-asm">ADD   R0, R1, R2         - 将第一操作数R1的内容与第二操作数R2的内容相加，将结果存储到R0中。
+ADD   R0, R1, #2         - 将第一操作数R1的内容与第二操作数一个立即数相加，将结果存到R0中
+MOVLE R0, #5             - 当满足条件LE(Less and Equal,小于等于0)将第二操作数立即数5移动到R0中,注意这条指令与MOVLE R0, R0, #5相同
+MOV   R0, R1, LSL #1     - 将第二操作数R1寄存器中的值逻辑左移1位后存入R0
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810144732.png" alt="" /></p>
+
+<h5 id="内存访问相关指令">内存访问相关指令</h5>
+
+<p>通常，LDR被用来从内存中加载数据到寄存器，STR被用作将寄存器的值存放到内存中。</p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810145231.png" alt="" /></p>
+
+<p>例子：</p>
+
+<pre><code class="language-asm">.data          /* 数据段是在内存中动态创建的，所以它的在内存中的地址不可预测*/
+var1: .word 3  /* 内存中的第一个变量 */
+var2: .word 4  /* 内存中的第二个变量 */
+.text          /* 代码段开始 */ 
+.global _start
+_start:
+    ldr r0, adr_var1  @ 将存放var1值的地址adr_var1加载到寄存器R0中 
+    ldr r1, adr_var2  @ 将存放var2值的地址adr_var2加载到寄存器R1中 
+    ldr r2, [r0]      @ 将R0所指向地址中存放的0x3加载到寄存器R2中  
+    str r2, [r1]      @ 将R2中的值0x3存放到R1做指向的地址 
+    bkpt             
+adr_var1: .word var1  /* var1的地址助记符 */
+adr_var2: .word var2  /* var2的地址助记符 */
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810145711.gif" alt="" /></p>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810154906.png" alt="" /></p>
+
+<ul>
+<li>第一种偏移形式：立即数作偏移<br />
+<br /></li>
+</ul>
+
+<pre><code class="language-asm">  STR    Ra, [Rb, imm]
+  LDR    Ra, [Rc, imm]
+</code></pre>
+
+<pre><code class="language-asm">  
+  .data
+  var1: .word 3
+  var2: .word 4
+  .text
+  .global _start
+  _start:
+      ldr r0, adr_var1  @ 将存放var1值的地址adr_var1加载到寄存器R0中 
+      ldr r1, adr_var2  @ 将存放var2值的地址adr_var2加载到寄存器R1中 
+      ldr r2, [r0]      @ 将R0所指向地址中存放的0x3加载到寄存器R2中  
+      str r2, [r1, #2]  @ 取址模式：基于偏移量。R2寄存器中的值0x3被存放到R1寄存器的值加2所指向地址处。
+      str r2, [r1, #4]! @ 取址模式：基于索引前置修改。R2寄存器中的值0x3被存放到R1寄存器的值加4所指向地址处，之后R1寄存器中存储的值加4,也就是R1=R1+4。
+      ldr r3, [r1], #4  @ 取址模式：基于索引后置修改。R3寄存器中的值是从R1寄存器的值所指向的地址中加载的，加载之后R1寄存器中存储的值加4,也就是R1=R1+4。
+      bkpt
+  adr_var1: .word var1
+  adr_var2: .word var2
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810160844.gif" alt="" /></p>
+
+<ul>
+<li><strong>第二种偏移形式：寄存器作偏移</strong><br />
+<br /></li>
+</ul>
+
+<pre><code class="language-asm">  STR    Ra, [Rb, Rc]
+  LDR    Ra, [Rb, Rc]
+</code></pre>
+
+<pre><code class="language-asm">  .data
+  var1: .word 3
+  var2: .word 4
+  .text
+  .global _start
+  _start:
+      ldr r0, adr_var1  @ 将存放var1值的地址adr_var1加载到寄存器R0中 
+      ldr r1, adr_var2  @ 将存放var2值的地址adr_var2加载到寄存器R1中 
+      ldr r2, [r0]      @ 将R0所指向地址中存放的0x3加载到寄存器R2中  
+      str r2, [r1, r2]  @ 取址模式：基于偏移量。R2寄存器中的值0x3被存放到R1寄存器的值加R2寄存器的值所指向地址处。R1寄存器不会被修改。 
+      str r2, [r1, r2]! @ 取址模式：基于索引前置修改。R2寄存器中的值0x3被存放到R1寄存器的值加R2寄存器的值所指向地址处，之后R1寄存器中的值被更新,也就是R1=R1+R2。
+      ldr r3, [r1], r2  @ 取址模式：基于索引后置修改。R3寄存器中的值是从R1寄存器的值所指向的地址中加载的，加载之后R1寄存器中的值被更新也就是R1=R1+R2。
+      bx lr
+  adr_var1: .word var1
+  adr_var2: .word var2
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810162217.gif" alt="" /></p>
+
+<ul>
+<li><strong>第三种偏移形式：寄存器缩放值作偏移</strong><br />
+<br /></li>
+</ul>
+
+<pre><code class="language-asm">  LDR    Ra, [Rb, Rc, &lt;shifter&gt;]
+  STR    Ra, [Rb, Rc, &lt;shifter&gt;]
+</code></pre>
+
+<pre><code class="language-asm">  .data
+  var1: .word 3
+  var2: .word 4
+  .text
+  .global _start
+  _start:
+      ldr r0, adr_var1         @ 将存放var1值的地址adr_var1加载到寄存器R0中 
+      ldr r1, adr_var2         @ 将存放var2值的地址adr_var2加载到寄存器R1中 
+      ldr r2, [r0]             @ 将R0所指向地址中存放的0x3加载到寄存器R2中  
+      str r2, [r1, r2, LSL#2]  @ 取址模式：基于偏移量。R2寄存器中的值0x3被存放到R1寄存器的值加(左移两位后的R2寄存器的值)所指向地址处。R1寄存器不会被修改。
+      str r2, [r1, r2, LSL#2]! @ 取址模式：基于索引前置修改。R2寄存器中的值0x3被存放到R1寄存器的值加(左移两位后的R2寄存器的值)所指向地址处，之后R1寄存器中的值被更新,也就R1 = R1 + R2&lt;&lt;2。
+      ldr r3, [r1], r2, LSL#2  @ 取址模式：基于索引后置修改。R3寄存器中的值是从R1寄存器的值所指向的地址中加载的，加载之后R1寄存器中的值被更新也就是R1 = R1 + R2&lt;&lt;2。
+      bkpt
+  adr_var1: .word var1
+  adr_var2: .word var2
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810162414.png" alt="" /></p>
+
+<p>如何区分取址模式：</p>
+
+<p>如果有一个叹号!，那就是索引前置取址模式，即使用计算后的地址，之后更新基址寄存器。</p>
+
+<p>如果在[]外有一个寄存器，那就是索引后置取址模式，即使用原有基址寄存器重的地址，之后再更新基址寄存器</p>
+
+<p>除此之外，就都是偏移取址模式了</p>
+
+<ul>
+<li><strong>关于PC相对取址的LDR指令</strong><br />
+<br /></li>
+</ul>
+
+<p>有时候LDR并不仅仅被用来从内存中加载数据。还有如下这操作:</p>
+
+<pre><code class="language-asm">  .section .text
+  .global _start
+  _start:
+     ldr r0, =jump        /* 加载jump标签所在的内存位置到R0 */
+     ldr r1, =0x68DB00AD  /* 加载立即数0x68DB00AD到R1 */
+  jump:
+     ldr r2, =511         /* 加载立即数511到R2 */ 
+     bkpt
+</code></pre>
+
+<p>这些指令学术上被称作伪指令。</p>
+
+<ul>
+<li><strong>在ARM中使用立即数的规律</strong><br />
+<br /></li>
+</ul>
+
+<p>在ARM中不能像X86那样直接将立即数加载到寄存器中。因为你使用的立即数是受限的。</p>
+
+<p>立即数的值：v = n ror 2*r 有效的立即数都可以通过循环右移来得到</p>
+
+<pre><code class="language-asm">  #256        // 1 循环右移 24位 --&gt; 256
+  #384        // 6 循环右移 26位 --&gt; 384
+  #484        // 121 循环右移 30位 --&gt; 484
+  #16384      // 1 循环右移 18位 --&gt; 16384
+  #2030043136 // 121 循环右移 8位 --&gt; 2030043136
+  #0x06000000 // 6 循环右移 8位 --&gt; 100663296 (十六进制值0x06000000)
+  Invalid values:
+  #370        // 185 循环右移 31位 --&gt; 31不在范围内 (0 – 30)
+  #511        // 1 1111 1111 --&gt; 比特模型不符合
+  #0x06010000 // 1 1000 0001.. --&gt; 比特模型不符合
+</code></pre>
+
+<p>这样并不能一次性加载所有的32位值。不过我们可以通过以下的两个选项来解决这个问题：</p>
+
+<ul>
+<li><p>用小部分去组成更大的值。    MOV r0, #511  将511分成两部分：MOV r0, #256, and ADD r0, #255</p></li>
+
+<li><pre><code class="language-asm">.section .text
+.global _start
+_start:
+ mov r0, #256   /* 1 ror 24 = 256, so it's valid */
+ add r0, #255   /* 255 ror 0 = 255, valid. r0 = 256 + 255 = 511 */
+ ldr r1, =511   /* load 511 from the literal pool using LDR */
+ bkpt
+</code></pre>
+
+<p>计算立即数的有效值脚本：<a href="https://raw.githubusercontent.com/azeria-labs/rotator/master/rotator.py">https://raw.githubusercontent.com/azeria-labs/rotator/master/rotator.py</a></p>
+
+<pre><code class="language-bash">azeria@labs:~$ python rotator.py
+Enter the value you want to check: 511
+Sorry, 511 cannot be used as an immediate number and has to be split.
+azeria@labs:~$ python rotator.py
+Enter the value you want to check: 256
+The number 256 can be used as a valid immediate number.
+1 ror 24 --&gt; 256
+</code></pre></li>
+</ul>
+
+<p>下面的部分指令用到在详细查，记的话脑壳痛</p>
+
+<p>##### 跳转指令</p>
+
+<ol>
+<li><code>B</code><br /></li>
+<li><code>BL</code><br /></li>
+<li><code>BX</code><br /></li>
+<li><code>BXL</code><br />
+<br /></li>
+</ol>
+
+<p>##### 存储器操作指令</p>
+
+<ol>
+<li><code>LDM</code><br /></li>
+<li><code>STM</code><br /></li>
+<li><code>PUSH</code><br /></li>
+<li><code>POP</code><br /></li>
+<li><code>SWP</code><br />
+<br /></li>
+</ol>
+
+<p>##### 数据处理</p>
+
+<ol>
+<li><code>MOV</code><br /></li>
+<li><code>MVN</code><br /></li>
+<li><code>ADD</code><br /></li>
+<li><code>ADC</code><br /></li>
+<li><code>SUB</code><br /></li>
+<li><code>RSB</code><br /></li>
+<li><code>SBC</code><br /></li>
+<li><code>RSC</code><br /></li>
+<li><code>MUL</code><br /></li>
+<li><code>MLS</code><br /></li>
+<li><code>MLA</code><br /></li>
+<li><code>UMULL</code><br /></li>
+<li><code>UMLAL</code><br /></li>
+<li><code>SMUULL</code><br /></li>
+<li><code>SMLAL</code><br /></li>
+<li><code>SMLAD</code><br /></li>
+<li><code>SMLSD</code><br /></li>
+<li><code>SDIV</code><br /></li>
+<li><code>UDIV</code><br /></li>
+<li><code>ASR</code><br /></li>
+<li><code>AND</code><br /></li>
+<li><code>ORR</code><br /></li>
+<li><code>EOR</code><br /></li>
+<li><code>BIC</code><br /></li>
+<li><code>LSL</code><br /></li>
+<li><code>LSR</code><br /></li>
+<li><code>RRX</code><br /></li>
+<li><code>ROR</code><br /></li>
+<li><code>CMP</code><br /></li>
+<li><code>CMN</code><br /></li>
+<li><code>TSL</code><br /></li>
+<li><code>TEQ</code><br />
+<br /></li>
+</ol>
+
+<p>##### 其他指令</p>
+
+<ol>
+<li><p><code>SWI</code></p></li>
+
+<li><p><code>NOP</code></p></li>
+
+<li><p><code>MRS</code></p></li>
+
+<li><p><code>MSR</code></p></li>
+</ol>
+
+<p>###</p>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" data-id="abde1a394633771321b9f6bdc9bfd47f" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://naivete.cc/2018/08/09/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">QEMU的安装使用</div>
+    </a>
+    
+
+    
+    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Android应用安全防护和逆向分析-基础篇5-6</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/ai">
+                        AI
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="title">Pytorch学习_1安装</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-12-08 23:40:51 &#43;0800 CST" itemprop="datePublished">2018-12-08</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                        日常生活
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="title">死肥宅的国庆节</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-10-01 19:47:05 &#43;0800 CST" itemprop="datePublished">2018-10-01</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="title">UAF漏洞（释放后使用）学习记录</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                        读书笔记
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="title">Android应用安全防护和逆向分析-基础篇5-6</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/arm">
+                        ARM
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="title">ARM汇编基础</a></p>
+                    <p class="item-date">
+                        <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80">
+                    android基础
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/arm">
+                    arm
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8">
+                    linux内核
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
+                    日常生活
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">
+                    漏洞分析
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E7%AC%94%E8%AE%B0">
+                    笔记
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/ai">
+                    ai
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/androd">
+                    androd
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android">
+                    android
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">
+                    android安全
+                </a>
+                <span class="category-list-count">7</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/arm">
+                    arm
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/cve">
+                    cve
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/hook">
+                    hook
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/java">
+                    java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/qume">
+                    qume
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD">
+                    吐槽
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7">
+                    工具
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D">
+                    指令修复
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
+                    日常
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">
+                    机器学习
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE">
+                    树莓派
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8">
+                    模拟器
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">
+                    环境
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB">
+                    生活
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
+                    读书笔记
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://naivete.cc/tags/ai" style="font-size: 12px;">ai</a>
+        
+        
+        <a href="https://naivete.cc/tags/androd" style="font-size: 12px;">androd</a>
+        
+        
+        <a href="https://naivete.cc/tags/android" style="font-size: 12px;">android</a>
+        
+        
+        <a href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8" style="font-size: 12px;">android安全</a>
+        
+        
+        <a href="https://naivete.cc/tags/arm" style="font-size: 12px;">arm</a>
+        
+        
+        <a href="https://naivete.cc/tags/cve" style="font-size: 12px;">cve</a>
+        
+        
+        <a href="https://naivete.cc/tags/hook" style="font-size: 12px;">hook</a>
+        
+        
+        <a href="https://naivete.cc/tags/java" style="font-size: 12px;">java</a>
+        
+        
+        <a href="https://naivete.cc/tags/qume" style="font-size: 12px;">qume</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD" style="font-size: 12px;">吐槽</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7" style="font-size: 12px;">工具</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D" style="font-size: 12px;">指令修复</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8" style="font-size: 12px;">日常</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" style="font-size: 12px;">机器学习</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE" style="font-size: 12px;">树莓派</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8" style="font-size: 12px;">模拟器</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83" style="font-size: 12px;">环境</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB" style="font-size: 12px;">生活</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" style="font-size: 12px;">读书笔记</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019
+      Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="https://github.com/digitalcraftsman/hugo-icarus-theme/tree/master">Icarus</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://naivete.cc/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://naivete.cc/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>
