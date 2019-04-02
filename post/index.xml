@@ -6,10 +6,71 @@
     <description>Recent content in Posts on var&#39;Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Dec 2018 23:40:51 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 02 Feb 2019 20:39:26 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Frida从入门到放弃_2</title>
+      <link>https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</link>
+      <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
+      <description> 补充ing
+  </description>
+    </item>
+    
+    <item>
+      <title>Frida从入门到放弃_1</title>
+      <link>https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</link>
+      <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</guid>
+      <description>0x00 Frida Frida 官网：https://www.frida.re/
+github: https://github.com/frida/frida
+Dynamic instrumentation toolkit for developers, reverse-engineers, and security
+researchers.
+0x01 安装 用python
+pip install frida-tools 就一个命令搞定
+ Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
+报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
+作者真的是脑子一根筋。。。 所以只好升级成3.7.。。。
+ 0x02 Android环境 设备：小米mix2 运行Android8.0 MIUI10开发版已解锁root
+frida-server: 用的arm64版本
+下载号frida-server 然后adb push 进去
+adb push frida-server /data/local/tmp
+然后chomd 755 frida-server
+运行./frida-server
+命令行运行frida-ps -U
+安装成功</description>
+    </item>
+    
+    <item>
+      <title>radare2&#43;cutter使用指南</title>
+      <link>https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Wed, 02 Jan 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
+      <description>0x00 介绍 radare2 一个很实用的二进制分析和调试工具
+cutter 是r2的GUI版。
+0x01 安装 支持的平台有如下：
+ Windows (since XP), GNU/Linux, OS X, [Net|Free|Open]BSD,
+Android, iOS, OSX, QNX, Solaris, Haiku, FirefoxOS.
+ Linux平台下直接
+git clone https://github.com/radare/radare2 cd radare2 sys/install.sh //(or sys/user.sh)  Windows下可以下载二进制安装包安装。官网下载
+Windows用户推荐使用Windows下的linux（wsl）来使用， win下更新慢。还是linux下用得舒服（方便，快捷）。
+0x03 工具介绍 r2常用的包含有一下组件：
+ rax2 用于数值转换
+ rasm2 反汇编和汇编
+ rabin2 查看文件格式
+ radiff2 对文件进行 diff
+ ragg2/ragg2­cc 开发shellcode工具
+ rahash2 各种密码算法， hash算法
+ radare2 整合了所有工具
+  使用帮助直接-h
+ rax2</description>
+    </item>
     
     <item>
       <title>Pytorch学习_1安装</title>
@@ -29,6 +90,31 @@ CPU被占满，巨卡。
 妥协：用阿里云的学生服务器装了CPU的版本：顺便把TensorFlow 也给装了。。
 然而 在一个星期之后 pytorch1.0出来了 支持了CUDA10 nice
 pip3 install http://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-win_amd64.whl pip3 install torchvision  期间没有遇到任何问题 真舒畅。。。</description>
+    </item>
+    
+    <item>
+      <title>PWN 小tools的使用</title>
+      <link>https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 22 Oct 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>GCC 编译常用命令    不带选项  gcc test.c 将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。     -o 指定生成的输出文件； gcc test.c -o test 将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。   -E 仅执行编译预处理； gcc -E test.c -o test.i 将test.c预处理输出test.i文件。   -S 将C代码转换为汇编代码； gcc -S test.i 将预处理输出文件test.i汇编成test.s文件。   -c 仅执行编译操作，不进行连接操作。 gcc -c test.s 将汇编输出文件test.s编译输出test.o文件。   -wall 显示警告信息；    无选项链接  gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。   -O 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长 gcc -O1 test.c -o test    关掉DEP/NX（堆栈不可执行） gcc -z execstack -o level level.</description>
+    </item>
+    
+    <item>
+      <title>Android-ARM进阶</title>
+      <link>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</link>
+      <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</guid>
+      <description>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。
+NDK-Build的使用 可以参考官方文档。
+ 创建一个Android项目
+ cd 项目目录
+ /ndk-build 。也可以将NDK-build加入环境变量。
+ 创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
+  //Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c++文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY)  //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a  添加hello.cpp：
+#include&amp;lt;cstdio&amp;gt; int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;quot;hello,world!\n&amp;quot;); for(i=0;i&amp;lt;5;i++){ printf(&amp;quot;num value is %d\n&amp;quot;,num[i]); } return 0; }   ndk-build</description>
     </item>
     
     <item>
@@ -56,7 +142,70 @@ pip3 install http://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-win_am
       <pubDate>Wed, 12 Sep 2018 21:24:08 +0800</pubDate>
       
       <guid>https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
-      <description></description>
+      <description>打回重写
+  0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
+根本原因是：
+ 应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
+ 利用 简单利用 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&amp;quot;%s&amp;quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&amp;quot;malloc addr: %p\n&amp;quot;,p1); p1[3]=echo; p1[3](&amp;quot;hello world\n&amp;quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&amp;quot;hello again\n&amp;quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&amp;quot;malloc addr: %p\n&amp;quot;,p2); printf(&amp;quot;malloc addr: %p\n&amp;quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&amp;quot;/bin/sh&amp;quot;); return 0; }  pwnable.kr uaf 先看看源码：
+#include &amp;lt;fcntl.h&amp;gt; #include &amp;lt;iostream&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;unistd.</description>
+    </item>
+    
+    <item>
+      <title>TEA加密与解密</title>
+      <link>https://naivete.cc/2018/09/11/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/</link>
+      <pubDate>Tue, 11 Sep 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/09/11/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/</guid>
+      <description>TEA加密与解密  TEA算法由剑桥大学计算机实验室的David Wheeler和Roger Needham于1994年发明。它是一种分组密码算法，其明文密文块为64比特，密钥长度为128比特。TEA算法利用不断增加的Delta(黄金分割率)值作为变化，使得每轮的加密是不同，该加密算法的迭代次数可以改变，建议的迭代次数为32轮。
+ 在游戏项目中，一般需要对资源或数据进行加密保护，最简单高效的加密算法就是采用位与或之类的，但是比较容易被人分析出来。 TEA加密算法不但比较简单，而且有很强的抗差分分析能力，加密速度也比较快。可以根据项目需求设置加密轮数来增加加密强度。主要运用了移位和异或运算。密钥在加密过程中始终不变。
+ 差分分析是一种选择明文攻击，其基本思想是：通过分析特定明文差分对相对应密文差分影响来获得尽可能大的密钥。它可以用来攻击任何由迭代一个固定的轮函数的结构的密码以及很多分组密码（包括DES），它是由Biham和Shamir于1991年提出的选择明文攻击。
+  加密核心函数
+  void EncryptTEA(unsigned int *firstChunk, unsigned int *secondChunk, unsigned int* key) { unsigned int y = *firstChunk; unsigned int z = *secondChunk; unsigned int sum = 0; unsigned int delta = 0x9e3779b9; for (int i = 0; i &amp;lt; 8; i++) //8轮运算(需要对应下面的解密核心函数的轮数一样) { sum += delta; y += ((z &amp;lt;&amp;lt; 4) + key[0]) ^ (z + sum) ^ ((z &amp;gt;&amp;gt; 5) + key[1]); z += ((y &amp;lt;&amp;lt; 4) + key[2]) ^ (y + sum) ^ ((y &amp;gt;&amp;gt; 5) + key[3]); } *firstChunk = y; *secondChunk = z; }   算法使用了一个神秘常数δ作为倍数，它来源于黄金比率，以保证每一轮加密都不相同。但δ的精确值似乎并不重要，这里 TEA 把它定义为 δ=「(√5 - 1)231」&amp;ndash;&amp;gt; delta = 0x9e3779b9;</description>
+    </item>
+    
+    <item>
+      <title>OLLVM 混淆之一</title>
+      <link>https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</link>
+      <pubDate>Mon, 10 Sep 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</guid>
+      <description>OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加逆向难度，保护代码的安全。最新版本为4.0。OLLVM适用LLVM支持的所有语言（C, C++, Objective-C, Ada 和 Fortran）和目标平台（x86, x86-64, PowerPC, PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）。
+ LLVM是lowlevel virtual machine的简称，是一个编译器框架。详细介绍可以看WIKI-LLVM
+  经典的三段式设计，前端使用不同的编译工具对代码进行分析转换成LLVM的中间表示IR（intermediate representation）。中间部分优化器只对IR进行操作，通过一系列的Pass对IR做优化。后端主要是讲优化好的IR解释成对应的机器码。
+对IR的处理过程下图：
+OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
+OLLVM-Android环境搭建 前提环境：
+ NDK环境
+ LLVM
+  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
+ $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git $ mkdir build $ cd build $ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/ //（cmake -G &amp;quot;MinGW Makefiles&amp;quot; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows) $ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢   可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。</description>
+    </item>
+    
+    <item>
+      <title>IDA 动态调试.so 基本步骤</title>
+      <link>https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</link>
+      <pubDate>Fri, 31 Aug 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</guid>
+      <description>IDA 动态调试.so 基本步骤  待补图
+  0x00 IDA快捷键  Shirt+F12 字符串窗口
+ F5大法好 反汇编
+ Ctrl+S 查看so对应段的信息（非调试），快速定位so文件的内存地址（Debug）
+ G 快速跳转到对应地址。s
+ 调试-F7单步进入调试、F8单步、F9运行
+  0x01 方法一  获取运行Android_server。
+  android_server文件放在IDA安装目录下的\dbgsrv目录下 注意版本的不同。
+之后只需 push android_server /data/local/tmp/。
+之后adb shell，su ，cd /data/local/tmp/。
+可能还得chmod 755 android_server 才有权限运行。
+ 建立通信、attach进程。
+  adb forward tcp:23946 tcp:23946命令。
+在IDA的Debugger选项中attach进程。
+ 加载so、找函数下断点
+  双开IDA ，Ctrl+S找到so文件的基地址，另外一个IDA找到函数的相对地址。相加得到绝对地址。
+0x02 方法二 无法加载so文件需要在加载之前断点。反调试之类
+ Debug方式启动app。需要应用可调试开启
+  adb shell am start -D -n 包名/.</description>
     </item>
     
     <item>
@@ -335,20 +484,6 @@ JAVA环境   JDK下载与安装。
 路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
  2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
  public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) { return null; } try { byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;quot;SHA-1&amp;quot;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;quot;MD5&amp;quot;).digest(saltedPassword); //首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length]; System.</description>
-    </item>
-    
-    <item>
-      <title>New Blog</title>
-      <link>https://naivete.cc/2018/07/02/new-blog/</link>
-      <pubDate>Mon, 02 Jul 2018 17:31:24 +0800</pubDate>
-      
-      <guid>https://naivete.cc/2018/07/02/new-blog/</guid>
-      <description> 关于这个新博客 折腾了两天，终于弄得差不多了，接下来只差把自动化部署搞定就OK啦。。  先列个计划：
- 以后就一直维护，不改了，先列一个flag
- 后面吧相关文章转过来
- 尽量更新吧
- 以后总结就更新过来吧 微信公众号同步更新
-  </description>
     </item>
     
   </channel>

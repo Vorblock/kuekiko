@@ -30,19 +30,5 @@
 10.7 不知不觉国庆长假（？）就没了，怎么感觉什么都没发生。。就没了？明天开学，今天补作业。</description>
     </item>
     
-    <item>
-      <title>New Blog</title>
-      <link>https://naivete.cc/2018/07/02/new-blog/</link>
-      <pubDate>Mon, 02 Jul 2018 17:31:24 +0800</pubDate>
-      
-      <guid>https://naivete.cc/2018/07/02/new-blog/</guid>
-      <description> 关于这个新博客 折腾了两天，终于弄得差不多了，接下来只差把自动化部署搞定就OK啦。。  先列个计划：
- 以后就一直维护，不改了，先列一个flag
- 后面吧相关文章转过来
- 尽量更新吧
- 以后总结就更新过来吧 微信公众号同步更新
-  </description>
-    </item>
-    
   </channel>
 </rss>

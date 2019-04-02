@@ -8,8 +8,33 @@
   </url>
   
   <url>
+    <loc>https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</loc>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</loc>
+    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2018-12-08T23:40:51+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2018-10-22T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</loc>
+    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
   </url>
   
   <url>
@@ -20,6 +45,21 @@
   <url>
     <loc>https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2018-09-12T21:24:08+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/2018/09/11/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/</loc>
+    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</loc>
+    <lastmod>2018-09-10T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</loc>
+    <lastmod>2018-08-31T20:39:26+08:00</lastmod>
   </url>
   
   <url>
@@ -88,11 +128,6 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/2018/07/02/new-blog/</loc>
-    <lastmod>2018-07-02T17:31:24+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://naivete.cc/about/</loc>
     <lastmod>2017-05-19T21:49:20+02:00</lastmod>
   </url>
@@ -133,31 +168,43 @@
   
   <url>
     <loc>https://naivete.cc/tags/android%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2018-08-29T20:39:26+08:00</lastmod>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2018-07-30T15:03:41+08:00</lastmod>
+    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://naivete.cc/tags/arm/</loc>
-    <lastmod>2018-08-10T19:34:10+08:00</lastmod>
+    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://naivete.cc/categories/arm/</loc>
-    <lastmod>2018-08-10T19:34:10+08:00</lastmod>
+    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://naivete.cc/categories/</loc>
     <lastmod>2018-12-08T23:40:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/tags/crypto/</loc>
+    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/categories/crypto/</loc>
+    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -174,8 +221,26 @@
   </url>
   
   <url>
+    <loc>https://naivete.cc/tags/frida/</loc>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/categories/frida/</loc>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://naivete.cc/tags/hook/</loc>
-    <lastmod>2018-07-30T15:03:41+08:00</lastmod>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/categories/hook/</loc>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -198,8 +263,26 @@
   </url>
   
   <url>
+    <loc>https://naivete.cc/tags/ollvm/</loc>
+    <lastmod>2018-09-10T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://naivete.cc/post/</loc>
-    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/tags/pwn/</loc>
+    <lastmod>2018-10-22T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/categories/pwn/</loc>
+    <lastmod>2018-10-22T20:39:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -210,8 +293,32 @@
   </url>
   
   <url>
+    <loc>https://naivete.cc/tags/radare2/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/tags/re/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/categories/re/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://naivete.cc/tags/</loc>
     <lastmod>2018-12-08T23:40:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://naivete.cc/categories/tools/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -222,8 +329,8 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/tags/%E5%90%90%E6%A7%BD/</loc>
-    <lastmod>2018-07-02T17:31:24+08:00</lastmod>
+    <loc>https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/</loc>
+    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   

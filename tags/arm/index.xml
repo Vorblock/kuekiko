@@ -6,10 +6,26 @@
     <description>Recent content in Arm on var&#39;Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Aug 2018 19:34:10 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Oct 2018 16:40:20 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/arm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android-ARM进阶</title>
+      <link>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</link>
+      <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</guid>
+      <description>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。
+NDK-Build的使用 可以参考官方文档。
+ 创建一个Android项目
+ cd 项目目录
+ /ndk-build 。也可以将NDK-build加入环境变量。
+ 创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
+  //Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c++文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY)  //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a  添加hello.cpp：
+#include&amp;lt;cstdio&amp;gt; int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;quot;hello,world!\n&amp;quot;); for(i=0;i&amp;lt;5;i++){ printf(&amp;quot;num value is %d\n&amp;quot;,num[i]); } return 0; }   ndk-build</description>
+    </item>
     
     <item>
       <title>ARM汇编基础</title>

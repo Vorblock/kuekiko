@@ -32,7 +32,7 @@
     <item>
       <title>Android安全</title>
       <link>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Mon, 30 Jul 2018 15:03:41 +0800</pubDate>
+      <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
       
       <guid>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</guid>
       <description></description>
@@ -41,9 +41,18 @@
     <item>
       <title>Arm</title>
       <link>https://naivete.cc/categories/arm/</link>
-      <pubDate>Fri, 10 Aug 2018 19:34:10 +0800</pubDate>
+      <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
       
       <guid>https://naivete.cc/categories/arm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Crypto</title>
+      <link>https://naivete.cc/categories/crypto/</link>
+      <pubDate>Tue, 11 Sep 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/crypto/</guid>
       <description></description>
     </item>
     
@@ -53,6 +62,24 @@
       <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
       
       <guid>https://naivete.cc/categories/cve/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Frida</title>
+      <link>https://naivete.cc/categories/frida/</link>
+      <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/frida/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hook</title>
+      <link>https://naivete.cc/categories/hook/</link>
+      <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/hook/</guid>
       <description></description>
     </item>
     
@@ -71,6 +98,33 @@
       <pubDate>Thu, 09 Aug 2018 19:34:34 +0800</pubDate>
       
       <guid>https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pwn</title>
+      <link>https://naivete.cc/categories/pwn/</link>
+      <pubDate>Mon, 22 Oct 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Re</title>
+      <link>https://naivete.cc/categories/re/</link>
+      <pubDate>Wed, 02 Jan 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/re/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>https://naivete.cc/categories/tools/</link>
+      <pubDate>Wed, 02 Jan 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/tools/</guid>
       <description></description>
     </item>
     

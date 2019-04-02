@@ -21,7 +21,12 @@
     <link href='https://fonts.cat.net/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.cat.net/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
     <meta property="og:title" content="UAF漏洞（释放后使用）学习记录" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="打回重写
+  0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
+根本原因是：
+ 应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
+ 利用 简单利用 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&quot;%s&quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&quot;malloc addr: %p\n&quot;,p1); p1[3]=echo; p1[3](&quot;hello world\n&quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&quot;hello again\n&quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&quot;malloc addr: %p\n&quot;,p2); printf(&quot;malloc addr: %p\n&quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&quot;/bin/sh&quot;); return 0; }  pwnable.kr uaf 先看看源码：
+#include &lt;fcntl.h&gt; #include &lt;iostream&gt; #include &lt;cstring&gt; #include &lt;cstdlib&gt; #include &lt;unistd." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" />
 <meta property="article:published_time" content="2018-09-12T21:24:08&#43;08:00"/>
@@ -30,12 +35,17 @@
     
     
 <meta itemprop="name" content="UAF漏洞（释放后使用）学习记录">
-<meta itemprop="description" content="">
+<meta itemprop="description" content="打回重写
+  0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
+根本原因是：
+ 应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
+ 利用 简单利用 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&quot;%s&quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&quot;malloc addr: %p\n&quot;,p1); p1[3]=echo; p1[3](&quot;hello world\n&quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&quot;hello again\n&quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&quot;malloc addr: %p\n&quot;,p2); printf(&quot;malloc addr: %p\n&quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&quot;/bin/sh&quot;); return 0; }  pwnable.kr uaf 先看看源码：
+#include &lt;fcntl.h&gt; #include &lt;iostream&gt; #include &lt;cstring&gt; #include &lt;cstdlib&gt; #include &lt;unistd.">
 
 
 <meta itemprop="datePublished" content="2018-09-12T21:24:08&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-12T21:24:08&#43;08:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="wordCount" content="267">
 
 
 
@@ -43,7 +53,12 @@
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="UAF漏洞（释放后使用）学习记录"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="打回重写
+  0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
+根本原因是：
+ 应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
+ 利用 简单利用 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&quot;%s&quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&quot;malloc addr: %p\n&quot;,p1); p1[3]=echo; p1[3](&quot;hello world\n&quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&quot;hello again\n&quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&quot;malloc addr: %p\n&quot;,p2); printf(&quot;malloc addr: %p\n&quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&quot;/bin/sh&quot;); return 0; }  pwnable.kr uaf 先看看源码：
+#include &lt;fcntl.h&gt; #include &lt;iostream&gt; #include &lt;cstring&gt; #include &lt;cstdlib&gt; #include &lt;unistd."/>
 <meta name="twitter:site" content="@Sunkkang666"/>
 
     
@@ -166,12 +181,12 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        16
+        23
         <span>Posts</span>
       </div>
       <div class="article-info-block">
         
-          19
+          25
         
         <span>
             Tags
@@ -275,10 +290,10 @@
             <i class="fa fa-calendar"></i>
             <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
             &middot;
-            0
+            267
             words
             &middot;
-            0
+            2
             minute read
         </div>
         
@@ -295,7 +310,156 @@
 </header>
 
         <div class="article-entry" itemprop="articleBody">
-            
+            <ul>
+<li>打回重写<br />
+<br /></li>
+</ul>
+
+<h3 id="0x00原理">0x00原理</h3>
+
+<p>堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞</p>
+
+<p><strong>根本原因是：</strong></p>
+
+<blockquote>
+<p>应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。</p>
+</blockquote>
+
+<h3 id="利用">利用</h3>
+
+<h5 id="简单利用">简单利用</h5>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+typedef void (*func_ptr)(char *);
+void evil_fuc(char command[])
+{
+system(command);
+}
+void echo(char content[])
+{
+printf(&quot;%s&quot;,content);
+}
+int main()
+{
+    func_ptr *p1=(func_ptr*)malloc(4*sizeof(int));
+    printf(&quot;malloc addr: %p\n&quot;,p1);
+    p1[3]=echo;
+    p1[3](&quot;hello world\n&quot;);
+    free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针
+    p1[3](&quot;hello again\n&quot;); //p1指针未被置空,虽然free了,但仍可使用.
+    func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来.
+    printf(&quot;malloc addr: %p\n&quot;,p2);
+    printf(&quot;malloc addr: %p\n&quot;,p1);//p2与p1指针指向的内存为同一地址
+    p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针.
+    p1[3](&quot;/bin/sh&quot;);
+    return 0;
+}
+</code></pre>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180912215411.png" alt="" /></p>
+
+<h5 id="pwnable-kr-uaf">pwnable.kr uaf</h5>
+
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180912220453.png" alt="" /></p>
+
+<p>先看看源码：</p>
+
+<pre><code class="language-cpp">#include &lt;fcntl.h&gt;
+#include &lt;iostream&gt; 
+#include &lt;cstring&gt;
+#include &lt;cstdlib&gt;
+#include &lt;unistd.h&gt;
+using namespace std;
+
+class Human{
+private:
+    virtual void give_shell(){
+        system(&quot;/bin/sh&quot;);
+    }
+protected:
+    int age;
+    string name;
+public:
+    virtual void introduce(){
+        cout &lt;&lt; &quot;My name is &quot; &lt;&lt; name &lt;&lt; endl;
+        cout &lt;&lt; &quot;I am &quot; &lt;&lt; age &lt;&lt; &quot; years old&quot; &lt;&lt; endl;
+    }
+};
+
+class Man: public Human{
+public:
+    Man(string name, int age){
+        this-&gt;name = name;
+        this-&gt;age = age;
+        }
+        virtual void introduce(){
+        Human::introduce();
+                cout &lt;&lt; &quot;I am a nice guy!&quot; &lt;&lt; endl;
+        }
+};
+
+class Woman: public Human{
+public:
+        Woman(string name, int age){
+                this-&gt;name = name;
+                this-&gt;age = age;
+        }
+        virtual void introduce(){
+                Human::introduce();
+                cout &lt;&lt; &quot;I am a cute girl!&quot; &lt;&lt; endl;
+        }
+};
+
+int main(int argc, char* argv[]){
+    Human* m = new Man(&quot;Jack&quot;, 25);
+    Human* w = new Woman(&quot;Jill&quot;, 21);
+
+    size_t len;
+    char* data;
+    unsigned int op;
+    while(1){
+        cout &lt;&lt; &quot;1. use\n2. after\n3. free\n&quot;;
+        cin &gt;&gt; op;
+
+        switch(op){
+            case 1:
+                m-&gt;introduce();
+                w-&gt;introduce();
+                break;
+            case 2:
+                len = atoi(argv[1]);
+                data = new char[len];
+                read(open(argv[2], O_RDONLY), data, len);
+                cout &lt;&lt; &quot;your data is allocated&quot; &lt;&lt; endl;
+                break;
+            case 3:
+                delete m;
+                delete w;
+                break;
+            default:
+                break;
+        }
+    }
+
+    return 0;    
+}
+</code></pre>
+
+<h5 id="hcft2016-fheap">HCFt2016 fheap</h5>
+
+<h5 id="网鼎杯ctf2018-第一场-pwn-babyheap">网鼎杯CTF2018 第一场 Pwn Babyheap</h5>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="https://www.cnblogs.com/Ox9A82/p/5320857.html">https://www.cnblogs.com/Ox9A82/p/5320857.html</a><br /></li>
+<li><a href="https://www.cnblogs.com/alert123/p/4918041.html">https://www.cnblogs.com/alert123/p/4918041.html</a><br /></li>
+<li><a href="https://blog.csdn.net/qq_31481187/article/details/73612451">https://blog.csdn.net/qq_31481187/article/details/73612451</a><br /></li>
+<li><a href="https://www.anquanke.com/post/id/85281">https://www.anquanke.com/post/id/85281</a><br /></li>
+<li><a href="https://xz.aliyun.com/t/2609?accounttraceid=ce44f2b3-4957-4509-b7ba-f2bd6eed34d3#toc-4">https://xz.aliyun.com/t/2609?accounttraceid=ce44f2b3-4957-4509-b7ba-f2bd6eed34d3#toc-4</a><br /></li>
+<li><a href="https://www.anquanke.com/post/id/85281">https://www.anquanke.com/post/id/85281</a><br /></li>
+</ul>
         </div>
         <footer class="article-footer">
     <a data-url="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-id="eefd8fb02281635f50c308815d2e2200" class="article-share-link">
@@ -375,11 +539,11 @@
     
 <nav id="article-nav">
     
-    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="https://naivete.cc/2018/09/11/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">
           Older
       </strong>
-      <div class="article-nav-title">Android应用安全防护和逆向分析-基础篇5-6</div>
+      <div class="article-nav-title">TEA加密与解密</div>
     </a>
     
 
@@ -412,6 +576,84 @@
             
             <li>
                 <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/hook">
+                        HOOK
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/" class="title">Frida从入门到放弃_2</a></p>
+                    <p class="item-date">
+                        <time datetime="2019-02-02 20:39:26 &#43;0800 CST" itemprop="datePublished">2019-02-02</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/hook">
+                        HOOK
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/" class="title">Frida从入门到放弃_1</a></p>
+                    <p class="item-date">
+                        <time datetime="2019-01-22 20:39:26 &#43;0800 CST" itemprop="datePublished">2019-01-22</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/re">
+                        RE
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="title">radare2&#43;cutter使用指南</a></p>
+                    <p class="item-date">
+                        <time datetime="2019-01-02 20:39:26 &#43;0800 CST" itemprop="datePublished">2019-01-02</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
                     <a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
@@ -438,7 +680,7 @@
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="thumbnail">
+                    <a href="https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
                     
@@ -449,86 +691,15 @@
                     
                     <p class="item-category">
                         
-                        <a class="article-category-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
-                        日常生活
+                        <a class="article-category-link" href="https://naivete.cc/categories/pwn">
+                        PWN
                         </a>
                     </p>
                     
                     
-                    <p class="item-title"><a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="title">死肥宅的国庆节</a></p>
+                    <p class="item-title"><a href="https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/" class="title">PWN 小tools的使用</a></p>
                     <p class="item-date">
-                        <time datetime="2018-10-01 19:47:05 &#43;0800 CST" itemprop="datePublished">2018-10-01</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    
-                    
-                    <p class="item-title"><a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="title">UAF漏洞（释放后使用）学习记录</a></p>
-                    <p class="item-date">
-                        <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    
-                    <p class="item-category">
-                        
-                        <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
-                        读书笔记
-                        </a>
-                    </p>
-                    
-                    
-                    <p class="item-title"><a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="title">Android应用安全防护和逆向分析-基础篇5-6</a></p>
-                    <p class="item-date">
-                        <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    
-                    <p class="item-category">
-                        
-                        <a class="article-category-link" href="https://naivete.cc/categories/arm">
-                        ARM
-                        </a>
-                    </p>
-                    
-                    
-                    <p class="item-title"><a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="title">ARM汇编基础</a></p>
-                    <p class="item-date">
-                        <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
+                        <time datetime="2018-10-22 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-10-22</time>
                     </p>
                 </div>
             </li>
@@ -567,7 +738,7 @@
                 <a class="category-list-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">
                     android安全
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">5</span>
             </li>
             
             <li class="category-list-item">
@@ -575,7 +746,15 @@
                 <a class="category-list-link" href="https://naivete.cc/categories/arm">
                     arm
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">3</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/crypto">
+                    crypto
+                </a>
+                <span class="category-list-count">1</span>
             </li>
             
             <li class="category-list-item">
@@ -584,6 +763,22 @@
                     cve
                 </a>
                 <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/frida">
+                    frida
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/hook">
+                    hook
+                </a>
+                <span class="category-list-count">2</span>
             </li>
             
             <li class="category-list-item">
@@ -604,10 +799,34 @@
             
             <li class="category-list-item">
                 
+                <a class="category-list-link" href="https://naivete.cc/categories/pwn">
+                    pwn
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/re">
+                    re
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/tools">
+                    tools
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
                 <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
                     日常生活
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">1</span>
             </li>
             
             <li class="category-list-item">
@@ -680,13 +899,21 @@
                 <a class="category-list-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">
                     android安全
                 </a>
-                <span class="category-list-count">7</span>
+                <span class="category-list-count">11</span>
             </li>
             
             <li class="category-list-item">
                 
                 <a class="category-list-link" href="https://naivete.cc/tags/arm">
                     arm
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/crypto">
+                    crypto
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -701,16 +928,40 @@
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/tags/hook">
-                    hook
+                <a class="category-list-link" href="https://naivete.cc/tags/frida">
+                    frida
                 </a>
                 <span class="category-list-count">2</span>
             </li>
             
             <li class="category-list-item">
                 
+                <a class="category-list-link" href="https://naivete.cc/tags/hook">
+                    hook
+                </a>
+                <span class="category-list-count">4</span>
+            </li>
+            
+            <li class="category-list-item">
+                
                 <a class="category-list-link" href="https://naivete.cc/tags/java">
                     java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/ollvm">
+                    ollvm
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/pwn">
+                    pwn
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -725,8 +976,24 @@
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD">
-                    吐槽
+                <a class="category-list-link" href="https://naivete.cc/tags/radare2">
+                    radare2
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/re">
+                    re
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6">
+                    密码学
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -752,7 +1019,7 @@
                 <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
                     日常
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">1</span>
             </li>
             
             <li class="category-list-item">
@@ -835,7 +1102,13 @@
         <a href="https://naivete.cc/tags/arm" style="font-size: 12px;">arm</a>
         
         
+        <a href="https://naivete.cc/tags/crypto" style="font-size: 12px;">crypto</a>
+        
+        
         <a href="https://naivete.cc/tags/cve" style="font-size: 12px;">cve</a>
+        
+        
+        <a href="https://naivete.cc/tags/frida" style="font-size: 12px;">frida</a>
         
         
         <a href="https://naivete.cc/tags/hook" style="font-size: 12px;">hook</a>
@@ -844,10 +1117,22 @@
         <a href="https://naivete.cc/tags/java" style="font-size: 12px;">java</a>
         
         
+        <a href="https://naivete.cc/tags/ollvm" style="font-size: 12px;">ollvm</a>
+        
+        
+        <a href="https://naivete.cc/tags/pwn" style="font-size: 12px;">pwn</a>
+        
+        
         <a href="https://naivete.cc/tags/qume" style="font-size: 12px;">qume</a>
         
         
-        <a href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD" style="font-size: 12px;">吐槽</a>
+        <a href="https://naivete.cc/tags/radare2" style="font-size: 12px;">radare2</a>
+        
+        
+        <a href="https://naivete.cc/tags/re" style="font-size: 12px;">re</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6" style="font-size: 12px;">密码学</a>
         
         
         <a href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7" style="font-size: 12px;">工具</a>

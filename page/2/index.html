@@ -28,7 +28,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://naivete.cc/" />
 
-<meta property="og:updated_time" content="2018-07-30T15:03:41&#43;08:00"/>
+<meta property="og:updated_time" content="2018-09-12T21:24:08&#43;08:00"/>
 
     
     
@@ -161,12 +161,12 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        16
+        23
         <span>Posts</span>
       </div>
       <div class="article-info-block">
         
-          19
+          25
         
         <span>
             Tags
@@ -261,9 +261,9 @@
         </a>
 
         <header class="article-header">
-    <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/">
+    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
     <h1 class="article-title" itemprop="name">
-        (转)Android Inline Hook中的指令修复详解
+        UAF漏洞（释放后使用）学习记录
     </h1>
     </a>
     <div class="article-meta">
@@ -271,48 +271,22 @@
         
         <div class="article-date">
             <i class="fa fa-calendar"></i>
-            <time datetime="2018-07-30 15:03:41 &#43;0800 CST" itemprop="datePublished">2018-07-30</time>
+            <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
             &middot;
-            1391
+            267
             words
             &middot;
-            7
+            2
             minute read
         </div>
         
         
             
             
-            <div class="article-category">
-                <i class="fa fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">Android安全</a>
-                
-                
-            </div>
-            
         
 
         
             
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">Android安全</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/hook">Hook</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D">指令修复</a>
-                
-                
-            </div>
             
         
     </div>
@@ -320,16 +294,21 @@
 
         <div class="article-entry" itemprop="articleBody">
             <p>
-                Android Inline Hook中的指令修复详解
+                打回重写
+  0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
+根本原因是：
+ 应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
+ 利用 简单利用 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&quot;%s&quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&quot;malloc addr: %p\n&quot;,p1); p1[3]=echo; p1[3](&quot;hello world\n&quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&quot;hello again\n&quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&quot;malloc addr: %p\n&quot;,p2); printf(&quot;malloc addr: %p\n&quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&quot;/bin/sh&quot;); return 0; }  pwnable.kr uaf 先看看源码：
+#include &lt;fcntl.h&gt; #include &lt;iostream&gt; #include &lt;cstring&gt; #include &lt;cstdlib&gt; #include &lt;unistd.
             </p>
             <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/">
+                <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
                     Read more
                 </a>
             </p>
         </div>
         <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/" data-id="0bf363dcbd74675ee70359d40288ffd2" class="article-share-link">
+    <a data-url="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-id="eefd8fb02281635f50c308815d2e2200" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
@@ -410,9 +389,9 @@
         </a>
 
         <header class="article-header">
-    <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/">
+    <a href="https://naivete.cc/2018/09/11/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/">
     <h1 class="article-title" itemprop="name">
-        (转)Android Native Hook工具实践
+        TEA加密与解密
     </h1>
     </a>
     <div class="article-meta">
@@ -420,303 +399,9 @@
         
         <div class="article-date">
             <i class="fa fa-calendar"></i>
-            <time datetime="2018-07-30 14:48:12 &#43;0800 CST" itemprop="datePublished">2018-07-30</time>
+            <time datetime="2018-09-11 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-09-11</time>
             &middot;
-            851
-            words
-            &middot;
-            4
-            minute read
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">Android安全</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">Android安全</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/hook">Hook</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7">工具</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Android Native Hook
-            </p>
-            <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/" data-id="92f384b7b7c25a9e2bf07cb5c756264e" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-
-<article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://naivete.cc/2018/07/25/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-    <h1 class="article-title" itemprop="name">
-        Java反射机制学习笔记
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2018-07-25 16:40:20 &#43;0800 CST" itemprop="datePublished">2018-07-25</time>
-            &middot;
-            1752
-            words
-            &middot;
-            9
-            minute read
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/java">Java</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/%E7%AC%94%E8%AE%B0">笔记</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fa fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/java">Java</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Java反射机制
-            </p>
-            <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/25/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/25/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="8a17ac1cba3f697d63f40d5d9a04a0b7" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-
-<article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
-    <h1 class="article-title" itemprop="name">
-        Android应用安全防护和逆向分析-基础篇④
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fa fa-calendar"></i>
-            <time datetime="2018-07-22 14:15:38 &#43;0800 CST" itemprop="datePublished">2018-07-22</time>
-            &middot;
-            38
+            198
             words
             &middot;
             1
@@ -730,7 +415,7 @@
                 <i class="fa fa-folder"></i>
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                <a class="article-category-link" href="https://naivete.cc/categories/crypto">Crypto</a>
                 
                 
             </div>
@@ -744,11 +429,11 @@
                 <i class="fa fa-tags"></i>
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">android安全</a>
+                <a class="article-category-link" href="https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6">密码学</a>
                 &middot;
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                <a class="article-category-link" href="https://naivete.cc/tags/crypto">Crypto</a>
                 
                 
             </div>
@@ -759,16 +444,20 @@
 
         <div class="article-entry" itemprop="articleBody">
             <p>
-                so文件格式解析
+                TEA加密与解密  TEA算法由剑桥大学计算机实验室的David Wheeler和Roger Needham于1994年发明。它是一种分组密码算法，其明文密文块为64比特，密钥长度为128比特。TEA算法利用不断增加的Delta(黄金分割率)值作为变化，使得每轮的加密是不同，该加密算法的迭代次数可以改变，建议的迭代次数为32轮。
+ 在游戏项目中，一般需要对资源或数据进行加密保护，最简单高效的加密算法就是采用位与或之类的，但是比较容易被人分析出来。 TEA加密算法不但比较简单，而且有很强的抗差分分析能力，加密速度也比较快。可以根据项目需求设置加密轮数来增加加密强度。主要运用了移位和异或运算。密钥在加密过程中始终不变。
+ 差分分析是一种选择明文攻击，其基本思想是：通过分析特定明文差分对相对应密文差分影响来获得尽可能大的密钥。它可以用来攻击任何由迭代一个固定的轮函数的结构的密码以及很多分组密码（包括DES），它是由Biham和Shamir于1991年提出的选择明文攻击。
+  加密核心函数
+  void EncryptTEA(unsigned int *firstChunk, unsigned int *secondChunk, unsigned int* key) { unsigned int y = *firstChunk; unsigned int z = *secondChunk; unsigned int sum = 0; unsigned int delta = 0x9e3779b9; for (int i = 0; i &lt; 8; i++) //8轮运算(需要对应下面的解密核心函数的轮数一样) { sum += delta; y += ((z &lt;&lt; 4) + key[0]) ^ (z + sum) ^ ((z &gt;&gt; 5) + key[1]); z += ((y &lt;&lt; 4) + key[2]) ^ (y + sum) ^ ((y &gt;&gt; 5) + key[3]); } *firstChunk = y; *secondChunk = z; }   算法使用了一个神秘常数δ作为倍数，它来源于黄金比率，以保证每一轮加密都不相同。但δ的精确值似乎并不重要，这里 TEA 把它定义为 δ=「(√5 - 1)231」&ndash;&gt; delta = 0x9e3779b9;
             </p>
             <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+                <a href="https://naivete.cc/2018/09/11/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/">
                     Read more
                 </a>
             </p>
         </div>
         <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="af09d10dee1f02dd2475c7c7dcdad229" class="article-share-link">
+    <a data-url="https://naivete.cc/2018/09/11/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/" data-id="c8557a41914811684f130911af7f2dab" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
@@ -849,9 +538,9 @@
         </a>
 
         <header class="article-header">
-    <a href="https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+    <a href="https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/">
     <h1 class="article-title" itemprop="name">
-        Android应用安全防护和逆向分析 基础篇③
+        OLLVM 混淆之一
     </h1>
     </a>
     <div class="article-meta">
@@ -859,12 +548,12 @@
         
         <div class="article-date">
             <i class="fa fa-calendar"></i>
-            <time datetime="2018-07-16 13:51:50 &#43;0800 CST" itemprop="datePublished">2018-07-16</time>
+            <time datetime="2018-09-10 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-09-10</time>
             &middot;
-            460
+            100
             words
             &middot;
-            3
+            1
             minute read
         </div>
         
@@ -875,7 +564,7 @@
                 <i class="fa fa-folder"></i>
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">Android安全</a>
                 
                 
             </div>
@@ -893,7 +582,7 @@
                 &middot;
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                <a class="article-category-link" href="https://naivete.cc/tags/ollvm">OLLVM</a>
                 
                 
             </div>
@@ -904,16 +593,25 @@
 
         <div class="article-entry" itemprop="articleBody">
             <p>
-                Android中开发与逆向常用命令总结
+                OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加逆向难度，保护代码的安全。最新版本为4.0。OLLVM适用LLVM支持的所有语言（C, C++, Objective-C, Ada 和 Fortran）和目标平台（x86, x86-64, PowerPC, PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）。
+ LLVM是lowlevel virtual machine的简称，是一个编译器框架。详细介绍可以看WIKI-LLVM
+  经典的三段式设计，前端使用不同的编译工具对代码进行分析转换成LLVM的中间表示IR（intermediate representation）。中间部分优化器只对IR进行操作，通过一系列的Pass对IR做优化。后端主要是讲优化好的IR解释成对应的机器码。
+对IR的处理过程下图：
+OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
+OLLVM-Android环境搭建 前提环境：
+ NDK环境
+ LLVM
+  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
+ $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git $ mkdir build $ cd build $ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/ //（cmake -G &quot;MinGW Makefiles&quot; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows) $ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢   可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
             </p>
             <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+                <a href="https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/">
                     Read more
                 </a>
             </p>
         </div>
         <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="d2386d4848655f320430c2774e61dfab" class="article-share-link">
+    <a data-url="https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/" data-id="cb0f5b69a44015574de9f828068d117d" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
@@ -994,9 +692,9 @@
         </a>
 
         <header class="article-header">
-    <a href="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+    <a href="https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/">
     <h1 class="article-title" itemprop="name">
-        Android应用安全防护和逆向分析 基础篇②
+        IDA 动态调试.so 基本步骤
     </h1>
     </a>
     <div class="article-meta">
@@ -1004,9 +702,168 @@
         
         <div class="article-date">
             <i class="fa fa-calendar"></i>
-            <time datetime="2018-07-13 15:01:09 &#43;0800 CST" itemprop="datePublished">2018-07-13</time>
+            <time datetime="2018-08-31 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-31</time>
             &middot;
-            903
+            61
+            words
+            &middot;
+            1
+            minute read
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">Android安全</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">android安全</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>
+                IDA 动态调试.so 基本步骤  待补图
+  0x00 IDA快捷键  Shirt+F12 字符串窗口
+ F5大法好 反汇编
+ Ctrl+S 查看so对应段的信息（非调试），快速定位so文件的内存地址（Debug）
+ G 快速跳转到对应地址。s
+ 调试-F7单步进入调试、F8单步、F9运行
+  0x01 方法一  获取运行Android_server。
+  android_server文件放在IDA安装目录下的\dbgsrv目录下 注意版本的不同。
+之后只需 push android_server /data/local/tmp/。
+之后adb shell，su ，cd /data/local/tmp/。
+可能还得chmod 755 android_server 才有权限运行。
+ 建立通信、attach进程。
+  adb forward tcp:23946 tcp:23946命令。
+在IDA的Debugger选项中attach进程。
+ 加载so、找函数下断点
+  双开IDA ，Ctrl+S找到so文件的基地址，另外一个IDA找到函数的相对地址。相加得到绝对地址。
+0x02 方法二 无法加载so文件需要在加载之前断点。反调试之类
+ Debug方式启动app。需要应用可调试开启
+  adb shell am start -D -n 包名/.
+            </p>
+            <p class="article-more-link">
+                <a href="https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/">
+                    Read more
+                </a>
+            </p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" data-id="41d1cb5afc7962edf7eb28d4de40f9b2" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+</article>
+
+<article class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        </a>
+
+        <header class="article-header">
+    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/">
+    <h1 class="article-title" itemprop="name">
+        Android应用安全防护和逆向分析-基础篇5-6
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
+            &middot;
+            1032
             words
             &middot;
             5
@@ -1049,16 +906,16 @@
 
         <div class="article-entry" itemprop="articleBody">
             <p>
-                Android中NDK的开发
+                AndroidManifest.xml和resourec.arsc解析
             </p>
             <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+                <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/">
                     Read more
                 </a>
             </p>
         </div>
         <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="01256ae424fc6ceeea03d2941cc5fbf3" class="article-share-link">
+    <a data-url="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" data-id="4be514e13b9eb9eebb33bfd5fabf422f" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
@@ -1139,9 +996,9 @@
         </a>
 
         <header class="article-header">
-    <a href="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/">
     <h1 class="article-title" itemprop="name">
-        Android安全和开发环境搭建
+        ARM汇编基础
     </h1>
     </a>
     <div class="article-meta">
@@ -1149,12 +1006,12 @@
         
         <div class="article-date">
             <i class="fa fa-calendar"></i>
-            <time datetime="2018-07-05 17:35:46 &#43;0800 CST" itemprop="datePublished">2018-07-05</time>
+            <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
             &middot;
-            15
+            857
             words
             &middot;
-            1
+            5
             minute read
         </div>
         
@@ -1165,7 +1022,7 @@
                 <i class="fa fa-folder"></i>
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80">Android基础</a>
+                <a class="article-category-link" href="https://naivete.cc/categories/arm">ARM</a>
                 
                 
             </div>
@@ -1179,11 +1036,7 @@
                 <i class="fa fa-tags"></i>
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/tags/androd">Androd</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">环境</a>
+                <a class="article-category-link" href="https://naivete.cc/tags/arm">ARM</a>
                 
                 
             </div>
@@ -1194,16 +1047,169 @@
 
         <div class="article-entry" itemprop="articleBody">
             <p>
-                Android安全和开发环境搭建
+                ARM汇编
             </p>
             <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/">
                     Read more
                 </a>
             </p>
         </div>
         <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="c1b25dcf22d6115c27e2d9bd126afeac" class="article-share-link">
+    <a data-url="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" data-id="abde1a394633771321b9f6bdc9bfd47f" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+</article>
+
+<article class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        </a>
+
+        <header class="article-header">
+    <a href="https://naivete.cc/2018/08/09/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">
+    <h1 class="article-title" itemprop="name">
+        QEMU的安装使用
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2018-08-09 19:34:34 &#43;0800 CST" itemprop="datePublished">2018-08-09</time>
+            &middot;
+            95
+            words
+            &middot;
+            1
+            minute read
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/categories/arm">ARM</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8">Linux内核</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/qume">QUME</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE">树莓派</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8">模拟器</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>
+                QEMU的安装使用
+            </p>
+            <p class="article-more-link">
+                <a href="https://naivete.cc/2018/08/09/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">
+                    Read more
+                </a>
+            </p>
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://naivete.cc/2018/08/09/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" data-id="d13fb22c54376224f7b7a3ce54ea956e" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
@@ -1309,6 +1315,84 @@
             
             <li>
                 <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/hook">
+                        HOOK
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/" class="title">Frida从入门到放弃_2</a></p>
+                    <p class="item-date">
+                        <time datetime="2019-02-02 20:39:26 &#43;0800 CST" itemprop="datePublished">2019-02-02</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/hook">
+                        HOOK
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/" class="title">Frida从入门到放弃_1</a></p>
+                    <p class="item-date">
+                        <time datetime="2019-01-22 20:39:26 &#43;0800 CST" itemprop="datePublished">2019-01-22</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="https://naivete.cc/categories/re">
+                        RE
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="title">radare2&#43;cutter使用指南</a></p>
+                    <p class="item-date">
+                        <time datetime="2019-01-02 20:39:26 &#43;0800 CST" itemprop="datePublished">2019-01-02</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
                     <a href="https://naivete.cc/2018/12/08/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
@@ -1335,7 +1419,7 @@
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="thumbnail">
+                    <a href="https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/" class="thumbnail">
                     
                         <span class="thumbnail-image thumbnail-none"></span>
                     
@@ -1346,86 +1430,15 @@
                     
                     <p class="item-category">
                         
-                        <a class="article-category-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
-                        日常生活
+                        <a class="article-category-link" href="https://naivete.cc/categories/pwn">
+                        PWN
                         </a>
                     </p>
                     
                     
-                    <p class="item-title"><a href="https://naivete.cc/2018/10/01/%E6%AD%BB%E8%82%A5%E5%AE%85%E7%9A%84%E5%9B%BD%E5%BA%86%E8%8A%82/" class="title">死肥宅的国庆节</a></p>
+                    <p class="item-title"><a href="https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/" class="title">PWN 小tools的使用</a></p>
                     <p class="item-date">
-                        <time datetime="2018-10-01 19:47:05 &#43;0800 CST" itemprop="datePublished">2018-10-01</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    
-                    
-                    <p class="item-title"><a href="https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="title">UAF漏洞（释放后使用）学习记录</a></p>
-                    <p class="item-date">
-                        <time datetime="2018-09-12 21:24:08 &#43;0800 CST" itemprop="datePublished">2018-09-12</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    
-                    <p class="item-category">
-                        
-                        <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">
-                        读书笔记
-                        </a>
-                    </p>
-                    
-                    
-                    <p class="item-title"><a href="https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" class="title">Android应用安全防护和逆向分析-基础篇5-6</a></p>
-                    <p class="item-date">
-                        <time datetime="2018-08-29 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-08-29</time>
-                    </p>
-                </div>
-            </li>
-            
-            <li>
-                <div class="item-thumbnail">
-                    <a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="thumbnail">
-                    
-                        <span class="thumbnail-image thumbnail-none"></span>
-                    
-                    </a>
-                </div>
-                <div class="item-inner">
-                    
-                    
-                    <p class="item-category">
-                        
-                        <a class="article-category-link" href="https://naivete.cc/categories/arm">
-                        ARM
-                        </a>
-                    </p>
-                    
-                    
-                    <p class="item-title"><a href="https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/" class="title">ARM汇编基础</a></p>
-                    <p class="item-date">
-                        <time datetime="2018-08-10 19:34:10 &#43;0800 CST" itemprop="datePublished">2018-08-10</time>
+                        <time datetime="2018-10-22 20:39:26 &#43;0800 CST" itemprop="datePublished">2018-10-22</time>
                     </p>
                 </div>
             </li>
@@ -1464,7 +1477,7 @@
                 <a class="category-list-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">
                     android安全
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">5</span>
             </li>
             
             <li class="category-list-item">
@@ -1472,7 +1485,15 @@
                 <a class="category-list-link" href="https://naivete.cc/categories/arm">
                     arm
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">3</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/crypto">
+                    crypto
+                </a>
+                <span class="category-list-count">1</span>
             </li>
             
             <li class="category-list-item">
@@ -1481,6 +1502,22 @@
                     cve
                 </a>
                 <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/frida">
+                    frida
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/hook">
+                    hook
+                </a>
+                <span class="category-list-count">2</span>
             </li>
             
             <li class="category-list-item">
@@ -1501,10 +1538,34 @@
             
             <li class="category-list-item">
                 
+                <a class="category-list-link" href="https://naivete.cc/categories/pwn">
+                    pwn
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/re">
+                    re
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/categories/tools">
+                    tools
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
                 <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
                     日常生活
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">1</span>
             </li>
             
             <li class="category-list-item">
@@ -1577,13 +1638,21 @@
                 <a class="category-list-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">
                     android安全
                 </a>
-                <span class="category-list-count">7</span>
+                <span class="category-list-count">11</span>
             </li>
             
             <li class="category-list-item">
                 
                 <a class="category-list-link" href="https://naivete.cc/tags/arm">
                     arm
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/crypto">
+                    crypto
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -1598,16 +1667,40 @@
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/tags/hook">
-                    hook
+                <a class="category-list-link" href="https://naivete.cc/tags/frida">
+                    frida
                 </a>
                 <span class="category-list-count">2</span>
             </li>
             
             <li class="category-list-item">
                 
+                <a class="category-list-link" href="https://naivete.cc/tags/hook">
+                    hook
+                </a>
+                <span class="category-list-count">4</span>
+            </li>
+            
+            <li class="category-list-item">
+                
                 <a class="category-list-link" href="https://naivete.cc/tags/java">
                     java
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/ollvm">
+                    ollvm
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/pwn">
+                    pwn
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -1622,8 +1715,24 @@
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD">
-                    吐槽
+                <a class="category-list-link" href="https://naivete.cc/tags/radare2">
+                    radare2
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/re">
+                    re
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6">
+                    密码学
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -1649,7 +1758,7 @@
                 <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
                     日常
                 </a>
-                <span class="category-list-count">2</span>
+                <span class="category-list-count">1</span>
             </li>
             
             <li class="category-list-item">
@@ -1732,7 +1841,13 @@
         <a href="https://naivete.cc/tags/arm" style="font-size: 12px;">arm</a>
         
         
+        <a href="https://naivete.cc/tags/crypto" style="font-size: 12px;">crypto</a>
+        
+        
         <a href="https://naivete.cc/tags/cve" style="font-size: 12px;">cve</a>
+        
+        
+        <a href="https://naivete.cc/tags/frida" style="font-size: 12px;">frida</a>
         
         
         <a href="https://naivete.cc/tags/hook" style="font-size: 12px;">hook</a>
@@ -1741,10 +1856,22 @@
         <a href="https://naivete.cc/tags/java" style="font-size: 12px;">java</a>
         
         
+        <a href="https://naivete.cc/tags/ollvm" style="font-size: 12px;">ollvm</a>
+        
+        
+        <a href="https://naivete.cc/tags/pwn" style="font-size: 12px;">pwn</a>
+        
+        
         <a href="https://naivete.cc/tags/qume" style="font-size: 12px;">qume</a>
         
         
-        <a href="https://naivete.cc/tags/%E5%90%90%E6%A7%BD" style="font-size: 12px;">吐槽</a>
+        <a href="https://naivete.cc/tags/radare2" style="font-size: 12px;">radare2</a>
+        
+        
+        <a href="https://naivete.cc/tags/re" style="font-size: 12px;">re</a>
+        
+        
+        <a href="https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6" style="font-size: 12px;">密码学</a>
         
         
         <a href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7" style="font-size: 12px;">工具</a>
