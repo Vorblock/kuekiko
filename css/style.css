@@ -516,6 +516,7 @@ code {
 #search-form-wrap .search-form .search-form-input::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
+
 #search-form-wrap .search-form .search-form-submit {
   top: 50%;
   right: 15px;
@@ -803,8 +804,10 @@ code {
   overflow: hidden;
 }
 .article-banner {
-  width: 100%;
-  height: auto;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
 }
 .article-header {
   padding: 20px 20px 0;
@@ -1797,7 +1800,7 @@ ol.toc {
 .widget ul:not(#recent-post) li a:before,
 .widget ol:not(#recent-post) li a:before {
   color: #ccc;
-  content: "\f0da";
+  content: "▶";
   font-size: 12px;
   margin-right: 6px;
   font-family: FontAwesome;
