@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <title>TEA加密与解密 &middot; var&#39;Blog</title>
+    <title>TEA加密与解密 &middot; Vorblock&#39;Blog</title>
     <meta name="generator" content="Hugo 0.54.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="var_var">
+    <meta name="author" content="Vorblock">
     
       <meta name="description" content="个人博客">
     
@@ -56,7 +56,7 @@
  差分分析是一种选择明文攻击，其基本思想是：通过分析特定明文差分对相对应密文差分影响来获得尽可能大的密钥。它可以用来攻击任何由迭代一个固定的轮函数的结构的密码以及很多分组密码（包括DES），它是由Biham和Shamir于1991年提出的选择明文攻击。
   加密核心函数
   void EncryptTEA(unsigned int *firstChunk, unsigned int *secondChunk, unsigned int* key) { unsigned int y = *firstChunk; unsigned int z = *secondChunk; unsigned int sum = 0; unsigned int delta = 0x9e3779b9; for (int i = 0; i &lt; 8; i&#43;&#43;) //8轮运算(需要对应下面的解密核心函数的轮数一样) { sum &#43;= delta; y &#43;= ((z &lt;&lt; 4) &#43; key[0]) ^ (z &#43; sum) ^ ((z &gt;&gt; 5) &#43; key[1]); z &#43;= ((y &lt;&lt; 4) &#43; key[2]) ^ (y &#43; sum) ^ ((y &gt;&gt; 5) &#43; key[3]); } *firstChunk = y; *secondChunk = z; }   算法使用了一个神秘常数δ作为倍数，它来源于黄金比率，以保证每一轮加密都不相同。但δ的精确值似乎并不重要，这里 TEA 把它定义为 δ=「(√5 - 1)231」&ndash;&gt; delta = 0x9e3779b9;"/>
-<meta name="twitter:site" content="@Sunkkang666"/>
+<meta name="twitter:site" content="@Vorblock"/>
 
     
 
@@ -77,7 +77,7 @@
           
           <i class="logo" style="background-image: url('https://naivete.cc/css/images/logo.png')"></i>
           
-          <span class="site-title">var&#39;Blog</span>
+          <span class="site-title">Vorblock&#39;Blog</span>
       </a>
       <nav id="main-nav">
           
@@ -171,7 +171,7 @@
       
       <img id="avatar" src="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"/>
       
-      <h2 id="name">var_var</h2>
+      <h2 id="name">Vorblock</h2>
       <h3 id="title">嘤嘤嘤 - CTFer - 移动安全</h3>
       
       
@@ -218,35 +218,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<td><a href="//twitter.com/Sunkkang666" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+<td><a href="//twitter.com/Vorblock" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
 
 
 
@@ -254,7 +226,9 @@
 
 
 
-<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fa fa-email"></i></a></td>
+<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fas fa-envelope"></i></a></td>
+
+
 
 
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <title>UAF漏洞（释放后使用）学习记录 &middot; var&#39;Blog</title>
+    <title>UAF漏洞（释放后使用）学习记录 &middot; Vorblock&#39;Blog</title>
     <meta name="generator" content="Hugo 0.54.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="var_var">
+    <meta name="author" content="Vorblock">
     
       <meta name="description" content="个人博客">
     
@@ -59,7 +59,7 @@
  应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
  利用 简单利用 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&quot;%s&quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&quot;malloc addr: %p\n&quot;,p1); p1[3]=echo; p1[3](&quot;hello world\n&quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&quot;hello again\n&quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&quot;malloc addr: %p\n&quot;,p2); printf(&quot;malloc addr: %p\n&quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&quot;/bin/sh&quot;); return 0; }  pwnable.kr uaf 先看看源码：
 #include &lt;fcntl.h&gt; #include &lt;iostream&gt; #include &lt;cstring&gt; #include &lt;cstdlib&gt; #include &lt;unistd."/>
-<meta name="twitter:site" content="@Sunkkang666"/>
+<meta name="twitter:site" content="@Vorblock"/>
 
     
 
@@ -80,7 +80,7 @@
           
           <i class="logo" style="background-image: url('https://naivete.cc/css/images/logo.png')"></i>
           
-          <span class="site-title">var&#39;Blog</span>
+          <span class="site-title">Vorblock&#39;Blog</span>
       </a>
       <nav id="main-nav">
           
@@ -174,7 +174,7 @@
       
       <img id="avatar" src="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"/>
       
-      <h2 id="name">var_var</h2>
+      <h2 id="name">Vorblock</h2>
       <h3 id="title">嘤嘤嘤 - CTFer - 移动安全</h3>
       
       
@@ -221,35 +221,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<td><a href="//twitter.com/Sunkkang666" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+<td><a href="//twitter.com/Vorblock" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
 
 
 
@@ -257,7 +229,9 @@
 
 
 
-<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fa fa-email"></i></a></td>
+<td><a href="mailto:naivetesun@gmail.com" target="_blank" title="email"><i class="fas fa-envelope"></i></a></td>
+
+
 
 
 
