@@ -13,15 +13,15 @@
     <link rel="canonical" href="https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <link rel="icon" href="https://naivete.cc/favicon.ico">
     <link rel="apple-touch-icon" href="https://naivete.cc/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://naivete.cc/css/font-awesome-all.css">
     <link rel="stylesheet" href="https://naivete.cc/css/style.css">
-    
     <link rel="stylesheet" href="https://naivete.cc/css/monokai.css">
     <link rel="stylesheet" href="https://naivete.cc/fancybox/jquery.fancybox.css">
     
     <link href='https://fonts.loli.net/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.loli.net/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1124809_i7yk6ugtyum.css">
-    <link href="https://cdn.bootcss.com/font-awesome/5.8.1/css/all.css" rel="stylesheet">
+    
     
     <meta property="og:title" content="PWN 小tools的使用" />
 <meta property="og:description" content="GCC 编译常用命令    不带选项  gcc test.c 将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。     -o 指定生成的输出文件； gcc test.c -o test 将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。   -E 仅执行编译预处理； gcc -E test.c -o test.i 将test.c预处理输出test.i文件。   -S 将C代码转换为汇编代码； gcc -S test.i 将预处理输出文件test.i汇编成test.s文件。   -c 仅执行编译操作，不进行连接操作。 gcc -c test.s 将汇编输出文件test.s编译输出test.o文件。   -wall 显示警告信息；    无选项链接  gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。   -O 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长 gcc -O1 test.c -o test    关掉DEP/NX（堆栈不可执行） gcc -z execstack -o level level." />
@@ -105,7 +105,7 @@
         <div id="search-form-wrap">
           <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
               <input type="search" name="q" class="search-form-input" placeholder="Search">
-              <button type="submit" class="search-form-submit">
+              <button type="submit" class="search-form-submit"><i class="fas fa-search"></i>
               </button>
               <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
          </form>
@@ -169,12 +169,12 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        23
+        22
         <span>Posts</span>
       </div>
       <div class="article-info-block">
         
-          25
+          23
         
         <span>
             Tags
@@ -464,6 +464,7 @@ checksec 查看elf编译的保护选项。
 </blockquote>
 
         </div>
+        
         <footer class="article-footer">
     <a data-url="https://naivete.cc/2018/10/22/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="39ca8881ad988bb1a9a96656cebbe194" class="article-share-link">
         <i class="fas fa-share"></i>
@@ -826,14 +827,6 @@ checksec 查看elf编译的保护选项。
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
-                    日常生活
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
                 <a class="category-list-link" href="https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">
                     漏洞分析
                 </a>
@@ -1019,14 +1012,6 @@ checksec 查看elf编译的保护选项。
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
-                    日常
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
                 <a class="category-list-link" href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">
                     机器学习
                 </a>
@@ -1053,14 +1038,6 @@ checksec 查看elf编译的保护选项。
                 
                 <a class="category-list-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">
                     环境
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB">
-                    生活
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -1144,9 +1121,6 @@ checksec 查看elf编译的保护选项。
         <a href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D" style="font-size: 12px;">指令修复</a>
         
         
-        <a href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8" style="font-size: 12px;">日常</a>
-        
-        
         <a href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" style="font-size: 12px;">机器学习</a>
         
         
@@ -1157,9 +1131,6 @@ checksec 查看elf编译的保护选项。
         
         
         <a href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83" style="font-size: 12px;">环境</a>
-        
-        
-        <a href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB" style="font-size: 12px;">生活</a>
         
         
         <a href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" style="font-size: 12px;">读书笔记</a>

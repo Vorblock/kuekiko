@@ -16,22 +16,22 @@
     <link rel="canonical" href="https://naivete.cc/"/>
     <link rel="icon" href="https://naivete.cc/favicon.ico">
     <link rel="apple-touch-icon" href="https://naivete.cc/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://naivete.cc/css/font-awesome-all.css">
     <link rel="stylesheet" href="https://naivete.cc/css/style.css">
-    
     <link rel="stylesheet" href="https://naivete.cc/css/monokai.css">
     <link rel="stylesheet" href="https://naivete.cc/fancybox/jquery.fancybox.css">
     
     <link href='https://fonts.loli.net/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.loli.net/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1124809_i7yk6ugtyum.css">
-    <link href="https://cdn.bootcss.com/font-awesome/5.8.1/css/all.css" rel="stylesheet">
+    
     
     <meta property="og:title" content="Vorblock&#39;Blog" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://naivete.cc/" />
 
-<meta property="og:updated_time" content="2018-08-05T21:16:52&#43;08:00"/>
+<meta property="og:updated_time" content="2018-07-05T17:35:46&#43;08:00"/>
 
     
     
@@ -100,7 +100,7 @@
         <div id="search-form-wrap">
           <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
               <input type="search" name="q" class="search-form-input" placeholder="Search">
-              <button type="submit" class="search-form-submit">
+              <button type="submit" class="search-form-submit"><i class="fas fa-search"></i>
               </button>
               <input type="hidden" name="sitesearch" value="https://naivete.cc/" />
          </form>
@@ -164,12 +164,12 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        23
+        22
         <span>Posts</span>
       </div>
       <div class="article-info-block">
         
-          25
+          23
         
         <span>
             Tags
@@ -239,12 +239,11 @@
 <article class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
-        </a>
 
         <header class="article-header">
-    <a href="https://naivete.cc/2018/08/05/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/">
+    <a href="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
     <h1 class="article-title" itemprop="name">
-        在Android的个人字典中发现和利用漏洞(CVE 2018 9375)
+        Android安全和开发环境搭建
     </h1>
     </a>
     <div class="article-meta">
@@ -252,601 +251,9 @@
         
         <div class="article-date">
             <i class="fas fa-calendar"></i>
-            <time datetime="2018-08-05 21:16:52 &#43;0800 CST" itemprop="datePublished">2018-08-05</time>
+            <time datetime="2018-07-05 17:35:46 &#43;0800 CST" itemprop="datePublished">2018-07-05</time>
             &middot;
-            499
-            words
-            &middot;
-            3
-            minute read
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">漏洞分析</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/cve">CVE</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/cve">CVE</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/android">Android</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Discovering and Exploiting a Vulnerability in Android’s Personal Dictionary (CVE-2018-9375)
-            </p>
-            <p class="article-more-link">
-                <a href="https://naivete.cc/2018/08/05/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/08/05/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/" data-id="f1001994e01a5cb3c8912b26f4566fd3" class="article-share-link">
-        <i class="fas fa-share"></i>
-        Share
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-
-<article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/">
-    <h1 class="article-title" itemprop="name">
-        (转)Android Inline Hook中的指令修复详解
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fas fa-calendar"></i>
-            <time datetime="2018-07-30 15:03:41 &#43;0800 CST" itemprop="datePublished">2018-07-30</time>
-            &middot;
-            1391
-            words
-            &middot;
-            7
-            minute read
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">Android安全</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">Android安全</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/hook">Hook</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D">指令修复</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Android Inline Hook中的指令修复详解
-            </p>
-            <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/" data-id="0bf363dcbd74675ee70359d40288ffd2" class="article-share-link">
-        <i class="fas fa-share"></i>
-        Share
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-
-<article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/">
-    <h1 class="article-title" itemprop="name">
-        (转)Android Native Hook工具实践
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fas fa-calendar"></i>
-            <time datetime="2018-07-30 14:48:12 &#43;0800 CST" itemprop="datePublished">2018-07-30</time>
-            &middot;
-            851
-            words
-            &middot;
-            4
-            minute read
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8">Android安全</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">Android安全</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/hook">Hook</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7">工具</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Android Native Hook
-            </p>
-            <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/" data-id="92f384b7b7c25a9e2bf07cb5c756264e" class="article-share-link">
-        <i class="fas fa-share"></i>
-        Share
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-
-<article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://naivete.cc/2018/07/25/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-    <h1 class="article-title" itemprop="name">
-        Java反射机制学习笔记
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fas fa-calendar"></i>
-            <time datetime="2018-07-25 16:40:20 &#43;0800 CST" itemprop="datePublished">2018-07-25</time>
-            &middot;
-            1752
-            words
-            &middot;
-            9
-            minute read
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/java">Java</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/%E7%AC%94%E8%AE%B0">笔记</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/java">Java</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Java反射机制
-            </p>
-            <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/25/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/25/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="8a17ac1cba3f697d63f40d5d9a04a0b7" class="article-share-link">
-        <i class="fas fa-share"></i>
-        Share
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-
-<article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
-    <h1 class="article-title" itemprop="name">
-        Android应用安全防护和逆向分析-基础篇④
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fas fa-calendar"></i>
-            <time datetime="2018-07-22 14:15:38 &#43;0800 CST" itemprop="datePublished">2018-07-22</time>
-            &middot;
-            38
+            15
             words
             &middot;
             1
@@ -860,7 +267,7 @@
                 <i class="fas fa-folder"></i>
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                <a class="article-category-link" href="https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80">Android基础</a>
                 
                 
             </div>
@@ -874,11 +281,11 @@
                 <i class="fas fa-tags"></i>
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">android安全</a>
+                <a class="article-category-link" href="https://naivete.cc/tags/androd">Androd</a>
                 &middot;
                 
                 
-                <a class="article-category-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
+                <a class="article-category-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">环境</a>
                 
                 
             </div>
@@ -888,17 +295,18 @@
 </header>
 
         <div class="article-entry" itemprop="articleBody">
+            
             <p>
-                so文件格式解析
+                Android安全和开发环境搭建
             </p>
             <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+                <a href="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
                     Read more
                 </a>
             </p>
         </div>
         <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="af09d10dee1f02dd2475c7c7dcdad229" class="article-share-link">
+    <a data-url="https://naivete.cc/2018/07/05/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="c1b25dcf22d6115c27e2d9bd126afeac" class="article-share-link">
         <i class="fas fa-share"></i>
         Share
     </a>
@@ -976,12 +384,11 @@
 <article class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
-        </a>
 
         <header class="article-header">
-    <a href="https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+    <a href="https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
     <h1 class="article-title" itemprop="name">
-        Android应用安全防护和逆向分析 基础篇③
+        Android应用安全防护和逆向分析 基础篇①
     </h1>
     </a>
     <div class="article-meta">
@@ -989,12 +396,12 @@
         
         <div class="article-date">
             <i class="fas fa-calendar"></i>
-            <time datetime="2018-07-16 13:51:50 &#43;0800 CST" itemprop="datePublished">2018-07-16</time>
+            <time datetime="2018-07-02 17:33:05 &#43;0800 CST" itemprop="datePublished">2018-07-02</time>
             &middot;
-            460
+            647
             words
             &middot;
-            3
+            4
             minute read
         </div>
         
@@ -1033,162 +440,18 @@
 </header>
 
         <div class="article-entry" itemprop="articleBody">
+            
             <p>
-                Android中开发与逆向常用命令总结
+                Android中锁屏密码加密算法分析
             </p>
             <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+                <a href="https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
                     Read more
                 </a>
             </p>
         </div>
         <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="d2386d4848655f320430c2774e61dfab" class="article-share-link">
-        <i class="fas fa-share"></i>
-        Share
-    </a>
-    
-
-    <script>
-    (function ($) {
-        
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-    </script>
-</footer>
-
-    </div>
-</article>
-
-<article class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        </a>
-
-        <header class="article-header">
-    <a href="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
-    <h1 class="article-title" itemprop="name">
-        Android应用安全防护和逆向分析 基础篇②
-    </h1>
-    </a>
-    <div class="article-meta">
-
-        
-        <div class="article-date">
-            <i class="fas fa-calendar"></i>
-            <time datetime="2018-07-13 15:01:09 &#43;0800 CST" itemprop="datePublished">2018-07-13</time>
-            &middot;
-            903
-            words
-            &middot;
-            5
-            minute read
-        </div>
-        
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-folder"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
-                
-                
-            </div>
-            
-        
-
-        
-            
-            
-            <div class="article-category">
-                <i class="fas fa-tags"></i>
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/android%E5%AE%89%E5%85%A8">android安全</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a>
-                
-                
-            </div>
-            
-        
-    </div>
-</header>
-
-        <div class="article-entry" itemprop="articleBody">
-            <p>
-                Android中NDK的开发
-            </p>
-            <p class="article-more-link">
-                <a href="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
-                    Read more
-                </a>
-            </p>
-        </div>
-        <footer class="article-footer">
-    <a data-url="https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="01256ae424fc6ceeea03d2941cc5fbf3" class="article-share-link">
+    <a data-url="https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" data-id="a95ab361cd9d5ef387e3e1db83da1b3f" class="article-share-link">
         <i class="fas fa-share"></i>
         Share
     </a>
@@ -1271,10 +534,6 @@
             « Prev
         </a>
     
-    
-        <a class="extend next" rel="next" href="https://naivete.cc/page/4/">
-            Next »
-        </a>
     
 
 </nav>
@@ -1541,14 +800,6 @@
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB">
-                    日常生活
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
                 <a class="category-list-link" href="https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">
                     漏洞分析
                 </a>
@@ -1734,14 +985,6 @@
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8">
-                    日常
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
                 <a class="category-list-link" href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">
                     机器学习
                 </a>
@@ -1768,14 +1011,6 @@
                 
                 <a class="category-list-link" href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83">
                     环境
-                </a>
-                <span class="category-list-count">1</span>
-            </li>
-            
-            <li class="category-list-item">
-                
-                <a class="category-list-link" href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB">
-                    生活
                 </a>
                 <span class="category-list-count">1</span>
             </li>
@@ -1859,9 +1094,6 @@
         <a href="https://naivete.cc/tags/%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D" style="font-size: 12px;">指令修复</a>
         
         
-        <a href="https://naivete.cc/tags/%E6%97%A5%E5%B8%B8" style="font-size: 12px;">日常</a>
-        
-        
         <a href="https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" style="font-size: 12px;">机器学习</a>
         
         
@@ -1872,9 +1104,6 @@
         
         
         <a href="https://naivete.cc/tags/%E7%8E%AF%E5%A2%83" style="font-size: 12px;">环境</a>
-        
-        
-        <a href="https://naivete.cc/tags/%E7%94%9F%E6%B4%BB" style="font-size: 12px;">生活</a>
         
         
         <a href="https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0" style="font-size: 12px;">读书笔记</a>
