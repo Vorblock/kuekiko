@@ -21,18 +21,18 @@
     </item>
     
     <item>
-      <title>Android基础</title>
-      <link>https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80/</link>
+      <title>Android</title>
+      <link>https://naivete.cc/categories/android/</link>
       <pubDate>Thu, 05 Jul 2018 17:35:46 +0800</pubDate>
       
-      <guid>https://naivete.cc/categories/android%E5%9F%BA%E7%A1%80/</guid>
+      <guid>https://naivete.cc/categories/android/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Android安全</title>
       <link>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
+      <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
       
       <guid>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</guid>
       <description></description>
@@ -66,15 +66,6 @@
     </item>
     
     <item>
-      <title>Frida</title>
-      <link>https://naivete.cc/categories/frida/</link>
-      <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
-      
-      <guid>https://naivete.cc/categories/frida/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Hook</title>
       <link>https://naivete.cc/categories/hook/</link>
       <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
@@ -102,9 +93,18 @@
     </item>
     
     <item>
+      <title>Llvm</title>
+      <link>https://naivete.cc/categories/llvm/</link>
+      <pubDate>Mon, 10 Sep 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/llvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Pwn</title>
       <link>https://naivete.cc/categories/pwn/</link>
-      <pubDate>Mon, 22 Oct 2018 20:39:26 +0800</pubDate>
+      <pubDate>Thu, 28 Feb 2019 00:22:36 +0800</pubDate>
       
       <guid>https://naivete.cc/categories/pwn/</guid>
       <description></description>
@@ -120,20 +120,20 @@
     </item>
     
     <item>
-      <title>Tools</title>
-      <link>https://naivete.cc/categories/tools/</link>
-      <pubDate>Wed, 02 Jan 2019 20:39:26 +0800</pubDate>
-      
-      <guid>https://naivete.cc/categories/tools/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>漏洞分析</title>
       <link>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
       <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
       
       <guid>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>漏洞原理</title>
+      <link>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 12 Sep 2018 21:24:08 +0800</pubDate>
+      
+      <guid>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/</guid>
       <description></description>
     </item>
     

@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>在Android的个人字典中发现和利用漏洞(CVE 2018 9375)</title>
+      <title>在Android的个人字典中发现和利用漏洞(CVE-2018-9375)</title>
       <link>https://naivete.cc/2018/08/05/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</link>
       <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
       
       <guid>https://naivete.cc/2018/08/05/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</guid>
-      <description>翻译的文章
+      <description>翻译的文章 渣渣翻译
 原作者：Daniel Kachakil
  我正在审计一款Android手机，审计范围是所有已经安装了的应用程序。我的首选方法是，在时间允许的时候，就手动检查尽可能多的代码。我发现了一个巧妙的漏洞，这个漏洞允许我与一个内容提供者交互，而该内容提供者应该在最近的Android版本中受到保护：用户的个人词典，它存储了用户想要保留的非标准单词的拼写。
 虽然理论上应该只授权给特权用户、授权的输入法编辑器(IMEs) ，以及拼写检查程序访问用户的个人词典，但是有一种方法可以绕过这些限制，允许恶意应用程序更新、删除甚至检索字典内的所有内容。而不需要任何权限或者与用户交互。

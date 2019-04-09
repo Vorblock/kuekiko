@@ -33,8 +33,7 @@ NDK-Build的使用 可以参考官方文档。
       <pubDate>Fri, 10 Aug 2018 19:34:10 +0800</pubDate>
       
       <guid>https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</guid>
-      <description>##ARM汇编基础(简)
-经常忘记，做个笔记，好作复习。。
+      <description>ARM汇编基础(简) 经常忘记，做个笔记，好作复习。。
 内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Azeria-labs
 ARM架构 ARM属于RISC CPU，
  ARM模式 4个字节opcode 32位

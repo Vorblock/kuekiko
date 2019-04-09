@@ -6,10 +6,34 @@
     <description>Recent content in Posts on Vorblock&#39;Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Feb 2019 20:39:26 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 28 Feb 2019 00:22:36 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ROP练习</title>
+      <link>https://naivete.cc/2019/02/28/rop%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Thu, 28 Feb 2019 00:22:36 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/02/28/rop%E7%BB%83%E4%B9%A0/</guid>
+      <description> 题目列表： </description>
+    </item>
+    
+    <item>
+      <title>CTF PWN刷题记录 CTFWiki_1栈溢出</title>
+      <link>https://naivete.cc/2019/02/20/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</link>
+      <pubDate>Wed, 20 Feb 2019 00:17:21 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/02/20/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</guid>
+      <description>看CTFWiki来入门CTF-PWN (Linux和arm) 做个记录
+ 知识点：[PWN相关知识点总结]()
+ Linux PWN
+ ARM PWN
+  题目全部来源于 CTFWiki 上所涉及题目
+Linux PWN 大部分原理参考CTFWiki
+栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;string.h&amp;gt; void success() { puts(&amp;quot;You Hava already controlled it.&amp;quot;); } void vulnerable() { char s[12]; gets(s); puts(s); return; } int main(int argc, char **argv) { vulnerable(); return 0; }  # gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1 stack1.c: In function ‘vulnerable’: stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
+    </item>
     
     <item>
       <title>Frida从入门到放弃_2</title>
@@ -123,7 +147,7 @@ NDK-Build的使用 可以参考官方文档。
       <pubDate>Wed, 12 Sep 2018 21:24:08 +0800</pubDate>
       
       <guid>https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
-      <description>打回重写
+      <description>重写ing
   0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
 根本原因是：
  应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
@@ -226,8 +250,7 @@ OLLVM-Android环境搭建 前提环境：
       <pubDate>Fri, 10 Aug 2018 19:34:10 +0800</pubDate>
       
       <guid>https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</guid>
-      <description>##ARM汇编基础(简)
-经常忘记，做个笔记，好作复习。。
+      <description>ARM汇编基础(简) 经常忘记，做个笔记，好作复习。。
 内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Azeria-labs
 ARM架构 ARM属于RISC CPU，
  ARM模式 4个字节opcode 32位
@@ -265,12 +288,12 @@ git clone git://git.qemu.org/qemu.git cd qemu git submodule init git submodule u
     </item>
     
     <item>
-      <title>在Android的个人字典中发现和利用漏洞(CVE 2018 9375)</title>
+      <title>在Android的个人字典中发现和利用漏洞(CVE-2018-9375)</title>
       <link>https://naivete.cc/2018/08/05/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</link>
       <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
       
       <guid>https://naivete.cc/2018/08/05/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</guid>
-      <description>翻译的文章
+      <description>翻译的文章 渣渣翻译
 原作者：Daniel Kachakil
  我正在审计一款Android手机，审计范围是所有已经安装了的应用程序。我的首选方法是，在时间允许的时候，就手动检查尽可能多的代码。我发现了一个巧妙的漏洞，这个漏洞允许我与一个内容提供者交互，而该内容提供者应该在最近的Android版本中受到保护：用户的个人词典，它存储了用户想要保留的非标准单词的拼写。
 虽然理论上应该只授权给特权用户、授权的输入法编辑器(IMEs) ，以及拼写检查程序访问用户的个人词典，但是有一种方法可以绕过这些限制，允许恶意应用程序更新、删除甚至检索字典内的所有内容。而不需要任何权限或者与用户交互。
