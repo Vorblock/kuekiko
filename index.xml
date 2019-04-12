@@ -42,12 +42,80 @@
     </item>
     
     <item>
+      <title>漏洞基础之5格式化字符串漏洞(FMT)</title>
+      <link>https://naivete.cc/2019/04/12/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</link>
+      <pubDate>Fri, 12 Apr 2019 15:37:31 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/04/12/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>漏洞基础之4OOB</title>
+      <link>https://naivete.cc/2019/03/25/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</link>
+      <pubDate>Mon, 25 Mar 2019 15:37:23 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/03/25/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>漏洞基础之3UAF</title>
+      <link>https://naivete.cc/2019/03/20/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</link>
+      <pubDate>Wed, 20 Mar 2019 15:37:13 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/03/20/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</guid>
+      <description>重写ing
+  0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
+根本原因是：
+ 应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
+ 利用 简单利用 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&amp;quot;%s&amp;quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&amp;quot;malloc addr: %p\n&amp;quot;,p1); p1[3]=echo; p1[3](&amp;quot;hello world\n&amp;quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&amp;quot;hello again\n&amp;quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&amp;quot;malloc addr: %p\n&amp;quot;,p2); printf(&amp;quot;malloc addr: %p\n&amp;quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&amp;quot;/bin/sh&amp;quot;); return 0; }  pwnable.kr uaf 先看看源码：
+#include &amp;lt;fcntl.h&amp;gt; #include &amp;lt;iostream&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;unistd.</description>
+    </item>
+    
+    <item>
+      <title>漏洞基础之2堆溢出</title>
+      <link>https://naivete.cc/2019/03/15/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B2%E5%A0%86%E6%BA%A2%E5%87%BA/</link>
+      <pubDate>Fri, 15 Mar 2019 15:36:59 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/03/15/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B2%E5%A0%86%E6%BA%A2%E5%87%BA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>漏洞基础之1栈溢出</title>
+      <link>https://naivete.cc/2019/03/10/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B1%E6%A0%88%E6%BA%A2%E5%87%BA/</link>
+      <pubDate>Sun, 10 Mar 2019 15:36:49 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/03/10/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B1%E6%A0%88%E6%BA%A2%E5%87%BA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>ROP练习</title>
       <link>https://naivete.cc/2019/02/28/rop%E7%BB%83%E4%B9%A0/</link>
       <pubDate>Thu, 28 Feb 2019 00:22:36 +0800</pubDate>
       
       <guid>https://naivete.cc/2019/02/28/rop%E7%BB%83%E4%B9%A0/</guid>
-      <description> 题目列表： </description>
+      <description>题目列表： IP:47.106.212.155  ret2libc3
+  10008
+ ret2shellcode
+  10002
+ ret2libc
+  10005
+ train.cs.nctu.edu.tw: rop
+ 2013-PlaidCTF-ropasaurusrex
+ Defcon 2015 Qualifier: R0pbaby
+  10012
+ train.cs.nctu.edu.tw: ret2libc
+ AliCTF 2016：vss
+ RCTF2015-welpwn
+  10010
+ lctf16-pwn100
+  10011
+ xdctf15-pwn200
+  10013
+WP（持续更新）：</description>
     </item>
     
     <item>
@@ -169,20 +237,6 @@ NDK-Build的使用 可以参考官方文档。
  创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
   //Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c++文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY)  //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a  添加hello.cpp：
 #include&amp;lt;cstdio&amp;gt; int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;quot;hello,world!\n&amp;quot;); for(i=0;i&amp;lt;5;i++){ printf(&amp;quot;num value is %d\n&amp;quot;,num[i]); } return 0; }   ndk-build</description>
-    </item>
-    
-    <item>
-      <title>UAF漏洞（释放后使用）学习记录</title>
-      <link>https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
-      <pubDate>Wed, 12 Sep 2018 21:24:08 +0800</pubDate>
-      
-      <guid>https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
-      <description>重写ing
-  0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
-根本原因是：
- 应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。
- 利用 简单利用 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; typedef void (*func_ptr)(char *); void evil_fuc(char command[]) { system(command); } void echo(char content[]) { printf(&amp;quot;%s&amp;quot;,content); } int main() { func_ptr *p1=(func_ptr*)malloc(4*sizeof(int)); printf(&amp;quot;malloc addr: %p\n&amp;quot;,p1); p1[3]=echo; p1[3](&amp;quot;hello world\n&amp;quot;); free(p1); //在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针 p1[3](&amp;quot;hello again\n&amp;quot;); //p1指针未被置空,虽然free了,但仍可使用. func_ptr *p2=(func_ptr*)malloc(4*sizeof(int));//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来. printf(&amp;quot;malloc addr: %p\n&amp;quot;,p2); printf(&amp;quot;malloc addr: %p\n&amp;quot;,p1);//p2与p1指针指向的内存为同一地址 p2[3]=evil_fuc; //在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针. p1[3](&amp;quot;/bin/sh&amp;quot;); return 0; }  pwnable.kr uaf 先看看源码：
-#include &amp;lt;fcntl.h&amp;gt; #include &amp;lt;iostream&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;unistd.</description>
     </item>
     
     <item>
@@ -538,6 +592,16 @@ JAVA环境   JDK下载与安装。
 路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
  2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
  public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) { return null; } try { byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;quot;SHA-1&amp;quot;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;quot;MD5&amp;quot;).digest(saltedPassword); //首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length]; System.</description>
+    </item>
+    
+    <item>
+      <title>Daily</title>
+      <link>https://naivete.cc/daily/</link>
+      <pubDate>Mon, 02 Oct 2017 21:49:20 +0200</pubDate>
+      
+      <guid>https://naivete.cc/daily/</guid>
+      <description>Daily summary 中断了很长一段时间、重新开始写。也算是一个新的开始吧。也换了一个Blog环境。
+2019-04-12 Long long ago 只剩回忆</description>
     </item>
     
     <item>

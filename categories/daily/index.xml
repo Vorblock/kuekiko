@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Daily on Vorblock&#39;Blog</title>
+    <link>https://naivete.cc/categories/daily/</link>
+    <description>Recent content in Daily on Vorblock&#39;Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Oct 2017 21:49:20 +0200</lastBuildDate>
+    
+	<atom:link href="https://naivete.cc/categories/daily/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Daily</title>
+      <link>https://naivete.cc/daily/</link>
+      <pubDate>Mon, 02 Oct 2017 21:49:20 +0200</pubDate>
+      
+      <guid>https://naivete.cc/daily/</guid>
+      <description>Daily summary 中断了很长一段时间、重新开始写。也算是一个新的开始吧。也换了一个Blog环境。
+2019-04-12 Long long ago 只剩回忆</description>
+    </item>
+    
+  </channel>
+</rss>

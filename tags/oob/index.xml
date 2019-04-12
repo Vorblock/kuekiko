@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oob on Vorblock&#39;Blog</title>
+    <link>https://naivete.cc/tags/oob/</link>
+    <description>Recent content in Oob on Vorblock&#39;Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 Mar 2019 15:37:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://naivete.cc/tags/oob/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>漏洞基础之4OOB</title>
+      <link>https://naivete.cc/2019/03/25/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</link>
+      <pubDate>Mon, 25 Mar 2019 15:37:23 +0800</pubDate>
+      
+      <guid>https://naivete.cc/2019/03/25/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

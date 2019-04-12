@@ -66,6 +66,15 @@
     </item>
     
     <item>
+      <title>Daily</title>
+      <link>https://naivete.cc/categories/daily/</link>
+      <pubDate>Mon, 02 Oct 2017 21:49:20 +0200</pubDate>
+      
+      <guid>https://naivete.cc/categories/daily/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Hook</title>
       <link>https://naivete.cc/categories/hook/</link>
       <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
@@ -129,11 +138,11 @@
     </item>
     
     <item>
-      <title>漏洞原理</title>
-      <link>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/</link>
-      <pubDate>Wed, 12 Sep 2018 21:24:08 +0800</pubDate>
+      <title>漏洞基础</title>
+      <link>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Fri, 12 Apr 2019 15:37:31 +0800</pubDate>
       
-      <guid>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/</guid>
+      <guid>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</guid>
       <description></description>
     </item>
     

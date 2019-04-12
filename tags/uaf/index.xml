@@ -6,17 +6,17 @@
     <description>Recent content in Uaf on Vorblock&#39;Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Sep 2018 21:24:08 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 15:37:13 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/uaf/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>UAF漏洞（释放后使用）学习记录</title>
-      <link>https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
-      <pubDate>Wed, 12 Sep 2018 21:24:08 +0800</pubDate>
+      <title>漏洞基础之3UAF</title>
+      <link>https://naivete.cc/2019/03/20/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</link>
+      <pubDate>Wed, 20 Mar 2019 15:37:13 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/09/12/uaf%E6%BC%8F%E6%B4%9E%E9%87%8A%E6%94%BE%E5%90%8E%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <guid>https://naivete.cc/2019/03/20/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</guid>
       <description>重写ing
   0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞
 根本原因是：
