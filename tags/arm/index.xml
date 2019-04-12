@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Arm on Vorblock&#39;Blog</title>
+    <title>Arm on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/tags/arm/</link>
-    <description>Recent content in Arm on Vorblock&#39;Blog</description>
+    <description>Recent content in Arm on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Wed, 10 Oct 2018 16:40:20 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/arm/index.xml" rel="self" type="application/rss+xml" />
@@ -13,40 +13,20 @@
     
     <item>
       <title>Android-ARM进阶</title>
-      <link>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</link>
+      <link>https://naivete.cc/post/android-arm%E8%BF%9B%E9%98%B6/</link>
       <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</guid>
-      <description>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。
-NDK-Build的使用 可以参考官方文档。
- 创建一个Android项目
- cd 项目目录
- /ndk-build 。也可以将NDK-build加入环境变量。
- 创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
-  //Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c++文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY)  //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a  添加hello.cpp：
-#include&amp;lt;cstdio&amp;gt; int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;quot;hello,world!\n&amp;quot;); for(i=0;i&amp;lt;5;i++){ printf(&amp;quot;num value is %d\n&amp;quot;,num[i]); } return 0; }   ndk-build</description>
+      <guid>https://naivete.cc/post/android-arm%E8%BF%9B%E9%98%B6/</guid>
+      <description>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。 NDK-Build的使用 可以参考官方文档。 创建一个A</description>
     </item>
     
     <item>
       <title>ARM汇编基础</title>
-      <link>https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</link>
+      <link>https://naivete.cc/post/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Fri, 10 Aug 2018 19:34:10 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/08/10/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</guid>
-      <description>ARM汇编基础(简) 经常忘记，做个笔记，好作复习。。
-内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Azeria-labs
-ARM架构 ARM属于RISC CPU，
- ARM模式 4个字节opcode 32位
- Thumb模式 2个字节opcode 16位
- Thumb-2模式 同上（只是有部分4个字节的opcode)
- 64位ARM 4个字节opcode
- ARM机器码在版本3之前是小端。但是之后默认采用大端格式，但可以设置切换到小端。
-  数据类型 数据类型在汇编语言中的扩展后缀为-h或者-sh对应着半字，-b或者-sb对应着字节，但是对于字并没有对应的扩展
-ldr = 加载字，宽度四字节 ldrh = 加载无符号的半字，宽度两字节 ldrsh = 加载有符号的半字，宽度两字节 ldrb = 加载无符号的字节 ldrsb = 加载有符号的字节 str = 存储字，宽度四字节 strh = 存储无符号的半字，宽度两字节 strsh = 存储有符号的半字，宽度两字节 strb = 存储无符号的字节 strsb = 存储有符号的字节  字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
-数据访问时采取大端序还是小端序使用程序状态寄存器(CPSR)的第9比特位来决定的。
-寄存器 37个32位寄存器，其中31个为基础寄存器，6个为状态寄存器。
-用户模式下有
- 不分组寄存器（R0-R7） R7一般存放系统调用号</description>
+      <guid>https://naivete.cc/post/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</guid>
+      <description>ARM汇编基础(简) 经常忘记，做个笔记，好作复习。。 内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Az</description>
     </item>
     
   </channel>

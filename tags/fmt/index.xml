@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Fmt on Vorblock&#39;Blog</title>
+    <title>Fmt on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/tags/fmt/</link>
-    <description>Recent content in Fmt on Vorblock&#39;Blog</description>
+    <description>Recent content in Fmt on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Fri, 12 Apr 2019 15:37:31 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/fmt/index.xml" rel="self" type="application/rss+xml" />
@@ -13,10 +13,10 @@
     
     <item>
       <title>漏洞基础之5格式化字符串漏洞(FMT)</title>
-      <link>https://naivete.cc/2019/04/12/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</link>
+      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</link>
       <pubDate>Fri, 12 Apr 2019 15:37:31 +0800</pubDate>
       
-      <guid>https://naivete.cc/2019/04/12/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</guid>
+      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</guid>
       <description></description>
     </item>
     

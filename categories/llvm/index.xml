@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Llvm on Vorblock&#39;Blog</title>
+    <title>Llvm on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/categories/llvm/</link>
-    <description>Recent content in Llvm on Vorblock&#39;Blog</description>
+    <description>Recent content in Llvm on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 10 Sep 2018 20:39:26 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/categories/llvm/index.xml" rel="self" type="application/rss+xml" />
@@ -13,20 +13,11 @@
     
     <item>
       <title>OLLVM 混淆之一</title>
-      <link>https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</link>
+      <link>https://naivete.cc/post/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</link>
       <pubDate>Mon, 10 Sep 2018 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</guid>
-      <description>OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加逆向难度，保护代码的安全。最新版本为4.0。OLLVM适用LLVM支持的所有语言（C, C++, Objective-C, Ada 和 Fortran）和目标平台（x86, x86-64, PowerPC, PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）。
- LLVM是lowlevel virtual machine的简称，是一个编译器框架。详细介绍可以看WIKI-LLVM
-  经典的三段式设计，前端使用不同的编译工具对代码进行分析转换成LLVM的中间表示IR（intermediate representation）。中间部分优化器只对IR进行操作，通过一系列的Pass对IR做优化。后端主要是讲优化好的IR解释成对应的机器码。
-对IR的处理过程下图：
-OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
-OLLVM-Android环境搭建 前提环境：
- NDK环境
- LLVM
-  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
- $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git $ mkdir build $ cd build $ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/ //（cmake -G &amp;quot;MinGW Makefiles&amp;quot; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows) $ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢   可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。</description>
+      <guid>https://naivete.cc/post/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</guid>
+      <description>OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加</description>
     </item>
     
   </channel>

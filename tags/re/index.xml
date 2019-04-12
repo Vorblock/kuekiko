@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Re on Vorblock&#39;Blog</title>
+    <title>Re on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/tags/re/</link>
-    <description>Recent content in Re on Vorblock&#39;Blog</description>
+    <description>Recent content in Re on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Wed, 02 Jan 2019 20:39:26 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/re/index.xml" rel="self" type="application/rss+xml" />
@@ -13,28 +13,11 @@
     
     <item>
       <title>radare2&#43;cutter使用指南</title>
-      <link>https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link>
+      <link>https://naivete.cc/post/radare2&#43;cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link>
       <pubDate>Wed, 02 Jan 2019 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2019/01/02/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
-      <description>0x00 介绍 radare2 一个很实用的二进制分析和调试工具
-cutter 是r2的GUI版。
-0x01 安装 支持的平台有如下：
- Windows (since XP), GNU/Linux, OS X, [Net|Free|Open]BSD,
-Android, iOS, OSX, QNX, Solaris, Haiku, FirefoxOS.
- Linux平台下直接
-git clone https://github.com/radare/radare2 cd radare2 sys/install.sh //(or sys/user.sh)  Windows下可以下载二进制安装包安装。官网下载
-Windows用户推荐使用Windows下的linux（wsl）来使用， win下更新慢。还是linux下用得舒服（方便，快捷）。
-0x03 工具介绍 r2常用的包含有一下组件：
- rax2 用于数值转换
- rasm2 反汇编和汇编
- rabin2 查看文件格式
- radiff2 对文件进行 diff
- ragg2/ragg2­cc 开发shellcode工具
- rahash2 各种密码算法， hash算法
- radare2 整合了所有工具
-  使用帮助直接-h
- rax2</description>
+      <guid>https://naivete.cc/post/radare2&#43;cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
+      <description>0x00 介绍 radare2 一个很实用的二进制分析和调试工具 cutter 是r2的GUI版。 0x01 安装 支持的平台有如下： Windows (since XP), GNU/Linux, OS X, [Net|Free|Open]BSD, Android, iOS, OSX, QNX, Solaris, Haiku, FirefoxOS. Linux平台下直接 git clone https://github.com/radare/radare2 cd</description>
     </item>
     
   </channel>

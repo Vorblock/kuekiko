@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Frida on Vorblock&#39;Blog</title>
+    <title>Frida on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/tags/frida/</link>
-    <description>Recent content in Frida on Vorblock&#39;Blog</description>
+    <description>Recent content in Frida on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sat, 02 Feb 2019 20:39:26 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/frida/index.xml" rel="self" type="application/rss+xml" />
@@ -13,37 +13,20 @@
     
     <item>
       <title>Frida从入门到放弃_2</title>
-      <link>https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</link>
+      <link>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</link>
       <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
-      <description> 补充ing
-  </description>
+      <guid>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
+      <description>补充ing</description>
     </item>
     
     <item>
       <title>Frida从入门到放弃_1</title>
-      <link>https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</link>
+      <link>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</link>
       <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</guid>
-      <description>0x00 Frida Frida 官网：https://www.frida.re/
-github: https://github.com/frida/frida
-Dynamic instrumentation toolkit for developers, reverse-engineers, and security
-researchers.
-0x01 安装 用python
-pip install frida-tools 就一个命令搞定
- Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
-报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
-作者真的是脑子一根筋。。。 所以只好升级成3.7.。。。
- 0x02 Android环境 设备：小米mix2 运行Android8.0 MIUI10开发版已解锁root
-frida-server: 用的arm64版本
-下载号frida-server 然后adb push 进去
-adb push frida-server /data/local/tmp
-然后chomd 755 frida-server
-运行./frida-server
-命令行运行frida-ps -U
-安装成功</description>
+      <guid>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</guid>
+      <description>0x00 Frida Frida 官网：https://www.frida.re/ github: https://github.com/frida/frida Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers. 0x01 安装 用python pip install frida-tools 就一个命令搞定 Failed to load the Frida native extension: DLL load failed: 找不</description>
     </item>
     
   </channel>

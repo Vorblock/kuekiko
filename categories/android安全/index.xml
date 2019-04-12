@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Android安全 on Vorblock&#39;Blog</title>
+    <title>Android安全 on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in Android安全 on Vorblock&#39;Blog</description>
+    <description>Recent content in Android安全 on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sat, 02 Feb 2019 20:39:26 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
@@ -13,262 +13,110 @@
     
     <item>
       <title>Frida从入门到放弃_2</title>
-      <link>https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</link>
+      <link>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</link>
       <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2019/02/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
-      <description> 补充ing
-  </description>
+      <guid>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
+      <description>补充ing</description>
     </item>
     
     <item>
       <title>Frida从入门到放弃_1</title>
-      <link>https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</link>
+      <link>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</link>
       <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2019/01/22/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</guid>
-      <description>0x00 Frida Frida 官网：https://www.frida.re/
-github: https://github.com/frida/frida
-Dynamic instrumentation toolkit for developers, reverse-engineers, and security
-researchers.
-0x01 安装 用python
-pip install frida-tools 就一个命令搞定
- Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
-报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
-作者真的是脑子一根筋。。。 所以只好升级成3.7.。。。
- 0x02 Android环境 设备：小米mix2 运行Android8.0 MIUI10开发版已解锁root
-frida-server: 用的arm64版本
-下载号frida-server 然后adb push 进去
-adb push frida-server /data/local/tmp
-然后chomd 755 frida-server
-运行./frida-server
-命令行运行frida-ps -U
-安装成功</description>
+      <guid>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</guid>
+      <description>0x00 Frida Frida 官网：https://www.frida.re/ github: https://github.com/frida/frida Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers. 0x01 安装 用python pip install frida-tools 就一个命令搞定 Failed to load the Frida native extension: DLL load failed: 找不</description>
     </item>
     
     <item>
       <title>Android-ARM进阶</title>
-      <link>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</link>
+      <link>https://naivete.cc/post/android-arm%E8%BF%9B%E9%98%B6/</link>
       <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/10/10/android-arm%E8%BF%9B%E9%98%B6/</guid>
-      <description>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。
-NDK-Build的使用 可以参考官方文档。
- 创建一个Android项目
- cd 项目目录
- /ndk-build 。也可以将NDK-build加入环境变量。
- 创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
-  //Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c++文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY)  //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a  添加hello.cpp：
-#include&amp;lt;cstdio&amp;gt; int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;quot;hello,world!\n&amp;quot;); for(i=0;i&amp;lt;5;i++){ printf(&amp;quot;num value is %d\n&amp;quot;,num[i]); } return 0; }   ndk-build</description>
+      <guid>https://naivete.cc/post/android-arm%E8%BF%9B%E9%98%B6/</guid>
+      <description>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。 NDK-Build的使用 可以参考官方文档。 创建一个A</description>
     </item>
     
     <item>
       <title>OLLVM 混淆之一</title>
-      <link>https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</link>
+      <link>https://naivete.cc/post/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</link>
       <pubDate>Mon, 10 Sep 2018 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/09/10/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</guid>
-      <description>OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加逆向难度，保护代码的安全。最新版本为4.0。OLLVM适用LLVM支持的所有语言（C, C++, Objective-C, Ada 和 Fortran）和目标平台（x86, x86-64, PowerPC, PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）。
- LLVM是lowlevel virtual machine的简称，是一个编译器框架。详细介绍可以看WIKI-LLVM
-  经典的三段式设计，前端使用不同的编译工具对代码进行分析转换成LLVM的中间表示IR（intermediate representation）。中间部分优化器只对IR进行操作，通过一系列的Pass对IR做优化。后端主要是讲优化好的IR解释成对应的机器码。
-对IR的处理过程下图：
-OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
-OLLVM-Android环境搭建 前提环境：
- NDK环境
- LLVM
-  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
- $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git $ mkdir build $ cd build $ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/ //（cmake -G &amp;quot;MinGW Makefiles&amp;quot; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows) $ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢   可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。</description>
+      <guid>https://naivete.cc/post/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</guid>
+      <description>OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加</description>
     </item>
     
     <item>
       <title>IDA 动态调试.so 基本步骤</title>
-      <link>https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</link>
+      <link>https://naivete.cc/post/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</link>
       <pubDate>Fri, 31 Aug 2018 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/08/31/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</guid>
-      <description>IDA 动态调试.so 基本步骤  待补图
-  0x00 IDA快捷键  Shirt+F12 字符串窗口
- F5大法好 反汇编
- Ctrl+S 查看so对应段的信息（非调试），快速定位so文件的内存地址（Debug）
- G 快速跳转到对应地址。s
- 调试-F7单步进入调试、F8单步、F9运行
-  0x01 方法一  获取运行Android_server。
-  android_server文件放在IDA安装目录下的\dbgsrv目录下 注意版本的不同。
-之后只需 push android_server /data/local/tmp/。
-之后adb shell，su ，cd /data/local/tmp/。
-可能还得chmod 755 android_server 才有权限运行。
- 建立通信、attach进程。
-  adb forward tcp:23946 tcp:23946命令。
-在IDA的Debugger选项中attach进程。
- 加载so、找函数下断点
-  双开IDA ，Ctrl+S找到so文件的基地址，另外一个IDA找到函数的相对地址。相加得到绝对地址。
-0x02 方法二 无法加载so文件需要在加载之前断点。反调试之类
- Debug方式启动app。需要应用可调试开启
-  adb shell am start -D -n 包名/.</description>
+      <guid>https://naivete.cc/post/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</guid>
+      <description>IDA 动态调试.so 基本步骤 待补图 0x00 IDA快捷键 Shirt+F12 字符串窗口 F5大法好 反汇编 Ctrl+S 查看so对应段的信息（非调试），快速定位so文件的内存地址（Deb</description>
     </item>
     
     <item>
       <title>Android应用安全防护和逆向分析-基础篇5-6</title>
-      <link>https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</link>
+      <link>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</link>
       <pubDate>Wed, 29 Aug 2018 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/08/29/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</guid>
-      <description>一、 基础篇⑤-⑥ 这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面是两章的笔记。
-第五章 AndroidManifest.xml格式解析 AndroidManifest.xml文件格式图
-头部信息  文件魔数：4bytes。
- 文件大小：4bytes。
- Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。
- Sting Chunk ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。
- ChunkType：类型，固定4bytes（0x001C001)。
- ChunkSize：大小，4bytes。
- StringCount：字符串的个数 ，4bytes。
- StyleCount ：样式的个数，4bytes。
- Unknown ：位置区域。4bytes。
- StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。
- StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。
- StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。
- StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。
-  如何读取这个文件？
- Resourceld Chunk ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID
- ChunkType：类型，固定4bytes（0x00080108）。
- ChunkSize：大小，4bytes。
- ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。
-  解析？
- Start Namespace Chunk：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。
- Chunk Type：类型，固定4bytes。（0x00100100)。</description>
+      <guid>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</guid>
+      <description>一、 基础篇⑤-⑥ 这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面</description>
     </item>
     
     <item>
       <title>(转)Android Inline Hook中的指令修复详解</title>
-      <link>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/</link>
+      <link>https://naivete.cc/post/android-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Mon, 30 Jul 2018 15:03:41 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/</guid>
-      <description>前言  本文是另一篇《Android Native Hook工具实践》的一份补充文章，本人建议各位学习者先去看该篇主文以了解本文的需求背景。本文将会对该文中指令修复部分的技术细节进行阐述。本文的部分源码来自于ele7enxxh大神的项目，由于大神的技术博客里解释省略了较多细节，所以出于学习的目的，本人也会一点一点慢慢啃。同时由于该库并不完善，因此本文将补充该库没考虑到的一些修复指令方案，并且对许多特殊状况和Bug也尽力解决。
- 目前需要进行指令修复的ARM32指令主要可以分为如下几类：
- BLX_ARM, BL_ARM, B_ARM（不包含条件跳转）, BX_ARM
- 条件跳转BEQ_ARM BNE_ARM BCS_ARM BCC_ARM BMI_ARM BPL_ARM BVS_ARM BVC_ARM BHI_ARM BLS_ARM BGE_ARM BLT_ARM BGT_ARM BLE_ARM
- ADD_ARM
- ADR_ARM, LDR_ARM, MOV_ARM
- 其它指令 OTHER_ARM
-  Thumb16指令主要可以分为如下几类：
- B1_THUMB16（不包含条件跳转）, B2_THUMB16, BX_THUMB16
- 条件跳转B1_BEQ_THUMB16, B1_BNE_THUMB16, B1_BCS_THUMB16, B1_BCC_THUMB16, B1_BMI_THUMB16, B1_BPL_THUMB16, B1_BVS_THUMB16, B1_BVC_THUMB16, B1_BHI_THUMB16, B1_BLS_THUMB16, B1_BGE_THUMB16, B1_BLT_THUMB16, B1_BGT_THUMB16, B1_BLE_THUMB16
- ADD_THUMB16
- MOV_THUMB16, ADR_THUMB16, LDR_THUMB16
- 其它指令 OTHER_THUMB16
-  Thumb32指令主要可以分为如下几类：</description>
+      <guid>https://naivete.cc/post/android-inline-hook%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E4%BF%AE%E5%A4%8D%E8%AF%A6%E8%A7%A3/</guid>
+      <description>前言 本文是另一篇《Android Native Hook工具实践》的一份补充文章，本人建议各位学习者先去看该篇主文以了解本文的需求背景。本文将会对该文中指</description>
     </item>
     
     <item>
       <title>(转)Android Native Hook工具实践</title>
-      <link>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</link>
+      <link>https://naivete.cc/post/android-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</link>
       <pubDate>Mon, 30 Jul 2018 14:48:12 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</guid>
-      <description>前言 在目前的安卓APP测试中对于Native Hook的需求越来越大，越来越多的APP开始逐渐使用NDK来开发核心或者敏感代码逻辑。个人认为原因如下：
- 安全的考虑。各大APP越来越注重安全性，NDK所编译出来的so库逆向难度明显高于java代码产生的dex文件。越是敏感的加密算法与数据就越是需要用NDK进行开发。
- 性能的追求。NDK对于一些高性能的功能需求是java层无法比拟的。
- 手游的兴起。虚幻4，Unity等引擎开发的手游中都有大量包含游戏逻辑的so库。
-  因此，本人调查了一下Android Native Hook工具目前的现状。尽管Java层的Hook工具多种多样，但是Native Hook的工具却非常少并且在安卓5.0以上的适配工具更是寥寥无几。（文末说明1）而目前Native Hook主要有两大技术路线：
- PLT Hook
- Inline Hook
-  这两种技术路线本人都实践了一下，关于它们的对比，我在《Android Native Hook技术路线概述》中有介绍，所以这里就不多说了。最终，我用了Inline Hook来做这个项目。
-本文篇幅已经较长，因此写了一些独立的学习笔记来对其中的细节问题进行解释：
- 《Android Native Hook技术路线概述》
- 《Android Inline Hook中的指令修复》
- 项目仓库
- 项目案例——Arm32
- 项目案例——Thumb-2
-  目标效果 根据本人自身的使用需求提出了如下几点目标：
- 工具运行原理中不能涉及调试目标APP，否则本工具在遇到反调试措施的APP时会失效。尽管可以先去逆向调试patch掉反调试功能，但是对于大多数情况下只是想看看参数和返回值的Hook需求而言，这样的前期处理实在过于麻烦。
- 依靠现有的各大Java Hook工具就能运行本工具，换句话说就是最好能用类似这些工具的插件的形式加载起本工具从而获得Native Hook的能力。由于Java Hook工具如Xposed、YAHFA等对于各个版本的Android都做了不错的适配，因此利用这些已有的工具即可向目标APP的Native层中注入我们的Hook功能将会方便很多小伙伴的使用。
- 既然要能够让各种Java Hook工具都能用本工具得到Native Hook的能力，那就这个工具就要有被加载起来以后自动执行自身功能逻辑的能力！而不是针对各个Java Hook工具找调用起来的方式。
- 要适配Android NDK下的armv7和thumb-2指令集。由于现在默认编译为thumb-2模式，所以对于thumb16和thumb32的Native Hook支持是重中之重。
- 修复Inline Hook后的原本指令。
- Hook目标的最小单位至少是函数，最好可以是某行汇编代码。
-  最终方案 最后完成项目的方案是：本工具是一个so库。用Java Hook工具在APP的入口Activity运行一开始的onCreate方法处Hook，然后加载本so。 加载后，自动开始执行Hook逻辑。 为了方便叙述，接下来的Java Hook工具我就使用目前这类工具里最流行的Xposed，本项目的生成文件名为libautohook.</description>
+      <guid>https://naivete.cc/post/android-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</guid>
+      <description>前言 在目前的安卓APP测试中对于Native Hook的需求越来越大，越来越多的APP开始逐渐使用NDK来开发核心或者敏感代码逻辑。个人认为原</description>
     </item>
     
     <item>
       <title>Android应用安全防护和逆向分析-基础篇④</title>
-      <link>https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <link>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%874/</link>
       <pubDate>Sun, 22 Jul 2018 14:15:38 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/07/22/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
-      <description>一、 基础篇④ 第四章 so文件格式解析  ELF文件格式
-  so文件-&amp;gt;elf文件，文件格式看图（引用自@非虫）：
- 解析工具
- readelf 常用命令
- readelf -h xxx.so 查头部信息
- readelf -S xxx.so 查节（Section）信息
- readelf -l xxx.so 查段（Program）信息
- readelf -a xxx.so 查全部信息
-   解析ELF文件
-  动手解析一个elf文件 。。。
-太水 这里的内容
-直接去看源码实现用java解析elf文件信息https://github.com/fourbrother/parse_androidso
-ELF 相关内容还是单独详细分析 单独写一篇吧
-ELF书籍《Linux二进制分析》
-### 总结
-加固脱壳必须掌握的知识点。</description>
+      <guid>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%874/</guid>
+      <description>一、 基础篇④ 第四章 so文件格式解析 ELF文件格式 so文件-&amp;gt;elf文件，文件格式看图（引用自@非虫）： 解析工具 readelf 常用命令 readelf -h xxx.so 查头部信</description>
     </item>
     
     <item>
       <title>Android应用安全防护和逆向分析 基础篇③</title>
-      <link>https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <link>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%873/</link>
       <pubDate>Mon, 16 Jul 2018 13:51:50 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/07/16/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
-      <description>一、 基础篇③ 第三章 Android中开发与逆向常用命令总结 1. 基础命令 1.1 cat命令 ​ 查看文件内容 结合grep进行过滤
-1.2 echo/touch命令 ​ 写文件 配个定向符使用
-2. 非shell命令 2.1 adb shell dumpsys sctivity top ​ 说明：查看当前应用的activity信息
-​ 用法：运行需要查看的应用
-​ 如果直接运行 adb shell dmpsys会把当前系统中的所有应用运行的四大组件都打印出来 内容非常多 使用信息重定向来进行选择：可借助Windows的start命令
-2.2 adb shell dumpsys package ​ 说明：查看指定包名应用的详细信息 （相当于AndroidManifest.xml的内容）
-​ 用法：adb shell dumpsys package [pkgname]
-2.3 adb shell dumpsys meminfo ​ 说明：查看指定进程名或者进程id的内存信息
-​ 用法：adb shell dumpsys meminfo [pname/pid]
-​ 和后面的top命令结合使用 可以分析应用的性能消耗情况
-2.4 adb shell dump dbnfo ​ 说明：查看指定包名应用的数据库存储信息（包括存储的SQL语句）</description>
+      <guid>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%873/</guid>
+      <description>一、 基础篇③ 第三章 Android中开发与逆向常用命令总结 1. 基础命令 1.1 cat命令 ​ 查看文件内容 结合grep进行过滤 1.2 echo/touch命令 ​</description>
     </item>
     
     <item>
       <title>Android应用安全防护和逆向分析 基础篇②</title>
-      <link>https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <link>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%872/</link>
       <pubDate>Fri, 13 Jul 2018 15:01:09 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/07/13/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
-      <description>一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建
-2. JNI基础 2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多)) ​ 参考文章Android安全和开发环境搭建中的JNI开发章节
-2.2 JNIEnv类型和jobject类型  AS 默认自动生成
-  public native String stringFromJNI();  Java_com_naivete_jni_1study_MainActivity_stringFromJNI( JNIEnv *env, jobject /* this */) { std::string hello = &amp;quot;Hello from C++&amp;quot;; return env-&amp;gt;NewStringUTF(hello.c_str());   JNIEnv类型
-  通过JNIEnv* 指针就可以对Java端的代码进行操作
-Jni的所有函数可以查看jni.h文件
-下面是一些函数eg：
- NewObject : 创建Java类中的对象。
- NewString : 创建Java类中的String对象。
- NewArray : 创建类型为Type的数组对象
- GetField: 获取型为Type的字段。
- SetFileld: 设置类型为Type的字段的值。
- GetStaticField: 获取类型为Type的static的字段。</description>
+      <guid>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%872/</guid>
+      <description>一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建 2. JNI基础 2.1 第一行代码(书</description>
     </item>
     
     <item>
       <title>Android应用安全防护和逆向分析 基础篇①</title>
-      <link>https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <link>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%871/</link>
       <pubDate>Mon, 02 Jul 2018 17:33:05 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/07/02/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
-      <description>第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式：  手势
- 九宫格连线
- 输入密码
- 指纹、人脸、虹膜
- 可穿戴设备
-  2. 这儿分析手势密码和输入密码 找到android源代码中的LockPatternUtils,java 这个工具类
-路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
- 2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
- public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) { return null; } try { byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;quot;SHA-1&amp;quot;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;quot;MD5&amp;quot;).digest(saltedPassword); //首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length]; System.</description>
+      <guid>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%871/</guid>
+      <description>第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式： 手势 九宫格连线 输入密码 指纹、人脸、虹膜 可穿戴设备 2. 这儿分析手势密码和输入密码 找到a</description>
     </item>
     
   </channel>

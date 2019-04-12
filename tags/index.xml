@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Vorblock&#39;Blog</title>
+    <title>Tags on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/tags/</link>
-    <description>Recent content in Tags on Vorblock&#39;Blog</description>
+    <description>Recent content in Tags on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sat, 08 Dec 2018 23:40:51 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/index.xml" rel="self" type="application/rss+xml" />

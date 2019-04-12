@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>工具 on Vorblock&#39;Blog</title>
+    <title>工具 on {Vorblock&gt;&gt;&gt;blog}</title>
     <link>https://naivete.cc/tags/%E5%B7%A5%E5%85%B7/</link>
-    <description>Recent content in 工具 on Vorblock&#39;Blog</description>
+    <description>Recent content in 工具 on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 30 Jul 2018 14:48:12 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
@@ -13,32 +13,11 @@
     
     <item>
       <title>(转)Android Native Hook工具实践</title>
-      <link>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</link>
+      <link>https://naivete.cc/post/android-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</link>
       <pubDate>Mon, 30 Jul 2018 14:48:12 +0800</pubDate>
       
-      <guid>https://naivete.cc/2018/07/30/%E8%BD%ACandroid-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</guid>
-      <description>前言 在目前的安卓APP测试中对于Native Hook的需求越来越大，越来越多的APP开始逐渐使用NDK来开发核心或者敏感代码逻辑。个人认为原因如下：
- 安全的考虑。各大APP越来越注重安全性，NDK所编译出来的so库逆向难度明显高于java代码产生的dex文件。越是敏感的加密算法与数据就越是需要用NDK进行开发。
- 性能的追求。NDK对于一些高性能的功能需求是java层无法比拟的。
- 手游的兴起。虚幻4，Unity等引擎开发的手游中都有大量包含游戏逻辑的so库。
-  因此，本人调查了一下Android Native Hook工具目前的现状。尽管Java层的Hook工具多种多样，但是Native Hook的工具却非常少并且在安卓5.0以上的适配工具更是寥寥无几。（文末说明1）而目前Native Hook主要有两大技术路线：
- PLT Hook
- Inline Hook
-  这两种技术路线本人都实践了一下，关于它们的对比，我在《Android Native Hook技术路线概述》中有介绍，所以这里就不多说了。最终，我用了Inline Hook来做这个项目。
-本文篇幅已经较长，因此写了一些独立的学习笔记来对其中的细节问题进行解释：
- 《Android Native Hook技术路线概述》
- 《Android Inline Hook中的指令修复》
- 项目仓库
- 项目案例——Arm32
- 项目案例——Thumb-2
-  目标效果 根据本人自身的使用需求提出了如下几点目标：
- 工具运行原理中不能涉及调试目标APP，否则本工具在遇到反调试措施的APP时会失效。尽管可以先去逆向调试patch掉反调试功能，但是对于大多数情况下只是想看看参数和返回值的Hook需求而言，这样的前期处理实在过于麻烦。
- 依靠现有的各大Java Hook工具就能运行本工具，换句话说就是最好能用类似这些工具的插件的形式加载起本工具从而获得Native Hook的能力。由于Java Hook工具如Xposed、YAHFA等对于各个版本的Android都做了不错的适配，因此利用这些已有的工具即可向目标APP的Native层中注入我们的Hook功能将会方便很多小伙伴的使用。
- 既然要能够让各种Java Hook工具都能用本工具得到Native Hook的能力，那就这个工具就要有被加载起来以后自动执行自身功能逻辑的能力！而不是针对各个Java Hook工具找调用起来的方式。
- 要适配Android NDK下的armv7和thumb-2指令集。由于现在默认编译为thumb-2模式，所以对于thumb16和thumb32的Native Hook支持是重中之重。
- 修复Inline Hook后的原本指令。
- Hook目标的最小单位至少是函数，最好可以是某行汇编代码。
-  最终方案 最后完成项目的方案是：本工具是一个so库。用Java Hook工具在APP的入口Activity运行一开始的onCreate方法处Hook，然后加载本so。 加载后，自动开始执行Hook逻辑。 为了方便叙述，接下来的Java Hook工具我就使用目前这类工具里最流行的Xposed，本项目的生成文件名为libautohook.</description>
+      <guid>https://naivete.cc/post/android-native-hook%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/</guid>
+      <description>前言 在目前的安卓APP测试中对于Native Hook的需求越来越大，越来越多的APP开始逐渐使用NDK来开发核心或者敏感代码逻辑。个人认为原</description>
     </item>
     
   </channel>
