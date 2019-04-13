@@ -6,28 +6,10 @@
     <description>Recent content in Posts on {Vorblock&gt;&gt;&gt;blog}</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 12 Apr 2019 15:37:31 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 15:37:13 +0800</lastBuildDate>
     
 	<atom:link href="https://naivete.cc/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>漏洞基础之5格式化字符串漏洞(FMT)</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</link>
-      <pubDate>Fri, 12 Apr 2019 15:37:31 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>漏洞基础之4OOB</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</link>
-      <pubDate>Mon, 25 Mar 2019 15:37:23 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>漏洞基础之3UAF</title>
@@ -36,24 +18,6 @@
       
       <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</guid>
       <description>重写ing 0x00原理 堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用)</description>
-    </item>
-    
-    <item>
-      <title>漏洞基础之2堆溢出</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B2%E5%A0%86%E6%BA%A2%E5%87%BA/</link>
-      <pubDate>Fri, 15 Mar 2019 15:36:59 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B2%E5%A0%86%E6%BA%A2%E5%87%BA/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>漏洞基础之1栈溢出</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B1%E6%A0%88%E6%BA%A2%E5%87%BA/</link>
-      <pubDate>Sun, 10 Mar 2019 15:36:49 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B1%E6%A0%88%E6%BA%A2%E5%87%BA/</guid>
-      <description></description>
     </item>
     
     <item>
@@ -184,10 +148,10 @@
     
     <item>
       <title>在Android的个人字典中发现和利用漏洞(CVE-2018-9375)</title>
-      <link>https://naivete.cc/post/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</link>
+      <link>https://naivete.cc/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</link>
       <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
       
-      <guid>https://naivete.cc/post/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</guid>
+      <guid>https://naivete.cc/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</guid>
       <description>翻译的文章 渣渣翻译 原作者：Daniel Kachakil 我正在审计一款Android手机，审计范围是所有已经安装了的应用程序。我的首选方法是，在时间允许的时</description>
     </item>
     

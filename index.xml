@@ -628,7 +628,7 @@
  &lt;!-- [学习日记](https://naivete.cc/学习日记/)  --&gt;
  &lt;!-- [CTF题目汇总](https://naivete.cc/ctf/)   --&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;hahahugoshortcode-0xc000243400-1-hbhb&#34;&gt;  &lt;iframe style=&#34;max-width: 100%&#34;
+&lt;h2 id=&#34;hahahugoshortcode-0xc00021a000-1-hbhb&#34;&gt;  &lt;iframe style=&#34;max-width: 100%&#34;
       class=&#34;music163&#34;
       frameborder=&#34;no&#34;
       border=&#34;0&#34;
@@ -646,28 +646,6 @@
 
 &lt;p&gt;&lt;/center&gt;&lt;/p&gt;
 </description>
-      
-    </item>
-    
-    <item>
-      <title>漏洞基础之5格式化字符串漏洞(FMT)</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</link>
-      <pubDate>Fri, 12 Apr 2019 15:37:31 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</guid>
-      
-        <description></description>
-      
-    </item>
-    
-    <item>
-      <title>漏洞基础之4OOB</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</link>
-      <pubDate>Mon, 25 Mar 2019 15:37:23 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</guid>
-      
-        <description></description>
       
     </item>
     
@@ -827,28 +805,6 @@ int main(int argc, char* argv[]){
 &lt;li&gt;&lt;a href=&#34;https://xz.aliyun.com/t/2609?accounttraceid=ce44f2b3-4957-4509-b7ba-f2bd6eed34d3#toc-4&#34;&gt;https://xz.aliyun.com/t/2609?accounttraceid=ce44f2b3-4957-4509-b7ba-f2bd6eed34d3#toc-4&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.anquanke.com/post/id/85281&#34;&gt;https://www.anquanke.com/post/id/85281&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>漏洞基础之2堆溢出</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B2%E5%A0%86%E6%BA%A2%E5%87%BA/</link>
-      <pubDate>Fri, 15 Mar 2019 15:36:59 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B2%E5%A0%86%E6%BA%A2%E5%87%BA/</guid>
-      
-        <description></description>
-      
-    </item>
-    
-    <item>
-      <title>漏洞基础之1栈溢出</title>
-      <link>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B1%E6%A0%88%E6%BA%A2%E5%87%BA/</link>
-      <pubDate>Sun, 10 Mar 2019 15:36:49 +0800</pubDate>
-      
-      <guid>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B1%E6%A0%88%E6%BA%A2%E5%87%BA/</guid>
-      
-        <description></description>
       
     </item>
     
@@ -1024,7 +980,7 @@ sh.interactive()
 
 &lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190406214601.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;C:UsersdarknessAppDataRoamingTyporatypora-user-images1554559465777.png&#34; alt=&#34;1554559465777&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190412180957.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190406220340.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
@@ -1069,7 +1025,7 @@ sh.interactive()
 
 &lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190406233035.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;C:UsersdarknessAppDataRoamingTyporatypora-user-images1554564657805.png&#34; alt=&#34;1554564657805&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190412181030.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;所以偏移为108+4&lt;/p&gt;&lt;/li&gt;
 
@@ -1088,7 +1044,7 @@ sh.interactive()
   sh.interactive()
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;C:UsersdarknessAppDataRoamingTyporatypora-user-images1554564984140.png&#34; alt=&#34;1554564984140&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190412181108.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h6 id=&#34;ret2shellcode&#34;&gt;ret2shellcode&lt;/h6&gt;
 
@@ -3492,10 +3448,10 @@ make
     
     <item>
       <title>在Android的个人字典中发现和利用漏洞(CVE-2018-9375)</title>
-      <link>https://naivete.cc/post/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</link>
+      <link>https://naivete.cc/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</link>
       <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
       
-      <guid>https://naivete.cc/post/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</guid>
+      <guid>https://naivete.cc/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</guid>
       
         <description>
 
@@ -6696,54 +6652,6 @@ JNIEXPORT void JNICALL Java_····other（JNIEnv* env,jobject clazz）{
     </item>
     
     <item>
-      <title>CTF</title>
-      <link>https://naivete.cc/ctf/</link>
-      <pubDate>Mon, 02 Jul 2018 18:20:34 +0800</pubDate>
-      
-      <guid>https://naivete.cc/ctf/</guid>
-      
-        <description>
-
-&lt;h2 id=&#34;ctf题目汇总&#34;&gt;CTF题目汇总&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://47.106.212.155:8000&#34;&gt;个人搭建平台&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;MISC&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;RE&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;PWN&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Crypto&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Web&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-      
-    </item>
-    
-    <item>
       <title>Android应用安全防护和逆向分析 基础篇①</title>
       <link>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%871/</link>
       <pubDate>Mon, 02 Jul 2018 17:33:05 +0800</pubDate>
@@ -7028,9 +6936,16 @@ JNIEXPORT void JNICALL Java_····other（JNIEnv* env,jobject clazz）{
 
 &lt;h3 id=&#34;2019-04-12&#34;&gt;2019-04-12&lt;/h3&gt;
 
+&lt;ul&gt;
+&lt;li&gt;JIT编程-方法内联&lt;/li&gt;
+&lt;li&gt;Android HOOK 之 YAHFA原理&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iqiyi/xHook/blob/master/docs/overview/android_plt_hook_overview.zh-CN.md&#34;&gt;PLT Hook&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Inline Hook&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h3 id=&#34;long-long-ago&#34;&gt;Long long ago&lt;/h3&gt;
 
-&lt;p&gt;只剩回忆&lt;/p&gt;
+&lt;p&gt;[只剩回忆]()  已删除&lt;/p&gt;
 </description>
       
     </item>

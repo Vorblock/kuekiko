@@ -17,36 +17,8 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B5%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9Efmt/</loc>
-    <lastmod>2019-04-12T15:37:31+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B4oob/</loc>
-    <lastmod>2019-03-25T15:37:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</loc>
     <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B2%E5%A0%86%E6%BA%A2%E5%87%BA/</loc>
-    <lastmod>2019-03-15T15:36:59+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B1%E6%A0%88%E6%BA%A2%E5%87%BA/</loc>
-    <lastmod>2019-03-10T15:36:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -150,7 +122,7 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</loc>
+    <loc>https://naivete.cc/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</loc>
     <lastmod>2018-08-05T21:16:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -201,13 +173,6 @@
   <url>
     <loc>https://naivete.cc/post/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2018-07-08T17:35:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/ctf/</loc>
-    <lastmod>2018-07-02T18:20:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -352,13 +317,6 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/tags/fmt/</loc>
-    <lastmod>2019-04-12T15:37:31+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://naivete.cc/tags/frida/</loc>
     <lastmod>2019-02-02T20:39:26+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -429,15 +387,8 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/tags/oob/</loc>
-    <lastmod>2019-03-25T15:37:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://naivete.cc/post/</loc>
-    <lastmod>2019-04-12T15:37:31+08:00</lastmod>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -513,13 +464,6 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/tags/%E5%A0%86%E6%BA%A2%E5%87%BA/</loc>
-    <lastmod>2019-03-15T15:36:59+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/</loc>
     <lastmod>2018-09-11T20:39:26+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -548,13 +492,6 @@
   </url>
   
   <url>
-    <loc>https://naivete.cc/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/</loc>
-    <lastmod>2019-03-10T15:36:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
     <lastmod>2018-08-09T19:34:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -577,14 +514,14 @@
   
   <url>
     <loc>https://naivete.cc/tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2019-04-12T15:37:31+08:00</lastmod>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2019-04-12T15:37:31+08:00</lastmod>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
