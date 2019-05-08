@@ -70,7 +70,7 @@
 
 <meta itemprop="datePublished" content="2018-10-22T20:39:26&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-22T20:39:26&#43;08:00" />
-<meta itemprop="wordCount" content="1433">
+<meta itemprop="wordCount" content="1490">
 
 
 
@@ -317,7 +317,7 @@
             <a href="https://naivete.cc/categories/pwn/"> PWN </a>
             
           </div>
-        <span class="more-meta"> 约 1433 字 </span>
+        <span class="more-meta"> 约 1490 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
 
         
@@ -345,6 +345,7 @@
 <li><a href="#查壳">查壳</a></li>
 <li><a href="#objjump">objjump</a></li>
 <li><a href="#pwntools">pwntools</a></li>
+<li><a href="#pwndbg">pwndbg</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -523,6 +524,21 @@ checksec 查看elf编译的保护选项。
 - ==tubes==:包括tubes: 包括tubes.sock, tubes.process, tubes.ssh, tubes.serialtube，分别适用于不同场景的PIPE
 - ==utils==:一些实用的小功能，例如CRC计算，cyclic pattern等</p>
 </blockquote>
+
+<h4 id="pwndbg">pwndbg</h4>
+
+<ul>
+<li>arena 堆检查</li>
+<li>mp 显示堆</li>
+<li>bins,fastbins,unsorted,smallbins,largebins</li>
+<li>heap</li>
+<li>top_chunk</li>
+<li>procinfo 查看当前进程状态</li>
+<li>rop <code>rop --grep &quot;pop rdi&quot; -- --nojop --nosys --depth 2</code></li>
+<li>search <code>search -s “/bin/sh”</code></li>
+<li>vvmap 虚拟内存映射</li>
+<li>telescope 检查内存转储</li>
+</ul>
 
     </div>
 
