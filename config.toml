@@ -1,0 +1,72 @@
+baseURL = "https://vorblock.cc/"
+languageCode = "zh-CN"
+title = "vorblock"
+theme = "LowEntropy-Ivy"
+enableRobotsTXT = true
+hasCJKLanguage = true
+paginate = 10
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+googleAnalytics = "UA-120056178-1"
+footnotereturnlinkcontents = "↩"
+enableEmoji = true
+
+[permalinks]
+blog = "/blog/:year:month:day-:title/"
+flight-rules = "/flight-rules/:year:month:day-:title/"
+
+[params]
+  name="vorblock"
+  AuthorName = "vorblock"
+  Description = "Output Order"
+  images = [
+      "https://lowentropy.me/favicon.svg",
+      "https://lowentropy.jinxiapu.cn/img/h.jpg"
+  ]
+
+[params.CDN]
+#enable = false
+enable = true
+# Host must end with `/`
+Host = "https://lowentropy.jinxiapu.cn/img/"
+
+[params.comments.isso]
+Host = "https://c.jinxiapu.cn/"
+
+[params.katex]
+base = "https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/"
+CSSintegrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ"
+JSIntegrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij"
+AutoRenderIntegrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+
+[blackfriday]
+  hrefTargetBlank = true
+
+
+[[menu.main]]
+    name = "Posts"
+    url = "/post/"
+    weight = 2
+# [[menu.main]]
+#     name = "FLIGHT RULES"
+#     url = "/flight-rules/"
+#     weight = 3
+# [[menu.main]]
+#     name = "PAPER NOTES"
+#     url = "/paper-notes/"
+#     weight = 5
+[[menu.main]]
+    name = "CATEGORIES"
+    url = "/categories/"
+    weight = 8
+[[menu.main]]
+    name = "TAGS"
+    url = "/tags/"
+    weight = 9
+# [[menu.main]]
+#     name = "ABOUT"
+#     url = "/about/"
+#     weight = 10
+[[menu.main]]
+    name = "RSS"
+    url = "/index.xml"
