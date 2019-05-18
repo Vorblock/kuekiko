@@ -1,13 +1,13 @@
 baseURL = "https://vorblock.cc/"
 languageCode = "zh-CN"
-title = "vorblock"
+title = "sudo ~"
 theme = "LowEntropy-Ivy"
 enableRobotsTXT = true
 hasCJKLanguage = true
 paginate = 10
 pygmentsCodeFences = true
 pygmentsUseClasses = true
-googleAnalytics = "UA-120056178-1"
+googleAnalytics = "UA-140385231-1"
 footnotereturnlinkcontents = "↩"
 enableEmoji = true
 
@@ -18,20 +18,20 @@ flight-rules = "/flight-rules/:year:month:day-:title/"
 [params]
   name="vorblock"
   AuthorName = "vorblock"
-  Description = "Output Order"
+  Description = "Are You OK"
   images = [
-      "https://lowentropy.me/favicon.svg",
-      "https://lowentropy.jinxiapu.cn/img/h.jpg"
+      "https://vorblock.cc/favicon.svg",
+      "https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"
   ]
 
 [params.CDN]
 #enable = false
 enable = true
 # Host must end with `/`
-Host = "https://lowentropy.jinxiapu.cn/img/"
+Host = "https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/"
 
 [params.comments.isso]
-Host = "https://c.jinxiapu.cn/"
+Host = "http://47.106.212.155:8080/"
 
 [params.katex]
 base = "https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/"
@@ -44,23 +44,23 @@ AutoRenderIntegrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0
 
 
 [[menu.main]]
-    name = "Posts"
+    name = "/POSTS"
     url = "/post/"
     weight = 2
-# [[menu.main]]
-#     name = "FLIGHT RULES"
-#     url = "/flight-rules/"
-#     weight = 3
+[[menu.main]]
+    name = "/TODO"
+    url = "/todo/"
+    weight = 3
 # [[menu.main]]
 #     name = "PAPER NOTES"
 #     url = "/paper-notes/"
 #     weight = 5
 [[menu.main]]
-    name = "CATEGORIES"
+    name = "/CATEGORIES"
     url = "/categories/"
     weight = 8
 [[menu.main]]
-    name = "TAGS"
+    name = "/TAGS"
     url = "/tags/"
     weight = 9
 # [[menu.main]]
@@ -68,5 +68,5 @@ AutoRenderIntegrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0
 #     url = "/about/"
 #     weight = 10
 [[menu.main]]
-    name = "RSS"
+    name = "/RSS"
     url = "/index.xml"

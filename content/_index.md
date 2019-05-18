@@ -2,12 +2,15 @@
 title: Home
 ---
 
-<img src="/favicon.svg" width="150" height="150" style="width='150';height='150';float:right;"/>
+<!-- <img src="/123.gif" width="100" height="100" style="width='150';height='150';float:right;"/> -->
 
-> “The … ultimate purpose of life, mind, and human striving: to deploy energy and information to fight back the tide of entropy and carve out refuges of beneficial order.”
+> “当你认为生活已经糟糕得不可能再糟糕了的时候，他居然真的更糟糕了。”
 >
-> — Steven Pinker
+> — 《银河漫游指南》
 
-物理学告诉我们，如果要让一个系统变得更有序，必须有外部能量的输入。
+![123](https://as2.bitinn.net/uploads/il/cjrp33f3s002c1t8hbobi3zil.1080p.jpg)
+  
+  
+  
+给自己时间，不要焦急，一步一步来，一日一日过，相信生命的韧性是惊人的，跟自己向上的心去合作，不要放弃自己。
 
-本站旨在为世界输入更多“有序”。希望我的努力能减少你的迷惑。:blush:
