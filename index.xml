@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>Home on vorblock</title>
+      <title>Home on sudo ~</title>
       <link>https://vorblock.cc/</link>
-      <description>Recent content in Home on vorblock</description>
+      <description>Recent content in Home on sudo ~</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
       <lastBuildDate>Wed, 20 Mar 2019 15:37:13 +0800</lastBuildDate>
@@ -608,29 +608,39 @@
       </item>
       
       <item>
-        <title>关于</title>
+        <title>/ABOUT</title>
         <link>https://vorblock.cc/about/</link>
         <pubDate>Sun, 24 Jun 2018 21:38:52 +0800</pubDate>
         
         <guid>https://vorblock.cc/about/</guid>
-        <description>&lt;p&gt;&lt;center&gt;&lt;/p&gt;
+        <description>
 
-&lt;p&gt;&lt;img src=&#34;http://my-md-1253484710.coscd.myqcloud.com/tx.jpg&#34; width=&#34;200&#34; height=&#34;200&#34; &gt;&lt;/p&gt;
+&lt;h3 id=&#34;about-me&#34;&gt;About me&lt;/h3&gt;
 
-&lt;p&gt;一个正在学Android安全的菜鸡&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;正在学Android安全的菜鸡&lt;/p&gt;&lt;/li&gt;
 
-&lt;p&gt;正在努力变强 充电中  &amp;mdash;&lt;br /&gt;
- &lt;!-- [学习日记](https://naivete.cc/学习日记/)  --&gt;
- &lt;!-- [CTF题目汇总](https://naivete.cc/ctf/)   --&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;正在努力变强 充电中  &amp;mdash;&lt;/p&gt;&lt;/li&gt;
 
-&lt;hr /&gt;
+&lt;li&gt;&lt;p&gt;tcl&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;i class=&#34;fab fa-qq&#34;&gt;&lt;/i&gt;  &lt;strong&gt;QQ&lt;/strong&gt; :  974032325&lt;/p&gt;
+&lt;h4 id=&#34;links-me&#34;&gt;Links me&lt;/h4&gt;
 
-&lt;p&gt;&lt;i class=&#34;fab fa-weixin&#34;&gt;&lt;/i&gt;  &lt;strong&gt;个人微信-公众号&lt;/strong&gt;：&lt;br /&gt;
- &lt;img src=&#34;http://my-md-1253484710.coscd.myqcloud.com/MyWeChat.png&#34; alt=&#34;微信&#34; width=&#34;190&#34; height=&#34;190&#34; /&gt;&lt;img src=&#34;http://my-md-1253484710.coscd.myqcloud.com/myandroidsec.jpg&#34; alt=&#34;微信&#34; width=&#34;190&#34; height=&#34;190&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;QQ: &lt;a href=&#34;123&#34; target=&#34;_blank&#34;&gt;974032325&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Wechat: &lt;a href=&#34;http://my-md-1253484710.coscd.myqcloud.com/MyWeChat.png&#34; target=&#34;_blank&#34;&gt;Vorblock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Twitter: &lt;a href=&#34;https://twitter.com/Vorblock&#34; target=&#34;_blank&#34;&gt;Vorblock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Telegram: &lt;a href=&#34;https://t.me/Vorblock&#34; target=&#34;_blank&#34;&gt;Vorblock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;github: &lt;a href=&#34;https://github.com/Naivetesun&#34; target=&#34;_blank&#34;&gt;gayhub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;weibo: &lt;a href=&#34;https://weibo.com/u/2952658161&#34; target=&#34;_blank&#34;&gt;Vorblock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;email:  &lt;a href=&#34;mailto:naivetesun@gmail.com&#34; target=&#34;_blank&#34;&gt;naivetesun@gmail.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;bilibili: &lt;a href=&#34;https://space.bilibili.com/6477559&#34; target=&#34;_blank&#34;&gt;Bili&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;知乎: &lt;a href=&#34;https://www.zhihu.com/people/vorblock/activities&#34; target=&#34;_blank&#34;&gt;知乎&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;公众号: &lt;a href=&#34;http://my-md-1253484710.coscd.myqcloud.com/myandroidsec.jpg&#34; target=&#34;_blank&#34;&gt;Android&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://as2.bitinn.net/uploads/w5/cjrr6b2e9002h1t8hi9at4hw5.1080p.jpg&#34; alt=&#34;ppp&#34; /&gt;&lt;/p&gt;
 </description>
         
       </item>

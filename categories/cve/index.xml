@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>CVE on vorblock</title>
+      <title>CVE on sudo ~</title>
       <link>https://vorblock.cc/categories/cve/</link>
-      <description>Recent content in CVE on vorblock</description>
+      <description>Recent content in CVE on sudo ~</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
       <lastBuildDate>Sun, 05 Aug 2018 21:16:52 +0800</lastBuildDate>
