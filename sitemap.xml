@@ -1,521 +1,422 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<?xml-stylesheet type="text/xsl" href="https://naivete.cc/sitemap.xsl"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://naivete.cc/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/</loc>
+    <loc>https://vorblock.cc/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/</loc>
     <lastmod>2018-08-06T11:13:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/about/</loc>
+    <loc>https://vorblock.cc/about/</loc>
     <lastmod>2018-06-24T21:41:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</loc>
+    <loc>https://vorblock.cc/categories/</loc>
     <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/rop%E7%BB%83%E4%B9%A0/</loc>
+    <loc>https://vorblock.cc/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/uaf/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/pwn/</loc>
     <lastmod>2019-02-28T00:22:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</loc>
+    <loc>https://vorblock.cc/tags/pwn/</loc>
+    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/rop/</loc>
+    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/rop%E7%BB%83%E4%B9%A0/</loc>
+    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</loc>
     <lastmod>2019-02-20T00:17:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</loc>
+    <loc>https://vorblock.cc/categories/android%E5%AE%89%E5%85%A8/</loc>
     <lastmod>2019-01-22T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/radare2&#43;cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+    <loc>https://vorblock.cc/tags/frida/</loc>
+    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</loc>
+    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/hook/</loc>
+    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/hook/</loc>
+    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/android%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/re/</loc>
     <lastmod>2019-01-02T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/</loc>
+    <loc>https://vorblock.cc/tags/re/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/radare2/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/radare2&#43;cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/ai/</loc>
     <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <loc>https://vorblock.cc/tags/ai/</loc>
+    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2018-10-22T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/android-arm%E8%BF%9B%E9%98%B6/</loc>
+    <loc>https://vorblock.cc/categories/arm/</loc>
     <lastmod>2018-10-10T16:40:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/</loc>
+    <loc>https://vorblock.cc/tags/arm/</loc>
+    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/android-arm%E8%BF%9B%E9%98%B6/</loc>
+    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/crypto/</loc>
     <lastmod>2018-09-11T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</loc>
+    <loc>https://vorblock.cc/tags/crypto/</loc>
+    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/tea%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/</loc>
+    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/</loc>
+    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/llvm/</loc>
     <lastmod>2018-09-10T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</loc>
+    <loc>https://vorblock.cc/tags/ollvm/</loc>
+    <lastmod>2018-09-10T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</loc>
+    <lastmod>2018-09-10T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/ida/</loc>
     <lastmod>2018-08-31T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</loc>
+    <loc>https://vorblock.cc/post/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</loc>
+    <lastmod>2018-08-31T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</loc>
     <lastmod>2018-08-29T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://vorblock.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-08-29T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-08-29T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2018-08-10T19:34:10+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/qume%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</loc>
+    <loc>https://vorblock.cc/tags/linux/</loc>
     <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</loc>
+    <loc>https://vorblock.cc/categories/linux%E5%86%85%E6%A0%B8/</loc>
+    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/qume%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/qume/</loc>
+    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
+    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8/</loc>
+    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/android/</loc>
     <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://vorblock.cc/categories/cve/</loc>
+    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/cve/</loc>
+    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/cve-2018-9375/</loc>
+    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</loc>
+    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/java/</loc>
     <lastmod>2018-07-25T16:40:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%874/</loc>
+    <loc>https://vorblock.cc/tags/java/</loc>
+    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%874/</loc>
     <lastmod>2018-07-22T14:15:38+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%873/</loc>
+    <loc>https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%873/</loc>
     <lastmod>2018-07-16T13:51:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%872/</loc>
+    <loc>https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%872/</loc>
     <lastmod>2018-07-13T15:01:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <loc>https://vorblock.cc/tags/androd/</loc>
     <lastmod>2018-07-08T17:35:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%871/</loc>
+    <loc>https://vorblock.cc/categories/android/</loc>
+    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%871/</loc>
     <lastmod>2018-07-02T17:33:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/daily/</loc>
+    <loc>https://vorblock.cc/categories/daily/</loc>
     <lastmod>2017-10-02T21:49:20+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/%E5%8F%8B%E9%93%BE/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/ai/</loc>
-    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/categories/ai/</loc>
-    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/androd/</loc>
-    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/android/</loc>
-    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/android/</loc>
-    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/android%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/arm/</loc>
-    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/arm/</loc>
-    <lastmod>2018-10-10T16:40:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/</loc>
-    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/crypto/</loc>
-    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/crypto/</loc>
-    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/cve/</loc>
-    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/cve/</loc>
-    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/cve-2018-9375/</loc>
-    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/daily/</loc>
+    <loc>https://vorblock.cc/tags/daily/</loc>
     <lastmod>2017-10-02T21:49:20+02:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/categories/daily/</loc>
+    <loc>https://vorblock.cc/daily/</loc>
     <lastmod>2017-10-02T21:49:20+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://naivete.cc/tags/frida/</loc>
-    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/hook/</loc>
-    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/hook/</loc>
-    <lastmod>2019-01-22T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/ida/</loc>
-    <lastmod>2018-08-31T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/java/</loc>
-    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/java/</loc>
-    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/linux/</loc>
-    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8/</loc>
-    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/llvm/</loc>
-    <lastmod>2018-09-10T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/ollvm/</loc>
-    <lastmod>2018-09-10T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/post/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/pwn/</loc>
-    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/pwn/</loc>
-    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/qume/</loc>
-    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/radare2/</loc>
-    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/re/</loc>
-    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/re/</loc>
-    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/rop/</loc>
-    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/</loc>
-    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/uaf/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/</loc>
-    <lastmod>2018-08-06T11:13:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/</loc>
-    <lastmod>2018-09-11T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
-    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8/</loc>
-    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/%E7%8E%AF%E5%A2%83/</loc>
-    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2018-08-29T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2018-08-29T20:39:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://vorblock.cc/%E5%8F%8B%E9%93%BE/</loc>
     <priority>0</priority>
   </url>
   

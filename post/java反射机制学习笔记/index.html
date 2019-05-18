@@ -1,346 +1,184 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html lang="zh-CN">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Java反射机制学习笔记 - {Vorblock&gt;&gt;&gt;blog}</title>
-  
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta name="MobileOptimized" content="width"/>
-<meta name="HandheldFriendly" content="true"/>
-
-
-<meta name="applicable-device" content="pc,mobile">
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<meta name="mobile-web-app-capable" content="yes">
-
-<meta name="author" content="Vorblock" /><meta name="description" content="Java反射机制" />
-
-  <meta name="keywords" content="Hugo, Vorblock, Blog" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.54.0" />
-
-
-<link rel="canonical" href="https://naivete.cc/post/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
-
-
-
-<link rel="icon" href="/favicon.ico" />
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/sass/jane.min.400abd73e639ce41b46f3a6c24c8500aa80f1209326d3c4ae0a13e2fc867e079.css" integrity="sha256-QAq9c&#43;Y5zkG0bzpsJMhQCqgPEgkybTxK4KE&#43;L8hn4Hk=" media="screen" crossorigin="anonymous">
-
-
-
-
-
-<meta property="og:title" content="Java反射机制学习笔记" />
-<meta property="og:description" content="Java反射机制" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://naivete.cc/post/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
-<meta property="article:published_time" content="2018-07-25T16:40:20&#43;08:00"/>
-<meta property="article:modified_time" content="2018-07-25T16:40:20&#43;08:00"/>
-
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="referrer" content="no-referrer">
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="generator" content="Hugo 0.55.5" />
+    
+    
+        <title>Java反射机制学习笔记 - vorblock</title>
+    
+    
+    
 <meta itemprop="name" content="Java反射机制学习笔记">
 <meta itemprop="description" content="Java反射机制">
 
 
 <meta itemprop="datePublished" content="2018-07-25T16:40:20&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-25T16:40:20&#43;08:00" />
-<meta itemprop="wordCount" content="4329">
+<meta itemprop="wordCount" content="4320">
 
 
 
 <meta itemprop="keywords" content="Java," />
-<meta name="twitter:card" content="summary"/>
+
+    <meta property="og:title" content="Java反射机制学习笔记" />
+<meta property="og:description" content="Java反射机制" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vorblock.cc/post/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+
+<meta property="og:image" content="https://lowentropy.me/favicon.svg" />
+
+<meta property="og:image" content="https://lowentropy.jinxiapu.cn/img/h.jpg" />
+<meta property="article:published_time" content="2018-07-25T16:40:20&#43;08:00"/>
+<meta property="article:modified_time" content="2018-07-25T16:40:20&#43;08:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://lowentropy.me/favicon.svg"/>
+
 <meta name="twitter:title" content="Java反射机制学习笔记"/>
 <meta name="twitter:description" content="Java反射机制"/>
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+    
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
+    
+    
+    
+
+    
+    
+    <meta property="description" content="Java反射机制">
+    
+    
+
+    
+
+    <link rel="canonical" href="https://vorblock.cc/post/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <link rel="shortcut icon" href="/favicon.png">
 
 
-
-
+    
+    
+    <style media="screen">
+            html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#282c34;color:#c6c6c7}button,input,select,textarea,label{margin:0;padding:0;font-family:inherit;font-size:inherit}img{max-width:100%}body{line-height:1.75}h1,h2,h3,h4,h5,h6{padding:0;line-height:1.25;text-align:center}h1{font-size:32px;font-weight:400}h2{font-size:22px;font-weight:700}h3,h4,h5,h6{font-size:19px;font-weight:700;text-align:left}blockquote{margin:1em 0;padding:0 2em;border-left:3px solid #ddd}pre,code{font-size:.9em}pre code{display:block;border:1px solid #ddd;padding:1em;overflow-x:auto;line-height:1.75}code{padding:.1rem .2rem;background:#0f5f5f;color:#282c34}pre code{background:#f3f1f1}ul,ol{padding:0 0 0 20px}li{margin:4px 0;padding:0}a{color:#c6c6c7;text-decoration:none;padding-bottom:2px;border-bottom:1px solid}sup a{border-bottom:none}hr{display:block;height:1px;border:0;border-top:1px solid;margin:50px auto;padding:0;max-width:300px}.copyright{text-align:center}.post-nav{display:flex;justify-content:space-between;font-weight:700}.nav-next{margin-left:1em;text-align:right}.nav-prev{margin-right:1em}.comments{margin-top:20px}body{width:960px;margin:0 auto;padding:30px 0}.masthead{width:260px;padding:20px 50px 20px 10px;float:left}.main{width:700px;padding:32px 10px 20px 50px;margin-left:260px;border-left:3px solid #000;min-height:calc(100vh - 60px)}.masthead h1{margin-top:0;margin-bottom:34px;padding:0;text-align:right;font-size:46px;line-height:58px}.masthead h1 a{border-bottom:none}.masthead .tagline{font-style:italic;text-align:right}.masthead .menu{margin-right:20px;direction:rtl}.masthead .menu a{direction:ltr}.masthead .menu ul ul{list-style:none;margin-left:10px;margin-right:10px}.masthead .menu li li::before{content:"•\00a\000a0\00a0"}.title h3.post-meta{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace;text-align:right;margin:0 0 20px}.title h3.post-meta .tags a{font-size:.8em}.title h3.post-meta .category a{font-size:.9em}#menu-check{display:none}#menu-label{display:none}.main .title h1{margin-top:0;margin-bottom:40px}.title h3{font-weight:400;text-align:center}.subtitle{font-size:.9em;color:#666}.footnotes{font-size:.9em}table{margin:auto;border-top:1px solid #666;border-bottom:1px solid #666}table thead th{border-bottom:1px solid #666}th,td{padding:5px}thead,tfoot,tr:nth-child(even){background:#f8f8f8}.unselectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@-ms-viewport{width:device-width;}@viewport{width:device-width;}@media screen and (max-width:960px){body{width:auto;max-width:700px}.masthead{width:auto;float:none;text-align:center;margin-left:10px;margin-right:10px;padding:10px 10px 45px;border-bottom:3px solid #000}.main{width:auto;padding:20px 10px;margin-left:0;border-left:none;min-height:auto}.masthead h1{text-align:left;font-size:30px;margin-bottom:0;line-height:40px}.masthead .tagline{text-align:left;margin:0}.masthead .menu{direction:ltr;max-width:300px;margin-left:auto;margin-right:auto}.masthead #menu-label{position:absolute;top:30px;right:0}.masthead .menu ul{text-align:left;margin:0;padding:0;float:none}.masthead .menu ul ul{margin:0}.masthead .menu li{border-bottom:1px solid;list-style:none;margin:0;padding:0}.masthead .menu li:first-child{border-top:1px solid}.masthead .menu li li:last-child{border-bottom:none}.masthead .menu a{display:block;padding:15px 20px;border-bottom:none}.masthead .menu li li a{padding-left:30px}.masthead .menu li li::before{content:none}.masthead .menu li li a::before{content:"•\00a0\00a0\00a0"}#menu-label{display:inline-block;padding:0 20px;height:50px;cursor:pointer;line-height:50px;color:#333;font-size:20px;margin-top:10px}#menu-check~label .close-icon{display:none}#menu-check~label .open-icon{display:inline-block}#menu-check:checked~label .close-icon{display:inline-block}#menu-check:checked~label .open-icon{display:none}#menu-check~ul{display:none}#menu-check:checked~ul{display:block;margin-top:50px;margin-bottom:0}}@media screen and (max-width:720px){}@media screen and (max-width:480px){body{font-size:16px}h1{font-size:28px}h2{font-size:18px}h3,h4,h5,h6{font-size:16px}pre,code{font-size:12px}.masthead{padding-top:0}}body{font-family:Optima,lucida sans,Calibri,Candara,Arial,source-han-serif-sc,source han serif sc,source han serif cn,source han serif tc,source han serif tw,source han serif,songti sc,microsoft yahei,sans-serif}code{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace}pre code{font-family:Consolas,lucida console,Monaco,stkaiti,kaiti,simkai,monospace}.chroma{background-color:#f8f8f8}.chroma .x{color:#000}.chroma .err{color:#a40000}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em}.chroma .ln{margin-right:.4em;padding:0 .4em}.chroma .k{color:#204a87;font-weight:700}.chroma .kc{color:#204a87;font-weight:700}.chroma .kd{color:#204a87;font-weight:700}.chroma .kn{color:#204a87;font-weight:700}.chroma .kp{color:#204a87;font-weight:700}.chroma .kr{color:#204a87;font-weight:700}.chroma .kt{color:#204a87;font-weight:700}.chroma .n{color:#000}.chroma .na{color:#c4a000}.chroma .nb{color:#204a87}.chroma .bp{color:#3465a4}.chroma .nc{color:#000}.chroma .no{color:#000}.chroma .nd{color:#5c35cc;font-weight:700}.chroma .ni{color:#ce5c00}.chroma .ne{color:#c00;font-weight:700}.chroma .nf{color:#000}.chroma .fm{color:#000}.chroma .nl{color:#f57900}.chroma .nn{color:#000}.chroma .nx{color:#000}.chroma .py{color:#000}.chroma .nt{color:#204a87;font-weight:700}.chroma .nv{color:#000}.chroma .vc{color:#000}.chroma .vg{color:#000}.chroma .vi{color:#000}.chroma .vm{color:#000}.chroma .l{color:#000}.chroma .ld{color:#000}.chroma .s{color:#4e9a06}.chroma .sa{color:#4e9a06}.chroma .sb{color:#4e9a06}.chroma .sc{color:#4e9a06}.chroma .dl{color:#4e9a06}.chroma .sd{color:#8f5902;font-style:italic}.chroma .s2{color:#4e9a06}.chroma .se{color:#4e9a06}.chroma .sh{color:#4e9a06}.chroma .si{color:#4e9a06}.chroma .sx{color:#4e9a06}.chroma .sr{color:#4e9a06}.chroma .s1{color:#4e9a06}.chroma .ss{color:#4e9a06}.chroma .m{color:#0000cf;font-weight:700}.chroma .mb{color:#0000cf;font-weight:700}.chroma .mf{color:#0000cf;font-weight:700}.chroma .mh{color:#0000cf;font-weight:700}.chroma .mi{color:#0000cf;font-weight:700}.chroma .il{color:#0000cf;font-weight:700}.chroma .mo{color:#0000cf;font-weight:700}.chroma .o{color:#ce5c00;font-weight:700}.chroma .ow{color:#204a87;font-weight:700}.chroma .p{color:#000;font-weight:700}.chroma .c{color:#8f5902;font-style:italic}.chroma .ch{color:#8f5902;font-style:italic}.chroma .cm{color:#8f5902;font-style:italic}.chroma .c1{color:#8f5902;font-style:italic}.chroma .cs{color:#8f5902;font-style:italic}.chroma .cp{color:#8f5902;font-style:italic}.chroma .cpf{color:#8f5902;font-style:italic}.chroma .g{color:#000}.chroma .gd{color:#a40000}.chroma .ge{color:#000;font-style:italic}.chroma .gr{color:#ef2929}.chroma .gh{color:navy;font-weight:700}.chroma .gi{color:#00a000}.chroma .go{color:#000;font-style:italic}.chroma .gp{color:#8f5902}.chroma .gs{color:#000;font-weight:700}.chroma .gu{color:purple;font-weight:700}.chroma .gt{color:#a40000;font-weight:700}.chroma .gl{color:#000;text-decoration:underline}.chroma .w{color:#f8f8f8;text-decoration:underline}div#isso-thread .avatar>svg[data-hash=a0d752802ad5]{box-shadow:0 0 12px #b80f28;border-radius:50%}div#isso-thread a{border-bottom:none}
+        </style>
+        
+    
+    
+        
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120056178-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-120056178-1');
+        </script>
+        
+    
 </head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Vorblock&#39;Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/">主页</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/post/">归档</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/tags/">标签</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/categories/">分类</a>
-          
-        
-      </li><li class="mobile-menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/about/">关于</a>
-          
-        
-      </li>
-    
-  </ul>
-</nav>
-
-
-  
-    
 
 
 
-
-
-
-  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
-  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
-
-
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-  
-
-  
-
-  <header id="header" class="header container">
-    <div class="logo-wrapper">
-  <a href="/" class="logo">
-    
-      Vorblock'Blog
-    
-  </a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/">主页</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/post/">归档</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/tags/">标签</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/categories/">分类</a>
-          
-
-        
-
-      </li>
-    
-        <li class="menu-item">
-        
-          
-          
-            <a class="menu-item-link" href="https://naivete.cc/about/">关于</a>
-          
-
-        
-
-      </li>
-    
-    
-  </ul>
-</nav>
-
-  </header>
-
-  <div id="mobile-panel">
-    <main id="main" class="main bg-llight">
-      <div class="content-wrapper">
-        <div id="content" class="content container">
-          <article class="post bg-white">
-    
-    <header class="post-header">
-      <h1 class="post-title">Java反射机制学习笔记</h1>
-      
-      <div class="post-meta">
-        <time datetime="2018-07-25" class="post-time">
-          2018-07-25
-        </time>
-        <div class="post-category">
-            <a href="https://naivete.cc/categories/java/"> Java </a>
-            <a href="https://naivete.cc/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+<body class="post">
+    <header class="masthead">
+        <div class="header">
+            <h1><a href="/">vorblock</a></h1>
             
-          </div>
-        <span class="more-meta"> 约 4329 字 </span>
-          <span class="more-meta"> 预计阅读 9 分钟 </span>
-
+            <p class="tagline">Output Order</p>
+            
+        </div>
         
-        
-
-        
-        
-      </div>
+        <nav class="menu">
+            <input id="menu-check" type="checkbox" />
+            <label id="menu-label" for="menu-check" class="unselectable">
+                <span class="icon close-icon">✕</span>
+                <span class="icon open-icon">☰</span>
+                <span class="text">MENU</span>
+            </label>
+            <ul>
+                
+                    
+                    <li>
+                        <a href="/post/">Posts</a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">CATEGORIES</a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags/">TAGS</a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                
+                    <li>
+                        <a href="/index.xml">RSS</a>
+                    </li>
+                
+            </ul>
+        </nav>
     </header>
 
+    <article class="main">
+        <header class="title">
+            
+<h3 class="post-meta">
+    
+    <span itemprop="articleSection" class="category">
+        
+        <a href="/categories/Java" rel="category">Java</a>
+        
+        <a href="/categories/%e7%ac%94%e8%ae%b0" rel="category">笔记</a>
+        
+    </span>
+    /
     
     
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#java-反射机制学习记录">Java 反射机制学习记录</a>
-<ul>
-<li><a href="#什么是反射机制">什么是反射机制？</a></li>
-<li><a href="#作用">作用？</a>
-<ul>
-<li>
-<ul>
-<li><a href="#是运行时而不是编译时"><strong>是运行时而不是编译时</strong></a></li>
-</ul></li>
-</ul></li>
-<li><a href="#基本使用">基本使用</a></li>
-<li><a href="#invoke方法">Invoke方法</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
+    <span itemprop="keywords" class="tags">
+        
+        <a href="/tags/Java" rel="tag">Java</a>
+        
+    </span>
+    
+</h3>
+
+
+<h1>Java反射机制学习笔记</h1>
+
+<h3>
+    
+    vorblock
+    
+      /  2018-07-25
+</h3>
+
+<hr>
+
+        </header>
+        <div class="container">
+            
 
     
-    <div class="post-content">
-      
+    
+    
+
+    
+    
+    
+
+    
 
 <h2 id="java-反射机制学习记录">Java 反射机制学习记录</h2>
 
@@ -375,33 +213,21 @@
 </ol>
 
 <p>(1)使用Class类的forName静态方法:</p>
-
-<pre><code class="language-java">   public static Class&lt;?&gt; forName(String className)
-   //在JDBC开发中常用此方法加载数据库驱动:
-   Class.forName(driver);
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">forName</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span>
+   <span class="c1">//在JDBC开发中常用此方法加载数据库驱动:
+</span><span class="c1"></span>   <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">driver</span><span class="o">);</span></code></pre></div>
 <p>(2)直接获取某一个对象的class，比如:</p>
-
-<pre><code class="language-java">   Class&lt;?&gt; klass = int.class;
-   Class&lt;?&gt; classInt = Integer.TYPE;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">classInt</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">TYPE</span><span class="o">;</span></code></pre></div>
 <p>(3)调用某个对象的getClass()方法,比如:</p>
-
-<pre><code class="language-java">   StringBuilder str = new StringBuilder(&quot;123&quot;);
-   Class&lt;?&gt; klass = str.getClass();
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">StringBuilder</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="s">&#34;123&#34;</span><span class="o">);</span>
+   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span></code></pre></div>
 <ol>
 <li>判断是否为某一个类的实例</li>
 </ol>
 
 <p>一般使用instanceof来判断，也可以借助反射中的Class对象的isInstance()方法来判断  是一个Native方法：</p>
-
-<pre><code class="language-java">   public native boolean isInstance(Object obj);
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">native</span> <span class="kt">boolean</span> <span class="nf">isInstance</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">);</span></code></pre></div>
 <ol>
 <li>创建实例</li>
 </ol>
@@ -445,49 +271,46 @@
 </code></pre>
 
 <p>eg:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.lang.reflect.InvocationTargetException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
 
-<pre><code class="language-java">import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span>
+            <span class="n">NoSuchMethodException</span><span class="o">,</span> <span class="n">InvocationTargetException</span> <span class="o">{</span>
+        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">methodClass</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="n">Object</span> <span class="n">object</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+        <span class="n">Method</span><span class="o">[]</span> <span class="n">methods</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getMethods</span><span class="o">();</span>
+        <span class="n">Method</span><span class="o">[]</span> <span class="n">declaredMethods</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getDeclaredMethods</span><span class="o">();</span>
+        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;add&#34;</span><span class="o">,</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">//获取add方法
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;getMethods获取的方法：&#34;</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Method</span> <span class="n">m</span> <span class="o">:</span> <span class="n">methods</span><span class="o">)</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;getDeclaredMethods获取的方法：&#34;</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Method</span> <span class="n">m</span> <span class="o">:</span> <span class="n">declaredMethods</span><span class="o">)</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+    <span class="o">}</span>
 
-public class test {
-    public static void test1() throws IllegalAccessException, InstantiationException,
-            NoSuchMethodException, InvocationTargetException {
-        Class&lt;?&gt; c = methodClass.class;
-        Object object = c.newInstance();
-        Method[] methods = c.getMethods();
-        Method[] declaredMethods = c.getDeclaredMethods();
-        Method method = c.getMethod(&quot;add&quot;, int.class, int.class); //获取add方法
-        System.out.println(&quot;getMethods获取的方法：&quot;);
-        for (Method m : methods)
-            System.out.println(m);
-        System.out.println(&quot;getDeclaredMethods获取的方法：&quot;);
-        for (Method m : declaredMethods)
-            System.out.println(m);
-    }
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">test1</span><span class="o">();</span>
 
-    public static void main(String[] args) {
-        try{
-            test1();
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    <span class="o">}</span>
+<span class="o">}</span>
 
-    }
-}
-
-class methodClass {
-    public final int fuck = 3;
-    public int add(int a,int b) {
-        return a+b;
-    }
-    public int sub(int a,int b) {
-        return a+b;
-    }
-}
-</code></pre>
-
+<span class="kd">class</span> <span class="nc">methodClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fuck</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">sub</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180725151348.png" alt="" /></p>
 
 <ol>
@@ -495,10 +318,7 @@ class methodClass {
 </ol>
 
 <p>通过Class类的getConstructor方法得到Constructor类的一个实例，而Constructor类有一个newInstance方法可以创建一个对象实例:</p>
-
-<pre><code class="language-java">   public T newInstance(Object ... initargs)
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="n">T</span> <span class="nf">newInstance</span><span class="o">(</span><span class="n">Object</span> <span class="o">...</span> <span class="n">initargs</span><span class="o">)</span></code></pre></div>
 <ol>
 <li>获取类的成员字段信息</li>
 </ol>
@@ -514,89 +334,72 @@ class methodClass {
 </ol>
 
 <p>获取到方法后使用invoke()方法来调用这个方法</p>
-
-<pre><code class="language-java">   public Object invoke(Object obj, Object... args)
-           throws IllegalAccessException, IllegalArgumentException,
-              InvocationTargetException
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span>
+           <span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">IllegalArgumentException</span><span class="o">,</span>
+              <span class="n">InvocationTargetException</span></code></pre></div>
 <p>eg：</p>
-
-<pre><code class="language-java">   public class test1 {
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">test1</span> <span class="o">{</span>
    
-       public static void main(String[] args) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-           Class&lt;?&gt; klass = methodClass.class;
-           //创建methodClass的实例
-           Object obj = klass.newInstance();
-           //获取methodClass类的add方法
-           Method method = klass.getMethod(&quot;add&quot;,int.class,int.class);
-           //调用method对应的方法 =&gt; add(1,4)
-           Object result = method.invoke(obj,1,4);
-           System.out.println(result);
-       }
+       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span> <span class="n">NoSuchMethodException</span><span class="o">,</span> <span class="n">InvocationTargetException</span> <span class="o">{</span>
+           <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">methodClass</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+           <span class="c1">//创建methodClass的实例
+</span><span class="c1"></span>           <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+           <span class="c1">//获取methodClass类的add方法
+</span><span class="c1"></span>           <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;add&#34;</span><span class="o">,</span><span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+           <span class="c1">//调用method对应的方法 =&gt; add(1,4)
+</span><span class="c1"></span>           <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">4</span><span class="o">);</span>
+           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+       <span class="o">}</span>
    
-   }
+   <span class="o">}</span>
    
-   class methodClass {
+   <span class="kd">class</span> <span class="nc">methodClass</span> <span class="o">{</span>
    
-       public final int fuck = 3;
-       public int add(int a,int b) {
-           return a+b;
-       }
-       public int sub(int a,int b) {
-           return a+b;
-       }
-   }
-</code></pre>
-
+       <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fuck</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+       <span class="kd">public</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
+       <span class="o">}</span>
+       <span class="kd">public</span> <span class="kt">int</span> <span class="nf">sub</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
+       <span class="o">}</span>
+   <span class="o">}</span></code></pre></div>
 <ol>
 <li>创建数组</li>
 </ol>
-
-<pre><code class="language-java">   public static void testArray() throws ClassNotFoundException {
-           Class&lt;?&gt; cls = Class.forName(&quot;java.lang.String&quot;);
-           Object array = Array.newInstance(cls,25); //通过Array.newInstance()
-           //往数组里添加内容
-           Array.set(array,0,&quot;hello&quot;);  //Array类为java.lang.reflect.Array
-           Array.set(array,1,&quot;Java&quot;);
-           Array.set(array,2,&quot;fuck&quot;);
-           Array.set(array,3,&quot;Scala&quot;);
-           Array.set(array,4,&quot;Clojure&quot;);
-           //获取某一项的内容
-           System.out.println(Array.get(array,3));
-       }
-</code></pre>
-
-<pre><code class="language-java">   public static Object newInstance(Class&lt;?&gt; componentType, int length)
-           throws NegativeArraySizeException {
-           return newArray(componentType, length);
-       }
-</code></pre>
-
-<pre><code class="language-java">   private static native Object newArray(Class&lt;?&gt; componentType, int length)
-           throws NegativeArraySizeException;
-</code></pre>
-
-<pre><code class="language-c++">   arrayOop Reflection::reflect_new_array(oop element_mirror, jint length, TRAPS) {
-     if (element_mirror == NULL) {
-       THROW_0(vmSymbols::java_lang_NullPointerException());
-     }
-     if (length &lt; 0) {
-       THROW_0(vmSymbols::java_lang_NegativeArraySizeException());
-     }
-     if (java_lang_Class::is_primitive(element_mirror)) {
-       Klass* tak = basic_type_mirror_to_arrayklass(element_mirror, CHECK_NULL);
-       return TypeArrayKlass::cast(tak)-&gt;allocate(length, THREAD);
-     } else {
-       Klass* k = java_lang_Class::as_Klass(element_mirror);
-       if (k-&gt;oop_is_array() &amp;&amp; ArrayKlass::cast(k)-&gt;dimension() &gt;= MAX_DIM) {
-         THROW_0(vmSymbols::java_lang_IllegalArgumentException());
-       }
-       return oopFactory::new_objArray(k, length, THREAD);
-     }
-   }
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">testArray</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+           <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="o">);</span>
+           <span class="n">Object</span> <span class="n">array</span> <span class="o">=</span> <span class="n">Array</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="n">cls</span><span class="o">,</span><span class="n">25</span><span class="o">);</span> <span class="c1">//通过Array.newInstance()
+</span><span class="c1"></span>           <span class="c1">//往数组里添加内容
+</span><span class="c1"></span>           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>  <span class="c1">//Array类为java.lang.reflect.Array
+</span><span class="c1"></span>           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;Java&#34;</span><span class="o">);</span>
+           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="s">&#34;fuck&#34;</span><span class="o">);</span>
+           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="s">&#34;Scala&#34;</span><span class="o">);</span>
+           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="s">&#34;Clojure&#34;</span><span class="o">);</span>
+           <span class="c1">//获取某一项的内容
+</span><span class="c1"></span>           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Array</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">3</span><span class="o">));</span>
+       <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">newInstance</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">componentType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span>
+           <span class="kd">throws</span> <span class="n">NegativeArraySizeException</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">newArray</span><span class="o">(</span><span class="n">componentType</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
+       <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="n">Object</span> <span class="nf">newArray</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">componentType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span>
+           <span class="kd">throws</span> <span class="n">NegativeArraySizeException</span><span class="o">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">   <span class="n">arrayOop</span> <span class="n">Reflection</span><span class="o">::</span><span class="n">reflect_new_array</span><span class="p">(</span><span class="n">oop</span> <span class="n">element_mirror</span><span class="p">,</span> <span class="n">jint</span> <span class="n">length</span><span class="p">,</span> <span class="n">TRAPS</span><span class="p">)</span> <span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">element_mirror</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_NullPointerException</span><span class="p">());</span>
+     <span class="p">}</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_NegativeArraySizeException</span><span class="p">());</span>
+     <span class="p">}</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">java_lang_Class</span><span class="o">::</span><span class="n">is_primitive</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">))</span> <span class="p">{</span>
+       <span class="n">Klass</span><span class="o">*</span> <span class="n">tak</span> <span class="o">=</span> <span class="n">basic_type_mirror_to_arrayklass</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">,</span> <span class="n">CHECK_NULL</span><span class="p">);</span>
+       <span class="k">return</span> <span class="n">TypeArrayKlass</span><span class="o">::</span><span class="n">cast</span><span class="p">(</span><span class="n">tak</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">allocate</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+       <span class="n">Klass</span><span class="o">*</span> <span class="n">k</span> <span class="o">=</span> <span class="n">java_lang_Class</span><span class="o">::</span><span class="n">as_Klass</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">);</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="o">-&gt;</span><span class="n">oop_is_array</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">ArrayKlass</span><span class="o">::</span><span class="n">cast</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">dimension</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">MAX_DIM</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_IllegalArgumentException</span><span class="p">());</span>
+       <span class="p">}</span>
+       <span class="k">return</span> <span class="n">oopFactory</span><span class="o">::</span><span class="n">new_objArray</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+</code></pre></div>
 <p>Array类的set()和get()方法都为Native方法，在HotSpot JVM里分别对应Reflection::array_set和Reflection::array_get方法</p>
 
 <ol>
@@ -604,215 +407,188 @@ class methodClass {
 
 <p>getGenericHelper(HashMap<String, Person> map)</p></li>
 </ol>
-
-<pre><code class="language-java">   public static  void getGenericType() {
-           try {
-               Method method =TestHelper.class.getDeclaredMethod(&quot;getGenericHelper&quot;,HashMap.class);
-               Type[] genericParameterTypes = method.getGenericParameterTypes();
-               // 检验是否为空
-               if (null == genericParameterTypes || genericParameterTypes.length &lt; 1) {
-                   return ;
-               }
-               // 取 getGenericHelper 方法的第一个参数
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span>  <span class="kt">void</span> <span class="nf">getGenericType</span><span class="o">()</span> <span class="o">{</span>
+           <span class="k">try</span> <span class="o">{</span>
+               <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span><span class="n">TestHelper</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="s">&#34;getGenericHelper&#34;</span><span class="o">,</span><span class="n">HashMap</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+               <span class="n">Type</span><span class="o">[]</span> <span class="n">genericParameterTypes</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getGenericParameterTypes</span><span class="o">();</span>
+               <span class="c1">// 检验是否为空
+</span><span class="c1"></span>               <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">genericParameterTypes</span> <span class="o">||</span> <span class="n">genericParameterTypes</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="k">return</span> <span class="o">;</span>
+               <span class="o">}</span>
+               <span class="c1">// 取 getGenericHelper 方法的第一个参数
+</span><span class="c1"></span>   
+               <span class="n">ParameterizedType</span> <span class="n">parameterizedType</span><span class="o">=(</span><span class="n">ParameterizedType</span><span class="o">)</span><span class="n">genericParameterTypes</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+               <span class="n">Type</span> <span class="n">rawType</span> <span class="o">=</span> <span class="n">parameterizedType</span><span class="o">.</span><span class="na">getRawType</span><span class="o">();</span>
+               <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;----&gt; rawType=&#34;</span> <span class="o">+</span> <span class="n">rawType</span><span class="o">);</span>
+               <span class="n">Type</span><span class="o">[]</span> <span class="n">actualTypeArguments</span> <span class="o">=</span> <span class="n">parameterizedType</span><span class="o">.</span><span class="na">getActualTypeArguments</span><span class="o">();</span>
+               <span class="k">if</span> <span class="o">(</span><span class="n">actualTypeArguments</span><span class="o">==</span><span class="n">genericParameterTypes</span> <span class="o">||</span> <span class="n">actualTypeArguments</span><span class="o">.</span><span class="na">length</span><span class="o">&lt;</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="k">return</span> <span class="o">;</span>
+               <span class="o">}</span>
+               <span class="c1">//  打印出每一个类型          
+</span><span class="c1"></span>               <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">actualTypeArguments</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                   <span class="n">Type</span> <span class="n">type</span> <span class="o">=</span> <span class="n">actualTypeArguments</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;----&gt; type=&#34;</span> <span class="o">+</span> <span class="n">type</span><span class="o">);</span>
+               <span class="o">}</span>
+           <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
    
-               ParameterizedType parameterizedType=(ParameterizedType)genericParameterTypes[0];
-               Type rawType = parameterizedType.getRawType();
-               System.out.println(&quot;----&gt; rawType=&quot; + rawType);
-               Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-               if (actualTypeArguments==genericParameterTypes || actualTypeArguments.length&lt;1) {
-                   return ;
-               }
-               //  打印出每一个类型          
-               for (int i = 0; i &lt; actualTypeArguments.length; i++) {
-                   Type type = actualTypeArguments[i];
-                   System.out.println(&quot;----&gt; type=&quot; + type);
-               }
-           } catch (Exception e) {
+           <span class="o">}</span>
    
-           }
-   
-       }
-</code></pre>
-
+       <span class="o">}</span></code></pre></div>
 <ol>
 <li><p>获得 Metho,Field,Constructor 的访问权限</p>
-
-<pre><code class="language-java">   int modifiers = method.getModifiers(); 
-   Modifier.toString(modifiers); 
-</code></pre></li>
-</ol>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kt">int</span> <span class="n">modifiers</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getModifiers</span><span class="o">();</span> 
+   <span class="n">Modifier</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">modifiers</span><span class="o">);</span> </code></pre></div>
 <h3 id="invoke方法">Invoke方法</h3>
 
 <p>比较重点</p>
 
 <p>invoke方法的实现：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@CallerSensitive</span>
+<span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span>
+<span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">IllegalArgumentException</span><span class="o">,</span>
+   <span class="n">InvocationTargetException</span>
+<span class="o">{</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">override</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">Reflection</span><span class="o">.</span><span class="na">quickCheckMemberAccess</span><span class="o">(</span><span class="n">clazz</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">caller</span> <span class="o">=</span> <span class="n">Reflection</span><span class="o">.</span><span class="na">getCallerClass</span><span class="o">();</span>
+        <span class="n">checkAccess</span><span class="o">(</span><span class="n">caller</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">obj</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">MethodAccessor</span> <span class="n">ma</span> <span class="o">=</span> <span class="n">methodAccessor</span><span class="o">;</span>             <span class="c1">// read volatile
+</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">ma</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ma</span> <span class="o">=</span> <span class="n">acquireMethodAccessor</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">ma</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div></li>
 
-<pre><code class="language-java">@CallerSensitive
-public Object invoke(Object obj, Object... args)
-    throws IllegalAccessException, IllegalArgumentException,
-       InvocationTargetException
-{
-    if (!override) {
-        if (!Reflection.quickCheckMemberAccess(clazz, modifiers)) {
-            Class&lt;?&gt; caller = Reflection.getCallerClass();
-            checkAccess(caller, clazz, obj, modifiers);
-        }
-    }
-    MethodAccessor ma = methodAccessor;             // read volatile
-    if (ma == null) {
-        ma = acquireMethodAccessor();
-    }
-    return ma.invoke(obj, args);
-}
-</code></pre>
-
-<ol>
-<li>权限检查</li>
+<li><p>权限检查</p></li>
 </ol>
 
 <p>首先检查AccessibleObject的override属性的值 。AccessibleObject 类是 Field、Method 和 Constructor 对象的基类 。override 默认为false,调试需要权限调用规则，反正不需要。</p>
 
 <p>默认情况下首先用Reflection.quickCheckMemberAccess(clazz, modifiers)方法检查方法是否为public，如果是的话跳出本步；如果不是public方法，那么用Reflection.getCallerClass()方法获取调用这个方法的Class对象，这是一个native方法:</p>
-
-<pre><code class="language-java">   @CallerSensitive
-       public static native Class&lt;?&gt; getCallerClass();
-</code></pre>
-
-<pre><code class="language-java">   JNIEXPORT jclass JNICALL Java_sun_reflect_Reflection_getCallerClass__
-   (JNIEnv *env, jclass unused)
-   {
-       return JVM_GetCallerClass(env, JVM_CALLER_DEPTH);
-   }
-</code></pre>
-
-<pre><code class="language-c++">   JVM_ENTRY(jclass, JVM_GetCallerClass(JNIEnv* env, int depth))
-     JVMWrapper(&quot;JVM_GetCallerClass&quot;);
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="nd">@CallerSensitive</span>
+       <span class="kd">public</span> <span class="kd">static</span> <span class="kd">native</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">getCallerClass</span><span class="o">();</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">JNIEXPORT</span> <span class="n">jclass</span> <span class="n">JNICALL</span> <span class="nf">Java_sun_reflect_Reflection_getCallerClass__</span>
+   <span class="o">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="o">,</span> <span class="n">jclass</span> <span class="n">unused</span><span class="o">)</span>
+   <span class="o">{</span>
+       <span class="k">return</span> <span class="n">JVM_GetCallerClass</span><span class="o">(</span><span class="n">env</span><span class="o">,</span> <span class="n">JVM_CALLER_DEPTH</span><span class="o">);</span>
+   <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">   <span class="n">JVM_ENTRY</span><span class="p">(</span><span class="n">jclass</span><span class="p">,</span> <span class="n">JVM_GetCallerClass</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">))</span>
+     <span class="n">JVMWrapper</span><span class="p">(</span><span class="s">&#34;JVM_GetCallerClass&#34;</span><span class="p">);</span>
    
-     // Pre-JDK 8 and early builds of JDK 8 don't have a CallerSensitive annotation; or
-     // sun.reflect.Reflection.getCallerClass with a depth parameter is provided
-     // temporarily for existing code to use until a replacement API is defined.
-     if (SystemDictionary::reflect_CallerSensitive_klass() == NULL || depth != JVM_CALLER_DEPTH) {
-       Klass* k = thread-&gt;security_get_caller_class(depth);
-       return (k == NULL) ? NULL : (jclass) JNIHandles::make_local(env, k-&gt;java_mirror());
-     }
+     <span class="c1">// Pre-JDK 8 and early builds of JDK 8 don&#39;t have a CallerSensitive annotation; or
+</span><span class="c1"></span>     <span class="c1">// sun.reflect.Reflection.getCallerClass with a depth parameter is provided
+</span><span class="c1"></span>     <span class="c1">// temporarily for existing code to use until a replacement API is defined.
+</span><span class="c1"></span>     <span class="k">if</span> <span class="p">(</span><span class="n">SystemDictionary</span><span class="o">::</span><span class="n">reflect_CallerSensitive_klass</span><span class="p">()</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">depth</span> <span class="o">!=</span> <span class="n">JVM_CALLER_DEPTH</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">Klass</span><span class="o">*</span> <span class="n">k</span> <span class="o">=</span> <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">security_get_caller_class</span><span class="p">(</span><span class="n">depth</span><span class="p">);</span>
+       <span class="k">return</span> <span class="p">(</span><span class="n">k</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">?</span> <span class="nb">NULL</span> <span class="o">:</span> <span class="p">(</span><span class="n">jclass</span><span class="p">)</span> <span class="n">JNIHandles</span><span class="o">::</span><span class="n">make_local</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">k</span><span class="o">-&gt;</span><span class="n">java_mirror</span><span class="p">());</span>
+     <span class="p">}</span>
    
-     // Getting the class of the caller frame.
-     //
-     // The call stack at this point looks something like this:
-     //
-     // [0] [ @CallerSensitive public sun.reflect.Reflection.getCallerClass ]
-     // [1] [ @CallerSensitive API.method                                   ]
-     // [.] [ (skipped intermediate frames)                                 ]
-     // [n] [ caller                                                        ]
-     vframeStream vfst(thread);
-     // Cf. LibraryCallKit::inline_native_Reflection_getCallerClass
-     for (int n = 0; !vfst.at_end(); vfst.security_next(), n++) {
-       Method* m = vfst.method();
-       assert(m != NULL, &quot;sanity&quot;);
-       switch (n) {
-       case 0:
-         // This must only be called from Reflection.getCallerClass
-         if (m-&gt;intrinsic_id() != vmIntrinsics::_getCallerClass) {
-           THROW_MSG_NULL(vmSymbols::java_lang_InternalError(), &quot;JVM_GetCallerClass must only be called from Reflection.getCallerClass&quot;);
-         }
-         // fall-through
-       case 1:
-         // Frame 0 and 1 must be caller sensitive.
-         if (!m-&gt;caller_sensitive()) {
-           THROW_MSG_NULL(vmSymbols::java_lang_InternalError(), err_msg(&quot;CallerSensitive annotation expected at frame %d&quot;, n));
-         }
-         break;
-       default:
-         if (!m-&gt;is_ignored_by_security_stack_walk()) {
-           // We have reached the desired frame; return the holder class.
-           return (jclass) JNIHandles::make_local(env, m-&gt;method_holder()-&gt;java_mirror());
-         }
-         break;
-       }
-     }
-     return NULL;
-   JVM_END
-</code></pre>
-
+     <span class="c1">// Getting the class of the caller frame.
+</span><span class="c1"></span>     <span class="c1">//
+</span><span class="c1"></span>     <span class="c1">// The call stack at this point looks something like this:
+</span><span class="c1"></span>     <span class="c1">//
+</span><span class="c1"></span>     <span class="c1">// [0] [ @CallerSensitive public sun.reflect.Reflection.getCallerClass ]
+</span><span class="c1"></span>     <span class="c1">// [1] [ @CallerSensitive API.method                                   ]
+</span><span class="c1"></span>     <span class="c1">// [.] [ (skipped intermediate frames)                                 ]
+</span><span class="c1"></span>     <span class="c1">// [n] [ caller                                                        ]
+</span><span class="c1"></span>     <span class="n">vframeStream</span> <span class="n">vfst</span><span class="p">(</span><span class="kr">thread</span><span class="p">);</span>
+     <span class="c1">// Cf. LibraryCallKit::inline_native_Reflection_getCallerClass
+</span><span class="c1"></span>     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">!</span><span class="n">vfst</span><span class="p">.</span><span class="n">at_end</span><span class="p">();</span> <span class="n">vfst</span><span class="p">.</span><span class="n">security_next</span><span class="p">(),</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">Method</span><span class="o">*</span> <span class="n">m</span> <span class="o">=</span> <span class="n">vfst</span><span class="p">.</span><span class="n">method</span><span class="p">();</span>
+       <span class="n">assert</span><span class="p">(</span><span class="n">m</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;sanity&#34;</span><span class="p">);</span>
+       <span class="k">switch</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+         <span class="c1">// This must only be called from Reflection.getCallerClass
+</span><span class="c1"></span>         <span class="k">if</span> <span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">intrinsic_id</span><span class="p">()</span> <span class="o">!=</span> <span class="n">vmIntrinsics</span><span class="o">::</span><span class="n">_getCallerClass</span><span class="p">)</span> <span class="p">{</span>
+           <span class="n">THROW_MSG_NULL</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_InternalError</span><span class="p">(),</span> <span class="s">&#34;JVM_GetCallerClass must only be called from Reflection.getCallerClass&#34;</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="c1">// fall-through
+</span><span class="c1"></span>       <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+         <span class="c1">// Frame 0 and 1 must be caller sensitive.
+</span><span class="c1"></span>         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">caller_sensitive</span><span class="p">())</span> <span class="p">{</span>
+           <span class="n">THROW_MSG_NULL</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_InternalError</span><span class="p">(),</span> <span class="n">err_msg</span><span class="p">(</span><span class="s">&#34;CallerSensitive annotation expected at frame %d&#34;</span><span class="p">,</span> <span class="n">n</span><span class="p">));</span>
+         <span class="p">}</span>
+         <span class="k">break</span><span class="p">;</span>
+       <span class="k">default</span><span class="o">:</span>
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">is_ignored_by_security_stack_walk</span><span class="p">())</span> <span class="p">{</span>
+           <span class="c1">// We have reached the desired frame; return the holder class.
+</span><span class="c1"></span>           <span class="k">return</span> <span class="p">(</span><span class="n">jclass</span><span class="p">)</span> <span class="n">JNIHandles</span><span class="o">::</span><span class="n">make_local</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">method_holder</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">java_mirror</span><span class="p">());</span>
+         <span class="p">}</span>
+         <span class="k">break</span><span class="p">;</span>
+       <span class="p">}</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+   <span class="n">JVM_END</span>
+</code></pre></div>
 <p>获取了这个Class对象caller后用checkAccess方法做一次快速的权限校验 :</p>
-
-<pre><code class="language-java">   volatile Object securityCheckCache;
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">volatile</span> <span class="n">Object</span> <span class="n">securityCheckCache</span><span class="o">;</span>
    
-       void checkAccess(Class&amp;lt;?&amp;gt; caller, Class&amp;lt;?&amp;gt; clazz, Object obj, int modifiers)
-           throws IllegalAccessException
-       {
-           if (caller == clazz) {  // 快速校验
-               return;             // 权限通过校验
-           }
-           Object cache = securityCheckCache;  // read volatile
-           Class&amp;lt;?&amp;gt; targetClass = clazz;
-           if (obj != null
-               &amp;amp;&amp;amp; Modifier.isProtected(modifiers)
-               &amp;amp;&amp;amp; ((targetClass = obj.getClass()) != clazz)) {
-               // Must match a 2-list of { caller, targetClass }.
-               if (cache instanceof Class[]) {
-                   Class&amp;lt;?&amp;gt;[] cache2 = (Class&amp;lt;?&amp;gt;[]) cache;
-                   if (cache2[1] == targetClass &amp;amp;&amp;amp;
-                       cache2[0] == caller) {
-                       return;     // ACCESS IS OK
-                   }
-                   // (Test cache[1] first since range check for [1]
-                   // subsumes range check for [0].)
-               }
-           } else if (cache == caller) {
-               // Non-protected case (or obj.class == this.clazz).
-               return;             // ACCESS IS OK
-           }
+       <span class="kt">void</span> <span class="nf">checkAccess</span><span class="o">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">caller</span><span class="o">,</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="kt">int</span> <span class="n">modifiers</span><span class="o">)</span>
+           <span class="kd">throws</span> <span class="n">IllegalAccessException</span>
+       <span class="o">{</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">caller</span> <span class="o">==</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 快速校验
+</span><span class="c1"></span>               <span class="k">return</span><span class="o">;</span>             <span class="c1">// 权限通过校验
+</span><span class="c1"></span>           <span class="o">}</span>
+           <span class="n">Object</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">securityCheckCache</span><span class="o">;</span>  <span class="c1">// read volatile
+</span><span class="c1"></span>           <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">targetClass</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">;</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">obj</span> <span class="o">!=</span> <span class="kc">null</span>
+               <span class="o">&amp;</span><span class="n">amp</span><span class="o">;&amp;</span><span class="n">amp</span><span class="o">;</span> <span class="n">Modifier</span><span class="o">.</span><span class="na">isProtected</span><span class="o">(</span><span class="n">modifiers</span><span class="o">)</span>
+               <span class="o">&amp;</span><span class="n">amp</span><span class="o">;&amp;</span><span class="n">amp</span><span class="o">;</span> <span class="o">((</span><span class="n">targetClass</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="o">!=</span> <span class="n">clazz</span><span class="o">))</span> <span class="o">{</span>
+               <span class="c1">// Must match a 2-list of { caller, targetClass }.
+</span><span class="c1"></span>               <span class="k">if</span> <span class="o">(</span><span class="n">cache</span> <span class="k">instanceof</span> <span class="n">Class</span><span class="o">[])</span> <span class="o">{</span>
+                   <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;[]</span> <span class="n">cache2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;[])</span> <span class="n">cache</span><span class="o">;</span>
+                   <span class="k">if</span> <span class="o">(</span><span class="n">cache2</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">targetClass</span> <span class="o">&amp;</span><span class="n">amp</span><span class="o">;&amp;</span><span class="n">amp</span><span class="o">;</span>
+                       <span class="n">cache2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">caller</span><span class="o">)</span> <span class="o">{</span>
+                       <span class="k">return</span><span class="o">;</span>     <span class="c1">// ACCESS IS OK
+</span><span class="c1"></span>                   <span class="o">}</span>
+                   <span class="c1">// (Test cache[1] first since range check for [1]
+</span><span class="c1"></span>                   <span class="c1">// subsumes range check for [0].)
+</span><span class="c1"></span>               <span class="o">}</span>
+           <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cache</span> <span class="o">==</span> <span class="n">caller</span><span class="o">)</span> <span class="o">{</span>
+               <span class="c1">// Non-protected case (or obj.class == this.clazz).
+</span><span class="c1"></span>               <span class="k">return</span><span class="o">;</span>             <span class="c1">// ACCESS IS OK
+</span><span class="c1"></span>           <span class="o">}</span>
    
-           // If no return, fall through to the slow path.
-           slowCheckMemberAccess(caller, clazz, obj, modifiers, targetClass);
-       }
-</code></pre>
-
+           <span class="c1">// If no return, fall through to the slow path.
+</span><span class="c1"></span>           <span class="n">slowCheckMemberAccess</span><span class="o">(</span><span class="n">caller</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">obj</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">,</span> <span class="n">targetClass</span><span class="o">);</span>
+       <span class="o">}</span></code></pre></div>
 <p>先快速检查，未通过的话建立缓存，中间再检查；</p>
 
 <p>如果都没有通过：进行更详细的检查;</p>
-
-<pre><code class="language-java">   // Keep all this slow stuff out of line:
-   void slowCheckMemberAccess(Class&amp;lt;?&amp;gt; caller, Class&amp;lt;?&amp;gt; clazz, Object obj, int modifiers,
-                              Class&amp;lt;?&amp;gt; targetClass)
-       throws IllegalAccessException
-   {
-       Reflection.ensureMemberAccess(caller, clazz, obj, modifiers);
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="c1">// Keep all this slow stuff out of line:
+</span><span class="c1"></span>   <span class="kt">void</span> <span class="nf">slowCheckMemberAccess</span><span class="o">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">caller</span><span class="o">,</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="kt">int</span> <span class="n">modifiers</span><span class="o">,</span>
+                              <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">targetClass</span><span class="o">)</span>
+       <span class="kd">throws</span> <span class="n">IllegalAccessException</span>
+   <span class="o">{</span>
+       <span class="n">Reflection</span><span class="o">.</span><span class="na">ensureMemberAccess</span><span class="o">(</span><span class="n">caller</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">obj</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">);</span>
    
-       // Success: Update the cache.
-       Object cache = ((targetClass == clazz)
-                       ? caller
-                       : new Class&amp;lt;?&amp;gt;[] { caller, targetClass });
+       <span class="c1">// Success: Update the cache.
+</span><span class="c1"></span>       <span class="n">Object</span> <span class="n">cache</span> <span class="o">=</span> <span class="o">((</span><span class="n">targetClass</span> <span class="o">==</span> <span class="n">clazz</span><span class="o">)</span>
+                       <span class="o">?</span> <span class="n">caller</span>
+                       <span class="o">:</span> <span class="k">new</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;[]</span> <span class="o">{</span> <span class="n">caller</span><span class="o">,</span> <span class="n">targetClass</span> <span class="o">});</span>
    
-       // Note:  The two cache elements are not volatile,
-       // but they are effectively final.  The Java memory model
-       // guarantees that the initializing stores for the cache
-       // elements will occur before the volatile write.
-       securityCheckCache = cache;         // write volatile
-   }
-</code></pre>
-
+       <span class="c1">// Note:  The two cache elements are not volatile,
+</span><span class="c1"></span>       <span class="c1">// but they are effectively final.  The Java memory model
+</span><span class="c1"></span>       <span class="c1">// guarantees that the initializing stores for the cache
+</span><span class="c1"></span>       <span class="c1">// elements will occur before the volatile write.
+</span><span class="c1"></span>       <span class="n">securityCheckCache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">;</span>         <span class="c1">// write volatile
+</span><span class="c1"></span>   <span class="o">}</span></code></pre></div>
 <p>用Reflection.ensureMemberAccess方法继续检查权限，若检查通过就更新缓存，这样下一次同一个类调用同一个方法时就不用执行权限检查了，这是一种简单的缓存机制。</p>
 
 <ol>
 <li><p>调用MethodAccessor的invoke方法</p>
 
 <p>由sun.reflect.MethodAccessor 处理</p>
-
-<pre><code class="language-java">   /** This interface provides the declaration for
-       java.lang.reflect.Method.invoke(). Each Method object is
-       configured with a (possibly dynamically-generated) class which
-       implements this interface.
-   */
-    public interface MethodAccessor {    //是一个接口
-       /** Matches specification in {@link java.lang.reflect.Method} */
-       public Object invoke(Object obj, Object[] args)
-           throws IllegalArgumentException, InvocationTargetException;
-   }
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="cm">/** This interface provides the declaration for
+</span><span class="cm">       java.lang.reflect.Method.invoke(). Each Method object is
+</span><span class="cm">       configured with a (possibly dynamically-generated) class which
+</span><span class="cm">       implements this interface.
+</span><span class="cm">   */</span>
+    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MethodAccessor</span> <span class="o">{</span>    <span class="c1">//是一个接口
+</span><span class="c1"></span>       <span class="cm">/** Matches specification in {@link java.lang.reflect.Method} */</span>
+       <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+           <span class="kd">throws</span> <span class="n">IllegalArgumentException</span><span class="o">,</span> <span class="n">InvocationTargetException</span><span class="o">;</span>
+   <span class="o">}</span></code></pre></div>
 <p>分析其Usage可得它的具体实现类有:</p>
 
 <ul>
@@ -822,115 +598,109 @@ public Object invoke(Object obj, Object... args)
 </ul>
 
 <p>methodAccessor实例由reflectionFactory对象操控生成，它在AccessibleObject下的声明如下:</p>
-
-<pre><code class="language-java">   // Reflection factory used by subclasses for creating field,
-   // method, and constructor accessors. Note that this is called
-   // very early in the bootstrapping process.
-   static final ReflectionFactory reflectionFactory =
-       AccessController.doPrivileged(
-           new sun.reflect.ReflectionFactory.GetReflectionFactoryAction());
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="c1">// Reflection factory used by subclasses for creating field,
+</span><span class="c1"></span>   <span class="c1">// method, and constructor accessors. Note that this is called
+</span><span class="c1"></span>   <span class="c1">// very early in the bootstrapping process.
+</span><span class="c1"></span>   <span class="kd">static</span> <span class="kd">final</span> <span class="n">ReflectionFactory</span> <span class="n">reflectionFactory</span> <span class="o">=</span>
+       <span class="n">AccessController</span><span class="o">.</span><span class="na">doPrivileged</span><span class="o">(</span>
+           <span class="k">new</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">ReflectionFactory</span><span class="o">.</span><span class="na">GetReflectionFactoryAction</span><span class="o">());</span></code></pre></div>
 <p>sun.reflect.ReflectionFactory类的源码：</p>
-
-<pre><code class="language-java">   public class ReflectionFactory {
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReflectionFactory</span> <span class="o">{</span>
        
-       private static boolean initted = false;
-       private static Permission reflectionFactoryAccessPerm
-           = new RuntimePermission(&quot;reflectionFactoryAccess&quot;);
-       private static ReflectionFactory soleInstance = new ReflectionFactory();
-       // Provides access to package-private mechanisms in java.lang.reflect
-       private static volatile LangReflectAccess langReflectAccess;
+       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">initted</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+       <span class="kd">private</span> <span class="kd">static</span> <span class="n">Permission</span> <span class="n">reflectionFactoryAccessPerm</span>
+           <span class="o">=</span> <span class="k">new</span> <span class="n">RuntimePermission</span><span class="o">(</span><span class="s">&#34;reflectionFactoryAccess&#34;</span><span class="o">);</span>
+       <span class="kd">private</span> <span class="kd">static</span> <span class="n">ReflectionFactory</span> <span class="n">soleInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReflectionFactory</span><span class="o">();</span>
+       <span class="c1">// Provides access to package-private mechanisms in java.lang.reflect
+</span><span class="c1"></span>       <span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="n">LangReflectAccess</span> <span class="n">langReflectAccess</span><span class="o">;</span>
        
-       // 这里设计得非常巧妙
-       // &quot;Inflation&quot; mechanism. Loading bytecodes to implement
-       // Method.invoke() and Constructor.newInstance() currently costs
-       // 3-4x more than an invocation via native code for the first
-       // invocation (though subsequent invocations have been benchmarked
-       // to be over 20x faster). Unfortunately this cost increases
-       // startup time for certain applications that use reflection
-       // intensively (but only once per class) to bootstrap themselves.
-       // To avoid this penalty we reuse the existing JVM entry points
-       // for the first few invocations of Methods and Constructors and
-       // then switch to the bytecode-based implementations.
-       //
-       // Package-private to be accessible to NativeMethodAccessorImpl
-       // and NativeConstructorAccessorImpl
-       private static boolean noInflation        = false;
-       private static int     inflationThreshold = 15;
+       <span class="c1">// 这里设计得非常巧妙
+</span><span class="c1"></span>       <span class="c1">// &#34;Inflation&#34; mechanism. Loading bytecodes to implement
+</span><span class="c1"></span>       <span class="c1">// Method.invoke() and Constructor.newInstance() currently costs
+</span><span class="c1"></span>       <span class="c1">// 3-4x more than an invocation via native code for the first
+</span><span class="c1"></span>       <span class="c1">// invocation (though subsequent invocations have been benchmarked
+</span><span class="c1"></span>       <span class="c1">// to be over 20x faster). Unfortunately this cost increases
+</span><span class="c1"></span>       <span class="c1">// startup time for certain applications that use reflection
+</span><span class="c1"></span>       <span class="c1">// intensively (but only once per class) to bootstrap themselves.
+</span><span class="c1"></span>       <span class="c1">// To avoid this penalty we reuse the existing JVM entry points
+</span><span class="c1"></span>       <span class="c1">// for the first few invocations of Methods and Constructors and
+</span><span class="c1"></span>       <span class="c1">// then switch to the bytecode-based implementations.
+</span><span class="c1"></span>       <span class="c1">//
+</span><span class="c1"></span>       <span class="c1">// Package-private to be accessible to NativeMethodAccessorImpl
+</span><span class="c1"></span>       <span class="c1">// and NativeConstructorAccessorImpl
+</span><span class="c1"></span>       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">noInflation</span>        <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span>     <span class="n">inflationThreshold</span> <span class="o">=</span> <span class="n">15</span><span class="o">;</span>
        
-       //......
+       <span class="c1">//......
+</span><span class="c1"></span>       
+    <span class="c1">//这是生成MethodAccessor的方法
+</span><span class="c1"></span>       <span class="kd">public</span> <span class="n">MethodAccessor</span> <span class="nf">newMethodAccessor</span><span class="o">(</span><span class="n">Method</span> <span class="n">method</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">checkInitted</span><span class="o">();</span>
        
-    //这是生成MethodAccessor的方法
-       public MethodAccessor newMethodAccessor(Method method) {
-           checkInitted();
+           <span class="k">if</span> <span class="o">(</span><span class="n">noInflation</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">ReflectUtil</span><span class="o">.</span><span class="na">isVMAnonymousClass</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getDeclaringClass</span><span class="o">()))</span> <span class="o">{</span>
+               <span class="k">return</span> <span class="k">new</span> <span class="n">MethodAccessorGenerator</span><span class="o">().</span>
+                   <span class="n">generateMethod</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getDeclaringClass</span><span class="o">(),</span>
+                                  <span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+                                  <span class="n">method</span><span class="o">.</span><span class="na">getParameterTypes</span><span class="o">(),</span>
+                                  <span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">(),</span>
+                                  <span class="n">method</span><span class="o">.</span><span class="na">getExceptionTypes</span><span class="o">(),</span>
+                                  <span class="n">method</span><span class="o">.</span><span class="na">getModifiers</span><span class="o">());</span>
+           <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+               <span class="n">NativeMethodAccessorImpl</span> <span class="n">acc</span> <span class="o">=</span>
+                   <span class="k">new</span> <span class="n">NativeMethodAccessorImpl</span><span class="o">(</span><span class="n">method</span><span class="o">);</span>
+               <span class="n">DelegatingMethodAccessorImpl</span> <span class="n">res</span> <span class="o">=</span>
+                   <span class="k">new</span> <span class="n">DelegatingMethodAccessorImpl</span><span class="o">(</span><span class="n">acc</span><span class="o">);</span>
+               <span class="n">acc</span><span class="o">.</span><span class="na">setParent</span><span class="o">(</span><span class="n">res</span><span class="o">);</span>
+               <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
        
-           if (noInflation &amp;&amp; !ReflectUtil.isVMAnonymousClass(method.getDeclaringClass())) {
-               return new MethodAccessorGenerator().
-                   generateMethod(method.getDeclaringClass(),
-                                  method.getName(),
-                                  method.getParameterTypes(),
-                                  method.getReturnType(),
-                                  method.getExceptionTypes(),
-                                  method.getModifiers());
-           } else {
-               NativeMethodAccessorImpl acc =
-                   new NativeMethodAccessorImpl(method);
-               DelegatingMethodAccessorImpl res =
-                   new DelegatingMethodAccessorImpl(acc);
-               acc.setParent(res);
-               return res;
-           }
-       }
+       <span class="c1">//......
+</span><span class="c1"></span>       
+       <span class="cm">/** We have to defer full initialization of this class until after
+</span><span class="cm">       the static initializer is run since java.lang.reflect.Method&#39;s
+</span><span class="cm">       static initializer (more properly, that for
+</span><span class="cm">       java.lang.reflect.AccessibleObject) causes this class&#39;s to be
+</span><span class="cm">       run, before the system properties are set up. */</span>
+       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">checkInitted</span><span class="o">()</span> <span class="o">{</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">initted</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+           <span class="n">AccessController</span><span class="o">.</span><span class="na">doPrivileged</span><span class="o">(</span>
+               <span class="k">new</span> <span class="n">PrivilegedAction</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;()</span> <span class="o">{</span>
+                   <span class="kd">public</span> <span class="n">Void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                       <span class="c1">// Tests to ensure the system properties table is fully
+</span><span class="c1"></span>                       <span class="c1">// initialized. This is needed because reflection code is
+</span><span class="c1"></span>                       <span class="c1">// called very early in the initialization process (before
+</span><span class="c1"></span>                       <span class="c1">// command-line arguments have been parsed and therefore
+</span><span class="c1"></span>                       <span class="c1">// these user-settable properties installed.) We assume that
+</span><span class="c1"></span>                       <span class="c1">// if System.out is non-null then the System class has been
+</span><span class="c1"></span>                       <span class="c1">// fully initialized and that the bulk of the startup code
+</span><span class="c1"></span>                       <span class="c1">// has been run.
+</span><span class="c1"></span>       
+                       <span class="k">if</span> <span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                           <span class="c1">// java.lang.System not yet fully initialized
+</span><span class="c1"></span>                           <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+                       <span class="o">}</span>
        
-       //......
+                       <span class="n">String</span> <span class="n">val</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;sun.reflect.noInflation&#34;</span><span class="o">);</span>
+                       <span class="k">if</span> <span class="o">(</span><span class="n">val</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">val</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;true&#34;</span><span class="o">))</span> <span class="o">{</span>
+                           <span class="n">noInflation</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                       <span class="o">}</span>
        
-       /** We have to defer full initialization of this class until after
-       the static initializer is run since java.lang.reflect.Method's
-       static initializer (more properly, that for
-       java.lang.reflect.AccessibleObject) causes this class's to be
-       run, before the system properties are set up. */
-       private static void checkInitted() {
-           if (initted) return;
-           AccessController.doPrivileged(
-               new PrivilegedAction&lt;Void&gt;() {
-                   public Void run() {
-                       // Tests to ensure the system properties table is fully
-                       // initialized. This is needed because reflection code is
-                       // called very early in the initialization process (before
-                       // command-line arguments have been parsed and therefore
-                       // these user-settable properties installed.) We assume that
-                       // if System.out is non-null then the System class has been
-                       // fully initialized and that the bulk of the startup code
-                       // has been run.
+                       <span class="n">val</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;sun.reflect.inflationThreshold&#34;</span><span class="o">);</span>
+                       <span class="k">if</span> <span class="o">(</span><span class="n">val</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                           <span class="k">try</span> <span class="o">{</span>
+                               <span class="n">inflationThreshold</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
+                           <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                               <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">&#34;Unable to parse property sun.reflect.inflationThreshold&#34;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+                           <span class="o">}</span>
+                       <span class="o">}</span>
        
-                       if (System.out == null) {
-                           // java.lang.System not yet fully initialized
-                           return null;
-                       }
-       
-                       String val = System.getProperty(&quot;sun.reflect.noInflation&quot;);
-                       if (val != null &amp;&amp; val.equals(&quot;true&quot;)) {
-                           noInflation = true;
-                       }
-       
-                       val = System.getProperty(&quot;sun.reflect.inflationThreshold&quot;);
-                       if (val != null) {
-                           try {
-                               inflationThreshold = Integer.parseInt(val);
-                           } catch (NumberFormatException e) {
-                               throw new RuntimeException(&quot;Unable to parse property sun.reflect.inflationThreshold&quot;, e);
-                           }
-                       }
-       
-                       initted = true;
-                       return null;
-                   }
-               });
-       }
-   }
-</code></pre>
-
+                       <span class="n">initted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+                   <span class="o">}</span>
+               <span class="o">});</span>
+       <span class="o">}</span>
+   <span class="o">}</span></code></pre></div>
 <p>MethodAccessor实现有两个版本，一个是Java版本，一个是native版本 。</p>
 
 <p>Java实现的版本在初始化时需要较多时间，但长久来说性能较好；native版本正好相反，启动时相对较快，但运行时间长了之后速度就比不过Java版了</p>
@@ -941,318 +711,108 @@ public Object invoke(Object obj, Object... args)
 <li><p>在JVM层面探究invoke0方法</p>
 
 <p>invoke0方法是一个native方法,它在HotSpot JVM里调用JVM_InvokeMethod函数:</p></li>
-</ol></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">      <span class="n">JNIEXPORT</span> <span class="n">jobject</span> <span class="n">JNICALL</span> <span class="nf">Java_sun_reflect_NativeMethodAccessorImpl_invoke0</span>
+      <span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jclass</span> <span class="n">unused</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">m</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">obj</span><span class="p">,</span> <span class="n">jobjectArray</span> <span class="n">args</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">return</span> <span class="n">JVM_InvokeMethod</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+      <span class="p">}</span>
+</code></pre></div></li>
 </ol>
 
-<pre><code class="language-c++">          JNIEXPORT jobject JNICALL Java_sun_reflect_NativeMethodAccessorImpl_invoke0
-          (JNIEnv *env, jclass unused, jobject m, jobject obj, jobjectArray args)
-          {
-              return JVM_InvokeMethod(env, m, obj, args);
-          }
-</code></pre>
-
 <p>openjdk/hotspot/src/share/vm/prims/jvm.cpp</p>
-
-<pre><code class="language-c++">JVM_ENTRY(jobject, JVM_InvokeMethod(JNIEnv *env, jobject method, jobject obj, jobjectArray args0))
-  JVMWrapper(&quot;JVM_InvokeMethod&quot;);
-  Handle method_handle;
-  if (thread-&gt;stack_available((address) &amp;method_handle) &gt;= JVMInvokeMethodSlack) {
-    method_handle = Handle(THREAD, JNIHandles::resolve(method));
-    Handle receiver(THREAD, JNIHandles::resolve(obj));
-    objArrayHandle args(THREAD, objArrayOop(JNIHandles::resolve(args0)));
-    oop result = Reflection::invoke_method(method_handle(), receiver, args, CHECK_NULL);
-    jobject res = JNIHandles::make_local(env, result);
-    if (JvmtiExport::should_post_vm_object_alloc()) {
-      oop ret_type = java_lang_reflect_Method::return_type(method_handle());
-      assert(ret_type != NULL, &quot;sanity check: ret_type oop must not be NULL!&quot;);
-      if (java_lang_Class::is_primitive(ret_type)) {
-        // Only for primitive type vm allocates memory for java object.
-        // See box() method.
-        JvmtiExport::post_vm_object_alloc(JavaThread::current(), result);
-      }
-    }
-    return res;
-  } else {
-    THROW_0(vmSymbols::java_lang_StackOverflowError());
-  }
-JVM_END
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">JVM_ENTRY</span><span class="p">(</span><span class="n">jobject</span><span class="p">,</span> <span class="n">JVM_InvokeMethod</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">method</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">obj</span><span class="p">,</span> <span class="n">jobjectArray</span> <span class="n">args0</span><span class="p">))</span>
+  <span class="n">JVMWrapper</span><span class="p">(</span><span class="s">&#34;JVM_InvokeMethod&#34;</span><span class="p">);</span>
+  <span class="n">Handle</span> <span class="n">method_handle</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="kr">thread</span><span class="o">-&gt;</span><span class="n">stack_available</span><span class="p">((</span><span class="n">address</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">method_handle</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">JVMInvokeMethodSlack</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">method_handle</span> <span class="o">=</span> <span class="n">Handle</span><span class="p">(</span><span class="n">THREAD</span><span class="p">,</span> <span class="n">JNIHandles</span><span class="o">::</span><span class="n">resolve</span><span class="p">(</span><span class="n">method</span><span class="p">));</span>
+    <span class="n">Handle</span> <span class="nf">receiver</span><span class="p">(</span><span class="n">THREAD</span><span class="p">,</span> <span class="n">JNIHandles</span><span class="o">::</span><span class="n">resolve</span><span class="p">(</span><span class="n">obj</span><span class="p">));</span>
+    <span class="n">objArrayHandle</span> <span class="nf">args</span><span class="p">(</span><span class="n">THREAD</span><span class="p">,</span> <span class="n">objArrayOop</span><span class="p">(</span><span class="n">JNIHandles</span><span class="o">::</span><span class="n">resolve</span><span class="p">(</span><span class="n">args0</span><span class="p">)));</span>
+    <span class="n">oop</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Reflection</span><span class="o">::</span><span class="n">invoke_method</span><span class="p">(</span><span class="n">method_handle</span><span class="p">(),</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">CHECK_NULL</span><span class="p">);</span>
+    <span class="n">jobject</span> <span class="n">res</span> <span class="o">=</span> <span class="n">JNIHandles</span><span class="o">::</span><span class="n">make_local</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">JvmtiExport</span><span class="o">::</span><span class="n">should_post_vm_object_alloc</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">oop</span> <span class="n">ret_type</span> <span class="o">=</span> <span class="n">java_lang_reflect_Method</span><span class="o">::</span><span class="n">return_type</span><span class="p">(</span><span class="n">method_handle</span><span class="p">());</span>
+      <span class="n">assert</span><span class="p">(</span><span class="n">ret_type</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="s">&#34;sanity check: ret_type oop must not be NULL!&#34;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">java_lang_Class</span><span class="o">::</span><span class="n">is_primitive</span><span class="p">(</span><span class="n">ret_type</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// Only for primitive type vm allocates memory for java object.
+</span><span class="c1"></span>        <span class="c1">// See box() method.
+</span><span class="c1"></span>        <span class="n">JvmtiExport</span><span class="o">::</span><span class="n">post_vm_object_alloc</span><span class="p">(</span><span class="n">JavaThread</span><span class="o">::</span><span class="n">current</span><span class="p">(),</span> <span class="n">result</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_StackOverflowError</span><span class="p">());</span>
+  <span class="p">}</span>
+<span class="n">JVM_END</span>
+</code></pre></div>
 <p>openjdk/hotspot/src/share/vm/runtime/reflection.cpp :</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">oop</span> <span class="n">Reflection</span><span class="o">::</span><span class="n">invoke_method</span><span class="p">(</span><span class="n">oop</span> <span class="n">method_mirror</span><span class="p">,</span> <span class="n">Handle</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">objArrayHandle</span> <span class="n">args</span><span class="p">,</span> <span class="n">TRAPS</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">oop</span> <span class="n">mirror</span>             <span class="o">=</span> <span class="n">java_lang_reflect_Method</span><span class="o">::</span><span class="n">clazz</span><span class="p">(</span><span class="n">method_mirror</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">slot</span>               <span class="o">=</span> <span class="n">java_lang_reflect_Method</span><span class="o">::</span><span class="n">slot</span><span class="p">(</span><span class="n">method_mirror</span><span class="p">);</span>
+  <span class="kt">bool</span> <span class="k">override</span>          <span class="o">=</span> <span class="n">java_lang_reflect_Method</span><span class="o">::</span><span class="k">override</span><span class="p">(</span><span class="n">method_mirror</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">objArrayHandle</span> <span class="nf">ptypes</span><span class="p">(</span><span class="n">THREAD</span><span class="p">,</span> <span class="n">objArrayOop</span><span class="p">(</span><span class="n">java_lang_reflect_Method</span><span class="o">::</span><span class="n">parameter_types</span><span class="p">(</span><span class="n">method_mirror</span><span class="p">)));</span>
 
-<pre><code class="language-c++">oop Reflection::invoke_method(oop method_mirror, Handle receiver, objArrayHandle args, TRAPS) {
-  oop mirror             = java_lang_reflect_Method::clazz(method_mirror);
-  int slot               = java_lang_reflect_Method::slot(method_mirror);
-  bool override          = java_lang_reflect_Method::override(method_mirror) != 0;
-  objArrayHandle ptypes(THREAD, objArrayOop(java_lang_reflect_Method::parameter_types(method_mirror)));
+  <span class="n">oop</span> <span class="n">return_type_mirror</span> <span class="o">=</span> <span class="n">java_lang_reflect_Method</span><span class="o">::</span><span class="n">return_type</span><span class="p">(</span><span class="n">method_mirror</span><span class="p">);</span>
+  <span class="n">BasicType</span> <span class="n">rtype</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">java_lang_Class</span><span class="o">::</span><span class="n">is_primitive</span><span class="p">(</span><span class="n">return_type_mirror</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">rtype</span> <span class="o">=</span> <span class="n">basic_type_mirror_to_basic_type</span><span class="p">(</span><span class="n">return_type_mirror</span><span class="p">,</span> <span class="n">CHECK_NULL</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">rtype</span> <span class="o">=</span> <span class="n">T_OBJECT</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  oop return_type_mirror = java_lang_reflect_Method::return_type(method_mirror);
-  BasicType rtype;
-  if (java_lang_Class::is_primitive(return_type_mirror)) {
-    rtype = basic_type_mirror_to_basic_type(return_type_mirror, CHECK_NULL);
-  } else {
-    rtype = T_OBJECT;
-  }
+  <span class="n">instanceKlassHandle</span> <span class="n">klass</span><span class="p">(</span><span class="n">THREAD</span><span class="p">,</span> <span class="n">java_lang_Class</span><span class="o">::</span><span class="n">as_Klass</span><span class="p">(</span><span class="n">mirror</span><span class="p">));</span>
+  <span class="n">Method</span><span class="o">*</span> <span class="n">m</span> <span class="o">=</span> <span class="n">klass</span><span class="o">-&gt;</span><span class="n">method_with_idnum</span><span class="p">(</span><span class="n">slot</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">THROW_MSG_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_InternalError</span><span class="p">(),</span> <span class="s">&#34;invoke&#34;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">methodHandle</span> <span class="n">method</span><span class="p">(</span><span class="n">THREAD</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
 
-  instanceKlassHandle klass(THREAD, java_lang_Class::as_Klass(mirror));
-  Method* m = klass-&gt;method_with_idnum(slot);
-  if (m == NULL) {
-    THROW_MSG_0(vmSymbols::java_lang_InternalError(), &quot;invoke&quot;);
-  }
-  methodHandle method(THREAD, m);
-
-  return invoke(klass, method, receiver, override, ptypes, rtype, args, true, THREAD);
-}
-</code></pre>
-
+  <span class="k">return</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">klass</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="k">override</span><span class="p">,</span> <span class="n">ptypes</span><span class="p">,</span> <span class="n">rtype</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 <ol>
 <li>Java版的实现</li>
 </ol>
 
 <p>Java版MethodAccessor的生成使用MethodAccessorGenerator实现  下面是开头的注释：</p>
-
-<pre><code class="language-java">/** Generator for sun.reflect.MethodAccessor and
-    sun.reflect.ConstructorAccessor objects using bytecodes to
-    implement reflection. A java.lang.reflect.Method or
-    java.lang.reflect.Constructor object can delegate its invoke or
-    newInstance method to an accessor using native code or to one
-    generated by this class. (Methods and Constructors were merged
-    together in this class to ensure maximum code sharing.) */
-</code></pre>
-
-    </div>
-
-    
-    
-
-
-    
-    
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          <a href="https://naivete.cc/tags/java/">Java</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/post/%E8%AF%91%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/">
-            
-            <i class="iconfont">
-              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
-</svg>
-
-            </i>
-            <span class="prev-text nav-default">在Android的个人字典中发现和利用漏洞(CVE-2018-9375)</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%874/">
-            <span class="next-text nav-default">Android应用安全防护和逆向分析-基础篇④</span>
-            <span class="prev-text nav-mobile">下一篇</span>
-            
-            <i class="iconfont">
-              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
-</svg>
-
-            </i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-
-  
-
-  
-  
-    
-
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/** Generator for sun.reflect.MethodAccessor and
+</span><span class="cm">    sun.reflect.ConstructorAccessor objects using bytecodes to
+</span><span class="cm">    implement reflection. A java.lang.reflect.Method or
+</span><span class="cm">    java.lang.reflect.Constructor object can delegate its invoke or
+</span><span class="cm">    newInstance method to an accessor using native code or to one
+</span><span class="cm">    generated by this class. (Methods and Constructors were merged
+</span><span class="cm">    together in this class to ensure maximum code sharing.) */</span></code></pre></div>
 
         </div>
-      </div>
-    </main>
+        <footer>
+            <hr>
+            <div id="isso-thread"></div>
+        
+        
+    <script data-isso="https://c.jinxiapu.cn/" 
+        data-title="Java反射机制学习笔记 - LowEntorpy"
+        data-isso-css="true"
+        data-isso-lang="zh_CN"
+        data-isso-reply-to-self="false"
+        data-isso-reply-notifications="true"
+        data-isso-require-author="true" 
+        data-isso-require-email="true"
+        data-isso-vote="true" src="https://c.jinxiapu.cn/js/embed.min.js"></script>
+        
+    <script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
 
-    <footer id="footer" class="footer">
-      <div class="icon-links">
-  
-  
-    <a href="mailto:naivetesun@gmail.com" rel="me noopener" class="iconfont"
-      title="email" >
-      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="36" height="36">
-  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
-</svg>
-
-    </a>
-  
-    <a href="https://twitter.com/Vorblock" rel="me noopener" class="iconfont"
-      title="twitter"  target="_blank"
-      >
-      <svg class="icon" viewBox="0 0 1264 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="36" height="36">
-  <path d="M1229.8616 18.043658c0 0-117.852626 63.135335-164.151872 67.344358-105.225559-164.151872-505.082682-92.598492-437.738325 223.078185C278.622548 312.675223 89.216542 47.506814 89.216542 47.506814s-117.852626 189.406006 75.762402 345.139833C127.097743 396.85567 55.544363 371.601535 55.544363 371.601535S26.081207 535.753407 253.368414 615.724832c-21.045112 29.463156-113.643603 8.418045-113.643603 8.418045s25.254134 143.10676 231.496229 180.987961c-143.10676 130.479693-387.230056 92.598492-370.393967 105.225559 206.242095 189.406006 1119.599946 231.496229 1128.01799-643.98042C1179.353331 249.539887 1263.533778 123.269217 1263.533778 123.269217s-130.479693 37.881201-138.897738 33.672179C1225.652577 98.015083 1229.8616 18.043658 1229.8616 18.043658"></path>
-</svg>
-
-    </a>
-  
-    <a href="https://github.com/Naivetesun" rel="me noopener" class="iconfont"
-      title="github"  target="_blank"
-      >
-      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="36" height="36">
-  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
-</svg>
-
-    </a>
-  
-    <a href="https://weibo.com/274077334" rel="me noopener" class="iconfont"
-      title="weibo"  target="_blank"
-      >
-      <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="36" height="36">
-  <path d="M385.714286 733.714286q12-19.428571 6.285714-39.428571t-25.714286-28.571429q-19.428571-8-41.714286-0.571429t-34.285714 26.285714q-12.571429 19.428571-7.428571 39.142857t24.571429 28.857143 42.571429 1.428571 35.714286-27.142857zm53.714286-69.142857q4.571429-7.428571 2-15.142857t-10-10.571429q-8-2.857143-16.285714 2.857143t-12.285714 10.571429q-9.714286 17.714286 7.428571 25.714286 8 2.857143 16.571429 2.857143t12.571429-10.571429zm99.428571 61.142857q-25.714286 58.285714-90.285714 85.714286t-128 6.857143q-61.142857-19.428571-84.285714-72.285714t3.714286-107.142857q26.857143-53.142857 86.571429-79.428571t120.285714-10.857143q63.428571 16.571429 90.571429 68.285714t1.428571 108.857143zm178.285714-91.428571q-5.142857-54.857143-50.857143-97.142857t-119.142857-62.285714-156.857143-12q-127.428571 13.142857-211.142857 80.857143t-75.714286 151.142857q5.142857 54.857143 50.857143 97.142857t119.142857 62.285714 156.857143 12q127.428571-13.142857 211.142857-80.857143t75.714286-151.142857zm176 2.285714q0 38.857143-21.142857 79.714286t-62.285714 78.285714-96.285714 67.142857-129.142857 47.428571-154.571429 17.714286-157.142857-19.142857-137.428571-53.142857-98-86.285714-37.142857-114q0-65.714286 39.714286-140t112.857143-147.428571q96.571429-96.571429 195.142857-134.857143t140.857143 4q37.142857 36.571429 11.428571 119.428571-2.285714 8-0.571429 11.428571t5.714286 4 8.285714 2.857143 7.714286-2l3.428571-1.142857q79.428571-33.714286 140.571429-33.714286t87.428571 34.857143q25.714286 36 0 101.714286-1.142857 7.428571-2.571429 11.428571t2.571429 7.142857 6.857143 4.285714 9.714286 3.428571q32.571429 10.285714 58.857143 26.857143t45.714286 46.571429 19.428571 66.571429zm-42.285714-356.571429q24 26.857143 31.142857 62t-3.714286 67.142857q-4.571429 13.142857-16.857143 19.428571t-25.428571 2.285714q-13.142857-4.571429-19.428571-16.857143t-2.285714-25.428571q11.428571-36-13.714286-63.428571t-61.142857-20q-13.714286 2.857143-25.714286-4.571429t-14.285714-21.142857q-2.857143-13.714286 4.571429-25.428571t21.142857-14.571429q34.285714-7.428571 68 3.142857t57.714286 37.428571zm103.428571-93.142857q49.714286 54.857143 64.285714 127.142857t-7.714286 138q-5.142857 15.428571-19.428571 22.857143t-29.714286 2.285714-22.857143-19.428571-2.857143-29.714286q16-46.857143 5.714286-98.285714t-45.714286-90.285714q-35.428571-39.428571-84.571429-54.571429t-98.857143-4.857143q-16 3.428571-29.714286-5.428571t-17.142857-24.857143 5.428571-29.428571 24.857143-16.857143q70.285714-14.857143 139.428571 6.571429t118.857143 76.857143z"></path>
-</svg>
-
-    </a>
-  
-    <a href="https://space.bilibili.com/6477559" rel="me noopener" class="iconfont"
-      title="bilibili"  target="_blank"
-      >
-      <svg
-  class="icon" style="" viewBox="0 0 1024 1024" version="1.1" width="36"
-  height="36" id="svg8">
-  <path
-      style=""
-      d="M 744.60599,0.00486267 A 41.779915,41.779915 0 0 0 710.4184,18.673394 L 548.5048,255.32642 h -11.70046 a 41.779915,41.779915 0 0 0 -10.80295,-7.84928 L 235.66,97.084498 a 41.779915,41.779915 0 0 0 -20.07193,-4.960864 41.779915,41.779915 0 0 0 -18.3748,79.145436 L 359.4859,255.32642 H 128.16909 c -49.458302,0 -89.27932,39.82105 -89.27932,89.27932 v 508.65224 c 0,49.4583 39.821018,89.27934 89.27932,89.27934 h 19.48445 C 149.12802,984.5043 179.92773,1024 224.79179,1024 c 44.86407,0 75.66379,-39.4957 77.13826,-81.46268 H 719.98116 C 721.45559,984.5043 752.25533,1024 797.1194,1024 c 44.86406,0 75.6638,-39.4957 77.13824,-81.46268 h 21.57323 c 49.45831,0 89.27936,-39.82104 89.27936,-89.27934 V 344.60574 c 0,-49.45827 -39.82105,-89.27932 -89.27936,-89.27932 H 649.74567 L 779.38103,65.866924 A 41.779915,41.779915 0 0 0 744.60599,0.00486267 Z M 644.49108,418.70871 c 6.29985,0.21538 12.44451,2.01107 17.86888,5.22196 l 171.36218,98.10771 c 18.23417,10.21935 24.63334,33.34627 14.24614,51.48533 -10.38726,18.13909 -33.57344,24.32718 -51.61587,13.77296 L 624.9903,489.18895 c -15.21356,-8.41858 -22.66871,-26.1765 -18.03211,-42.93436 4.63664,-16.75784 20.15573,-28.14465 37.53289,-27.54588 z M 350.2006,432.31846 c 16.89952,0.0317 31.69582,11.33328 36.17844,27.62747 4.48262,16.2942 -2.44981,33.57765 -16.95507,42.24898 l -140.7157,86.91312 c -17.68528,11.18244 -41.09629,5.77692 -52.08912,-12.02686 -10.99282,-17.80373 -5.33855,-41.15658 12.58167,-51.95857 L 329.9002,438.2095 c 6.0643,-3.86439 13.10951,-5.90891 20.3004,-5.89104 z M 501.605,641.53985 c 3.75002,-0.15248 7.48645,0.53903 10.93349,2.0235 0.15842,0.0637 0.31618,0.12888 0.47325,0.19582 0.59328,0.27092 1.17574,0.56489 1.74609,0.88121 0.15868,0.0854 0.31643,0.17233 0.47325,0.2611 0.55694,0.32165 1.10131,0.66458 1.63185,1.02807 0.16455,0.1123 0.32777,0.2265 0.48956,0.34269 0.50382,0.36781 0.99371,0.75428 1.46868,1.15864 0.18724,0.15504 0.37218,0.31282 0.55484,0.47323 0.43271,0.38784 0.8518,0.79061 1.25653,1.20756 0.15449,0.16114 0.30679,0.32437 0.45693,0.48959 0.40798,0.44266 0.79989,0.89988 1.17494,1.37076 0.17799,0.22544 0.35205,0.45395 0.5222,0.68538 0.25932,0.34701 0.50964,0.70071 0.75064,1.06071 0.26712,0.39516 0.52286,0.79784 0.76699,1.20757 0.16907,0.29043 0.33231,0.58424 0.48957,0.88123 0.21836,0.41297 0.42513,0.83199 0.62009,1.25653 0.14836,0.32333 0.28983,0.64976 0.42429,0.97911 0.21319,0.51552 0.40915,1.03801 0.58747,1.5666 0.0677,0.19499 0.13296,0.39085 0.19582,0.58748 0.18652,0.60823 0.34984,1.22334 0.48957,1.84399 0.0397,0.16277 0.0779,0.32601 0.11423,0.48957 0.1436,0.69112 0.25788,1.38801 0.34269,2.08877 0.005,0.0381 0.0111,0.0761 0.0163,0.11424 0.0857,0.78056 0.13474,1.56471 0.14687,2.34988 0.005,0.0543 0.0111,0.10879 0.0163,0.1632 0,0 -0.008,1.12132 0,1.45234 0,0 -0.14697,17.84761 5.89102,34.12231 3.01902,8.13734 7.33278,15.10615 12.61433,19.61501 5.28157,4.50889 11.42894,7.62081 23.64572,7.62081 12.2168,0 18.36416,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.5953,-11.47767 12.6143,-19.61501 6.03799,-16.2747 5.89103,-34.12231 5.89103,-34.12231 -0.44885,-13.87045 10.45922,-25.46302 24.3311,-25.86506 13.87189,-0.40201 25.42828,10.53953 25.78348,24.41272 0,0 1.11929,25.7226 -9.00791,53.01927 -5.06359,13.64832 -13.1986,28.46036 -27.05631,40.29073 -13.85772,11.83039 -33.5454,19.63135 -56.20142,19.63135 -22.65603,0 -42.34371,-7.80096 -56.20141,-19.63135 -4.1801,-3.56856 -7.78733,-7.42433 -10.99878,-11.42303 -3.21235,4.00037 -6.81703,7.85309 -10.99876,11.42303 -13.85773,11.83039 -33.5454,19.63135 -56.20144,19.63135 -22.65601,0 -42.3437,-7.80096 -56.2014,-19.63135 -13.85775,-11.83037 -21.99272,-26.64241 -27.05632,-40.29073 -10.12725,-27.29667 -9.00789,-53.01928 -9.00789,-53.01927 0.20714,-13.83687 11.58744,-24.88848 25.42444,-24.69013 14.1263,0.19991 25.2971,12.0278 24.69011,26.14247 0,0 -0.14697,17.84761 5.89103,34.12231 3.01902,8.13734 7.31646,15.10615 12.598,19.61501 5.28155,4.50889 11.44526,7.62081 23.66203,7.62081 12.21681,0 18.36418,-3.11192 23.64573,-7.62081 5.28154,-4.50886 9.57899,-11.47767 12.598,-19.61501 5.76352,-15.53489 5.89112,-32.05691 5.89103,-33.56746 0.006,-0.37466 0.0111,-1.05336 0.0163,-1.20759 -0.0117,-0.74583 0.0105,-1.49177 0.0652,-2.23565 0.009,-0.15784 0.0204,-0.31561 0.0327,-0.47324 0.14204,-1.56859 0.43163,-3.12027 0.86487,-4.63449 0.0213,-0.0763 0.0433,-0.15244 0.0652,-0.22848 3.0335,-10.25748 12.24157,-17.46007 22.92769,-17.93417 z"
-      id="rect824"/>
-</svg>
-
-    </a>
-  
-    <a href="https://t.me/Vorblock" rel="me noopener" class="iconfont"
-      title="telegram"  target="_blank"
-      >
-      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1555061894034" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2484" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><defs><style type="text/css"></style></defs><path d="M512 16C238 16 16 238 16 512s222 496 496 496 496-222 496-496S786 16 512 16z m243.6 339.8l-81.4 383.6c-6 27.2-22.2 33.8-44.8 21l-124-91.4-59.8 57.6c-6.6 6.6-12.2 12.2-25 12.2l8.8-126.2 229.8-207.6c10-8.8-2.2-13.8-15.4-5l-284 178.8-122.4-38.2c-26.6-8.4-27.2-26.6 5.6-39.4l478.2-184.4c22.2-8 41.6 5.4 34.4 39z" fill="" p-id="2485"></path></svg>
-    </a>
-
-
-<a href="https://naivete.cc/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
-    class="iconfont" title="rss" target="_blank">
-    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="30" height="30">
-  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
-</svg>
-
-  </a>
-   
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
-  </span>
-
-  <span class="copyright-year">
-    &copy;
     
-      2017 -
-    2019
-    <span class="heart">
-      
-      <i class="iconfont">
-        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="14" height="14">
-  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
-   fill="#8a8a8a"></path>
-</svg>
-
-      </i>
-    </span><span class="author">
-        Vorblock
-        
-      </span></span>
-
-  
-  
-
-  
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont">
-        
-        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="35" height="35">
-  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
-</svg>
-
-      </i>
-    </div>
-  </div>
-  
-<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-
-
-
-
-<script type="text/javascript" src="/js/main.dee43230127a73d039a734510fa896c89c3c7ce0cf0be0c7a7433f8fd69b76dc.js" integrity="sha256-3uQyMBJ6c9A5pzRRD6iWyJw8fODPC&#43;DHp0M/j9abdtw=" crossorigin="anonymous"></script>
-
-
-
-
-
-
-  
-    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
-    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
-    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <script>
+        (function(){function center_el(tagName){var tags=document.getElementsByTagName(tagName),i,tag;for(i=0;i<tags.length;i++){tag=tags[i];var parent=tag.parentElement;if(parent.childNodes.length===1){if(parent.nodeName==='A'){parent=parent.parentElement;if(parent.childNodes.length!=1)continue;parent.firstChild.style.border='none';}
+if(parent.nodeName==='P')parent.style.textAlign='center';}}}
+var tagNames=['img','embed','object'];for(var i=0;i<tagNames.length;i++){center_el(tagNames[i]);}})();
+    </script>
+    
+            <div class="copyright">
+                <span class="copyright">&copy; 2019 vorblock - <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a></span>
+            </div>
+        </footer>
+    </article>
 </body>
+
 </html>

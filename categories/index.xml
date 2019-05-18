@@ -1,168 +1,184 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on {Vorblock&gt;&gt;&gt;blog}</title>
-    <link>https://naivete.cc/categories/</link>
-    <description>Recent content in Categories on {Vorblock&gt;&gt;&gt;blog}</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sat, 08 Dec 2018 23:40:51 +0800</lastBuildDate>
-    
-	<atom:link href="https://naivete.cc/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Ai</title>
-      <link>https://naivete.cc/categories/ai/</link>
-      <pubDate>Sat, 08 Dec 2018 23:40:51 +0800</pubDate>
+    <channel>
+      <title>Categories on vorblock</title>
+      <link>https://vorblock.cc/categories/</link>
+      <description>Recent content in Categories on vorblock</description>
+      <generator>Hugo -- gohugo.io</generator>
+      <language>zh-CN</language>
+      <lastBuildDate>Wed, 20 Mar 2019 15:37:13 +0800</lastBuildDate>
       
-      <guid>https://naivete.cc/categories/ai/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Android</title>
-      <link>https://naivete.cc/categories/android/</link>
-      <pubDate>Thu, 05 Jul 2018 17:35:46 +0800</pubDate>
+          <atom:link href="https://vorblock.cc/categories/index.xml" rel="self" type="application/rss+xml" />
       
-      <guid>https://naivete.cc/categories/android/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Android安全</title>
-      <link>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
       
-      <guid>https://naivete.cc/categories/android%E5%AE%89%E5%85%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Arm</title>
-      <link>https://naivete.cc/categories/arm/</link>
-      <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
+      <item>
+        <title>漏洞基础</title>
+        <link>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</link>
+        <pubDate>Wed, 20 Mar 2019 15:37:13 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/arm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Crypto</title>
-      <link>https://naivete.cc/categories/crypto/</link>
-      <pubDate>Tue, 11 Sep 2018 20:39:26 +0800</pubDate>
+      <item>
+        <title>PWN</title>
+        <link>https://vorblock.cc/categories/pwn/</link>
+        <pubDate>Thu, 28 Feb 2019 00:22:36 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/pwn/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/crypto/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cve</title>
-      <link>https://naivete.cc/categories/cve/</link>
-      <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
+      <item>
+        <title>Android安全</title>
+        <link>https://vorblock.cc/categories/android%E5%AE%89%E5%85%A8/</link>
+        <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/android%E5%AE%89%E5%85%A8/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/cve/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Daily</title>
-      <link>https://naivete.cc/categories/daily/</link>
-      <pubDate>Mon, 02 Oct 2017 21:49:20 +0200</pubDate>
+      <item>
+        <title>HOOK</title>
+        <link>https://vorblock.cc/categories/hook/</link>
+        <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/hook/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/daily/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hook</title>
-      <link>https://naivete.cc/categories/hook/</link>
-      <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
+      <item>
+        <title>RE</title>
+        <link>https://vorblock.cc/categories/re/</link>
+        <pubDate>Wed, 02 Jan 2019 20:39:26 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/re/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/hook/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Java</title>
-      <link>https://naivete.cc/categories/java/</link>
-      <pubDate>Wed, 25 Jul 2018 16:40:20 +0800</pubDate>
+      <item>
+        <title>AI</title>
+        <link>https://vorblock.cc/categories/ai/</link>
+        <pubDate>Sat, 08 Dec 2018 23:40:51 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/ai/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux内核</title>
-      <link>https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8/</link>
-      <pubDate>Thu, 09 Aug 2018 19:34:34 +0800</pubDate>
+      <item>
+        <title>ARM</title>
+        <link>https://vorblock.cc/categories/arm/</link>
+        <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/arm/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/linux%E5%86%85%E6%A0%B8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Llvm</title>
-      <link>https://naivete.cc/categories/llvm/</link>
-      <pubDate>Mon, 10 Sep 2018 20:39:26 +0800</pubDate>
+      <item>
+        <title>Crypto</title>
+        <link>https://vorblock.cc/categories/crypto/</link>
+        <pubDate>Tue, 11 Sep 2018 20:39:26 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/crypto/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/llvm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pwn</title>
-      <link>https://naivete.cc/categories/pwn/</link>
-      <pubDate>Thu, 28 Feb 2019 00:22:36 +0800</pubDate>
+      <item>
+        <title>LLVM</title>
+        <link>https://vorblock.cc/categories/llvm/</link>
+        <pubDate>Mon, 10 Sep 2018 20:39:26 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/llvm/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Re</title>
-      <link>https://naivete.cc/categories/re/</link>
-      <pubDate>Wed, 02 Jan 2019 20:39:26 +0800</pubDate>
+      <item>
+        <title>读书笔记</title>
+        <link>https://vorblock.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Wed, 29 Aug 2018 20:39:26 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/re/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>漏洞分析</title>
-      <link>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
-      <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
+      <item>
+        <title>Linux内核</title>
+        <link>https://vorblock.cc/categories/linux%E5%86%85%E6%A0%B8/</link>
+        <pubDate>Thu, 09 Aug 2018 19:34:34 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/linux%E5%86%85%E6%A0%B8/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>漏洞基础</title>
-      <link>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</link>
-      <pubDate>Wed, 20 Mar 2019 15:37:13 +0800</pubDate>
+      <item>
+        <title>CVE</title>
+        <link>https://vorblock.cc/categories/cve/</link>
+        <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/cve/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>笔记</title>
-      <link>https://naivete.cc/categories/%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Wed, 25 Jul 2018 16:40:20 +0800</pubDate>
+      <item>
+        <title>漏洞分析</title>
+        <link>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
+        <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/%E7%AC%94%E8%AE%B0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>读书笔记</title>
-      <link>https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Wed, 29 Aug 2018 20:39:26 +0800</pubDate>
+      <item>
+        <title>Java</title>
+        <link>https://vorblock.cc/categories/java/</link>
+        <pubDate>Wed, 25 Jul 2018 16:40:20 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/java/</guid>
+        <description></description>
+        
+      </item>
       
-      <guid>https://naivete.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+      <item>
+        <title>笔记</title>
+        <link>https://vorblock.cc/categories/%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Wed, 25 Jul 2018 16:40:20 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/%E7%AC%94%E8%AE%B0/</guid>
+        <description></description>
+        
+      </item>
+      
+      <item>
+        <title>Android</title>
+        <link>https://vorblock.cc/categories/android/</link>
+        <pubDate>Thu, 05 Jul 2018 17:35:46 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/android/</guid>
+        <description></description>
+        
+      </item>
+      
+      <item>
+        <title>Daily</title>
+        <link>https://vorblock.cc/categories/daily/</link>
+        <pubDate>Mon, 02 Oct 2017 21:49:20 +0200</pubDate>
+        
+        <guid>https://vorblock.cc/categories/daily/</guid>
+        <description></description>
+        
+      </item>
+      
+    </channel>
 </rss>
