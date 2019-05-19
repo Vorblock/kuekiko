@@ -14,25 +14,48 @@
   
   <url>
     <loc>https://vorblock.cc/categories/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://vorblock.cc/post/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E5%A4%87%E4%BB%BD/</loc>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
   </url>
   
   <url>
@@ -79,6 +102,18 @@
   <url>
     <loc>https://vorblock.cc/post/rop%E7%BB%83%E4%B9%A0/</loc>
     <lastmod>2019-02-28T00:22:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/ctf/</loc>
+    <lastmod>2019-02-20T00:17:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/ctf/</loc>
+    <lastmod>2019-02-20T00:17:21+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -168,8 +203,20 @@
   </url>
   
   <url>
+    <loc>https://vorblock.cc/tags/gcc/</loc>
+    <lastmod>2018-10-22T20:39:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://vorblock.cc/post/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2018-10-22T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/tools/</loc>
+    <lastmod>2018-10-22T20:39:26+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
