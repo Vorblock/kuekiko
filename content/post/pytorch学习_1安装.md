@@ -6,7 +6,7 @@ draft: false
 keywords: ["AI","机器学习"]
 description: "Pytorch学习"
 tags:  ["AI","机器学习"]
-categories: ["AI"]
+categories: ["AI","工具环境"]
 author: "Vorblock"
 ---
 

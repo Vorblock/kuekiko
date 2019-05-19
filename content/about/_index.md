@@ -3,7 +3,6 @@ title: "About"
 date: 2018-06-24T21:38:52+08:00
 lastmod: 2018-06-24T21:41:52+08:00
 weight: 60
-
 ---
 
 ### About me

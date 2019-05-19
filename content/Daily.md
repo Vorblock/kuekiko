@@ -4,13 +4,11 @@ date = "2017-10-02T21:49:20+02:00"
 tags = ["Daily"]
 categories = ["Daily"]
 
-banner = "banners/placeholder.png"
-
 +++
 
 ## Daily summary
 
-中断了很长一段时间、重新开始写。也算是一个新的开始吧。也换了一个Blog环境。
+
 
 ### 2019
 

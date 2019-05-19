@@ -3,10 +3,9 @@ title: "CTF PWN刷题记录 CTFWiki_1栈溢出"
 date: 2019-02-20T00:17:21+08:00
 draft: false
 
-tags : ["PWN"]
-categories : ["PWN"]
+tags : ["PWN","CTF"]
+categories : ["PWN","CTF"]
 description : "CTFWiki_1栈溢出"
-images : []
 ---
 --------------------------------
 

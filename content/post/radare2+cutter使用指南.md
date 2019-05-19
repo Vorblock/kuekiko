@@ -3,10 +3,8 @@ title: "radare2+cutter使用指南"
 date: 2019-01-02T20:39:26+08:00
 draft: false
 tags: ["radare2","RE"]
-categories : ["RE"]
-description : ""
-banner : ""
-images : []
+categories : ["RE","工具环境"]
+description : "radare2+cutter使用指南"
 ---
 
 

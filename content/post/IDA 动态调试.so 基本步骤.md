@@ -6,9 +6,8 @@ tags: [
     "android安全","IDA"
 ]
 categories : ["Android安全"]
-description : ""
+description : "简述IDA 动态调试.so"
 
-images : []
 ---
 
 ## IDA 动态调试.so 基本步骤 

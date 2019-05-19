@@ -2,11 +2,9 @@
 title: "PWN 小tools的使用"
 date: 2018-10-22T20:39:26+08:00
 draft: false
-tags: ["PWN"]
-categories : ["PWN"]
+tags: ["PWN","GCC","tools"]
+categories : ["PWN","工具环境"]
 description : ""
-banner : ""
-images : []
 ---
 
 

@@ -5,10 +5,8 @@ draft: false
 tags: [
     "android安全","HOOK","Frida"
 ]
-categories : ["HOOK","Android安全"]
-description : ""
-banner : "http://md.kangsiji.cn/frida.png"
-images : []
+categories : ["HOOK","Android安全","工具环境"]
+description : "Frida安装简单介绍"
 ---
 
 
