@@ -1,8 +1,7 @@
 ---
-title: "/ABOUT"
+title: "About"
 date: 2018-06-24T21:38:52+08:00
 lastmod: 2018-06-24T21:41:52+08:00
-menu: "main"
 weight: 60
 
 ---

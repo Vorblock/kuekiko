@@ -1,7 +1,7 @@
 baseURL = "https://vorblock.cc/"
 languageCode = "zh-CN"
 title = "sudo ~"
-theme = "LowEntropy-Ivy"
+theme = "vorblock"
 enableRobotsTXT = true
 hasCJKLanguage = true
 paginate = 10
@@ -18,7 +18,7 @@ flight-rules = "/flight-rules/:year:month:day-:title/"
 [params]
   name="vorblock"
   AuthorName = "vorblock"
-  Description = "Are You OK"
+  Description = "Are You OK?"
   images = [
       "https://vorblock.cc/favicon.svg",
       "https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg"
@@ -44,11 +44,11 @@ AutoRenderIntegrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0
 
 
 [[menu.main]]
-    name = "/POSTS"
+    name = "/POSTS/~"
     url = "/post/"
     weight = 2
 [[menu.main]]
-    name = "/TODO"
+    name = "/TODO/~"
     url = "/todo/"
     weight = 3
 # [[menu.main]]
@@ -56,17 +56,17 @@ AutoRenderIntegrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0
 #     url = "/paper-notes/"
 #     weight = 5
 [[menu.main]]
-    name = "/CATEGORIES"
+    name = "/CATEGORIES/~"
     url = "/categories/"
     weight = 8
 [[menu.main]]
-    name = "/TAGS"
+    name = "/TAGS/~"
     url = "/tags/"
     weight = 9
-# [[menu.main]]
-#     name = "ABOUT"
-#     url = "/about/"
-#     weight = 10
+[[menu.main]]
+    name = "/ABOUT/~"
+    url = "/about/"
+    weight = 10
 [[menu.main]]
     name = "/RSS"
     url = "/index.xml"

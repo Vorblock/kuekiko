@@ -1,4 +1,4 @@
-name = "LowEntropy-Ivy"
+name = "vorblock"
 license = "Unlicense"
 licenselink = "https://github.com/yihui/hugo-ivy/blob/master/LICENSE.md"
 description = "A theme ported from Ivy by Yihui Xie, then modified by Budui Wang"
@@ -8,8 +8,8 @@ features = ["blog"]
 min_version = "0.50"
 
 [modified]
-  name = "Budui Wang"
-  homepage = "https://lowentropy.me"
+  name = "vorblock"
+  homepage = "https://vorblock.cc"
 
 [author]
   name = "Yihui Xie"
