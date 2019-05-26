@@ -9,8 +9,8 @@ title: Home
 > — 《银河漫游指南》
 
 ![123](https://as2.bitinn.net/uploads/il/cjrp33f3s002c1t8hbobi3zil.1080p.jpg)
+
   
-  
-  
+
 给自己时间，不要焦急，一步一步来，一日一日过，相信生命的韧性是惊人的，跟自己向上的心去合作，不要放弃自己。
 

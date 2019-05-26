@@ -7,10 +7,11 @@ hasCJKLanguage = true
 paginate = 10
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+pygmentsStyle = "manni"
 googleAnalytics = "UA-140385231-1"
 footnotereturnlinkcontents = "↩"
 enableEmoji = true
-
+disqusShortname = "vorblock.disqus.com"
 [permalinks]
 blog = "/blog/:year:month:day-:title/"
 flight-rules = "/flight-rules/:year:month:day-:title/"
@@ -30,8 +31,8 @@ enable = true
 # Host must end with `/`
 Host = "https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/"
 
-[params.comments.isso]
-Host = "http://47.106.212.155:8080/"
+# [params.comments.isso]
+# Host = "http://47.106.212.155:8080/"
 
 [params.katex]
 base = "https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/"

@@ -1,5 +1,5 @@
     {{- if (and .IsPage .Params.comment | default true ) -}}
-    <div id="isso-thread"></div>
+    <!-- <div id="isso-thread"></div>
         {{ $Title := .Title }}
         {{ with .Page.Site.Params.comments.isso.Host }}
     <script data-isso="{{ . }}" 
@@ -11,10 +11,12 @@
         data-isso-require-author="true" 
         data-isso-require-email="true"
         data-isso-vote="true" src="{{ . }}js/embed.min.js"></script>
-        {{ end }}
+        {{ end }} -->
+        {{ template "_internal/disqus.html" . }}
     {{ end }}
 
     {{- if (and .IsPage (eq .Params.markup "pandoc" ) ) -}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="{{ .Page.Site.Params.katex.base }}katex.min.css" integrity="{{ .Page.Site.Params.katex.CSSIntegrity }}" crossorigin="anonymous">
     <script defer src="{{ .Page.Site.Params.katex.base }}katex.min.js" integrity="{{ .Page.Site.Params.katex.JSIntegrity }}" crossorigin="anonymous"></script>
     <script defer src="{{ .Page.Site.Params.katex.base }}contrib/auto-render.min.js" integrity="{{ .Page.Site.Params.katex.AutoRenderIntegrity }}" crossorigin="anonymous"

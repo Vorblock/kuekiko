@@ -52,7 +52,7 @@
 
     {{- $main := resources.Get "css/main.css" -}}
     {{ $fonts := resources.Get "css/fonts.css" }}
-    {{ $highlight := resources.Get "css/highlight.css" }}
+    {{ $highlight := resources.Get "css/highlight.css"}}
     {{ $isso := resources.Get "css/isso.css" -}}
     {{ if .IsPage }}
         {{- $style := slice $main $fonts $highlight $isso | resources.Concat "/css/style.css" | minify | fingerprint -}}
@@ -79,8 +79,10 @@
             gtag('js', new Date());
             gtag('config', '{{ . }}');
         </script>
+        
         {{ end }}
     {{ end }}
+
 </head>
 
 {{ $.Scratch.Set "section" (replaceRE "^/([^/]+)/.*" "$1" .RelPermalink) }}
@@ -109,7 +111,11 @@
                     </li>
                 {{ end }}
             </ul>
+            
         </nav>
+        {{ if .Params.toc  | default false }}
+        {{- partial "toc.html" . -}}
+        {{ end }}
     </header>
 
     <article class="main">
@@ -123,7 +129,7 @@
             <hr>
             {{ partial "foot_custom.html" . }}
             <div class="copyright">
-                <span class="copyright">&copy; {{ .Site.LastChange.Year }} {{ .Site.Params.AuthorName }} - <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a></span>
+                <span class="copyright">&copy;2017-{{ .Site.LastChange.Year }} {{ .Site.Params.AuthorName }} - <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a></span>
             </div>
         </footer>
     </article>

@@ -8,7 +8,7 @@
 {{/* Minimum heading level to include; default is h2. */}}
 {{- $minLevel := 2 -}}
 {{/* Minimum heading level to include; default is h4. */}}
-{{- $maxLevel := 4 -}}
+{{- $maxLevel := 5 -}}
 {{/* Search for headers as specified by $minLevel and $maxLevel, ignoring those
      that contain no text (ex; "<h2></h2>" will be ignored).
 */}}
@@ -29,6 +29,7 @@
     {{- $.Scratch.Set "toc__last-level" $headerLevel -}}
 
     {{- if gt $headerLevel $lastLevel -}}
+      <div class="toc">
       {{- range $l := $levelSeq -}}
         <ul class="table-of-contents__h{{ $l }}" ><li>
       {{- end -}}
@@ -45,6 +46,7 @@
 
   {{/* We end  */}}
   {{- range seq ($.Scratch.Get "toc__last-level") (sub $minLevel 1) | after 1 -}}
-    </li></ul>
+    </li></ul></div>
   {{- end -}}
+  
 {{- end -}}
