@@ -11,7 +11,6 @@ pygmentsStyle = "manni"
 googleAnalytics = "UA-140385231-1"
 footnotereturnlinkcontents = "↩"
 enableEmoji = true
-disqusShortname = "vorblock.disqus.com"
 [permalinks]
 blog = "/blog/:year:month:day-:title/"
 flight-rules = "/flight-rules/:year:month:day-:title/"
