@@ -27,41 +27,137 @@
 &lt;p&gt;Dynamic instrumentation toolkit for developers, reverse-engineers, and security
 researchers.&lt;/p&gt;
 
+&lt;ul&gt;
+&lt;li&gt;Scriptable&lt;/li&gt;
+&lt;li&gt;Portable&lt;/li&gt;
+&lt;li&gt;Free&lt;/li&gt;
+&lt;li&gt;Battle-tested&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h3 id=&#34;0x01-安装&#34;&gt;0x01 安装&lt;/h3&gt;
 
-&lt;p&gt;用python&lt;/p&gt;
+&lt;h5 id=&#34;二进制安装-推荐&#34;&gt;二进制安装 (推荐)&lt;/h5&gt;
 
-&lt;p&gt;&lt;code&gt;pip install frida-tools&lt;/code&gt; 就一个命令搞定&lt;/p&gt;
+&lt;p&gt;pip install frida-tools 就一个命令搞定&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;Failed to load the Frida native extension: DLL load failed: 找不到指定的模块&lt;/p&gt;
 
 &lt;p&gt;报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。&lt;/p&gt;
-
-&lt;p&gt;作者真的是脑子一根筋。。。 所以只好升级成3.7.。。。&lt;/p&gt;
 &lt;/blockquote&gt;
 
+&lt;p&gt;绑定：二选一就行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pip install frida       &lt;span class=&#34;c1&#34;&gt;# Python bindings&lt;/span&gt;
+npm install frida       &lt;span class=&#34;c1&#34;&gt;# Node.js bindings&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&#34;手动编译&#34;&gt;手动编译&lt;/h5&gt;
+
+&lt;p&gt;依赖：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pip3 install colorama prompt-toolkit pygments&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;make&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;MacOS and iOS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;MAC_CERTID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;frida-cert
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;IOS_CERTID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;frida-cert
+make&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;frida.sln &lt;span class=&#34;c1&#34;&gt;#VS2017&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id=&#34;0x02-android环境&#34;&gt;0x02 Android环境&lt;/h3&gt;
 
-&lt;p&gt;设备：小米mix2 运行Android8.0 MIUI10开发版已解锁root&lt;/p&gt;
+&lt;p&gt;设备：小米mix2 运行Android9.0 MIUI10开发版已解锁root&lt;/p&gt;
 
 &lt;p&gt;frida-server: 用的arm64版本&lt;/p&gt;
 
-&lt;p&gt;下载号frida-server  然后adb push 进去&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/frida/frida/releases&#34; target=&#34;_blank&#34;&gt;server文件下载&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下载好对应的 frida-server  然后adb push 进去&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;adb push frida-server /data/local/tmp&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;然后&lt;code&gt;chomd 755 frida-server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;然后&lt;code&gt;chomd 755 frida-server&lt;/code&gt;修改权限&lt;/p&gt;
 
 &lt;p&gt;运行&lt;code&gt;./frida-server&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190112133452.png&#34; alt=&#34;frida-server&#34; /&gt;&lt;/p&gt;
 
+&lt;p&gt;这几个命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;n&#34;&gt;adb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;adb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;push&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;frida-server&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmp&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;adb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shell&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;adb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shell&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;查看架构：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616145105.png&#34; alt=&#34;aarch64&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;0x03-简单测试&#34;&gt;0x03 简单测试&lt;/h3&gt;
+
 &lt;p&gt;命令行运行&lt;code&gt;frida-ps -U&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190112133604.png&#34; alt=&#34;frida-ps&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;安装成功&lt;/p&gt;
+&lt;p&gt;有显示就是连接成功&lt;/p&gt;
+
+&lt;p&gt;接下来对浏览器进行简单测试&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616150349.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;frida-trace -U -i open com.android.browser&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616150506.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;随便点一下浏览器&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616150623.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;测试Diva&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616151039.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616151307.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;frida-trace -U -i &amp;quot;open*&amp;quot; jakhar.aseem.diva&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616151432.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进行Hook login.class checkout函数&lt;/p&gt;
+
+&lt;p&gt;逆向过程略&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616151826.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;HOOK脚本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;Java&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;perfrom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;######&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;logActivity&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Java&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;jakhar.aseem.diva.LogActivity&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;logActivity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;checkout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;implementation&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Hook&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;命令行载入脚本运行&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;frida -U jakhar.aseem.diva -l diva1.js --no-pause&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;进入logging关卡 点击check out，成功hook到checkout函数。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://my-md-1253484710.file.myqcloud.com/20190616153553.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;0x04-总结&#34;&gt;0x04 总结&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;算是简单的入门了frida。&lt;/p&gt;
+
+&lt;p&gt;frida还有很多厉害的功能。多读读官方文档，收货会更多。&lt;/p&gt;
 </description>
         
       </item>
