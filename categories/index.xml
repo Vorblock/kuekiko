@@ -5,10 +5,30 @@
       <description>Recent content in Categories on sudo ~</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
-      <lastBuildDate>Sun, 16 Jun 2019 00:12:44 +0800</lastBuildDate>
+      <lastBuildDate>Sun, 23 Jun 2019 01:14:22 +0800</lastBuildDate>
       
           <atom:link href="https://vorblock.cc/categories/index.xml" rel="self" type="application/rss+xml" />
       
+      
+      <item>
+        <title>ARM</title>
+        <link>https://vorblock.cc/categories/arm/</link>
+        <pubDate>Sun, 23 Jun 2019 01:14:22 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/arm/</guid>
+        <description></description>
+        
+      </item>
+      
+      <item>
+        <title>Raspberry_Pi</title>
+        <link>https://vorblock.cc/categories/raspberry_pi/</link>
+        <pubDate>Sun, 23 Jun 2019 01:14:22 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/raspberry_pi/</guid>
+        <description></description>
+        
+      </item>
       
       <item>
         <title>工具环境</title>
@@ -86,16 +106,6 @@
         <pubDate>Sat, 08 Dec 2018 23:40:51 +0800</pubDate>
         
         <guid>https://vorblock.cc/categories/ai/</guid>
-        <description></description>
-        
-      </item>
-      
-      <item>
-        <title>ARM</title>
-        <link>https://vorblock.cc/categories/arm/</link>
-        <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
-        
-        <guid>https://vorblock.cc/categories/arm/</guid>
         <description></description>
         
       </item>
