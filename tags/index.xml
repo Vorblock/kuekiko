@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>Tags on sudo ~</title>
+      <title>Tags on root@v</title>
       <link>https://vorblock.cc/tags/</link>
-      <description>Recent content in Tags on sudo ~</description>
+      <description>Recent content in Tags on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
       <lastBuildDate>Sun, 23 Jun 2019 01:14:22 +0800</lastBuildDate>
@@ -56,26 +56,6 @@
         <pubDate>Sun, 16 Jun 2019 00:12:44 +0800</pubDate>
         
         <guid>https://vorblock.cc/tags/%E7%8E%AF%E5%A2%83/</guid>
-        <description></description>
-        
-      </item>
-      
-      <item>
-        <title>备份</title>
-        <link>https://vorblock.cc/tags/%E5%A4%87%E4%BB%BD/</link>
-        <pubDate>Sun, 19 May 2019 14:50:32 +0800</pubDate>
-        
-        <guid>https://vorblock.cc/tags/%E5%A4%87%E4%BB%BD/</guid>
-        <description></description>
-        
-      </item>
-      
-      <item>
-        <title>工具</title>
-        <link>https://vorblock.cc/tags/%E5%B7%A5%E5%85%B7/</link>
-        <pubDate>Sun, 19 May 2019 14:50:32 +0800</pubDate>
-        
-        <guid>https://vorblock.cc/tags/%E5%B7%A5%E5%85%B7/</guid>
         <description></description>
         
       </item>

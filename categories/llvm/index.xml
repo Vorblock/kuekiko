@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>LLVM on sudo ~</title>
+      <title>LLVM on root@v</title>
       <link>https://vorblock.cc/categories/llvm/</link>
-      <description>Recent content in LLVM on sudo ~</description>
+      <description>Recent content in LLVM on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
       <lastBuildDate>Mon, 10 Sep 2018 20:39:26 +0800</lastBuildDate>

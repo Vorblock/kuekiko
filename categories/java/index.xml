@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>Java on sudo ~</title>
+      <title>Java on root@v</title>
       <link>https://vorblock.cc/categories/java/</link>
-      <description>Recent content in Java on sudo ~</description>
+      <description>Recent content in Java on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
       <lastBuildDate>Wed, 25 Jul 2018 16:40:20 +0800</lastBuildDate>

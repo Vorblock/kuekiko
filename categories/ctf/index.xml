@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>CTF on sudo ~</title>
+      <title>CTF on root@v</title>
       <link>https://vorblock.cc/categories/ctf/</link>
-      <description>Recent content in CTF on sudo ~</description>
+      <description>Recent content in CTF on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
       <lastBuildDate>Wed, 20 Feb 2019 00:17:21 +0800</lastBuildDate>

@@ -99,23 +99,6 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/%E5%A4%87%E4%BB%BD/</loc>
-    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/tags/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/post/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2019-05-19T14:50:32+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://vorblock.cc/tags/uaf/</loc>
     <lastmod>2019-03-20T15:37:13+08:00</lastmod>
     <priority>0</priority>
@@ -502,6 +485,10 @@
   
   <url>
     <loc>https://vorblock.cc/todo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95/</loc>
   </url>
   
 </urlset>

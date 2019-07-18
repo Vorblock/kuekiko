@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>UAF on sudo ~</title>
+      <title>UAF on root@v</title>
       <link>https://vorblock.cc/tags/uaf/</link>
-      <description>Recent content in UAF on sudo ~</description>
+      <description>Recent content in UAF on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
       <lastBuildDate>Wed, 20 Mar 2019 15:37:13 +0800</lastBuildDate>
