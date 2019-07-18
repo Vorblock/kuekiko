@@ -79,6 +79,12 @@ deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ stretch main
 
 `sudo apt update`
 
+- 拓展SD卡
+
+`sudo raspi-config`  -> Advanced Opt ->  A1 Expand Filesystem
+
+![](https://my-md-1253484710.file.myqcloud.com/20190623140154.png)
+
 - ssh 配置 
 
 最新版系统直接想要的接口打开就OK

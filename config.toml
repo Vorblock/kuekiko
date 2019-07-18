@@ -1,6 +1,6 @@
 baseURL = "https://vorblock.cc/"
 languageCode = "zh-CN"
-title = "sudo ~"
+title = "root@v"
 theme = "vorblock"
 enableRobotsTXT = true
 hasCJKLanguage = true
@@ -34,7 +34,7 @@ Host = "https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/"
 # Host = "http://47.106.212.155:8080/"
 
 [params.katex]
-base = "https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/"
+base = "https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/"
 CSSintegrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ"
 JSIntegrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij"
 AutoRenderIntegrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
