@@ -11,20 +11,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
     
         <title>Android应用安全防护和逆向分析 基础篇② - root@v</title>
     
     
-    
-<meta itemprop="name" content="Android应用安全防护和逆向分析 基础篇②">
+    <meta itemprop="name" content="Android应用安全防护和逆向分析 基础篇②">
 <meta itemprop="description" content="Android中NDK的开发">
 
 
 <meta itemprop="datePublished" content="2018-07-13T15:01:09&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-13T15:01:09&#43;08:00" />
-<meta itemprop="wordCount" content="5315">
+<meta itemprop="wordCount" content="5316">
 
 
 
@@ -38,8 +37,8 @@
 <meta property="og:image" content="https://vorblock.cc/favicon.svg" />
 
 <meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
-<meta property="article:published_time" content="2018-07-13T15:01:09&#43;08:00"/>
-<meta property="article:modified_time" content="2018-07-13T15:01:09&#43;08:00"/>
+<meta property="article:published_time" content="2018-07-13T15:01:09+08:00" />
+<meta property="article:modified_time" content="2018-07-13T15:01:09+08:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vorblock.cc/favicon.svg"/>
@@ -213,15 +212,14 @@
 <h4 id="2-2-jnienv类型和jobject类型">2.2  JNIEnv类型和jobject类型</h4>
 
 <ul>
-<li><strong>AS 默认自动生成</strong><br /></li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-JAVA" data-lang="JAVA"> <span class="kd">public</span> <span class="kd">native</span> <span class="n">String</span> <span class="nf">stringFromJNI</span><span class="o">();</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Java_com_naivete_jni_1study_MainActivity_stringFromJNI</span><span class="o">(</span>
-        <span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="o">,</span>
-        <span class="n">jobject</span> <span class="cm">/* this */</span><span class="o">)</span> <span class="o">{</span><span class="nl">
-</span><span class="nl">    std:</span><span class="o">:</span><span class="n">string</span> <span class="n">hello</span> <span class="o">=</span> <span class="s">&#34;Hello from C++&#34;</span><span class="o">;</span>
-    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="o">(</span><span class="n">hello</span><span class="o">.</span><span class="na">c_str</span><span class="o">());</span></code></pre></div>
-<ul>
-<li><strong>JNIEnv类型</strong></li>
+<li><p><strong>AS 默认自动生成</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="kd">public</span> <span class="nf">native</span> <span class="n">String</span> <span class="nf">stringFromJNI</span><span class="p">();</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Java_com_naivete_jni_1study_MainActivity_stringFromJNI</span><span class="p">(</span>
+    <span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span>
+    <span class="n">jobject</span> <span class="cm">/* this */</span><span class="p">)</span> <span class="p">{</span>
+<span class="nl">std:</span><span class="o">:</span><span class="n">string</span> <span class="nf">hello</span> <span class="o">=</span> <span class="s">&#34;Hello from C++&#34;</span><span class="p">;</span>
+<span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">hello</span><span class="p">.</span><span class="na">c_str</span><span class="p">());</span></code></pre></div></li>
+
+<li><p><strong>JNIEnv类型</strong></p></li>
 </ul>
 
 <p>通过JNIEnv* 指针就可以对Java端的代码进行操作</p>
@@ -360,7 +358,7 @@
 </ul>
 
 <p>查看jni.h中源函数</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">GetFieldID</span><span class="o">(</span><span class="n">jclass</span> <span class="n">clazz</span><span class="o">,</span> <span class="kd">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="o">,</span> <span class="kd">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">sig</span><span class="o">)</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">GetFieldID</span><span class="p">(</span><span class="n">jclass</span> <span class="nf">clazz</span><span class="p">,</span> <span class="kd">const</span> <span class="nf">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="kd">const</span> <span class="nf">char</span><span class="o">*</span> <span class="n">sig</span><span class="p">)</span></code></pre></div>
 <p>​   参数说明：</p>
 
 <ul>
@@ -453,19 +451,19 @@
 </table>
 
 <p>eg:</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.naivete.jni_study</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nf">com</span><span class="p">.</span><span class="na">naivete</span><span class="p">.</span><span class="na">jni_study</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Date</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">property</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">function</span><span class="o">(</span><span class="kt">int</span> <span class="n">foo</span><span class="o">,</span> <span class="n">Date</span> <span class="n">date</span><span class="o">,</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;function&#34;</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
-    <span class="o">}</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">Hello</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">int</span> <span class="n">property</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="nf">int</span> <span class="n">function</span><span class="p">(</span><span class="kt">int</span> <span class="nf">foo</span><span class="p">,</span> <span class="n">Date</span> <span class="nf">date</span><span class="p">,</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">arr</span><span class="p">){</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;function&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">0</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">();</span>
-<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">extern</span> <span class="s">&#34;C&#34;</span>
+    <span class="kd">public</span> <span class="nf">native</span> <span class="kt">void</span> <span class="nf">test</span><span class="p">();</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">extern</span> <span class="s">&#34;C&#34;</span>
 <span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span>
 <span class="n">Java_com_naivete_jni_1study_Hello_test</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">instance</span><span class="p">)</span> <span class="p">{</span>
 
@@ -485,17 +483,17 @@
 </ul>
 
 <h5 id="2-3-1-native中获取方法的id">2.3.1 native中获取方法的ID</h5>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">       <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="o">;</span>
-       <span class="kd">public</span> <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-       <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">();</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">       <span class="kd">private</span> <span class="nf">static</span> <span class="n">String</span> <span class="nf">TAG</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="p">;</span>
+       <span class="kd">public</span> <span class="nf">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+       <span class="kd">public</span> <span class="nf">native</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="p">();</span>
    
-       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">()</span> <span class="o">{</span>
-           <span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hello</span><span class="o">();</span>
-           <span class="n">hello</span><span class="o">.</span><span class="na">sayHello</span><span class="o">();</span>
-           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">hello</span><span class="o">.</span><span class="na">number</span><span class="o">);</span>
-           <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;&#34;</span><span class="o">+</span><span class="n">hello</span><span class="o">.</span><span class="na">number</span><span class="o">);</span>
-       <span class="o">}</span>
-   <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++">   <span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span>
+       <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+           <span class="n">Hello</span> <span class="nf">hello</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hello</span><span class="p">();</span>
+           <span class="n">hello</span><span class="p">.</span><span class="na">sayHello</span><span class="p">();</span>
+           <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">hello</span><span class="p">.</span><span class="na">number</span><span class="p">);</span>
+           <span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="o">+</span><span class="n">hello</span><span class="p">.</span><span class="na">number</span><span class="p">);</span>
+       <span class="p">}</span>
+   <span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++">   <span class="n">JNIEXPORT</span> <span class="kt">void</span> <span class="n">JNICALL</span>
    <span class="nf">Java_com_naivete_jni_1study_Hello_sayHello</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">instance</span><span class="p">)</span> <span class="p">{</span>
    
        <span class="c1">// TODO
@@ -531,11 +529,11 @@
        <span class="n">jobject</span>  <span class="n">l</span><span class="p">;</span>
    <span class="p">}</span><span class="n">jvalue</span><span class="p">;</span></code></pre></div>
 <p>比如在Java中有这样一个方法：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kt">boolean</span> <span class="nf">function</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">double</span> <span class="n">b</span><span class="o">,</span><span class="kt">char</span> <span class="n">c</span><span class="o">){</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kt">boolean</span> <span class="nf">function</span><span class="p">(</span><span class="kt">int</span> <span class="nf">a</span><span class="p">,</span><span class="kt">double</span> <span class="nf">b</span><span class="p">,</span><span class="kt">char</span> <span class="nf">c</span><span class="p">){</span>
    
    <span class="err">·····</span>
    
-   <span class="o">}</span>
+   <span class="p">}</span>
    </code></pre></div>
 <p>1）在C++中使用第一种方法调用function方法：</p>
 
@@ -671,37 +669,37 @@
 <p>​   <code>ReleaseStringCritical(jstring j_msg,const jchar* jstr)</code></p>
 
 <p>实例eg：（与书上不同,思路大概相同）</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">EditText</span> <span class="n">et</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">TextView</span> <span class="n">tv</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">Button</span> <span class="n">bt</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">text</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">MainActivity</span> <span class="nf">extends</span> <span class="n">AppCompatActivity</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="nf">EditText</span> <span class="n">et</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="nf">TextView</span> <span class="n">tv</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="nf">Button</span> <span class="n">bt</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="nf">String</span> <span class="n">text</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 
     <span class="c1">// Used to load the &#39;native-lib&#39; library on application startup.
-</span><span class="c1"></span>    <span class="kd">static</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&#34;native-lib&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
+</span><span class="c1"></span>    <span class="kd">static</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="s">&#34;native-lib&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
-        <span class="n">et</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">editText</span><span class="o">);</span>
-        <span class="n">tv</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tv</span><span class="o">);</span>
-        <span class="n">bt</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">);</span>
-        <span class="n">bt</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="nf">void</span> <span class="n">onCreate</span><span class="p">(</span><span class="n">Bundle</span> <span class="nf">savedInstanceState</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">);</span>
+        <span class="n">setContentView</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">layout</span><span class="p">.</span><span class="na">activity_main</span><span class="p">);</span>
+        <span class="n">et</span> <span class="o">=</span> <span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">editText</span><span class="p">);</span>
+        <span class="n">tv</span> <span class="o">=</span> <span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">tv</span><span class="p">);</span>
+        <span class="n">bt</span> <span class="o">=</span> <span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">button</span><span class="p">);</span>
+        <span class="n">bt</span><span class="p">.</span><span class="na">setOnClickListener</span><span class="p">(</span><span class="k">new</span> <span class="n">View</span><span class="p">.</span><span class="na">OnClickListener</span><span class="p">()</span> <span class="p">{</span>
             <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">text</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">();</span>
-                <span class="n">callCppFunction</span><span class="o">();</span>
-                <span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">});</span>
+            <span class="kd">public</span> <span class="nf">void</span> <span class="n">onClick</span><span class="p">(</span><span class="n">View</span> <span class="nf">v</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">et</span><span class="p">.</span><span class="na">getText</span><span class="p">().</span><span class="na">toString</span><span class="p">().</span><span class="na">trim</span><span class="p">();</span>
+                <span class="n">callCppFunction</span><span class="p">();</span>
+                <span class="n">tv</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">text</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
 
-    <span class="o">}</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">callCppFunction</span><span class="o">();</span>
-<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp">
+    <span class="kd">public</span> <span class="nf">native</span> <span class="kt">void</span> <span class="nf">callCppFunction</span><span class="p">();</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#include</span><span class="cpf">&lt;algorithm&gt;</span><span class="cp">
@@ -878,16 +876,16 @@
 <li><p>在Java类初始化时缓存</p>
 
 <p>比较好的方法，在native调用前把所有ID全部保存下来。可以让Java代码在第一次加载这个类的时候首先调用本地代码初始化所有的jfildID/jmethodID.这样可以省去多次确定ID是否存在的语句。这些jfildID/jmethodID定义在C++的全局。当java类卸载或者重新加载的时候，也会重新计算ID.</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestNative</span><span class="o">{</span>
-    <span class="kd">static</span><span class="o">{</span>
-        <span class="n">initNativeIDs</span><span class="o">();</span>  <span class="c1">//静态代码块进行初始化
-</span><span class="c1"></span>    <span class="o">}</span>
-    <span class="kd">static</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">initNativeIDs</span><span class="o">();</span>
-    <span class="kt">int</span> <span class="n">propInt</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-    <span class="n">String</span> <span class="n">propStr</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">otherNative</span><span class="o">();</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">TestNative</span><span class="p">{</span>
+    <span class="kd">static</span><span class="p">{</span>
+        <span class="n">initNativeIDs</span><span class="p">();</span>  <span class="c1">//静态代码块进行初始化
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="kd">static</span> <span class="nf">native</span> <span class="kt">void</span> <span class="nf">initNativeIDs</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="nf">propInt</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+    <span class="n">String</span> <span class="nf">propStr</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="nf">native</span> <span class="kt">void</span> <span class="nf">otherNative</span><span class="p">();</span>
     <span class="err">···········</span>
-<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//全局变量
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//全局变量
 </span><span class="c1"></span><span class="n">jfieldID</span> <span class="n">g_propInt_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">jfieldID</span> <span class="n">g_propStr_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     

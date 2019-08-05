@@ -11,14 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
     
         <title>Android应用安全防护和逆向分析-基础篇5-6 - root@v</title>
     
     
-    
-<meta itemprop="name" content="Android应用安全防护和逆向分析-基础篇5-6">
+    <meta itemprop="name" content="Android应用安全防护和逆向分析-基础篇5-6">
 <meta itemprop="description" content="AndroidManifest.xml和resourec.arsc解析">
 
 
@@ -38,8 +37,8 @@
 <meta property="og:image" content="https://vorblock.cc/favicon.svg" />
 
 <meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
-<meta property="article:published_time" content="2018-08-29T20:39:26&#43;08:00"/>
-<meta property="article:modified_time" content="2018-08-29T20:39:26&#43;08:00"/>
+<meta property="article:published_time" content="2018-08-29T20:39:26+08:00" />
+<meta property="article:modified_time" content="2018-08-29T20:39:26+08:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vorblock.cc/favicon.svg"/>
@@ -313,45 +312,45 @@
 </ul>
 
 <p>resourec.arsc文件格式由一系列chunk组成，每一个chunk均包含一个ResChunk_header</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResChunkHeader</span><span class="o">{</span>
-      <span class="kd">public</span> <span class="kt">short</span> <span class="n">type</span><span class="o">;</span>  <span class="c1">//当前chunk的类型
-</span><span class="c1"></span>      <span class="kd">public</span> <span class="kt">short</span> <span class="n">headerSize</span><span class="o">;</span> <span class="c1">//当前chunk的头部大小
-</span><span class="c1"></span>      <span class="kd">public</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>  <span class="c1">//当前chunk的大小
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResChunkHeader</span><span class="p">{</span>
+      <span class="kd">public</span> <span class="nf">short</span> <span class="n">type</span><span class="p">;</span>  <span class="c1">//当前chunk的类型
+</span><span class="c1"></span>      <span class="kd">public</span> <span class="nf">short</span> <span class="n">headerSize</span><span class="p">;</span> <span class="c1">//当前chunk的头部大小
+</span><span class="c1"></span>      <span class="kd">public</span> <span class="nf">int</span> <span class="n">size</span><span class="p">;</span>  <span class="c1">//当前chunk的大小
 </span><span class="c1"></span>      
-      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getHeaderSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">4</span>    
-      <span class="o">}</span>
+      <span class="kd">public</span> <span class="nf">int</span> <span class="n">getHeaderSize</span><span class="p">(){</span>
+      	<span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">4</span>    
+      <span class="p">}</span>
       <span class="nd">@Override</span>
-      <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-          <span class="k">return</span> <span class="s">&#34;type:&#34;</span><span class="o">+</span><span class="n">Utils</span><span class="o">.</span><span class="na">bytesToHexString</span><span class="o">(</span>
-          <span class="n">Utils</span><span class="o">.</span><span class="na">int2Byte</span><span class="o">(</span><span class="n">type</span><span class="o">))+</span><span class="s">&#34;,headerSize:&#34;</span><span class="o">+</span><span class="n">headerSize</span><span class="o">+</span><span class="s">&#34;,size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">;</span>
-      <span class="o">}</span>
-  <span class="o">}</span>
+      <span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+          <span class="k">return</span> <span class="s">&#34;type:&#34;</span><span class="o">+</span><span class="n">Utils</span><span class="p">.</span><span class="na">bytesToHexString</span><span class="p">(</span>
+          <span class="n">Utils</span><span class="p">.</span><span class="na">int2Byte</span><span class="p">(</span><span class="n">type</span><span class="p">))</span><span class="o">+</span><span class="s">&#34;,headerSize:&#34;</span><span class="o">+</span><span class="n">headerSize</span><span class="o">+</span><span class="s">&#34;,size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
   </code></pre></div>
 <ul>
 <li><strong>资源索引表的头部信息</strong></li>
 </ul>
 
 <p>resourec.arsc的第一个结构，结构描述了Resource.arsc文件的大小和资源包数量：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableHeader</span> <span class="o">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableHeader</span> <span class="p">{</span>
     
-    <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//就是标准的Chunk头部信息格式
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">packageCount</span><span class="o">;</span>  <span class="c1">//被编译的资源包的个数
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="nf">ResTableHeader</span><span class="o">(){</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getHeaderSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="na">getHeaderSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;packageCount:&#34;</span><span class="o">+</span><span class="n">packageCount</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-   <span class="o">}</span></code></pre></div>
+   	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//就是标准的Chunk头部信息格式
+</span><span class="c1"></span>   	<span class="kd">public</span> <span class="nf">int</span> <span class="n">packageCount</span><span class="p">;</span>  <span class="c1">//被编译的资源包的个数
+</span><span class="c1"></span>   	
+   	<span class="kd">public</span> <span class="nf">ResTableHeader</span><span class="p">(){</span>
+   		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
+   	<span class="p">}</span>
+   	
+   	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getHeaderSize</span><span class="p">(){</span>
+   		<span class="k">return</span> <span class="n">header</span><span class="p">.</span><span class="na">getHeaderSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
+   	<span class="p">}</span>
+   	
+   	<span class="nd">@Override</span>
+   	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+   		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;packageCount:&#34;</span><span class="o">+</span><span class="n">packageCount</span><span class="p">;</span>
+   	<span class="p">}</span>
+   	
+   <span class="p">}</span></code></pre></div>
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829204728.png" alt="" /></p>
 
 <ul>
@@ -359,33 +358,33 @@
 </ul>
 
 <p>包含了所有在资源包里面定义的资源项的值字符串，结构如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResStringPoolHeader</span> <span class="o">{</span>
-    
-    <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//标准的Chunk头部信息结构
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">stringCount</span><span class="o">;</span>  <span class="c1">//字符串的个数
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">styleCount</span><span class="o">;</span>  <span class="c1">//字符串样式的个数
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">SORTED_FLAG</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">UTF8_FLAG</span> <span class="o">=</span> <span class="o">(</span><span class="n">1</span><span class="o">&lt;&lt;</span><span class="n">8</span><span class="o">);</span>
-    
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">;</span>  <span class="c1">//字符串的属性,可取值包括0x000(UTF-16),0x001(字符串经过排序)、0X100(UTF-8)和他们的组合值
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">stringsStart</span><span class="o">;</span>  <span class="c1">//字符串内容块相对于其头部的距离
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">stylesStart</span><span class="o">;</span>  <span class="c1">//字符串样式块相对于其头部的距离
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="nf">ResStringPoolHeader</span><span class="o">(){</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getHeaderSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="na">getHeaderSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;stringCount:&#34;</span><span class="o">+</span><span class="n">stringCount</span><span class="o">+</span><span class="s">&#34;,styleCount:&#34;</span><span class="o">+</span><span class="n">styleCount</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,stringStart:&#34;</span><span class="o">+</span><span class="n">stringsStart</span><span class="o">+</span><span class="s">&#34;,stylesStart:&#34;</span><span class="o">+</span><span class="n">stylesStart</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-  <span class="o">}</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResStringPoolHeader</span> <span class="p">{</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//标准的Chunk头部信息结构
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">stringCount</span><span class="p">;</span>  <span class="c1">//字符串的个数
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">styleCount</span><span class="p">;</span>  <span class="c1">//字符串样式的个数
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">SORTED_FLAG</span> <span class="o">=</span> <span class="n">1</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">UTF8_FLAG</span> <span class="o">=</span> <span class="p">(</span><span class="n">1</span><span class="o">&lt;&lt;</span><span class="n">8</span><span class="p">);</span>
+  	
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">flags</span><span class="p">;</span>  <span class="c1">//字符串的属性,可取值包括0x000(UTF-16),0x001(字符串经过排序)、0X100(UTF-8)和他们的组合值
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">stringsStart</span><span class="p">;</span>  <span class="c1">//字符串内容块相对于其头部的距离
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">stylesStart</span><span class="p">;</span>  <span class="c1">//字符串样式块相对于其头部的距离
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">ResStringPoolHeader</span><span class="p">(){</span>
+  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getHeaderSize</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="n">header</span><span class="p">.</span><span class="na">getHeaderSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;stringCount:&#34;</span><span class="o">+</span><span class="n">stringCount</span><span class="o">+</span><span class="s">&#34;,styleCount:&#34;</span><span class="o">+</span><span class="n">styleCount</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,stringStart:&#34;</span><span class="o">+</span><span class="n">stringsStart</span><span class="o">+</span><span class="s">&#34;,stylesStart:&#34;</span><span class="o">+</span><span class="n">stylesStart</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  <span class="p">}</span></code></pre></div>
 <p>接着头部的的是两个偏移数组，分别是字符串偏移数组和字符串样式偏移数组。这两个偏移数组的大小分别等于stringCount和styleCount的值，而每一个元素的类型都是无符号整型。整个字符中资源池结构如下。<img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205108.png" alt="" /></p>
 
 <p>字符串资源池中的字符串前两个字节为字符串长度,长度计算方法如下：</p>
@@ -399,26 +398,26 @@
 </ul>
 
 <p>这个数据块记录编译包的元数据，头部信息如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTablePackage</span> <span class="o">{</span>
-    
-    <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//Chunk的头部信息数据结构
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>  <span class="c1">//包的ID,等于Package Id,一般用户包的值Package Id为0X7F,系统资源包的Package Id为0X01；
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">char</span><span class="o">[]</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">128</span><span class="o">];</span> <span class="c1">//包名
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">typeStrings</span><span class="o">;</span>  <span class="c1">//类型字符串资源池相对头部的偏移
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">lastPublicType</span><span class="o">;</span>  <span class="c1">//最后一个导出的Public类型字符串在类型字符串资源池中的索引，目前这个值设置为类型字符串资源池的元素个数。在解析的过程中没发现他的用途
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">keyStrings</span><span class="o">;</span>  <span class="c1">//资源项名称字符串相对头部的偏移
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">lastPublicKey</span><span class="o">;</span> <span class="c1">// 最后一个导出的Public资源项名称字符串在资源项名称字符串资源池中的索引，目前这个值设置为资源项名称字符串资源池的元素个数。在解析的过程中没发现他的用途
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="nf">ResTablePackage</span><span class="o">(){</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;\n&#34;</span><span class="o">+</span><span class="s">&#34;,id=&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,name:&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,typeStrings:&#34;</span><span class="o">+</span><span class="n">typeStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicType:&#34;</span><span class="o">+</span><span class="n">lastPublicType</span><span class="o">+</span><span class="s">&#34;,keyStrings:&#34;</span><span class="o">+</span><span class="n">keyStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicKey:&#34;</span><span class="o">+</span><span class="n">lastPublicKey</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTablePackage</span> <span class="p">{</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//Chunk的头部信息数据结构
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">id</span><span class="p">;</span>  <span class="c1">//包的ID,等于Package Id,一般用户包的值Package Id为0X7F,系统资源包的Package Id为0X01；
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">char</span><span class="p">[]</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">128</span><span class="p">];</span> <span class="c1">//包名
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">typeStrings</span><span class="p">;</span>  <span class="c1">//类型字符串资源池相对头部的偏移
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">lastPublicType</span><span class="p">;</span>  <span class="c1">//最后一个导出的Public类型字符串在类型字符串资源池中的索引，目前这个值设置为类型字符串资源池的元素个数。在解析的过程中没发现他的用途
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">keyStrings</span><span class="p">;</span>  <span class="c1">//资源项名称字符串相对头部的偏移
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">lastPublicKey</span><span class="p">;</span> <span class="c1">// 最后一个导出的Public资源项名称字符串在资源项名称字符串资源池中的索引，目前这个值设置为资源项名称字符串资源池的元素个数。在解析的过程中没发现他的用途
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">ResTablePackage</span><span class="p">(){</span>
+  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;\n&#34;</span><span class="o">+</span><span class="s">&#34;,id=&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,name:&#34;</span><span class="o">+</span><span class="n">name</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,typeStrings:&#34;</span><span class="o">+</span><span class="n">typeStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicType:&#34;</span><span class="o">+</span><span class="n">lastPublicType</span><span class="o">+</span><span class="s">&#34;,keyStrings:&#34;</span><span class="o">+</span><span class="n">keyStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicKey:&#34;</span><span class="o">+</span><span class="n">lastPublicKey</span><span class="p">;</span>
+  	<span class="p">}</span>
    
-  <span class="o">}</span></code></pre></div>
+  <span class="p">}</span></code></pre></div>
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205652.png" alt="" /></p>
 
 <ul>
@@ -427,108 +426,108 @@
 
 <p>用来描述资源项的配置差异性。每一种类型都对应有一个类型规范数据块。</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
-  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableTypeSpec</span> <span class="o">{</span>
-    
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">SPEC_PUBLIC</span> <span class="o">=</span> <span class="n">0x40000000</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//Chunk的头部信息结构
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">byte</span> <span class="n">id</span><span class="o">;</span>  <span class="c1">//标识资源的Type ID,Type ID是指资源的类型ID。资源的类型有animator、anim、color、drawable、layout、menu、raw、string和xml等等若干种，每一种都会被赋予一个ID。
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">byte</span> <span class="n">res0</span><span class="o">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">short</span> <span class="n">res1</span><span class="o">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">entryCount</span><span class="o">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="nf">ResTableTypeSpec</span><span class="o">(){</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-  <span class="o">}</span></code></pre></div>
+  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableTypeSpec</span> <span class="p">{</span>
+  	
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">SPEC_PUBLIC</span> <span class="o">=</span> <span class="n">0x40000000</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//Chunk的头部信息结构
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">id</span><span class="p">;</span>  <span class="c1">//标识资源的Type ID,Type ID是指资源的类型ID。资源的类型有animator、anim、color、drawable、layout、menu、raw、string和xml等等若干种，每一种都会被赋予一个ID。
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">res0</span><span class="p">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">res1</span><span class="p">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">entryCount</span><span class="p">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">ResTableTypeSpec</span><span class="p">(){</span>
+  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  <span class="p">}</span></code></pre></div>
 <ul>
 <li><strong>资源类型项数据块</strong></li>
 </ul>
 
 <p>描述资源项的具体信息，名称、值、配置等信息</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableType</span> <span class="o">{</span>
-    
-    <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//Chunk的头部信息结构
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">NO_ENTRY</span> <span class="o">=</span> <span class="n">0xFFFFFFFF</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="kt">byte</span> <span class="n">id</span><span class="o">;</span>  <span class="c1">//标识资源的Type ID
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">byte</span> <span class="n">res0</span><span class="o">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">short</span> <span class="n">res1</span><span class="o">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">entryCount</span><span class="o">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">entriesStart</span><span class="o">;</span>  <span class="c1">//等于资源项数据块相对头部的偏移值。
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="n">ResTableConfig</span> <span class="n">resConfig</span><span class="o">;</span>  <span class="c1">//指向一个ResTable_config,用来描述配置信息,地区,语言,分辨率等
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="nf">ResTableType</span><span class="o">(){</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
-        <span class="n">resConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableConfig</span><span class="o">();</span>
-    <span class="o">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableType</span> <span class="p">{</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//Chunk的头部信息结构
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">NO_ENTRY</span> <span class="o">=</span> <span class="n">0xFFFFFFFF</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">id</span><span class="p">;</span>  <span class="c1">//标识资源的Type ID
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">res0</span><span class="p">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">res1</span><span class="p">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">entryCount</span><span class="p">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">entriesStart</span><span class="p">;</span>  <span class="c1">//等于资源项数据块相对头部的偏移值。
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">ResTableConfig</span> <span class="n">resConfig</span><span class="p">;</span>  <span class="c1">//指向一个ResTable_config,用来描述配置信息,地区,语言,分辨率等
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">ResTableType</span><span class="p">(){</span>
+  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
+  		<span class="n">resConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableConfig</span><span class="p">();</span>
+  	<span class="p">}</span>
    
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="na">getHeaderSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">2</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="o">+</span><span class="s">&#34;,entriesStart:&#34;</span><span class="o">+</span><span class="n">entriesStart</span><span class="o">;</span>
-    <span class="o">}</span>
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="n">header</span><span class="p">.</span><span class="na">getHeaderSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">2</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="o">+</span><span class="s">&#34;,entriesStart:&#34;</span><span class="o">+</span><span class="n">entriesStart</span><span class="p">;</span>
+  	<span class="p">}</span>
    
-  <span class="o">}</span></code></pre></div>
+  <span class="p">}</span></code></pre></div>
 <p>ResTable_type后接着是一个大小为entryCount的uint32_t数组，每一个数组元素都用来描述一个资源项数据块的偏移位置。 紧跟在这个偏移数组后面的是一个大小为entryCount的ResTable_entry数组,每一个数组元素都用来描述一个资源项的具体信息。ResTable_entry的结构如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableEntry</span> <span class="o">{</span>
-    
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">FLAG_COMPLEX</span> <span class="o">=</span> <span class="n">0x0001</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">FLAG_PUBLIC</span> <span class="o">=</span> <span class="n">0x0002</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="kt">short</span> <span class="n">size</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kt">short</span> <span class="n">flags</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="n">ResStringPoolRef</span> <span class="n">key</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="nf">ResTableEntry</span><span class="o">(){</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResStringPoolRef</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">key</span><span class="o">.</span><span class="na">getSize</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,key:&#34;</span><span class="o">+</span><span class="n">key</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,str:&#34;</span><span class="o">+</span><span class="n">ParseResourceUtils</span><span class="o">.</span><span class="na">getKeyString</span><span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">index</span><span class="o">);</span>
-    <span class="o">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableEntry</span> <span class="p">{</span>
+  	
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">FLAG_COMPLEX</span> <span class="o">=</span> <span class="n">0x0001</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">FLAG_PUBLIC</span> <span class="o">=</span> <span class="n">0x0002</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">size</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">flags</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResStringPoolRef</span> <span class="n">key</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResTableEntry</span><span class="p">(){</span>
+  		<span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResStringPoolRef</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">key</span><span class="p">.</span><span class="na">getSize</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,key:&#34;</span><span class="o">+</span><span class="n">key</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,str:&#34;</span><span class="o">+</span><span class="n">ParseResourceUtils</span><span class="p">.</span><span class="na">getKeyString</span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">index</span><span class="p">);</span>
+  	<span class="p">}</span>
    
-  <span class="o">}</span></code></pre></div>
+  <span class="p">}</span></code></pre></div>
 <p>ResTable_entry根据flags的不同,后面跟随的数据也不相同,如果flags此位为1,则ResTable_entry是ResTable_map_entry,ResTable_map_entry继承自ResTable_entry,其结构如下。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableMapEntry</span> <span class="kd">extends</span> <span class="n">ResTableEntry</span><span class="o">{</span>
-    
-    <span class="kd">public</span> <span class="n">ResTableRef</span> <span class="n">parent</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">count</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="nf">ResTableMapEntry</span><span class="o">(){</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">parent</span><span class="o">.</span><span class="na">getSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;,parent:&#34;</span><span class="o">+</span><span class="n">parent</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,count:&#34;</span><span class="o">+</span><span class="n">count</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableMapEntry</span> <span class="nf">extends</span> <span class="n">ResTableEntry</span><span class="p">{</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResTableRef</span> <span class="n">parent</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">count</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResTableMapEntry</span><span class="p">(){</span>
+  		<span class="n">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">parent</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#34;,parent:&#34;</span><span class="o">+</span><span class="n">parent</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,count:&#34;</span><span class="o">+</span><span class="n">count</span><span class="p">;</span>
+  	<span class="p">}</span>
    
-  <span class="o">}</span></code></pre></div>
+  <span class="p">}</span></code></pre></div>
 <p>ResTable_map_entry其后跟随则count个ResTable_map类型的数组,ResTable_map的结构如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kn">package</span> <span class="nn">com.wjdiankong.parseresource.type</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kn">package</span> <span class="nf">com</span><span class="p">.</span><span class="na">wjdiankong</span><span class="p">.</span><span class="na">parseresource</span><span class="p">.</span><span class="na">type</span><span class="p">;</span>
    
   <span class="cm">/**
 </span><span class="cm">   struct ResTable_map
@@ -541,189 +540,189 @@
 </span><span class="cm">   * @author i
 </span><span class="cm">   *
 </span><span class="cm">   */</span>
-  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableMap</span> <span class="o">{</span>
-    
-    <span class="kd">public</span> <span class="n">ResTableRef</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="n">ResValue</span> <span class="n">value</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="nf">ResTableMap</span><span class="o">(){</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="o">();</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResValue</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="na">getSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">value</span><span class="o">.</span><span class="na">getSize</span><span class="o">();</span>
-    <span class="o">}</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,value:&#34;</span><span class="o">+</span><span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-    <span class="o">}</span>
+  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableMap</span> <span class="p">{</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResTableRef</span> <span class="n">name</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">ResValue</span> <span class="n">value</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">ResTableMap</span><span class="p">(){</span>
+  		<span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="p">();</span>
+  		<span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResValue</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="n">name</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">value</span><span class="p">.</span><span class="na">getSize</span><span class="p">();</span>
+  	<span class="p">}</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="n">name</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,value:&#34;</span><span class="o">+</span><span class="n">value</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+  	<span class="p">}</span>
    
-  <span class="o">}</span></code></pre></div>
+  <span class="p">}</span></code></pre></div>
 <p>如果flags此位为0,则ResTable_entry其后跟随的是一个Res_value,描述一个普通资源的值,Res_value结构如下。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResValue</span> <span class="o">{</span>
-    
-    <span class="c1">//dataType字段使用的常量
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_NULL</span> <span class="o">=</span> <span class="n">0x00</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_REFERENCE</span> <span class="o">=</span> <span class="n">0x01</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_ATTRIBUTE</span> <span class="o">=</span> <span class="n">0x02</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_STRING</span> <span class="o">=</span> <span class="n">0x03</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FLOAT</span> <span class="o">=</span> <span class="n">0x04</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_DIMENSION</span> <span class="o">=</span> <span class="n">0x05</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FRACTION</span> <span class="o">=</span> <span class="n">0x06</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">=</span> <span class="n">0x10</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_DEC</span> <span class="o">=</span> <span class="n">0x10</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_HEX</span> <span class="o">=</span> <span class="n">0x11</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_BOOLEAN</span> <span class="o">=</span> <span class="n">0x12</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1c</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_ARGB8</span> <span class="o">=</span> <span class="n">0x1c</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_RGB8</span> <span class="o">=</span> <span class="n">0x1d</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_ARGB4</span> <span class="o">=</span> <span class="n">0x1e</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_RGB4</span> <span class="o">=</span> <span class="n">0x1f</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_LAST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_LAST_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>
-      <span class="n">COMPLEX_UNIT_PX</span>           <span class="o">=</span><span class="n">0</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_DIP</span>      <span class="o">=</span><span class="n">1</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_SP</span>           <span class="o">=</span><span class="n">2</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_PT</span>           <span class="o">=</span><span class="n">3</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_IN</span>           <span class="o">=</span><span class="n">4</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_MM</span>           <span class="o">=</span><span class="n">5</span><span class="o">,</span>
-    <span class="n">COMPLEX_UNIT_SHIFT</span>      <span class="o">=</span><span class="n">0</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_MASK</span>     <span class="o">=</span><span class="n">15</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_FRACTION</span> <span class="o">=</span><span class="n">0</span><span class="o">,</span>
-      <span class="n">COMPLEX_UNIT_FRACTION_PARENT</span><span class="o">=</span><span class="n">1</span><span class="o">,</span>
-      <span class="n">COMPLEX_RADIX_23p0</span>        <span class="o">=</span><span class="n">0</span><span class="o">,</span>
-      <span class="n">COMPLEX_RADIX_16p7</span>        <span class="o">=</span><span class="n">1</span><span class="o">,</span>
-      <span class="n">COMPLEX_RADIX_8p15</span>        <span class="o">=</span><span class="n">2</span><span class="o">,</span>
-      <span class="n">COMPLEX_RADIX_0p23</span>        <span class="o">=</span><span class="n">3</span><span class="o">,</span>
-      <span class="n">COMPLEX_RADIX_SHIFT</span>       <span class="o">=</span><span class="n">4</span><span class="o">,</span>
-      <span class="n">COMPLEX_RADIX_MASK</span>        <span class="o">=</span><span class="n">3</span><span class="o">,</span>
-      <span class="n">COMPLEX_MANTISSA_SHIFT</span>    <span class="o">=</span><span class="n">8</span><span class="o">,</span>
-      <span class="n">COMPLEX_MANTISSA_MASK</span> <span class="o">=</span><span class="n">0xFFFFFF</span><span class="o">;</span>
-    
-    
-    <span class="kd">public</span> <span class="kt">short</span> <span class="n">size</span><span class="o">;</span>  <span class="c1">//ResValue的头部大小
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">byte</span> <span class="n">res0</span><span class="o">;</span>  <span class="c1">//保留，始终为0
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">byte</span> <span class="n">dataType</span><span class="o">;</span>  <span class="c1">//数据的类型,可以从上面的枚举类型中获取
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>  <span class="c1">//数据对应的索引
-</span><span class="c1"></span>    
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getTypeStr</span><span class="o">(){</span>
-        <span class="k">switch</span><span class="o">(</span><span class="n">dataType</span><span class="o">){</span>
-            <span class="k">case</span> <span class="nl">TYPE_NULL:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_NULL&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_REFERENCE:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_REFERENCE&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_ATTRIBUTE:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_ATTRIBUTE&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_STRING:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_STRING&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_FLOAT:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_FLOAT&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_DIMENSION:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_DIMENSION&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_FRACTION:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_FRACTION&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_FIRST_INT:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_FIRST_INT&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_INT_HEX:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_INT_HEX&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_INT_BOOLEAN:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_INT_BOOLEAN&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_FIRST_COLOR_INT:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_FIRST_COLOR_INT&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_INT_COLOR_RGB8:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB8&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_INT_COLOR_ARGB4:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_ARGB4&#34;</span><span class="o">;</span>
-            <span class="k">case</span> <span class="nl">TYPE_INT_COLOR_RGB4:</span>
-                <span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB4&#34;</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-    <span class="cm">/*public String getDataStr(){
-</span><span class="cm">        if(dataType == TYPE_STRING){
-</span><span class="cm">            return ParseResourceUtils.getResString(data);
-</span><span class="cm">        }else if(dataType == TYPE_FIRST_COLOR_INT){
-</span><span class="cm">            return Utils.bytesToHexString(Utils.int2Byte(data));
-</span><span class="cm">        }else if(dataType == TYPE_INT_BOOLEAN){
-</span><span class="cm">            return data==0 ? &#34;false&#34; : &#34;true&#34;;
-</span><span class="cm">        }
-</span><span class="cm">        return data+&#34;&#34;;
-</span><span class="cm">    }*/</span>
-    
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getDataStr</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_STRING</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">ParseResourceUtils</span><span class="o">.</span><span class="na">getResString</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_ATTRIBUTE</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;?%s%08X&#34;</span><span class="o">,</span><span class="n">getPackage</span><span class="o">(</span><span class="n">data</span><span class="o">),</span><span class="n">data</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_REFERENCE</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;@%s%08X&#34;</span><span class="o">,</span><span class="n">getPackage</span><span class="o">(</span><span class="n">data</span><span class="o">),</span><span class="n">data</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FLOAT</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">Float</span><span class="o">.</span><span class="na">intBitsToFloat</span><span class="o">(</span><span class="n">data</span><span class="o">));</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_HEX</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;0x%08X&#34;</span><span class="o">,</span><span class="n">data</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_BOOLEAN</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">data</span><span class="o">!=</span><span class="n">0</span><span class="o">?</span><span class="s">&#34;true&#34;</span><span class="o">:</span><span class="s">&#34;false&#34;</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_DIMENSION</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">Float</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">complexToFloat</span><span class="o">(</span><span class="n">data</span><span class="o">))+</span>
-                <span class="n">DIMENSION_UNITS</span><span class="o">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="o">];</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FRACTION</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">Float</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">complexToFloat</span><span class="o">(</span><span class="n">data</span><span class="o">))+</span>
-                <span class="n">FRACTION_UNITS</span><span class="o">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="o">];</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_COLOR_INT</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;#%08X&#34;</span><span class="o">,</span><span class="n">data</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_INT</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;&lt;0x%X, type 0x%02X&gt;&#34;</span><span class="o">,</span><span class="n">data</span><span class="o">,</span> <span class="n">dataType</span><span class="o">);</span>
-    <span class="o">}</span>
-    
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getPackage</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">id</span><span class="o">&gt;&gt;&gt;</span><span class="n">24</span><span class="o">==</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="s">&#34;android:&#34;</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
-    <span class="o">}</span>
-    
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">float</span> <span class="nf">complexToFloat</span><span class="o">(</span><span class="kt">int</span> <span class="n">complex</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="o">(</span><span class="kt">float</span><span class="o">)(</span><span class="n">complex</span> <span class="o">&amp;</span> <span class="n">0xFFFFFF00</span><span class="o">)*</span><span class="n">RADIX_MULTS</span><span class="o">[(</span><span class="n">complex</span><span class="o">&gt;&gt;</span><span class="n">4</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">3</span><span class="o">];</span>
-    <span class="o">}</span>
-    
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">RADIX_MULTS</span><span class="o">[]={</span>
-        <span class="n">0</span><span class="o">.</span><span class="na">00390625F</span><span class="o">,</span><span class="n">3</span><span class="o">.</span><span class="na">051758E</span><span class="o">-</span><span class="n">005F</span><span class="o">,</span><span class="n">1</span><span class="o">.</span><span class="na">192093E</span><span class="o">-</span><span class="n">007F</span><span class="o">,</span><span class="n">4</span><span class="o">.</span><span class="na">656613E</span><span class="o">-</span><span class="n">010F</span>
-    <span class="o">};</span>
-    
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DIMENSION_UNITS</span><span class="o">[]={</span>
-        <span class="s">&#34;px&#34;</span><span class="o">,</span><span class="s">&#34;dip&#34;</span><span class="o">,</span><span class="s">&#34;sp&#34;</span><span class="o">,</span><span class="s">&#34;pt&#34;</span><span class="o">,</span><span class="s">&#34;in&#34;</span><span class="o">,</span><span class="s">&#34;mm&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span>
-    <span class="o">};</span>
-    
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FRACTION_UNITS</span><span class="o">[]={</span>
-        <span class="s">&#34;%&#34;</span><span class="o">,</span><span class="s">&#34;%p&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span>
-    <span class="o">};</span>
-    
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,dataType:&#34;</span><span class="o">+</span><span class="n">getTypeStr</span><span class="o">()+</span><span class="s">&#34;,data:&#34;</span><span class="o">+</span><span class="n">getDataStr</span><span class="o">();</span>
-    <span class="o">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResValue</span> <span class="p">{</span>
+  	
+  	<span class="c1">//dataType字段使用的常量
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_NULL</span> <span class="o">=</span> <span class="n">0x00</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_REFERENCE</span> <span class="o">=</span> <span class="n">0x01</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_ATTRIBUTE</span> <span class="o">=</span> <span class="n">0x02</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_STRING</span> <span class="o">=</span> <span class="n">0x03</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FLOAT</span> <span class="o">=</span> <span class="n">0x04</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_DIMENSION</span> <span class="o">=</span> <span class="n">0x05</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FRACTION</span> <span class="o">=</span> <span class="n">0x06</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">=</span> <span class="n">0x10</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_DEC</span> <span class="o">=</span> <span class="n">0x10</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_HEX</span> <span class="o">=</span> <span class="n">0x11</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_BOOLEAN</span> <span class="o">=</span> <span class="n">0x12</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1c</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_ARGB8</span> <span class="o">=</span> <span class="n">0x1c</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_RGB8</span> <span class="o">=</span> <span class="n">0x1d</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_ARGB4</span> <span class="o">=</span> <span class="n">0x1e</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_RGB4</span> <span class="o">=</span> <span class="n">0x1f</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_LAST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="p">;</span>
+  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_LAST_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="p">;</span>
+  	
+  	<span class="kd">public</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">int</span>
+      <span class="n">COMPLEX_UNIT_PX</span>			<span class="o">=</span><span class="n">0</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_DIP</span>		<span class="o">=</span><span class="n">1</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_SP</span>			<span class="o">=</span><span class="n">2</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_PT</span>			<span class="o">=</span><span class="n">3</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_IN</span>			<span class="o">=</span><span class="n">4</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_MM</span>			<span class="o">=</span><span class="n">5</span><span class="p">,</span>
+  	<span class="n">COMPLEX_UNIT_SHIFT</span>		<span class="o">=</span><span class="n">0</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_MASK</span>		<span class="o">=</span><span class="n">15</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_FRACTION</span>	<span class="o">=</span><span class="n">0</span><span class="p">,</span>
+      <span class="n">COMPLEX_UNIT_FRACTION_PARENT</span><span class="o">=</span><span class="n">1</span><span class="p">,</span>
+      <span class="n">COMPLEX_RADIX_23p0</span>		<span class="o">=</span><span class="n">0</span><span class="p">,</span>
+      <span class="n">COMPLEX_RADIX_16p7</span>		<span class="o">=</span><span class="n">1</span><span class="p">,</span>
+      <span class="n">COMPLEX_RADIX_8p15</span>		<span class="o">=</span><span class="n">2</span><span class="p">,</span>
+      <span class="n">COMPLEX_RADIX_0p23</span>		<span class="o">=</span><span class="n">3</span><span class="p">,</span>
+      <span class="n">COMPLEX_RADIX_SHIFT</span>		<span class="o">=</span><span class="n">4</span><span class="p">,</span>
+      <span class="n">COMPLEX_RADIX_MASK</span>		<span class="o">=</span><span class="n">3</span><span class="p">,</span>
+      <span class="n">COMPLEX_MANTISSA_SHIFT</span>	<span class="o">=</span><span class="n">8</span><span class="p">,</span>
+      <span class="n">COMPLEX_MANTISSA_MASK</span>	<span class="o">=</span><span class="n">0xFFFFFF</span><span class="p">;</span>
+  	
+  	
+  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">size</span><span class="p">;</span>  <span class="c1">//ResValue的头部大小
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">res0</span><span class="p">;</span>  <span class="c1">//保留，始终为0
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">dataType</span><span class="p">;</span>  <span class="c1">//数据的类型,可以从上面的枚举类型中获取
+</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">data</span><span class="p">;</span>  <span class="c1">//数据对应的索引
+</span><span class="c1"></span>  	
+  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">getTypeStr</span><span class="p">(){</span>
+  		<span class="k">switch</span><span class="p">(</span><span class="n">dataType</span><span class="p">){</span>
+  			<span class="k">case</span> <span class="n">TYPE_NULL</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_NULL&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_REFERENCE</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_REFERENCE&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_ATTRIBUTE</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_ATTRIBUTE&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_STRING</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_STRING&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_FLOAT</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_FLOAT&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_DIMENSION</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_DIMENSION&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_FRACTION</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_FRACTION&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_FIRST_INT</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_FIRST_INT&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_INT_HEX</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_HEX&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_INT_BOOLEAN</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_BOOLEAN&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_FIRST_COLOR_INT</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_FIRST_COLOR_INT&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_INT_COLOR_RGB8</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB8&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_INT_COLOR_ARGB4</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_ARGB4&#34;</span><span class="p">;</span>
+  			<span class="k">case</span> <span class="n">TYPE_INT_COLOR_RGB4</span><span class="o">:</span>
+  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB4&#34;</span><span class="p">;</span>
+  		<span class="p">}</span>
+  		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  	<span class="cm">/*public String getDataStr(){
+</span><span class="cm">  		if(dataType == TYPE_STRING){
+</span><span class="cm">  			return ParseResourceUtils.getResString(data);
+</span><span class="cm">  		}else if(dataType == TYPE_FIRST_COLOR_INT){
+</span><span class="cm">  			return Utils.bytesToHexString(Utils.int2Byte(data));
+</span><span class="cm">  		}else if(dataType == TYPE_INT_BOOLEAN){
+</span><span class="cm">  			return data==0 ? &#34;false&#34; : &#34;true&#34;;
+</span><span class="cm">  		}
+</span><span class="cm">  		return data+&#34;&#34;;
+</span><span class="cm">  	}*/</span>
+  	
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">getDataStr</span><span class="p">()</span> <span class="p">{</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_STRING</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">ParseResourceUtils</span><span class="p">.</span><span class="na">getResString</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_ATTRIBUTE</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;?%s%08X&#34;</span><span class="p">,</span><span class="n">getPackage</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="n">data</span><span class="p">);</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_REFERENCE</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;@%s%08X&#34;</span><span class="p">,</span><span class="n">getPackage</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="n">data</span><span class="p">);</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FLOAT</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">Float</span><span class="p">.</span><span class="na">intBitsToFloat</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_HEX</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;0x%08X&#34;</span><span class="p">,</span><span class="n">data</span><span class="p">);</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_BOOLEAN</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">data</span><span class="o">!=</span><span class="n">0</span><span class="o">?</span><span class="s">&#34;true&#34;</span><span class="o">:</span><span class="s">&#34;false&#34;</span><span class="p">;</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_DIMENSION</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">Float</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">complexToFloat</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">+</span>
+  				<span class="n">DIMENSION_UNITS</span><span class="p">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="p">];</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FRACTION</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">Float</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">complexToFloat</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">+</span>
+  				<span class="n">FRACTION_UNITS</span><span class="p">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="p">];</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_COLOR_INT</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;#%08X&#34;</span><span class="p">,</span><span class="n">data</span><span class="p">);</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_INT</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+  		<span class="p">}</span>
+  		<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;&lt;0x%X, type 0x%02X&gt;&#34;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="n">dataType</span><span class="p">);</span>
+  	<span class="p">}</span>
+  	
+  	<span class="kd">private</span> <span class="nf">static</span> <span class="n">String</span> <span class="nf">getPackage</span><span class="p">(</span><span class="kt">int</span> <span class="nf">id</span><span class="p">)</span> <span class="p">{</span>
+  		<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">&gt;&gt;&gt;</span><span class="n">24</span><span class="o">==</span><span class="n">1</span><span class="p">)</span> <span class="p">{</span>
+  			<span class="k">return</span> <span class="s">&#34;android:&#34;</span><span class="p">;</span>
+  		<span class="p">}</span>
+  		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+  	<span class="p">}</span>
+  	
+  	<span class="kd">public</span> <span class="nf">static</span> <span class="kt">float</span> <span class="nf">complexToFloat</span><span class="p">(</span><span class="kt">int</span> <span class="nf">complex</span><span class="p">)</span> <span class="p">{</span>
+  		<span class="k">return</span> <span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="n">complex</span> <span class="o">&amp;</span> <span class="n">0xFFFFFF00</span><span class="p">)</span><span class="o">*</span><span class="n">RADIX_MULTS</span><span class="p">[(</span><span class="n">complex</span><span class="o">&gt;&gt;</span><span class="n">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">3</span><span class="p">];</span>
+  	<span class="p">}</span>
+  	
+  	<span class="kd">private</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">float</span> <span class="n">RADIX_MULTS</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span>
+  		<span class="n">0</span><span class="p">.</span><span class="na">00390625F</span><span class="p">,</span><span class="n">3</span><span class="p">.</span><span class="na">051758E</span><span class="o">-</span><span class="n">005F</span><span class="p">,</span><span class="n">1</span><span class="p">.</span><span class="na">192093E</span><span class="o">-</span><span class="n">007F</span><span class="p">,</span><span class="n">4</span><span class="p">.</span><span class="na">656613E</span><span class="o">-</span><span class="n">010F</span>
+  	<span class="p">};</span>
+  	
+  	<span class="kd">private</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">String</span> <span class="n">DIMENSION_UNITS</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span>
+  		<span class="s">&#34;px&#34;</span><span class="p">,</span><span class="s">&#34;dip&#34;</span><span class="p">,</span><span class="s">&#34;sp&#34;</span><span class="p">,</span><span class="s">&#34;pt&#34;</span><span class="p">,</span><span class="s">&#34;in&#34;</span><span class="p">,</span><span class="s">&#34;mm&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span>
+  	<span class="p">};</span>
+  	
+  	<span class="kd">private</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">String</span> <span class="n">FRACTION_UNITS</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span>
+  		<span class="s">&#34;%&#34;</span><span class="p">,</span><span class="s">&#34;%p&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span>
+  	<span class="p">};</span>
+  	
+  	<span class="nd">@Override</span>
+  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
+  		<span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,dataType:&#34;</span><span class="o">+</span><span class="n">getTypeStr</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,data:&#34;</span><span class="o">+</span><span class="n">getDataStr</span><span class="p">();</span>
+  	<span class="p">}</span>
    
-  <span class="o">}</span></code></pre></div>
+  <span class="p">}</span></code></pre></div>
 <p>以上代码来自于书的原作者的博客：<a href="https://blog.csdn.net/jiangwei0910410003/article/details/50628894" target="_blank">https://blog.csdn.net/jiangwei0910410003/article/details/50628894</a></p>
 
 <p>博客里还有如何解析操作，留看。</p>

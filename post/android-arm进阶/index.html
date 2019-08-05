@@ -11,14 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
     
         <title>Android-ARM进阶 - root@v</title>
     
     
-    
-<meta itemprop="name" content="Android-ARM进阶">
+    <meta itemprop="name" content="Android-ARM进阶">
 <meta itemprop="description" content="ARM">
 
 
@@ -38,8 +37,8 @@
 <meta property="og:image" content="https://vorblock.cc/favicon.svg" />
 
 <meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
-<meta property="article:published_time" content="2018-10-10T16:40:20&#43;08:00"/>
-<meta property="article:modified_time" content="2018-10-10T16:40:20&#43;08:00"/>
+<meta property="article:published_time" content="2018-10-10T16:40:20+08:00" />
+<meta property="article:modified_time" content="2018-10-10T16:40:20+08:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vorblock.cc/favicon.svg"/>
@@ -207,22 +206,23 @@
 
 <li><p><ndk>/ndk-build   。也可以将NDK-build加入环境变量。</p></li>
 
-<li><p>创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）</p></li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-mk" data-lang="mk">   //Android.mk
-   LOCAL_PATH :<span class="o">=</span> <span class="k">$(</span>call my-dir<span class="k">)</span>
-   include <span class="k">$(</span>CLEAR_VARS<span class="k">)</span>
+<li><p>创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）</p>
+<div class="highlight"><pre class="chroma"><code class="language-mk" data-lang="mk"><span class="err">//Android.mk</span>
+<span class="nv">LOCAL_PATH</span> <span class="o">:=</span> <span class="k">$(</span>call my-dir<span class="k">)</span>
+<span class="err">include</span> <span class="k">$(</span><span class="nv">CLEAR_VARS</span><span class="k">)</span>
    
-   <span class="c1"># 要生成的.so库名称</span>
-   LOCAL_MODULE :<span class="o">=</span> hello
-   <span class="c1"># c++文件</span>
-   LOCAL_SRC_FILES :<span class="o">=</span> hello.cpp
-   include <span class="k">$(</span>BUILD_SHARED_LIBRARY<span class="k">)</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mk" data-lang="mk">   //Application.mk
-   APP_PLATFORM :<span class="o">=</span> android-17
-   <span class="c1"># APP_ABI := all</span>
-   APP_ABI :<span class="o">=</span>armeabi-v7a arm64-v8a
-</code></pre></div>
+<span class="c"># 要生成的.so库名称
+</span><span class="c"></span><span class="nv">LOCAL_MODULE</span> <span class="o">:=</span> hello
+<span class="c"># c++文件
+</span><span class="c"></span><span class="nv">LOCAL_SRC_FILES</span> <span class="o">:=</span> hello.cpp
+<span class="err">include</span> <span class="k">$(</span><span class="nv">BUILD_SHARED_LIBRARY</span><span class="k">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mk" data-lang="mk"><span class="err">//Application.mk</span>
+<span class="nv">APP_PLATFORM</span> <span class="o">:=</span> android-17
+<span class="c"># APP_ABI := all
+</span><span class="c"></span><span class="nv">APP_ABI</span> <span class="o">:=</span>armeabi-v7a arm64-v8a
+</code></pre></div></li>
+</ol>
+
 <p>添加hello.cpp：</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp">   <span class="cp">#include</span><span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span><span class="cp"></span>   <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>

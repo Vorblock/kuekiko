@@ -11,14 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
     
         <title>Java反射机制学习笔记 - root@v</title>
     
     
-    
-<meta itemprop="name" content="Java反射机制学习笔记">
+    <meta itemprop="name" content="Java反射机制学习笔记">
 <meta itemprop="description" content="Java反射机制">
 
 
@@ -38,8 +37,8 @@
 <meta property="og:image" content="https://vorblock.cc/favicon.svg" />
 
 <meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
-<meta property="article:published_time" content="2018-07-25T16:40:20&#43;08:00"/>
-<meta property="article:modified_time" content="2018-07-25T16:40:20&#43;08:00"/>
+<meta property="article:published_time" content="2018-07-25T16:40:20+08:00" />
+<meta property="article:modified_time" content="2018-07-25T16:40:20+08:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vorblock.cc/favicon.svg"/>
@@ -225,21 +224,21 @@
 </ol>
 
 <p>(1)使用Class类的forName静态方法:</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">forName</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">static</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">forName</span><span class="p">(</span><span class="n">String</span> <span class="nf">className</span><span class="p">)</span>
    <span class="c1">//在JDBC开发中常用此方法加载数据库驱动:
-</span><span class="c1"></span>   <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">driver</span><span class="o">);</span></code></pre></div>
+</span><span class="c1"></span>   <span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="n">driver</span><span class="p">);</span></code></pre></div>
 <p>(2)直接获取某一个对象的class，比如:</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
-   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">classInt</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">TYPE</span><span class="o">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">classInt</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">.</span><span class="na">TYPE</span><span class="p">;</span></code></pre></div>
 <p>(3)调用某个对象的getClass()方法,比如:</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">StringBuilder</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="s">&#34;123&#34;</span><span class="o">);</span>
-   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">StringBuilder</span> <span class="nf">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">(</span><span class="s">&#34;123&#34;</span><span class="p">);</span>
+   <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="na">getClass</span><span class="p">();</span></code></pre></div>
 <ol>
 <li>判断是否为某一个类的实例</li>
 </ol>
 
 <p>一般使用instanceof来判断，也可以借助反射中的Class对象的isInstance()方法来判断  是一个Native方法：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">native</span> <span class="kt">boolean</span> <span class="nf">isInstance</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">native</span> <span class="kt">boolean</span> <span class="nf">isInstance</span><span class="p">(</span><span class="n">Object</span> <span class="nf">obj</span><span class="p">);</span></code></pre></div>
 <ol>
 <li>创建实例</li>
 </ol>
@@ -283,46 +282,46 @@
 </code></pre>
 
 <p>eg:</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.lang.reflect.InvocationTargetException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">reflect</span><span class="p">.</span><span class="na">InvocationTargetException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">reflect</span><span class="p">.</span><span class="na">Method</span><span class="p">;</span>
 
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">test</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span>
-            <span class="n">NoSuchMethodException</span><span class="o">,</span> <span class="n">InvocationTargetException</span> <span class="o">{</span>
-        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">methodClass</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
-        <span class="n">Object</span> <span class="n">object</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
-        <span class="n">Method</span><span class="o">[]</span> <span class="n">methods</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getMethods</span><span class="o">();</span>
-        <span class="n">Method</span><span class="o">[]</span> <span class="n">declaredMethods</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getDeclaredMethods</span><span class="o">();</span>
-        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;add&#34;</span><span class="o">,</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">//获取add方法
-</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;getMethods获取的方法：&#34;</span><span class="o">);</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Method</span> <span class="n">m</span> <span class="o">:</span> <span class="n">methods</span><span class="o">)</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;getDeclaredMethods获取的方法：&#34;</span><span class="o">);</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Method</span> <span class="n">m</span> <span class="o">:</span> <span class="n">declaredMethods</span><span class="o">)</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
-    <span class="o">}</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">test</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">test1</span><span class="p">()</span> <span class="kd">throws</span> <span class="nf">IllegalAccessException</span><span class="p">,</span> <span class="n">InstantiationException</span><span class="p">,</span>
+            <span class="n">NoSuchMethodException</span><span class="p">,</span> <span class="n">InvocationTargetException</span> <span class="p">{</span>
+        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">methodClass</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+        <span class="n">Object</span> <span class="nf">object</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span>
+        <span class="n">Method</span><span class="p">[]</span> <span class="nf">methods</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="na">getMethods</span><span class="p">();</span>
+        <span class="n">Method</span><span class="p">[]</span> <span class="nf">declaredMethods</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="na">getDeclaredMethods</span><span class="p">();</span>
+        <span class="n">Method</span> <span class="nf">method</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;add&#34;</span><span class="p">,</span> <span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">);</span> <span class="c1">//获取add方法
+</span><span class="c1"></span>        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;getMethods获取的方法：&#34;</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">Method</span> <span class="nf">m</span> <span class="o">:</span> <span class="n">methods</span><span class="p">)</span>
+            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;getDeclaredMethods获取的方法：&#34;</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">Method</span> <span class="nf">m</span> <span class="o">:</span> <span class="n">declaredMethods</span><span class="p">)</span>
+            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span><span class="o">{</span>
-            <span class="n">test1</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="n">test1</span><span class="p">();</span>
 
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
+        <span class="p">}</span><span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="nf">e</span><span class="p">){</span>
+            <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+        <span class="p">}</span>
 
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">class</span> <span class="nc">methodClass</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fuck</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">sub</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
+<span class="kd">class</span> <span class="nf">methodClass</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">final</span> <span class="kt">int</span> <span class="nf">fuck</span> <span class="o">=</span> <span class="n">3</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="nf">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="nf">a</span><span class="p">,</span><span class="kt">int</span> <span class="nf">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">public</span> <span class="nf">int</span> <span class="n">sub</span><span class="p">(</span><span class="kt">int</span> <span class="nf">a</span><span class="p">,</span><span class="kt">int</span> <span class="nf">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180725151348.png" alt="" /></p>
 
 <ol>
@@ -330,7 +329,7 @@
 </ol>
 
 <p>通过Class类的getConstructor方法得到Constructor类的一个实例，而Constructor类有一个newInstance方法可以创建一个对象实例:</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="n">T</span> <span class="nf">newInstance</span><span class="o">(</span><span class="n">Object</span> <span class="o">...</span> <span class="n">initargs</span><span class="o">)</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">T</span> <span class="n">newInstance</span><span class="p">(</span><span class="n">Object</span> <span class="p">...</span> <span class="n">initargs</span><span class="p">)</span></code></pre></div>
 <ol>
 <li>获取类的成员字段信息</li>
 </ol>
@@ -346,145 +345,148 @@
 </ol>
 
 <p>获取到方法后使用invoke()方法来调用这个方法</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span>
-           <span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">IllegalArgumentException</span><span class="o">,</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">Object</span> <span class="n">invoke</span><span class="p">(</span><span class="n">Object</span> <span class="nf">obj</span><span class="p">,</span> <span class="n">Object</span><span class="p">...</span> <span class="nf">args</span><span class="p">)</span>
+           <span class="kd">throws</span> <span class="nf">IllegalAccessException</span><span class="p">,</span> <span class="n">IllegalArgumentException</span><span class="p">,</span>
               <span class="n">InvocationTargetException</span></code></pre></div>
 <p>eg：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">test1</span> <span class="o">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">class</span> <span class="n">test1</span> <span class="p">{</span>
    
-       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span> <span class="n">NoSuchMethodException</span><span class="o">,</span> <span class="n">InvocationTargetException</span> <span class="o">{</span>
-           <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">methodClass</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+       <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">IllegalAccessException</span><span class="p">,</span> <span class="n">InstantiationException</span><span class="p">,</span> <span class="n">NoSuchMethodException</span><span class="p">,</span> <span class="n">InvocationTargetException</span> <span class="p">{</span>
+           <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">methodClass</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
            <span class="c1">//创建methodClass的实例
-</span><span class="c1"></span>           <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+</span><span class="c1"></span>           <span class="n">Object</span> <span class="nf">obj</span> <span class="o">=</span> <span class="n">klass</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span>
            <span class="c1">//获取methodClass类的add方法
-</span><span class="c1"></span>           <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">klass</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;add&#34;</span><span class="o">,</span><span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class="c1"></span>           <span class="n">Method</span> <span class="nf">method</span> <span class="o">=</span> <span class="n">klass</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;add&#34;</span><span class="p">,</span><span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="kt">int</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
            <span class="c1">//调用method对应的方法 =&gt; add(1,4)
-</span><span class="c1"></span>           <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">4</span><span class="o">);</span>
-           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-       <span class="o">}</span>
-   
-   <span class="o">}</span>
-   
-   <span class="kd">class</span> <span class="nc">methodClass</span> <span class="o">{</span>
-   
-       <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fuck</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
-       <span class="kd">public</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-           <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
-       <span class="o">}</span>
-       <span class="kd">public</span> <span class="kt">int</span> <span class="nf">sub</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-           <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
-       <span class="o">}</span>
-   <span class="o">}</span></code></pre></div>
-<ol>
-<li>创建数组</li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">testArray</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
-           <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="o">);</span>
-           <span class="n">Object</span> <span class="n">array</span> <span class="o">=</span> <span class="n">Array</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="n">cls</span><span class="o">,</span><span class="n">25</span><span class="o">);</span> <span class="c1">//通过Array.newInstance()
-</span><span class="c1"></span>           <span class="c1">//往数组里添加内容
-</span><span class="c1"></span>           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>  <span class="c1">//Array类为java.lang.reflect.Array
-</span><span class="c1"></span>           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;Java&#34;</span><span class="o">);</span>
-           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="s">&#34;fuck&#34;</span><span class="o">);</span>
-           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="s">&#34;Scala&#34;</span><span class="o">);</span>
-           <span class="n">Array</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="s">&#34;Clojure&#34;</span><span class="o">);</span>
-           <span class="c1">//获取某一项的内容
-</span><span class="c1"></span>           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Array</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">3</span><span class="o">));</span>
-       <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">newInstance</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">componentType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span>
-           <span class="kd">throws</span> <span class="n">NegativeArraySizeException</span> <span class="o">{</span>
-           <span class="k">return</span> <span class="n">newArray</span><span class="o">(</span><span class="n">componentType</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
-       <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">native</span> <span class="n">Object</span> <span class="nf">newArray</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">componentType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span>
-           <span class="kd">throws</span> <span class="n">NegativeArraySizeException</span><span class="o">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">   <span class="n">arrayOop</span> <span class="n">Reflection</span><span class="o">::</span><span class="n">reflect_new_array</span><span class="p">(</span><span class="n">oop</span> <span class="n">element_mirror</span><span class="p">,</span> <span class="n">jint</span> <span class="n">length</span><span class="p">,</span> <span class="n">TRAPS</span><span class="p">)</span> <span class="p">{</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">element_mirror</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-       <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_NullPointerException</span><span class="p">());</span>
-     <span class="p">}</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-       <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_NegativeArraySizeException</span><span class="p">());</span>
-     <span class="p">}</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">java_lang_Class</span><span class="o">::</span><span class="n">is_primitive</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">))</span> <span class="p">{</span>
-       <span class="n">Klass</span><span class="o">*</span> <span class="n">tak</span> <span class="o">=</span> <span class="n">basic_type_mirror_to_arrayklass</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">,</span> <span class="n">CHECK_NULL</span><span class="p">);</span>
-       <span class="k">return</span> <span class="n">TypeArrayKlass</span><span class="o">::</span><span class="n">cast</span><span class="p">(</span><span class="n">tak</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">allocate</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
-     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-       <span class="n">Klass</span><span class="o">*</span> <span class="n">k</span> <span class="o">=</span> <span class="n">java_lang_Class</span><span class="o">::</span><span class="n">as_Klass</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">);</span>
-       <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="o">-&gt;</span><span class="n">oop_is_array</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">ArrayKlass</span><span class="o">::</span><span class="n">cast</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">dimension</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">MAX_DIM</span><span class="p">)</span> <span class="p">{</span>
-         <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_IllegalArgumentException</span><span class="p">());</span>
+</span><span class="c1"></span>           <span class="n">Object</span> <span class="nf">result</span> <span class="o">=</span> <span class="n">method</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">1</span><span class="p">,</span><span class="n">4</span><span class="p">);</span>
+           <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
        <span class="p">}</span>
-       <span class="k">return</span> <span class="n">oopFactory</span><span class="o">::</span><span class="n">new_objArray</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
-     <span class="p">}</span>
+   
    <span class="p">}</span>
-</code></pre></div>
+   
+   <span class="kd">class</span> <span class="nf">methodClass</span> <span class="p">{</span>
+   
+       <span class="kd">public</span> <span class="nf">final</span> <span class="kt">int</span> <span class="nf">fuck</span> <span class="o">=</span> <span class="n">3</span><span class="p">;</span>
+       <span class="kd">public</span> <span class="nf">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="nf">a</span><span class="p">,</span><span class="kt">int</span> <span class="nf">b</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+       <span class="p">}</span>
+       <span class="kd">public</span> <span class="nf">int</span> <span class="n">sub</span><span class="p">(</span><span class="kt">int</span> <span class="nf">a</span><span class="p">,</span><span class="kt">int</span> <span class="nf">b</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+       <span class="p">}</span>
+   <span class="p">}</span></code></pre></div>
+<ol>
+<li><p>创建数组</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">testArray</span><span class="p">()</span> <span class="kd">throws</span> <span class="nf">ClassNotFoundException</span> <span class="p">{</span>
+       <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="p">);</span>
+       <span class="n">Object</span> <span class="nf">array</span> <span class="o">=</span> <span class="n">Array</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">25</span><span class="p">);</span> <span class="c1">//通过Array.newInstance()
+</span><span class="c1"></span>       <span class="c1">//往数组里添加内容
+</span><span class="c1"></span>       <span class="n">Array</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">0</span><span class="p">,</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>  <span class="c1">//Array类为java.lang.reflect.Array
+</span><span class="c1"></span>       <span class="n">Array</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">1</span><span class="p">,</span><span class="s">&#34;Java&#34;</span><span class="p">);</span>
+       <span class="n">Array</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">2</span><span class="p">,</span><span class="s">&#34;fuck&#34;</span><span class="p">);</span>
+       <span class="n">Array</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">3</span><span class="p">,</span><span class="s">&#34;Scala&#34;</span><span class="p">);</span>
+       <span class="n">Array</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">4</span><span class="p">,</span><span class="s">&#34;Clojure&#34;</span><span class="p">);</span>
+       <span class="c1">//获取某一项的内容
+</span><span class="c1"></span>       <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Array</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">3</span><span class="p">));</span>
+   <span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">static</span> <span class="n">Object</span> <span class="nf">newInstance</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">componentType</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">length</span><span class="p">)</span>
+       <span class="kd">throws</span> <span class="nf">NegativeArraySizeException</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="n">newArray</span><span class="p">(</span><span class="n">componentType</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
+   <span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nf">static</span> <span class="kd">native</span> <span class="nf">Object</span> <span class="n">newArray</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">componentType</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">length</span><span class="p">)</span>
+       <span class="kd">throws</span> <span class="nf">NegativeArraySizeException</span><span class="p">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">arrayOop</span> <span class="n">Reflection</span><span class="o">::</span><span class="n">reflect_new_array</span><span class="p">(</span><span class="n">oop</span> <span class="n">element_mirror</span><span class="p">,</span> <span class="n">jint</span> <span class="n">length</span><span class="p">,</span> <span class="n">TRAPS</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">element_mirror</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_NullPointerException</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_NegativeArraySizeException</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">java_lang_Class</span><span class="o">::</span><span class="n">is_primitive</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">))</span> <span class="p">{</span>
+   <span class="n">Klass</span><span class="o">*</span> <span class="n">tak</span> <span class="o">=</span> <span class="n">basic_type_mirror_to_arrayklass</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">,</span> <span class="n">CHECK_NULL</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">TypeArrayKlass</span><span class="o">::</span><span class="n">cast</span><span class="p">(</span><span class="n">tak</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">allocate</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+   <span class="n">Klass</span><span class="o">*</span> <span class="n">k</span> <span class="o">=</span> <span class="n">java_lang_Class</span><span class="o">::</span><span class="n">as_Klass</span><span class="p">(</span><span class="n">element_mirror</span><span class="p">);</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="o">-&gt;</span><span class="n">oop_is_array</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">ArrayKlass</span><span class="o">::</span><span class="n">cast</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">dimension</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">MAX_DIM</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">THROW_0</span><span class="p">(</span><span class="n">vmSymbols</span><span class="o">::</span><span class="n">java_lang_IllegalArgumentException</span><span class="p">());</span>
+   <span class="p">}</span>
+   <span class="k">return</span> <span class="n">oopFactory</span><span class="o">::</span><span class="n">new_objArray</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">THREAD</span><span class="p">);</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ol>
+
 <p>Array类的set()和get()方法都为Native方法，在HotSpot JVM里分别对应Reflection::array_set和Reflection::array_get方法</p>
 
 <ol>
 <li><p>获取泛型</p>
 
-<p>getGenericHelper(HashMap<String, Person> map)</p></li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">static</span>  <span class="kt">void</span> <span class="nf">getGenericType</span><span class="o">()</span> <span class="o">{</span>
-           <span class="k">try</span> <span class="o">{</span>
-               <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span><span class="n">TestHelper</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="s">&#34;getGenericHelper&#34;</span><span class="o">,</span><span class="n">HashMap</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-               <span class="n">Type</span><span class="o">[]</span> <span class="n">genericParameterTypes</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getGenericParameterTypes</span><span class="o">();</span>
-               <span class="c1">// 检验是否为空
-</span><span class="c1"></span>               <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">genericParameterTypes</span> <span class="o">||</span> <span class="n">genericParameterTypes</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
-                   <span class="k">return</span> <span class="o">;</span>
-               <span class="o">}</span>
-               <span class="c1">// 取 getGenericHelper 方法的第一个参数
+<p>getGenericHelper(HashMap<String, Person> map)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">static</span>  <span class="kt">void</span> <span class="nf">getGenericType</span><span class="p">()</span> <span class="p">{</span>
+       <span class="k">try</span> <span class="p">{</span>
+           <span class="n">Method</span> <span class="nf">method</span> <span class="o">=</span><span class="n">TestHelper</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getDeclaredMethod</span><span class="p">(</span><span class="s">&#34;getGenericHelper&#34;</span><span class="p">,</span><span class="n">HashMap</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+           <span class="n">Type</span><span class="p">[]</span> <span class="nf">genericParameterTypes</span> <span class="o">=</span> <span class="n">method</span><span class="p">.</span><span class="na">getGenericParameterTypes</span><span class="p">();</span>
+           <span class="c1">// 检验是否为空
+</span><span class="c1"></span>           <span class="k">if</span> <span class="p">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">genericParameterTypes</span> <span class="o">||</span> <span class="n">genericParameterTypes</span><span class="p">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="n">1</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">return</span> <span class="p">;</span>
+           <span class="p">}</span>
+           <span class="c1">// 取 getGenericHelper 方法的第一个参数
 </span><span class="c1"></span>   
-               <span class="n">ParameterizedType</span> <span class="n">parameterizedType</span><span class="o">=(</span><span class="n">ParameterizedType</span><span class="o">)</span><span class="n">genericParameterTypes</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
-               <span class="n">Type</span> <span class="n">rawType</span> <span class="o">=</span> <span class="n">parameterizedType</span><span class="o">.</span><span class="na">getRawType</span><span class="o">();</span>
-               <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;----&gt; rawType=&#34;</span> <span class="o">+</span> <span class="n">rawType</span><span class="o">);</span>
-               <span class="n">Type</span><span class="o">[]</span> <span class="n">actualTypeArguments</span> <span class="o">=</span> <span class="n">parameterizedType</span><span class="o">.</span><span class="na">getActualTypeArguments</span><span class="o">();</span>
-               <span class="k">if</span> <span class="o">(</span><span class="n">actualTypeArguments</span><span class="o">==</span><span class="n">genericParameterTypes</span> <span class="o">||</span> <span class="n">actualTypeArguments</span><span class="o">.</span><span class="na">length</span><span class="o">&lt;</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
-                   <span class="k">return</span> <span class="o">;</span>
-               <span class="o">}</span>
-               <span class="c1">//  打印出每一个类型          
-</span><span class="c1"></span>               <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">actualTypeArguments</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-                   <span class="n">Type</span> <span class="n">type</span> <span class="o">=</span> <span class="n">actualTypeArguments</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
-                   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;----&gt; type=&#34;</span> <span class="o">+</span> <span class="n">type</span><span class="o">);</span>
-               <span class="o">}</span>
-           <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">ParameterizedType</span> <span class="nf">parameterizedType</span><span class="o">=</span><span class="p">(</span><span class="n">ParameterizedType</span><span class="p">)</span><span class="n">genericParameterTypes</span><span class="p">[</span><span class="n">0</span><span class="p">];</span>
+           <span class="n">Type</span> <span class="nf">rawType</span> <span class="o">=</span> <span class="n">parameterizedType</span><span class="p">.</span><span class="na">getRawType</span><span class="p">();</span>
+           <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;----&gt; rawType=&#34;</span> <span class="o">+</span> <span class="n">rawType</span><span class="p">);</span>
+           <span class="n">Type</span><span class="p">[]</span> <span class="nf">actualTypeArguments</span> <span class="o">=</span> <span class="n">parameterizedType</span><span class="p">.</span><span class="na">getActualTypeArguments</span><span class="p">();</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">actualTypeArguments</span><span class="o">==</span><span class="n">genericParameterTypes</span> <span class="o">||</span> <span class="n">actualTypeArguments</span><span class="p">.</span><span class="na">length</span><span class="o">&lt;</span><span class="n">1</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">return</span> <span class="p">;</span>
+           <span class="p">}</span>
+           <span class="c1">//  打印出每一个类型          
+</span><span class="c1"></span>           <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">actualTypeArguments</span><span class="p">.</span><span class="na">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+               <span class="n">Type</span> <span class="nf">type</span> <span class="o">=</span> <span class="n">actualTypeArguments</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+               <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;----&gt; type=&#34;</span> <span class="o">+</span> <span class="n">type</span><span class="p">);</span>
+           <span class="p">}</span>
+       <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="nf">e</span><span class="p">)</span> <span class="p">{</span>
    
-           <span class="o">}</span>
+       <span class="p">}</span>
    
-       <span class="o">}</span></code></pre></div>
+   <span class="p">}</span></code></pre></div>
 <ol>
 <li><p>获得 Metho,Field,Constructor 的访问权限</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kt">int</span> <span class="n">modifiers</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getModifiers</span><span class="o">();</span> 
-   <span class="n">Modifier</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">modifiers</span><span class="o">);</span> </code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">modifiers</span> <span class="o">=</span> <span class="n">method</span><span class="p">.</span><span class="na">getModifiers</span><span class="p">();</span> 
+<span class="n">Modifier</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">modifiers</span><span class="p">);</span> </code></pre></div></li>
+</ol></li>
+</ol>
+
 <h3 id="invoke方法">Invoke方法</h3>
 
 <p>比较重点</p>
 
 <p>invoke方法的实现：</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@CallerSensitive</span>
-<span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span>
-<span class="kd">throws</span> <span class="n">IllegalAccessException</span><span class="o">,</span> <span class="n">IllegalArgumentException</span><span class="o">,</span>
-   <span class="n">InvocationTargetException</span>
-<span class="o">{</span>
-<span class="k">if</span> <span class="o">(!</span><span class="n">override</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(!</span><span class="n">Reflection</span><span class="o">.</span><span class="na">quickCheckMemberAccess</span><span class="o">(</span><span class="n">clazz</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">caller</span> <span class="o">=</span> <span class="n">Reflection</span><span class="o">.</span><span class="na">getCallerClass</span><span class="o">();</span>
-        <span class="n">checkAccess</span><span class="o">(</span><span class="n">caller</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">obj</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-<span class="n">MethodAccessor</span> <span class="n">ma</span> <span class="o">=</span> <span class="n">methodAccessor</span><span class="o">;</span>             <span class="c1">// read volatile
-</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">ma</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">ma</span> <span class="o">=</span> <span class="n">acquireMethodAccessor</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="k">return</span> <span class="n">ma</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-<span class="o">}</span></code></pre></div></li>
-
-<li><p>权限检查</p></li>
+<span class="kd">public</span> <span class="nf">Object</span> <span class="n">invoke</span><span class="p">(</span><span class="n">Object</span> <span class="nf">obj</span><span class="p">,</span> <span class="n">Object</span><span class="p">...</span> <span class="nf">args</span><span class="p">)</span>
+    <span class="kd">throws</span> <span class="nf">IllegalAccessException</span><span class="p">,</span> <span class="n">IllegalArgumentException</span><span class="p">,</span>
+       <span class="n">InvocationTargetException</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">override</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Reflection</span><span class="p">.</span><span class="na">quickCheckMemberAccess</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">modifiers</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">caller</span> <span class="o">=</span> <span class="n">Reflection</span><span class="p">.</span><span class="na">getCallerClass</span><span class="p">();</span>
+            <span class="n">checkAccess</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">modifiers</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">MethodAccessor</span> <span class="nf">ma</span> <span class="o">=</span> <span class="n">methodAccessor</span><span class="p">;</span>             <span class="c1">// read volatile
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">ma</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ma</span> <span class="o">=</span> <span class="n">acquireMethodAccessor</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ma</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+<ol>
+<li>权限检查</li>
 </ol>
 
 <p>首先检查AccessibleObject的override属性的值 。AccessibleObject 类是 Field、Method 和 Constructor 对象的基类 。override 默认为false,调试需要权限调用规则，反正不需要。</p>
 
 <p>默认情况下首先用Reflection.quickCheckMemberAccess(clazz, modifiers)方法检查方法是否为public，如果是的话跳出本步；如果不是public方法，那么用Reflection.getCallerClass()方法获取调用这个方法的Class对象，这是一个native方法:</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="nd">@CallerSensitive</span>
-       <span class="kd">public</span> <span class="kd">static</span> <span class="kd">native</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">getCallerClass</span><span class="o">();</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">JNIEXPORT</span> <span class="n">jclass</span> <span class="n">JNICALL</span> <span class="nf">Java_sun_reflect_Reflection_getCallerClass__</span>
-   <span class="o">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="o">,</span> <span class="n">jclass</span> <span class="n">unused</span><span class="o">)</span>
-   <span class="o">{</span>
-       <span class="k">return</span> <span class="n">JVM_GetCallerClass</span><span class="o">(</span><span class="n">env</span><span class="o">,</span> <span class="n">JVM_CALLER_DEPTH</span><span class="o">);</span>
-   <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">   <span class="n">JVM_ENTRY</span><span class="p">(</span><span class="n">jclass</span><span class="p">,</span> <span class="n">JVM_GetCallerClass</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">))</span>
+       <span class="kd">public</span> <span class="nf">static</span> <span class="kd">native</span> <span class="nf">Class</span><span class="o">&lt;?&gt;</span> <span class="n">getCallerClass</span><span class="p">();</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="n">JNIEXPORT</span> <span class="nf">jclass</span> <span class="n">JNICALL</span> <span class="nf">Java_sun_reflect_Reflection_getCallerClass__</span>
+   <span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jclass</span> <span class="nf">unused</span><span class="p">)</span>
+   <span class="p">{</span>
+       <span class="k">return</span> <span class="n">JVM_GetCallerClass</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">JVM_CALLER_DEPTH</span><span class="p">);</span>
+   <span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">   <span class="n">JVM_ENTRY</span><span class="p">(</span><span class="n">jclass</span><span class="p">,</span> <span class="n">JVM_GetCallerClass</span><span class="p">(</span><span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">))</span>
      <span class="n">JVMWrapper</span><span class="p">(</span><span class="s">&#34;JVM_GetCallerClass&#34;</span><span class="p">);</span>
    
      <span class="c1">// Pre-JDK 8 and early builds of JDK 8 don&#39;t have a CallerSensitive annotation; or
@@ -533,58 +535,58 @@
    <span class="n">JVM_END</span>
 </code></pre></div>
 <p>获取了这个Class对象caller后用checkAccess方法做一次快速的权限校验 :</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">volatile</span> <span class="n">Object</span> <span class="n">securityCheckCache</span><span class="o">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">volatile</span> <span class="nf">Object</span> <span class="n">securityCheckCache</span><span class="p">;</span>
    
-       <span class="kt">void</span> <span class="nf">checkAccess</span><span class="o">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">caller</span><span class="o">,</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="kt">int</span> <span class="n">modifiers</span><span class="o">)</span>
-           <span class="kd">throws</span> <span class="n">IllegalAccessException</span>
-       <span class="o">{</span>
-           <span class="k">if</span> <span class="o">(</span><span class="n">caller</span> <span class="o">==</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 快速校验
-</span><span class="c1"></span>               <span class="k">return</span><span class="o">;</span>             <span class="c1">// 权限通过校验
-</span><span class="c1"></span>           <span class="o">}</span>
-           <span class="n">Object</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">securityCheckCache</span><span class="o">;</span>  <span class="c1">// read volatile
-</span><span class="c1"></span>           <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">targetClass</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">;</span>
-           <span class="k">if</span> <span class="o">(</span><span class="n">obj</span> <span class="o">!=</span> <span class="kc">null</span>
-               <span class="o">&amp;</span><span class="n">amp</span><span class="o">;&amp;</span><span class="n">amp</span><span class="o">;</span> <span class="n">Modifier</span><span class="o">.</span><span class="na">isProtected</span><span class="o">(</span><span class="n">modifiers</span><span class="o">)</span>
-               <span class="o">&amp;</span><span class="n">amp</span><span class="o">;&amp;</span><span class="n">amp</span><span class="o">;</span> <span class="o">((</span><span class="n">targetClass</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="o">!=</span> <span class="n">clazz</span><span class="o">))</span> <span class="o">{</span>
+       <span class="kt">void</span> <span class="nf">checkAccess</span><span class="p">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">caller</span><span class="p">,</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">Object</span> <span class="nf">obj</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">modifiers</span><span class="p">)</span>
+           <span class="kd">throws</span> <span class="nf">IllegalAccessException</span>
+       <span class="p">{</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">caller</span> <span class="o">==</span> <span class="n">clazz</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// 快速校验
+</span><span class="c1"></span>               <span class="k">return</span><span class="p">;</span>             <span class="c1">// 权限通过校验
+</span><span class="c1"></span>           <span class="p">}</span>
+           <span class="n">Object</span> <span class="nf">cache</span> <span class="o">=</span> <span class="n">securityCheckCache</span><span class="p">;</span>  <span class="c1">// read volatile
+</span><span class="c1"></span>           <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">targetClass</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">;</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="o">!=</span> <span class="kc">null</span>
+               <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">isProtected</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+               <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="p">((</span><span class="n">targetClass</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getClass</span><span class="p">())</span> <span class="o">!=</span> <span class="n">clazz</span><span class="p">))</span> <span class="p">{</span>
                <span class="c1">// Must match a 2-list of { caller, targetClass }.
-</span><span class="c1"></span>               <span class="k">if</span> <span class="o">(</span><span class="n">cache</span> <span class="k">instanceof</span> <span class="n">Class</span><span class="o">[])</span> <span class="o">{</span>
-                   <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;[]</span> <span class="n">cache2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;[])</span> <span class="n">cache</span><span class="o">;</span>
-                   <span class="k">if</span> <span class="o">(</span><span class="n">cache2</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">targetClass</span> <span class="o">&amp;</span><span class="n">amp</span><span class="o">;&amp;</span><span class="n">amp</span><span class="o">;</span>
-                       <span class="n">cache2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">caller</span><span class="o">)</span> <span class="o">{</span>
-                       <span class="k">return</span><span class="o">;</span>     <span class="c1">// ACCESS IS OK
-</span><span class="c1"></span>                   <span class="o">}</span>
+</span><span class="c1"></span>               <span class="k">if</span> <span class="p">(</span><span class="n">cache</span> <span class="nf">instanceof</span> <span class="n">Class</span><span class="p">[])</span> <span class="p">{</span>
+                   <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;[]</span> <span class="n">cache2</span> <span class="o">=</span> <span class="p">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;[])</span> <span class="n">cache</span><span class="p">;</span>
+                   <span class="k">if</span> <span class="p">(</span><span class="n">cache2</span><span class="p">[</span><span class="n">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">targetClass</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span>
+                       <span class="n">cache2</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">caller</span><span class="p">)</span> <span class="p">{</span>
+                       <span class="k">return</span><span class="p">;</span>     <span class="c1">// ACCESS IS OK
+</span><span class="c1"></span>                   <span class="p">}</span>
                    <span class="c1">// (Test cache[1] first since range check for [1]
 </span><span class="c1"></span>                   <span class="c1">// subsumes range check for [0].)
-</span><span class="c1"></span>               <span class="o">}</span>
-           <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cache</span> <span class="o">==</span> <span class="n">caller</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="c1"></span>               <span class="p">}</span>
+           <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">cache</span> <span class="o">==</span> <span class="n">caller</span><span class="p">)</span> <span class="p">{</span>
                <span class="c1">// Non-protected case (or obj.class == this.clazz).
-</span><span class="c1"></span>               <span class="k">return</span><span class="o">;</span>             <span class="c1">// ACCESS IS OK
-</span><span class="c1"></span>           <span class="o">}</span>
+</span><span class="c1"></span>               <span class="k">return</span><span class="p">;</span>             <span class="c1">// ACCESS IS OK
+</span><span class="c1"></span>           <span class="p">}</span>
    
            <span class="c1">// If no return, fall through to the slow path.
-</span><span class="c1"></span>           <span class="n">slowCheckMemberAccess</span><span class="o">(</span><span class="n">caller</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">obj</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">,</span> <span class="n">targetClass</span><span class="o">);</span>
-       <span class="o">}</span></code></pre></div>
+</span><span class="c1"></span>           <span class="n">slowCheckMemberAccess</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">modifiers</span><span class="p">,</span> <span class="n">targetClass</span><span class="p">);</span>
+       <span class="p">}</span></code></pre></div>
 <p>先快速检查，未通过的话建立缓存，中间再检查；</p>
 
 <p>如果都没有通过：进行更详细的检查;</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="c1">// Keep all this slow stuff out of line:
-</span><span class="c1"></span>   <span class="kt">void</span> <span class="nf">slowCheckMemberAccess</span><span class="o">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">caller</span><span class="o">,</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="kt">int</span> <span class="n">modifiers</span><span class="o">,</span>
-                              <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">targetClass</span><span class="o">)</span>
-       <span class="kd">throws</span> <span class="n">IllegalAccessException</span>
-   <span class="o">{</span>
-       <span class="n">Reflection</span><span class="o">.</span><span class="na">ensureMemberAccess</span><span class="o">(</span><span class="n">caller</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">obj</span><span class="o">,</span> <span class="n">modifiers</span><span class="o">);</span>
+</span><span class="c1"></span>   <span class="kt">void</span> <span class="nf">slowCheckMemberAccess</span><span class="p">(</span><span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">caller</span><span class="p">,</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">Object</span> <span class="nf">obj</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">modifiers</span><span class="p">,</span>
+                              <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">targetClass</span><span class="p">)</span>
+       <span class="kd">throws</span> <span class="nf">IllegalAccessException</span>
+   <span class="p">{</span>
+       <span class="n">Reflection</span><span class="p">.</span><span class="na">ensureMemberAccess</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">modifiers</span><span class="p">);</span>
    
        <span class="c1">// Success: Update the cache.
-</span><span class="c1"></span>       <span class="n">Object</span> <span class="n">cache</span> <span class="o">=</span> <span class="o">((</span><span class="n">targetClass</span> <span class="o">==</span> <span class="n">clazz</span><span class="o">)</span>
+</span><span class="c1"></span>       <span class="n">Object</span> <span class="nf">cache</span> <span class="o">=</span> <span class="p">((</span><span class="n">targetClass</span> <span class="o">==</span> <span class="n">clazz</span><span class="p">)</span>
                        <span class="o">?</span> <span class="n">caller</span>
-                       <span class="o">:</span> <span class="k">new</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&amp;</span><span class="n">gt</span><span class="o">;[]</span> <span class="o">{</span> <span class="n">caller</span><span class="o">,</span> <span class="n">targetClass</span> <span class="o">});</span>
+                       <span class="o">:</span> <span class="k">new</span> <span class="n">Class</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">?&amp;</span><span class="n">gt</span><span class="p">;[]</span> <span class="p">{</span> <span class="n">caller</span><span class="p">,</span> <span class="n">targetClass</span> <span class="p">});</span>
    
        <span class="c1">// Note:  The two cache elements are not volatile,
 </span><span class="c1"></span>       <span class="c1">// but they are effectively final.  The Java memory model
 </span><span class="c1"></span>       <span class="c1">// guarantees that the initializing stores for the cache
 </span><span class="c1"></span>       <span class="c1">// elements will occur before the volatile write.
-</span><span class="c1"></span>       <span class="n">securityCheckCache</span> <span class="o">=</span> <span class="n">cache</span><span class="o">;</span>         <span class="c1">// write volatile
-</span><span class="c1"></span>   <span class="o">}</span></code></pre></div>
+</span><span class="c1"></span>       <span class="n">securityCheckCache</span> <span class="o">=</span> <span class="n">cache</span><span class="p">;</span>         <span class="c1">// write volatile
+</span><span class="c1"></span>   <span class="p">}</span></code></pre></div>
 <p>用Reflection.ensureMemberAccess方法继续检查权限，若检查通过就更新缓存，这样下一次同一个类调用同一个方法时就不用执行权限检查了，这是一种简单的缓存机制。</p>
 
 <ol>
@@ -596,11 +598,11 @@
 </span><span class="cm">       configured with a (possibly dynamically-generated) class which
 </span><span class="cm">       implements this interface.
 </span><span class="cm">   */</span>
-    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MethodAccessor</span> <span class="o">{</span>    <span class="c1">//是一个接口
+    <span class="kd">public</span> <span class="nf">interface</span> <span class="n">MethodAccessor</span> <span class="p">{</span>    <span class="c1">//是一个接口
 </span><span class="c1"></span>       <span class="cm">/** Matches specification in {@link java.lang.reflect.Method} */</span>
-       <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
-           <span class="kd">throws</span> <span class="n">IllegalArgumentException</span><span class="o">,</span> <span class="n">InvocationTargetException</span><span class="o">;</span>
-   <span class="o">}</span></code></pre></div>
+       <span class="kd">public</span> <span class="nf">Object</span> <span class="n">invoke</span><span class="p">(</span><span class="n">Object</span> <span class="nf">obj</span><span class="p">,</span> <span class="n">Object</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span>
+           <span class="kd">throws</span> <span class="nf">IllegalArgumentException</span><span class="p">,</span> <span class="n">InvocationTargetException</span><span class="p">;</span>
+   <span class="p">}</span></code></pre></div>
 <p>分析其Usage可得它的具体实现类有:</p>
 
 <ul>
@@ -613,18 +615,18 @@
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="c1">// Reflection factory used by subclasses for creating field,
 </span><span class="c1"></span>   <span class="c1">// method, and constructor accessors. Note that this is called
 </span><span class="c1"></span>   <span class="c1">// very early in the bootstrapping process.
-</span><span class="c1"></span>   <span class="kd">static</span> <span class="kd">final</span> <span class="n">ReflectionFactory</span> <span class="n">reflectionFactory</span> <span class="o">=</span>
-       <span class="n">AccessController</span><span class="o">.</span><span class="na">doPrivileged</span><span class="o">(</span>
-           <span class="k">new</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">ReflectionFactory</span><span class="o">.</span><span class="na">GetReflectionFactoryAction</span><span class="o">());</span></code></pre></div>
+</span><span class="c1"></span>   <span class="kd">static</span> <span class="nf">final</span> <span class="n">ReflectionFactory</span> <span class="nf">reflectionFactory</span> <span class="o">=</span>
+       <span class="n">AccessController</span><span class="p">.</span><span class="na">doPrivileged</span><span class="p">(</span>
+           <span class="k">new</span> <span class="n">sun</span><span class="p">.</span><span class="na">reflect</span><span class="p">.</span><span class="na">ReflectionFactory</span><span class="p">.</span><span class="na">GetReflectionFactoryAction</span><span class="p">());</span></code></pre></div>
 <p>sun.reflect.ReflectionFactory类的源码：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReflectionFactory</span> <span class="o">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">class</span> <span class="n">ReflectionFactory</span> <span class="p">{</span>
        
-       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">initted</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-       <span class="kd">private</span> <span class="kd">static</span> <span class="n">Permission</span> <span class="n">reflectionFactoryAccessPerm</span>
-           <span class="o">=</span> <span class="k">new</span> <span class="n">RuntimePermission</span><span class="o">(</span><span class="s">&#34;reflectionFactoryAccess&#34;</span><span class="o">);</span>
-       <span class="kd">private</span> <span class="kd">static</span> <span class="n">ReflectionFactory</span> <span class="n">soleInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReflectionFactory</span><span class="o">();</span>
+       <span class="kd">private</span> <span class="nf">static</span> <span class="kt">boolean</span> <span class="nf">initted</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+       <span class="kd">private</span> <span class="nf">static</span> <span class="n">Permission</span> <span class="nf">reflectionFactoryAccessPerm</span>
+           <span class="o">=</span> <span class="k">new</span> <span class="n">RuntimePermission</span><span class="p">(</span><span class="s">&#34;reflectionFactoryAccess&#34;</span><span class="p">);</span>
+       <span class="kd">private</span> <span class="nf">static</span> <span class="n">ReflectionFactory</span> <span class="nf">soleInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReflectionFactory</span><span class="p">();</span>
        <span class="c1">// Provides access to package-private mechanisms in java.lang.reflect
-</span><span class="c1"></span>       <span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="n">LangReflectAccess</span> <span class="n">langReflectAccess</span><span class="o">;</span>
+</span><span class="c1"></span>       <span class="kd">private</span> <span class="nf">static</span> <span class="kd">volatile</span> <span class="nf">LangReflectAccess</span> <span class="n">langReflectAccess</span><span class="p">;</span>
        
        <span class="c1">// 这里设计得非常巧妙
 </span><span class="c1"></span>       <span class="c1">// &#34;Inflation&#34; mechanism. Loading bytecodes to implement
@@ -640,32 +642,32 @@
 </span><span class="c1"></span>       <span class="c1">//
 </span><span class="c1"></span>       <span class="c1">// Package-private to be accessible to NativeMethodAccessorImpl
 </span><span class="c1"></span>       <span class="c1">// and NativeConstructorAccessorImpl
-</span><span class="c1"></span>       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">noInflation</span>        <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span>     <span class="n">inflationThreshold</span> <span class="o">=</span> <span class="n">15</span><span class="o">;</span>
+</span><span class="c1"></span>       <span class="kd">private</span> <span class="nf">static</span> <span class="kt">boolean</span> <span class="nf">noInflation</span>        <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+       <span class="kd">private</span> <span class="nf">static</span> <span class="kt">int</span>     <span class="nf">inflationThreshold</span> <span class="o">=</span> <span class="n">15</span><span class="p">;</span>
        
        <span class="c1">//......
 </span><span class="c1"></span>       
     <span class="c1">//这是生成MethodAccessor的方法
-</span><span class="c1"></span>       <span class="kd">public</span> <span class="n">MethodAccessor</span> <span class="nf">newMethodAccessor</span><span class="o">(</span><span class="n">Method</span> <span class="n">method</span><span class="o">)</span> <span class="o">{</span>
-           <span class="n">checkInitted</span><span class="o">();</span>
+</span><span class="c1"></span>       <span class="kd">public</span> <span class="nf">MethodAccessor</span> <span class="n">newMethodAccessor</span><span class="p">(</span><span class="n">Method</span> <span class="nf">method</span><span class="p">)</span> <span class="p">{</span>
+           <span class="n">checkInitted</span><span class="p">();</span>
        
-           <span class="k">if</span> <span class="o">(</span><span class="n">noInflation</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">ReflectUtil</span><span class="o">.</span><span class="na">isVMAnonymousClass</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getDeclaringClass</span><span class="o">()))</span> <span class="o">{</span>
-               <span class="k">return</span> <span class="k">new</span> <span class="n">MethodAccessorGenerator</span><span class="o">().</span>
-                   <span class="n">generateMethod</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getDeclaringClass</span><span class="o">(),</span>
-                                  <span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
-                                  <span class="n">method</span><span class="o">.</span><span class="na">getParameterTypes</span><span class="o">(),</span>
-                                  <span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">(),</span>
-                                  <span class="n">method</span><span class="o">.</span><span class="na">getExceptionTypes</span><span class="o">(),</span>
-                                  <span class="n">method</span><span class="o">.</span><span class="na">getModifiers</span><span class="o">());</span>
-           <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-               <span class="n">NativeMethodAccessorImpl</span> <span class="n">acc</span> <span class="o">=</span>
-                   <span class="k">new</span> <span class="n">NativeMethodAccessorImpl</span><span class="o">(</span><span class="n">method</span><span class="o">);</span>
-               <span class="n">DelegatingMethodAccessorImpl</span> <span class="n">res</span> <span class="o">=</span>
-                   <span class="k">new</span> <span class="n">DelegatingMethodAccessorImpl</span><span class="o">(</span><span class="n">acc</span><span class="o">);</span>
-               <span class="n">acc</span><span class="o">.</span><span class="na">setParent</span><span class="o">(</span><span class="n">res</span><span class="o">);</span>
-               <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
-           <span class="o">}</span>
-       <span class="o">}</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">noInflation</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">ReflectUtil</span><span class="p">.</span><span class="na">isVMAnonymousClass</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getDeclaringClass</span><span class="p">()))</span> <span class="p">{</span>
+               <span class="k">return</span> <span class="k">new</span> <span class="n">MethodAccessorGenerator</span><span class="p">().</span>
+                   <span class="n">generateMethod</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">getDeclaringClass</span><span class="p">(),</span>
+                                  <span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">(),</span>
+                                  <span class="n">method</span><span class="p">.</span><span class="na">getParameterTypes</span><span class="p">(),</span>
+                                  <span class="n">method</span><span class="p">.</span><span class="na">getReturnType</span><span class="p">(),</span>
+                                  <span class="n">method</span><span class="p">.</span><span class="na">getExceptionTypes</span><span class="p">(),</span>
+                                  <span class="n">method</span><span class="p">.</span><span class="na">getModifiers</span><span class="p">());</span>
+           <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+               <span class="n">NativeMethodAccessorImpl</span> <span class="nf">acc</span> <span class="o">=</span>
+                   <span class="k">new</span> <span class="n">NativeMethodAccessorImpl</span><span class="p">(</span><span class="n">method</span><span class="p">);</span>
+               <span class="n">DelegatingMethodAccessorImpl</span> <span class="nf">res</span> <span class="o">=</span>
+                   <span class="k">new</span> <span class="n">DelegatingMethodAccessorImpl</span><span class="p">(</span><span class="n">acc</span><span class="p">);</span>
+               <span class="n">acc</span><span class="p">.</span><span class="na">setParent</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+               <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+           <span class="p">}</span>
+       <span class="p">}</span>
        
        <span class="c1">//......
 </span><span class="c1"></span>       
@@ -674,11 +676,11 @@
 </span><span class="cm">       static initializer (more properly, that for
 </span><span class="cm">       java.lang.reflect.AccessibleObject) causes this class&#39;s to be
 </span><span class="cm">       run, before the system properties are set up. */</span>
-       <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">checkInitted</span><span class="o">()</span> <span class="o">{</span>
-           <span class="k">if</span> <span class="o">(</span><span class="n">initted</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
-           <span class="n">AccessController</span><span class="o">.</span><span class="na">doPrivileged</span><span class="o">(</span>
-               <span class="k">new</span> <span class="n">PrivilegedAction</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;()</span> <span class="o">{</span>
-                   <span class="kd">public</span> <span class="n">Void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+       <span class="kd">private</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">checkInitted</span><span class="p">()</span> <span class="p">{</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">initted</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+           <span class="n">AccessController</span><span class="p">.</span><span class="na">doPrivileged</span><span class="p">(</span>
+               <span class="k">new</span> <span class="n">PrivilegedAction</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+                   <span class="kd">public</span> <span class="nf">Void</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span>
                        <span class="c1">// Tests to ensure the system properties table is fully
 </span><span class="c1"></span>                       <span class="c1">// initialized. This is needed because reflection code is
 </span><span class="c1"></span>                       <span class="c1">// called very early in the initialization process (before
@@ -688,31 +690,31 @@
 </span><span class="c1"></span>                       <span class="c1">// fully initialized and that the bulk of the startup code
 </span><span class="c1"></span>                       <span class="c1">// has been run.
 </span><span class="c1"></span>       
-                       <span class="k">if</span> <span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                       <span class="k">if</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
                            <span class="c1">// java.lang.System not yet fully initialized
-</span><span class="c1"></span>                           <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-                       <span class="o">}</span>
+</span><span class="c1"></span>                           <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+                       <span class="p">}</span>
        
-                       <span class="n">String</span> <span class="n">val</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;sun.reflect.noInflation&#34;</span><span class="o">);</span>
-                       <span class="k">if</span> <span class="o">(</span><span class="n">val</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">val</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;true&#34;</span><span class="o">))</span> <span class="o">{</span>
-                           <span class="n">noInflation</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-                       <span class="o">}</span>
+                       <span class="n">String</span> <span class="nf">val</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&#34;sun.reflect.noInflation&#34;</span><span class="p">);</span>
+                       <span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">val</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;true&#34;</span><span class="p">))</span> <span class="p">{</span>
+                           <span class="n">noInflation</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                       <span class="p">}</span>
        
-                       <span class="n">val</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;sun.reflect.inflationThreshold&#34;</span><span class="o">);</span>
-                       <span class="k">if</span> <span class="o">(</span><span class="n">val</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                           <span class="k">try</span> <span class="o">{</span>
-                               <span class="n">inflationThreshold</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
-                           <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                               <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">&#34;Unable to parse property sun.reflect.inflationThreshold&#34;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
-                           <span class="o">}</span>
-                       <span class="o">}</span>
+                       <span class="n">val</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&#34;sun.reflect.inflationThreshold&#34;</span><span class="p">);</span>
+                       <span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                           <span class="k">try</span> <span class="p">{</span>
+                               <span class="n">inflationThreshold</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+                           <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">NumberFormatException</span> <span class="nf">e</span><span class="p">)</span> <span class="p">{</span>
+                               <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&#34;Unable to parse property sun.reflect.inflationThreshold&#34;</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+                           <span class="p">}</span>
+                       <span class="p">}</span>
        
-                       <span class="n">initted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-                       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-                   <span class="o">}</span>
-               <span class="o">});</span>
-       <span class="o">}</span>
-   <span class="o">}</span></code></pre></div>
+                       <span class="n">initted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                       <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+                   <span class="p">}</span>
+               <span class="p">});</span>
+       <span class="p">}</span>
+   <span class="p">}</span></code></pre></div>
 <p>MethodAccessor实现有两个版本，一个是Java版本，一个是native版本 。</p>
 
 <p>Java实现的版本在初始化时需要较多时间，但长久来说性能较好；native版本正好相反，启动时相对较快，但运行时间长了之后速度就比不过Java版了</p>
@@ -722,14 +724,14 @@
 <ol>
 <li><p>在JVM层面探究invoke0方法</p>
 
-<p>invoke0方法是一个native方法,它在HotSpot JVM里调用JVM_InvokeMethod函数:</p></li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">      <span class="n">JNIEXPORT</span> <span class="n">jobject</span> <span class="n">JNICALL</span> <span class="nf">Java_sun_reflect_NativeMethodAccessorImpl_invoke0</span>
-      <span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jclass</span> <span class="n">unused</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">m</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">obj</span><span class="p">,</span> <span class="n">jobjectArray</span> <span class="n">args</span><span class="p">)</span>
-      <span class="p">{</span>
-          <span class="k">return</span> <span class="n">JVM_InvokeMethod</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
-      <span class="p">}</span>
+<p>invoke0方法是一个native方法,它在HotSpot JVM里调用JVM_InvokeMethod函数:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++">  <span class="n">JNIEXPORT</span> <span class="n">jobject</span> <span class="n">JNICALL</span> <span class="nf">Java_sun_reflect_NativeMethodAccessorImpl_invoke0</span>
+  <span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jclass</span> <span class="n">unused</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">m</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">obj</span><span class="p">,</span> <span class="n">jobjectArray</span> <span class="n">args</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">return</span> <span class="n">JVM_InvokeMethod</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+  <span class="p">}</span>
 </code></pre></div></li>
+</ol></li>
 </ol>
 
 <p>openjdk/hotspot/src/share/vm/prims/jvm.cpp</p>

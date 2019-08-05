@@ -14,37 +14,37 @@
     <meta name="generator" content="Hugo 0.56.3" />
     
     
-        <title>Android应用安全防护和逆向分析 基础篇③ - root@v</title>
+        <title>ARM-PWN从入门到放弃0x00-环境准备 - root@v</title>
     
     
-    <meta itemprop="name" content="Android应用安全防护和逆向分析 基础篇③">
-<meta itemprop="description" content="Android中开发与逆向常用命令总结">
+    <meta itemprop="name" content="ARM-PWN从入门到放弃0x00-环境准备">
+<meta itemprop="description" content="ARM PWN从入门到放弃0x00 环境准备">
 
 
-<meta itemprop="datePublished" content="2018-07-16T13:51:50&#43;08:00" />
-<meta itemprop="dateModified" content="2018-07-16T13:51:50&#43;08:00" />
-<meta itemprop="wordCount" content="1400">
+<meta itemprop="datePublished" content="2019-08-03T12:26:24&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-03T12:26:24&#43;08:00" />
+<meta itemprop="wordCount" content="526">
 
 
 
-<meta itemprop="keywords" content="android安全,读书笔记," />
+<meta itemprop="keywords" content="ARM,PWN," />
 
-    <meta property="og:title" content="Android应用安全防护和逆向分析 基础篇③" />
-<meta property="og:description" content="Android中开发与逆向常用命令总结" />
+    <meta property="og:title" content="ARM-PWN从入门到放弃0x00-环境准备" />
+<meta property="og:description" content="ARM PWN从入门到放弃0x00 环境准备" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%873/" />
+<meta property="og:url" content="https://vorblock.cc/post/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" />
 
 <meta property="og:image" content="https://vorblock.cc/favicon.svg" />
 
 <meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
-<meta property="article:published_time" content="2018-07-16T13:51:50+08:00" />
-<meta property="article:modified_time" content="2018-07-16T13:51:50+08:00" />
+<meta property="article:published_time" content="2019-08-03T12:26:24+08:00" />
+<meta property="article:modified_time" content="2019-08-03T12:26:24+08:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vorblock.cc/favicon.svg"/>
 
-<meta name="twitter:title" content="Android应用安全防护和逆向分析 基础篇③"/>
-<meta name="twitter:description" content="Android中开发与逆向常用命令总结"/>
+<meta name="twitter:title" content="ARM-PWN从入门到放弃0x00-环境准备"/>
+<meta name="twitter:description" content="ARM PWN从入门到放弃0x00 环境准备"/>
 
     
 
@@ -54,15 +54,13 @@
 
     
     
-    <meta property="description" content="Android中开发与逆向常用命令总结">
+    <meta property="description" content="ARM PWN从入门到放弃0x00 环境准备">
     
     
 
     
-    <meta property="keywords" content="命令">
-    
 
-    <link rel="canonical" href="https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%873/">
+    <link rel="canonical" href="https://vorblock.cc/post/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">
     <link rel="shortcut icon" href="/favicon.png">
 
 
@@ -151,9 +149,9 @@
     
     <span itemprop="articleSection" class="category">
         
-        <a href="/categories/%e8%af%bb%e4%b9%a6%e7%ac%94%e8%ae%b0" rel="category">读书笔记</a>
+        <a href="/categories/ARM" rel="category">ARM</a>
         
-        <a href="/categories/Android%e5%ae%89%e5%85%a8" rel="category">Android安全</a>
+        <a href="/categories/PWN" rel="category">PWN</a>
         
     </span>
     /
@@ -161,22 +159,22 @@
     
     <span itemprop="keywords" class="tags">
         
-        <a href="/tags/android%e5%ae%89%e5%85%a8" rel="tag">android安全</a>
+        <a href="/tags/ARM" rel="tag">ARM</a>
         
-        <a href="/tags/%e8%af%bb%e4%b9%a6%e7%ac%94%e8%ae%b0" rel="tag">读书笔记</a>
+        <a href="/tags/PWN" rel="tag">PWN</a>
         
     </span>
     
 </h3>
 
 
-<h1>Android应用安全防护和逆向分析 基础篇③</h1>
+<h1>ARM-PWN从入门到放弃0x00-环境准备</h1>
 
 <h3>
     
     vorblock
     
-      /  2018-07-16
+      /  2019-08-03
 </h3>
 
 <hr>
@@ -195,288 +193,113 @@
 
     
 
-<h2 id="一-基础篇③">一、 基础篇③</h2>
+<h3 id="0x00-前言">0x00 前言</h3>
 
-<h3 id="第三章-android中开发与逆向常用命令总结">第三章 Android中开发与逆向常用命令总结</h3>
+<p>学PWN也有一段时间了，x86/x86_64 下算是入了个门，平时接触ARM比较多，正好以ARM架构下再更加深入的学习PWN。</p>
 
-<h4 id="1-基础命令">1. 基础命令</h4>
+<p>会用的工具、环境：</p>
 
-<h5 id="1-1-cat命令">1.1 cat命令</h5>
+<ul>
+<li>在Ubuntu 18.04/WSL2</li>
+<li>Docker for wsl2</li>
+<li>树莓派3B+</li>
+<li>qemu</li>
+<li>unicorn</li>
+<li>IDA</li>
+<li>Radare2</li>
+<li>GDB+gef+pwndbg+peda</li>
+<li>pwntools</li>
+</ul>
 
-<p>​   查看文件内容  结合grep进行过滤</p>
+<h3 id="0x01-环境安装">0x01 环境安装</h3>
 
-<h5 id="1-2-echo-touch命令">1.2 echo/touch命令</h5>
+<p>这里选用的有两种环境</p>
 
-<p>​   写文件   配个定向符使用</p>
+<ol>
+<li>ARM设备 树莓派</li>
+</ol>
 
-<h4 id="2-非shell命令">2. 非shell命令</h4>
+<p>之前618买了树莓派，派上用场了。</p>
 
-<h5 id="2-1-adb-shell-dumpsys-sctivity-top">2.1 adb shell dumpsys sctivity top</h5>
+<p>把PI的官方系统换成了Ubuntu 18.04。</p>
 
-<p>​   说明：查看当前应用的activity信息</p>
+<p>安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。</p>
 
-<p>​   用法：运行需要查看的应用</p>
+<p>关闭地址随机化</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   sudo cat /proc/sys/kernel/randomize_va_space <span class="c1"># 状态查看</span>
+   <span class="m">2</span> <span class="c1"># 开启中</span>
+   sudo <span class="nb">echo</span> <span class="m">0</span> &gt; /proc/sys/kernel/randomize_va_space 
+   bash: /proc/sys/kernel/randomize_va_space: Permission denied
+   su
+   <span class="nb">echo</span> <span class="m">0</span> &gt; /proc/sys/kernel/randomize_va_space
+   cat /proc/sys/kernel/randomize_va_space
+   <span class="m">0</span> <span class="c1">#这就OK</span></code></pre></div>
+<ol>
+<li>QEMU 模拟 (WSL2)</li>
+</ol>
 
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-3-1.png" alt="" /></p>
+<p>安装</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   <span class="c1">#防止又出什么乱七八糟的错误和需求，尽量都装上</span>
+   apt install gdb gdb-multiarch <span class="c1">##</span>
+   apt install qemu <span class="c1">##</span>
+   apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu <span class="c1">##gcc arm 依赖库安装</span></code></pre></div>
+<h3 id="0x02-启动和调试">0x02 启动和调试</h3>
 
-<p>​   如果直接运行  <code>adb shell dmpsys</code>会把当前系统中的所有应用运行的四大组件都打印出来 内容非常多 使用信息重定向来进行选择：可借助Windows的<code>start</code>命令</p>
+<ol>
+<li><p>树莓派</p>
 
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-3-2.png" alt="" /></p>
+<p>直接运行</p>
 
-<h5 id="2-2-adb-shell-dumpsys-package">2.2 adb shell dumpsys package</h5>
+<p>进行socat绑定端口 就OK</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">  socat tcp-listen:6666,fork exec:./binfile</code></pre></div></li>
 
-<p>​   说明：查看指定包名应用的详细信息 （相当于AndroidManifest.xml的内容）</p>
+<li><p>QEMU</p>
 
-<p>​   用法：adb shell dumpsys package [pkgname]</p>
+<ul>
+<li><p>32bit</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 本地GDB调试</span>
+qemu-arm -g <span class="m">1234</span> -L /usr/arm-linux-gnueabi ./binfile
+gdb-multiarch
+target remote localhost:1234
+<span class="c1"># 绑定运行到指定端口 远程调试</span>
+socat tcp-l:10002,fork exec:<span class="s2">&#34;qemu-arm  -L /usr/arm-linux-gnueabi ./binfile&#34;</span>,reuseaddr <span class="p">&amp;</span>
+<span class="c1"># + -g 方便调试</span>  
+socat tcp-l:10002,fork exec:<span class="s2">&#34;qemu-arm -g 1234 -L /usr/arm-linux-gnueabi ./binfile&#34;</span>,reuseaddr <span class="p">&amp;</span></code></pre></div></li>
 
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-3-3.png" alt="" /></p>
+<li><p>64bit</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 本地调试 -g 等待GDB调试</span>
+qemu-aarch64 -g <span class="m">1111</span> -L /usr/aarch64-linux-gnu ./file
+socat tcp-l:10002,fork exec:<span class="s2">&#34;qemu-aarch64  -L /usr/aarch64-linux-gnu ./binfile&#34;</span>,reuseaddr <span class="p">&amp;</span>
+socat tcp-l:10002,fork exec:<span class="s2">&#34;qemu-aarch64 -g 1234 -L /usr/aarch64-linux-gnu ./binfile&#34;</span>,reuseaddr <span class="p">&amp;</span></code></pre></div></li>
+</ul></li>
+</ol>
 
-<h5 id="2-3-adb-shell-dumpsys-meminfo">2.3 adb shell dumpsys meminfo</h5>
+<h3 id="0x03-调试过程">0x03 调试过程</h3>
 
-<p>​   说明：查看指定进程名或者进程id的内存信息</p>
+<p>在树莓派直接gdb调试就行。省略。。。</p>
 
-<p>​   用法：adb shell dumpsys meminfo [pname/pid]</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190804221031.png" alt="img" /></p>
 
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/adnroid-note-3-4.png" alt="" /></p>
+<p>使用qemu+gdb-multiarch+插件进行调试步骤</p>
 
-<p>​   和后面的top命令结合使用 可以分析应用的性能消耗情况</p>
+<p><code>qemu-aarch64 -g 10002 -L /usr/aarch64-linux-gnu ./baby_arm</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">   gdb-multiarch ./baby_arm -q
+   target remote:10002</code></pre></div>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190804225625.png" alt="img" /></p>
 
-<h5 id="2-4-adb-shell-dump-dbnfo">2.4 adb shell dump dbnfo</h5>
+<h3 id="0x04-题目搭建">0x04 题目搭建</h3>
 
-<p>​   说明：查看指定包名应用的数据库存储信息（包括存储的SQL语句）</p>
+<p>基于<a href="https://github.com/Eadom/ctf_xinetd" target="_blank">ctf_xinetd</a>项目自己改了一个</p>
 
-<p>​   用法：adb shell dump dbnfo [packagename]</p>
+<p>地址：<a href="https://github.com/Vorblock/CTF_arm_xinetd" target="_blank">CTF_ARM_xinetd</a></p>
 
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180716123331.png" alt="" /></p>
-
-<h5 id="2-5-adb-install">2.5 adb install</h5>
-
-<p>​   说明：安装应用包apk文件</p>
-
-<p>​   用法：adb install [apk文件]</p>
-
-<p>​   升级安装 使用apk install -r [apk文件]</p>
-
-<h5 id="2-6-adb-uninstall">2.6 adb uninstall</h5>
-
-<p>​   卸载</p>
-
-<h5 id="2-7-adb-pull">2.7 adb pull</h5>
-
-<p>​   从设备复制到本地</p>
-
-<p>​   adb pull 设备目录 本地目录</p>
-
-<h5 id="2-8-adb-push">2.8 adb push</h5>
-
-<p>​   从本地复制到设备</p>
-
-<p>​   同上</p>
-
-<h5 id="2-9-adb-shell-screencap">2.9 adb shell screencap</h5>
-
-<p>​   截屏</p>
-
-<p>​   adb shell scteencap -p 截图文件目录</p>
-
-<p>​   快速截取手机屏幕</p>
-<div class="highlight"><pre class="chroma"><code class="language-bat" data-lang="bat">adb shell screencap -p /sdcard/tmp.png
-adb pull /sdcard/tmp.png D:\
-<span class="k">start</span> D:\tmp.png</code></pre></div>
-<h5 id="2-10-adb-shell-screenrecord">2.10 adb shell screenrecord</h5>
-
-<p>​   录屏</p>
-
-<p>​   adb shell screenrecord 路径</p>
-
-<h5 id="2-11-adb-shell-input-text">2.11 adb shell input text</h5>
-
-<p>​   输入文本内容</p>
-
-<p>​   adb shell input text [需要输入文本框的内容]</p>
-
-<p>​   eg: 让输入内容的文本框回去焦点</p>
-
-<p>​   <code>adb shell input text 'hello world'</code></p>
-
-<p>​   这个命令可以模拟物理键盘、虚拟键盘、滑动、滚动等事件。</p>
-
-<h5 id="2-12-adb-forward">2.12 adb forward</h5>
-
-<p>​   端口转发命令</p>
-
-<p>​   adb forward  [远程协议：端口号]· [设备协议：端口号 ]</p>
-
-<p>​   eg: adb forward tcp:23946 tcp:23946  IDA 调试</p>
-
-<p>​         adb  forwrd tcp:8700 jwdp:1786</p>
-
-<h5 id="2-13-adb-jdwp">2.13 adb jdwp</h5>
-
-<p>​   查看设备中可以被调试的应用的进程号</p>
-
-<p>​   adb jdwp</p>
-
-<h5 id="2-14-adb-logcat">2.14 adb logcat</h5>
-
-<p>​   查看当前的日志信息</p>
-
-<p>​   adb logcat -s tag    eg：<code>adb logcat -s fb</code></p>
-
-<p>​   adb logcat | findstr pname/pip/keyword</p>
-
-<p>​   adb logcat | findstr 包</p>
-
-<p>​   日志信息过滤</p>
-
-<h4 id="3-shell-命令">3. shell 命令</h4>
-
-<p>这儿shell命令是指先运行adb shell 再执行命令 与非shell命令互通</p>
-
-<h5 id="3-1-run-as">3.1 run-as</h5>
-
-<p>​   在非root设备中查看指定debug模式的包名应用沙盒数据</p>
-
-<p>​   run-as [package name]</p>
-
-<h5 id="3-2-ps">3.2 ps</h5>
-
-<p>​   查看设备进程信息或者指定进程的线程信息</p>
-
-<p>​   ps | grep 过滤内容</p>
-
-<p>​   ps -t [pid] 查看pid 对应的线程信息</p>
-
-<p>​</p>
-
-<h5 id="3-3-pm-clear">3.3 pm clear</h5>
-
-<p>​   清空指定包名的应用数据</p>
-
-<p>​   pm clear [packagename]</p>
-
-<h5 id="3-4-pm-install">3.4 pm install</h5>
-
-<p>​   安装设备中的apk 同adb install</p>
-
-<h5 id="3-5-pm-uninstall">3.5 pm uninstall</h5>
-
-<p>​   卸载</p>
-
-<h5 id="3-6-am-start">3.6 am start</h5>
-
-<p>​   启动一个应用</p>
-
-<p>​   am start -n [packname]/[packname].[activity name]</p>
-
-<p>​   am start -D -n    (以debug方式启动)</p>
-
-<h5 id="3-7-am-startservice">3.7 am startservice</h5>
-
-<p>​   启动一个服务</p>
-
-<p>​   am startservice -n [packagename]/[package name].[service name]</p>
-
-<h5 id="3-8-am-broadcast">3.8 am broadcast</h5>
-
-<p>​   发送一个广播</p>
-
-<p>​   am broadcast -a [广播动作]</p>
-
-<h5 id="3-9-netcfg">3.9 netcfg</h5>
-
-<p>​   查看设备的ip地址</p>
-
-<h5 id="3-10-netstat">3.10 netstat</h5>
-
-<p>​   查看设备的端口号信息</p>
-
-<h5 id="3-11-app-process">3.11 app_process</h5>
-
-<p>​   运行java代码</p>
-
-<p>​   app_process [运行代码目录]· [运行主类]</p>
-
-<p>​   eg:</p>
-
-<p>​   <code>export CLASSPATH = /data/demo.jar</code></p>
-
-<p>​   <code>exec /system/bin/app_process /data/cn.wdasdkl.Main</code></p>
-
-<h5 id="3-12-dalvikvm">3.12 dalvikvm</h5>
-
-<p>​   运行dex文件</p>
-
-<p>​   dalvikvm -cp [dex文件] · [运行主类]</p>
-
-<p>​   差不多同上的用处</p>
-
-<h5 id="3-13-top">3.13 top</h5>
-
-<p>​   查看当前应用CPU的消耗信息。</p>
-
-<p>​   top [-n/-m/-d/-s/-t]</p>
-
-<p>​   -m 最多显示多少个进程</p>
-
-<p>​   -n 刷新次数</p>
-
-<p>​   -d 刷新时间间隔</p>
-
-<p>​   -s 按那一列排序</p>
-
-<p>​   -t 显示线程信息而不是进程</p>
-
-<h5 id="3-14-getprop">3.14 getprop</h5>
-
-<p>​   查看系统属性</p>
-
-<p>​   getprop [属性值名称]</p>
-
-<p>​   eg：<code>getprop ro.debuggable</code></p>
-
-<p>​   查看设备的信息</p>
-
-<h4 id="4-操作apk-命令">4 操作apk 命令</h4>
-
-<h5 id="4-1-用aapt-命令操作apk命令">4.1 用aapt 命令操作apk命令</h5>
-
-<p>​   查看apk中的信息以及编辑apk程序包</p>
-
-<p>​   aapt dump xmltree [apk包] · [需要查看的资源文件]</p>
-
-<p>​   eg：<code>aapt dump xmltree demp.apk AndroidManifest.xml</code></p>
-
-<h5 id="4-2-用dexdump-操作dex-命令">4.2 用dexdump 操作dex 命令</h5>
-
-<p>​   查看dex的详细信息</p>
-
-<p>​   dexdump [dex文件路径]</p>
-
-<h4 id="5-进程命令">5 进程命令</h4>
-
-<pre><code>##### 5.1 查看当前进程的内存加载情况
-</code></pre>
-
-<p>​   cat  proc/[pid]/maps   查看当前进程的内存映射信息，比如加载了那些so文件，dex文件等等。</p>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180716134420.png" alt="" /></p>
-
-<h5 id="5-2-查看进程的状态信息">5.2 查看进程的状态信息</h5>
-
-<p>​   cat /proc/[pid]/status</p>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180716134609.png" alt="" /></p>
-
-<h5 id="5-3-查看当前应用使用的端口号信息">5.3 查看当前应用使用的端口号信息</h5>
-
-<p>​   cat /proc /[pid] / net /     tcp/ tcp6 /udp /udp6</p>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180716134826.png" alt="" /></p>
-
-<h3 id="总结">总结</h3>
-
-<p>​   这章就是一些会用到的命令，后面的学习必不可少的知识点。</p>
+<h3 id="0x05-参考链接">0x05 参考链接</h3>
+
+<ul>
+<li><a href="https://xz.aliyun.com/t/3154" target="_blank">https://xz.aliyun.com/t/3154</a></li>
+<li><a href="https://github.com/Eadom/ctf_xinetd" target="_blank">https://github.com/Eadom/ctf_xinetd</a></li>
+<li><a href="https://github.com/bkerler/exploit_me" target="_blank">https://github.com/bkerler/exploit_me</a></li>
+</ul>
 
 
         </div>

@@ -153,15 +153,15 @@ npm install frida       &lt;span class=&#34;c1&#34;&gt;# Node.js bindings&lt;/sp
 &lt;p&gt;&lt;code&gt;make&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;MacOS and iOS&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;MacOS and iOS&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;MAC_CERTID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;frida-cert
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;IOS_CERTID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;frida-cert
-make&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;Windows&lt;/li&gt;
+make&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Windows&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;frida.sln &lt;span class=&#34;c1&#34;&gt;#VS2017&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;frida.sln &lt;span class=&#34;c1&#34;&gt;#VS2017&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 &lt;h3 id=&#34;0x02-android环境&#34;&gt;0x02 Android环境&lt;/h3&gt;
 
 &lt;p&gt;设备：小米mix2 运行Android9.0 MIUI10开发版已解锁root&lt;/p&gt;

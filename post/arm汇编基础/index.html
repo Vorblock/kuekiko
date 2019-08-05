@@ -11,14 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
     
         <title>ARM汇编基础 - root@v</title>
     
     
-    
-<meta itemprop="name" content="ARM汇编基础">
+    <meta itemprop="name" content="ARM汇编基础">
 <meta itemprop="description" content="ARM汇编">
 
 
@@ -38,8 +37,8 @@
 <meta property="og:image" content="https://vorblock.cc/favicon.svg" />
 
 <meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
-<meta property="article:published_time" content="2018-08-10T19:34:10&#43;08:00"/>
-<meta property="article:modified_time" content="2018-08-10T19:34:10&#43;08:00"/>
+<meta property="article:published_time" content="2018-08-10T19:34:10+08:00" />
+<meta property="article:modified_time" content="2018-08-10T19:34:10+08:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://vorblock.cc/favicon.svg"/>
@@ -521,9 +520,9 @@
 
 <p>以程序计数器PC的当前值为基地址，指令中的地址标号作为偏移量，将两者相加之后得到操作数的有效地址。</p>
 <div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  <span class="nf">BL</span> <span class="no">NEXT</span>
-    <span class="err">····</span>
+  	<span class="err">····</span>
   <span class="nl">NEXT:</span>
-    <span class="err">········</span></code></pre></div>
+  	<span class="err">········</span></code></pre></div>
 <h3 id="arm和thumb指令集">ARM和Thumb指令集</h3>
 
 <h5 id="基本指令简述">基本指令简述</h5>
@@ -584,67 +583,70 @@
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810154906.png" alt="" /></p>
 
 <ul>
-<li>第一种偏移形式：立即数作偏移</li>
+<li><p>第一种偏移形式：立即数作偏移</p>
+<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">STR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">imm</span><span class="p">]</span>
+<span class="nf">LDR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rc</span><span class="p">,</span> <span class="no">imm</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  
+<span class="na">.data</span>
+<span class="nl">var1:</span> <span class="na">.word</span> <span class="mi">3</span>
+<span class="nl">var2:</span> <span class="na">.word</span> <span class="mi">4</span>
+<span class="na">.text</span>
+<span class="na">.global</span> <span class="no">_start</span>
+<span class="nl">_start:</span>
+  <span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="no">adr_var1</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var1值的地址adr_var1加载到寄存器R0中</span> 
+  <span class="no">ldr</span> <span class="no">r1</span><span class="p">,</span> <span class="no">adr_var2</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var2值的地址adr_var2加载到寄存器R1中</span> 
+  <span class="no">ldr</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span>      <span class="err">@</span> <span class="err">将</span><span class="no">R0所指向地址中存放的0x3加载到寄存器R2中</span>  
+  <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="c">#2]  @ 取址模式：基于偏移量。R2寄存器中的值0x3被存放到R1寄存器的值加2所指向地址处。
+</span><span class="c"></span>  <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="c">#4]! @ 取址模式：基于索引前置修改。R2寄存器中的值0x3被存放到R1寄存器的值加4所指向地址处，之后R1寄存器中存储的值加4,也就是R1=R1+4。
+</span><span class="c"></span>  <span class="no">ldr</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">],</span> <span class="c">#4  @ 取址模式：基于索引后置修改。R3寄存器中的值是从R1寄存器的值所指向的地址中加载的，加载之后R1寄存器中存储的值加4,也就是R1=R1+4。
+</span><span class="c"></span>  <span class="no">bkpt</span>
+<span class="nl">adr_var1:</span> <span class="na">.word</span> <span class="no">var1</span>
+<span class="nl">adr_var2:</span> <span class="na">.word</span> <span class="no">var2</span></code></pre></div></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  <span class="nf">STR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">imm</span><span class="p">]</span>
-  <span class="nf">LDR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rc</span><span class="p">,</span> <span class="no">imm</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  
-  <span class="na">.data</span>
-  <span class="nl">var1:</span> <span class="na">.word</span> <span class="mi">3</span>
-  <span class="nl">var2:</span> <span class="na">.word</span> <span class="mi">4</span>
-  <span class="na">.text</span>
-  <span class="na">.global</span> <span class="no">_start</span>
-  <span class="nl">_start:</span>
-      <span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="no">adr_var1</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var1值的地址adr_var1加载到寄存器R0中</span> 
-      <span class="no">ldr</span> <span class="no">r1</span><span class="p">,</span> <span class="no">adr_var2</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var2值的地址adr_var2加载到寄存器R1中</span> 
-      <span class="no">ldr</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span>      <span class="err">@</span> <span class="err">将</span><span class="no">R0所指向地址中存放的0x3加载到寄存器R2中</span>  
-      <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="c">#2]  @ 取址模式：基于偏移量。R2寄存器中的值0x3被存放到R1寄存器的值加2所指向地址处。
-</span><span class="c"></span>      <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="c">#4]! @ 取址模式：基于索引前置修改。R2寄存器中的值0x3被存放到R1寄存器的值加4所指向地址处，之后R1寄存器中存储的值加4,也就是R1=R1+4。
-</span><span class="c"></span>      <span class="no">ldr</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">],</span> <span class="c">#4  @ 取址模式：基于索引后置修改。R3寄存器中的值是从R1寄存器的值所指向的地址中加载的，加载之后R1寄存器中存储的值加4,也就是R1=R1+4。
-</span><span class="c"></span>      <span class="no">bkpt</span>
-  <span class="nl">adr_var1:</span> <span class="na">.word</span> <span class="no">var1</span>
-  <span class="nl">adr_var2:</span> <span class="na">.word</span> <span class="no">var2</span></code></pre></div>
+
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810160844.gif" alt="" /></p>
 
 <ul>
-<li><strong>第二种偏移形式：寄存器作偏移</strong></li>
+<li><p><strong>第二种偏移形式：寄存器作偏移</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">STR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">]</span>
+<span class="nf">LDR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm"><span class="na">.data</span>
+<span class="nl">var1:</span> <span class="na">.word</span> <span class="mi">3</span>
+<span class="nl">var2:</span> <span class="na">.word</span> <span class="mi">4</span>
+<span class="na">.text</span>
+<span class="na">.global</span> <span class="no">_start</span>
+<span class="nl">_start:</span>
+  <span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="no">adr_var1</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var1值的地址adr_var1加载到寄存器R0中</span> 
+  <span class="no">ldr</span> <span class="no">r1</span><span class="p">,</span> <span class="no">adr_var2</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var2值的地址adr_var2加载到寄存器R1中</span> 
+  <span class="no">ldr</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span>      <span class="err">@</span> <span class="err">将</span><span class="no">R0所指向地址中存放的0x3加载到寄存器R2中</span>  
+  <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">]</span>  <span class="err">@</span> <span class="err">取址模式：基于偏移量。</span><span class="no">R2寄存器中的值0x3被存放到R1寄存器的值加R2寄存器的值所指向地址处</span><span class="err">。</span><span class="no">R1寄存器不会被修改</span><span class="err">。</span> 
+  <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">]!</span> <span class="err">@</span> <span class="err">取址模式：基于索引前置修改。</span><span class="no">R2寄存器中的值0x3被存放到R1寄存器的值加R2寄存器的值所指向地址处</span><span class="err">，之后</span><span class="no">R1寄存器中的值被更新</span><span class="p">,</span><span class="err">也就是</span><span class="no">R1</span><span class="err">=</span><span class="no">R1</span><span class="err">+</span><span class="no">R2</span><span class="err">。</span>
+  <span class="nf">ldr</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">],</span> <span class="no">r2</span>  <span class="err">@</span> <span class="err">取址模式：基于索引后置修改。</span><span class="no">R3寄存器中的值是从R1寄存器的值所指向的地址中加载的</span><span class="err">，加载之后</span><span class="no">R1寄存器中的值被更新也就是R1</span><span class="err">=</span><span class="no">R1</span><span class="err">+</span><span class="no">R2</span><span class="err">。</span>
+  <span class="nf">bx</span> <span class="no">lr</span>
+<span class="nl">adr_var1:</span> <span class="na">.word</span> <span class="no">var1</span>
+<span class="nl">adr_var2:</span> <span class="na">.word</span> <span class="no">var2</span></code></pre></div></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  <span class="nf">STR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">]</span>
-  <span class="nf">LDR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  <span class="na">.data</span>
-  <span class="nl">var1:</span> <span class="na">.word</span> <span class="mi">3</span>
-  <span class="nl">var2:</span> <span class="na">.word</span> <span class="mi">4</span>
-  <span class="na">.text</span>
-  <span class="na">.global</span> <span class="no">_start</span>
-  <span class="nl">_start:</span>
-      <span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="no">adr_var1</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var1值的地址adr_var1加载到寄存器R0中</span> 
-      <span class="no">ldr</span> <span class="no">r1</span><span class="p">,</span> <span class="no">adr_var2</span>  <span class="err">@</span> <span class="err">将存放</span><span class="no">var2值的地址adr_var2加载到寄存器R1中</span> 
-      <span class="no">ldr</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span>      <span class="err">@</span> <span class="err">将</span><span class="no">R0所指向地址中存放的0x3加载到寄存器R2中</span>  
-      <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">]</span>  <span class="err">@</span> <span class="err">取址模式：基于偏移量。</span><span class="no">R2寄存器中的值0x3被存放到R1寄存器的值加R2寄存器的值所指向地址处</span><span class="err">。</span><span class="no">R1寄存器不会被修改</span><span class="err">。</span> 
-      <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">]!</span> <span class="err">@</span> <span class="err">取址模式：基于索引前置修改。</span><span class="no">R2寄存器中的值0x3被存放到R1寄存器的值加R2寄存器的值所指向地址处</span><span class="err">，之后</span><span class="no">R1寄存器中的值被更新</span><span class="p">,</span><span class="err">也就是</span><span class="no">R1</span><span class="err">=</span><span class="no">R1</span><span class="err">+</span><span class="no">R2</span><span class="err">。</span>
-      <span class="nf">ldr</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">],</span> <span class="no">r2</span>  <span class="err">@</span> <span class="err">取址模式：基于索引后置修改。</span><span class="no">R3寄存器中的值是从R1寄存器的值所指向的地址中加载的</span><span class="err">，加载之后</span><span class="no">R1寄存器中的值被更新也就是R1</span><span class="err">=</span><span class="no">R1</span><span class="err">+</span><span class="no">R2</span><span class="err">。</span>
-      <span class="nf">bx</span> <span class="no">lr</span>
-  <span class="nl">adr_var1:</span> <span class="na">.word</span> <span class="no">var1</span>
-  <span class="nl">adr_var2:</span> <span class="na">.word</span> <span class="no">var2</span></code></pre></div>
+
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810162217.gif" alt="" /></p>
 
 <ul>
-<li><strong>第三种偏移形式：寄存器缩放值作偏移</strong></li>
+<li><p><strong>第三种偏移形式：寄存器缩放值作偏移</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">LDR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">,</span> <span class="err">&lt;</span><span class="no">shifter</span><span class="err">&gt;</span><span class="p">]</span>
+<span class="nf">STR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">,</span> <span class="err">&lt;</span><span class="no">shifter</span><span class="err">&gt;</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm"><span class="na">.data</span>
+<span class="nl">var1:</span> <span class="na">.word</span> <span class="mi">3</span>
+<span class="nl">var2:</span> <span class="na">.word</span> <span class="mi">4</span>
+<span class="na">.text</span>
+<span class="na">.global</span> <span class="no">_start</span>
+<span class="nl">_start:</span>
+  <span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="no">adr_var1</span>         <span class="err">@</span> <span class="err">将存放</span><span class="no">var1值的地址adr_var1加载到寄存器R0中</span> 
+  <span class="no">ldr</span> <span class="no">r1</span><span class="p">,</span> <span class="no">adr_var2</span>         <span class="err">@</span> <span class="err">将存放</span><span class="no">var2值的地址adr_var2加载到寄存器R1中</span> 
+  <span class="no">ldr</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span>             <span class="err">@</span> <span class="err">将</span><span class="no">R0所指向地址中存放的0x3加载到寄存器R2中</span>  
+  <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">LSL</span><span class="c">#2]  @ 取址模式：基于偏移量。R2寄存器中的值0x3被存放到R1寄存器的值加(左移两位后的R2寄存器的值)所指向地址处。R1寄存器不会被修改。
+</span><span class="c"></span>  <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">LSL</span><span class="c">#2]! @ 取址模式：基于索引前置修改。R2寄存器中的值0x3被存放到R1寄存器的值加(左移两位后的R2寄存器的值)所指向地址处，之后R1寄存器中的值被更新,也就R1 = R1 + R2&lt;&lt;2。
+</span><span class="c"></span>  <span class="no">ldr</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">],</span> <span class="no">r2</span><span class="p">,</span> <span class="no">LSL</span><span class="c">#2  @ 取址模式：基于索引后置修改。R3寄存器中的值是从R1寄存器的值所指向的地址中加载的，加载之后R1寄存器中的值被更新也就是R1 = R1 + R2&lt;&lt;2。
+</span><span class="c"></span>  <span class="no">bkpt</span>
+<span class="nl">adr_var1:</span> <span class="na">.word</span> <span class="no">var1</span>
+<span class="nl">adr_var2:</span> <span class="na">.word</span> <span class="no">var2</span></code></pre></div></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  <span class="nf">LDR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">,</span> <span class="err">&lt;</span><span class="no">shifter</span><span class="err">&gt;</span><span class="p">]</span>
-  <span class="nf">STR</span>    <span class="no">Ra</span><span class="p">,</span> <span class="p">[</span><span class="no">Rb</span><span class="p">,</span> <span class="no">Rc</span><span class="p">,</span> <span class="err">&lt;</span><span class="no">shifter</span><span class="err">&gt;</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm">  <span class="na">.data</span>
-  <span class="nl">var1:</span> <span class="na">.word</span> <span class="mi">3</span>
-  <span class="nl">var2:</span> <span class="na">.word</span> <span class="mi">4</span>
-  <span class="na">.text</span>
-  <span class="na">.global</span> <span class="no">_start</span>
-  <span class="nl">_start:</span>
-      <span class="nf">ldr</span> <span class="no">r0</span><span class="p">,</span> <span class="no">adr_var1</span>         <span class="err">@</span> <span class="err">将存放</span><span class="no">var1值的地址adr_var1加载到寄存器R0中</span> 
-      <span class="no">ldr</span> <span class="no">r1</span><span class="p">,</span> <span class="no">adr_var2</span>         <span class="err">@</span> <span class="err">将存放</span><span class="no">var2值的地址adr_var2加载到寄存器R1中</span> 
-      <span class="no">ldr</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r0</span><span class="p">]</span>             <span class="err">@</span> <span class="err">将</span><span class="no">R0所指向地址中存放的0x3加载到寄存器R2中</span>  
-      <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">LSL</span><span class="c">#2]  @ 取址模式：基于偏移量。R2寄存器中的值0x3被存放到R1寄存器的值加(左移两位后的R2寄存器的值)所指向地址处。R1寄存器不会被修改。
-</span><span class="c"></span>      <span class="no">str</span> <span class="no">r2</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">LSL</span><span class="c">#2]! @ 取址模式：基于索引前置修改。R2寄存器中的值0x3被存放到R1寄存器的值加(左移两位后的R2寄存器的值)所指向地址处，之后R1寄存器中的值被更新,也就R1 = R1 + R2&lt;&lt;2。
-</span><span class="c"></span>      <span class="no">ldr</span> <span class="no">r3</span><span class="p">,</span> <span class="p">[</span><span class="no">r1</span><span class="p">],</span> <span class="no">r2</span><span class="p">,</span> <span class="no">LSL</span><span class="c">#2  @ 取址模式：基于索引后置修改。R3寄存器中的值是从R1寄存器的值所指向的地址中加载的，加载之后R1寄存器中的值被更新也就是R1 = R1 + R2&lt;&lt;2。
-</span><span class="c"></span>      <span class="no">bkpt</span>
-  <span class="nl">adr_var1:</span> <span class="na">.word</span> <span class="no">var1</span>
-  <span class="nl">adr_var2:</span> <span class="na">.word</span> <span class="no">var2</span></code></pre></div>
+
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180810162414.png" alt="" /></p>
 
 <p>如何区分取址模式：</p>

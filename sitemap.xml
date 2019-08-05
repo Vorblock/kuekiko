@@ -19,36 +19,59 @@
   
   <url>
     <loc>https://vorblock.cc/tags/</loc>
-    <lastmod>2019-06-23T01:14:22+08:00</lastmod>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/categories/arm/</loc>
-    <lastmod>2019-06-23T01:14:22+08:00</lastmod>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/arm/</loc>
-    <lastmod>2019-06-23T01:14:22+08:00</lastmod>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://vorblock.cc/post/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</loc>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://vorblock.cc/categories/</loc>
-    <lastmod>2019-06-23T01:14:22+08:00</lastmod>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/</loc>
-    <lastmod>2019-06-23T01:14:22+08:00</lastmod>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/pwn/</loc>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/pwn/</loc>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/post/</loc>
-    <lastmod>2019-06-23T01:14:22+08:00</lastmod>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/</loc>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -65,12 +88,6 @@
   
   <url>
     <loc>https://vorblock.cc/tags/raspberry_pi/</loc>
-    <lastmod>2019-06-23T01:14:22+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/tags/</loc>
     <lastmod>2019-06-23T01:14:22+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -119,18 +136,6 @@
   <url>
     <loc>https://vorblock.cc/post/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</loc>
     <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/categories/pwn/</loc>
-    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/tags/pwn/</loc>
-    <lastmod>2019-02-28T00:22:36+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
