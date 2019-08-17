@@ -1,19 +1,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-      <title>备份 on sudo ~</title>
+      <title>备份 on root@v</title>
       <link>https://vorblock.cc/tags/%E5%A4%87%E4%BB%BD/</link>
-      <description>Recent content in 备份 on sudo ~</description>
+      <description>Recent content in 备份 on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
-      <lastBuildDate>Sun, 19 May 2019 14:50:32 +0800</lastBuildDate>
       
           <atom:link href="https://vorblock.cc/tags/%E5%A4%87%E4%BB%BD/index.xml" rel="self" type="application/rss+xml" />
       
       
       <item>
-        <title>环境记录</title>
+        <title>环境记录(手动置顶)</title>
         <link>https://vorblock.cc/post/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95/</link>
-        <pubDate>Sun, 19 May 2019 14:50:32 +0800</pubDate>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://vorblock.cc/post/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95/</guid>
         <description>
@@ -135,13 +134,12 @@ $ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nb&#34;&g
     
 gdb &lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$3&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$4&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$5&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$6&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$7&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$8&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$9&lt;/span&gt;#&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;r2全家桶 （逆向调试神器）&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;  git clone https://github.com/radare/radare2.git
-  &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; radare2
-  sys/install.sh  &lt;span class=&#34;c1&#34;&gt;#Install / Update&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;gcc arm aarch aarch64&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;r2全家桶 （逆向调试神器）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone https://github.com/radare/radare2.git
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; radare2
+sys/install.sh  &lt;span class=&#34;c1&#34;&gt;#Install / Update&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;gcc arm aarch aarch64&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;code&gt;sudo apt install gcc-arm-linux-gnueabi&lt;/code&gt; 使用命令&lt;code&gt;arm-linux-gnueabi-gcc&lt;/code&gt;&lt;/p&gt;
@@ -162,8 +160,7 @@ gdb &lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt; &lt;span class=&#34;nv&#34;&g
 &lt;p&gt;只写ubuntu 18,04&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;编辑 /etc/apt/sources.list，添加源&lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;&lt;p&gt;编辑 /etc/apt/sources.list，添加源&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# i386 not available&lt;/span&gt;
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main
 deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic main
@@ -172,15 +169,13 @@ deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
 deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
 &lt;span class=&#34;c1&#34;&gt;# 8&lt;/span&gt;
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main
-deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ol&gt;
-&lt;li&gt;添加证书&lt;/li&gt;
-&lt;/ol&gt;
+deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;添加证书&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;sudo apt-key add -
-&lt;span class=&#34;c1&#34;&gt;# Fingerprint: 6084 F3CF 814B 57C1 CF12 EFD5 15CF 4D18 AF4F 7421&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ol&gt;
-&lt;li&gt;安装 版本8&lt;/li&gt;
-&lt;/ol&gt;
+&lt;span class=&#34;c1&#34;&gt;# Fingerprint: 6084 F3CF 814B 57C1 CF12 EFD5 15CF 4D18 AF4F 7421&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装 版本8&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# LLVM&lt;/span&gt;
 apt-get install libllvm-8-ocaml-dev libllvm8 llvm-8 llvm-8-dev llvm-8-doc llvm-8-examples llvm-8-runtime
 &lt;span class=&#34;c1&#34;&gt;# Clang and co&lt;/span&gt;
@@ -194,21 +189,24 @@ apt-get install lld-8
 &lt;span class=&#34;c1&#34;&gt;# libc++&lt;/span&gt;
 apt-get install libc++-8-dev libc++abi-8-dev
 &lt;span class=&#34;c1&#34;&gt;# OpenMP&lt;/span&gt;
-apt-get install libomp-8-dev&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;python3+pip&lt;/li&gt;
+apt-get install libomp-8-dev&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;python3+pip&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;code&gt;apt install python3 python3-pip、python-pip&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;python库&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;python库&lt;/p&gt;
 
+&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;frida （hook) 同win下使用&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;pwntools (py2)&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;gmpy2 (py2-3)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;r2Frida&lt;/p&gt;&lt;/li&gt;
 
@@ -349,8 +347,7 @@ apt-get install libomp-8-dev&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h5 id=&#34;tensorflow-http-www-baidu-com-link-url-aofeaqzsb4aqhwkb6uuy47eeb5qmtcf0-8xfizfoj8isah2g4usrjsxcv1lxp2nx&#34;&gt;&lt;a href=&#34;http://www.baidu.com/link?url=AOFeAQZSb4aqHWKb6uUy47eeb5qMTcf0_8xfIZfoJ8iSah2g4UsrjsXcv1lXP2NX&#34; target=&#34;_blank&#34;&gt;TensorFlow&lt;/a&gt;&lt;/h5&gt;
 
 &lt;ul&gt;
-&lt;li&gt;前置环境查官网&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;前置环境查官网&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# GPU版本 py3&lt;/span&gt;
 pip3 install tensorflow-gpu  &lt;span class=&#34;c1&#34;&gt;# stable&lt;/span&gt;
 pip3 install tf-nightly-gpu  &lt;span class=&#34;c1&#34;&gt;# preview&lt;/span&gt;
