@@ -5,7 +5,7 @@
       <description>Recent content in Tags on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
-      <lastBuildDate>Sat, 03 Aug 2019 12:26:24 +0800</lastBuildDate>
+      <lastBuildDate>Wed, 28 Aug 2019 23:24:18 +0800</lastBuildDate>
       
           <atom:link href="https://vorblock.cc/tags/index.xml" rel="self" type="application/rss+xml" />
       
@@ -13,9 +13,29 @@
       <item>
         <title></title>
         <link>https://vorblock.cc/tags/</link>
-        <pubDate>Sat, 03 Aug 2019 12:26:24 +0800</pubDate>
+        <pubDate>Wed, 28 Aug 2019 23:24:18 +0800</pubDate>
         
         <guid>https://vorblock.cc/tags/</guid>
+        <description></description>
+        
+      </item>
+      
+      <item>
+        <title>Linux内核</title>
+        <link>https://vorblock.cc/tags/linux%E5%86%85%E6%A0%B8/</link>
+        <pubDate>Wed, 28 Aug 2019 23:24:18 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/tags/linux%E5%86%85%E6%A0%B8/</guid>
+        <description></description>
+        
+      </item>
+      
+      <item>
+        <title>Qemu</title>
+        <link>https://vorblock.cc/tags/qemu/</link>
+        <pubDate>Wed, 28 Aug 2019 23:24:18 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/tags/qemu/</guid>
         <description></description>
         
       </item>
