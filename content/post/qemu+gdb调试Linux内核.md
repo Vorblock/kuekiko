@@ -1,7 +1,7 @@
 ---
 title: "Qemu+gdb调试Linux内核"
 date: 2019-08-28T23:24:18+08:00
-draft: true
+draft: false
 categories:
 - Linux内核
 tags:
