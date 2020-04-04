@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
@@ -20,48 +20,31 @@
   <url>
     <loc>https://vorblock.cc/categories/</loc>
     <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/</loc>
+    <loc>https://vorblock.cc/tags/linux/</loc>
     <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/</loc>
-    <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/</loc>
+    <loc>https://vorblock.cc/tags/linux%E5%86%85%E6%A0%B8/</loc>
     <lastmod>2019-08-28T23:24:18+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://vorblock.cc/categories/linux%E5%86%85%E6%A0%B8/</loc>
     <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/tags/linux%E5%86%85%E6%A0%B8/</loc>
-    <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/post/</loc>
     <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/qemu/</loc>
     <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -72,19 +55,16 @@
   <url>
     <loc>https://vorblock.cc/tags/</loc>
     <lastmod>2019-08-28T23:24:18+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/categories/arm/</loc>
-    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/arm/</loc>
     <lastmod>2019-08-03T12:26:24+08:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/arm/</loc>
+    <lastmod>2019-08-03T12:26:24+08:00</lastmod>
   </url>
   
   <url>
@@ -93,15 +73,13 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/pwn/</loc>
+    <loc>https://vorblock.cc/tags/pwn/</loc>
     <lastmod>2019-08-03T12:26:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/pwn/</loc>
+    <loc>https://vorblock.cc/categories/pwn/</loc>
     <lastmod>2019-08-03T12:26:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -110,21 +88,18 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/raspberry_pi/</loc>
+    <loc>https://vorblock.cc/tags/raspberry_pi/</loc>
     <lastmod>2019-06-23T01:14:22+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/raspberry_pi/</loc>
+    <loc>https://vorblock.cc/categories/raspberry_pi/</loc>
     <lastmod>2019-06-23T01:14:22+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
     <lastmod>2019-06-23T01:14:22+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -135,31 +110,26 @@
   <url>
     <loc>https://vorblock.cc/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83/</loc>
     <lastmod>2019-06-16T00:12:44+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/%E7%8E%AF%E5%A2%83/</loc>
     <lastmod>2019-06-16T00:12:44+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/uaf/</loc>
     <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2019-03-20T15:37:13+08:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2019-03-20T15:37:13+08:00</lastmod>
   </url>
   
   <url>
@@ -170,7 +140,6 @@
   <url>
     <loc>https://vorblock.cc/tags/rop/</loc>
     <lastmod>2019-02-28T00:22:36+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -179,15 +148,13 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/ctf/</loc>
+    <loc>https://vorblock.cc/tags/ctf/</loc>
     <lastmod>2019-02-20T00:17:21+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/ctf/</loc>
+    <loc>https://vorblock.cc/categories/ctf/</loc>
     <lastmod>2019-02-20T00:17:21+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -196,15 +163,28 @@
   </url>
   
   <url>
+    <loc>https://vorblock.cc/tags/android/</loc>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/android/</loc>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://vorblock.cc/categories/android%E5%AE%89%E5%85%A8/</loc>
     <lastmod>2019-02-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/android%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/frida/</loc>
     <lastmod>2019-02-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -213,21 +193,13 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/hook/</loc>
-    <lastmod>2019-02-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vorblock.cc/tags/hook/</loc>
     <lastmod>2019-02-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/android%E5%AE%89%E5%85%A8/</loc>
+    <loc>https://vorblock.cc/categories/hook/</loc>
     <lastmod>2019-02-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -236,21 +208,8 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/re/</loc>
-    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/tags/re/</loc>
-    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vorblock.cc/tags/radare2/</loc>
     <lastmod>2019-01-02T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -259,15 +218,23 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/ai/</loc>
-    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://vorblock.cc/tags/re/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/re/</loc>
+    <lastmod>2019-01-02T20:39:26+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/ai/</loc>
     <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/ai/</loc>
+    <lastmod>2018-12-08T23:40:51+08:00</lastmod>
   </url>
   
   <url>
@@ -278,13 +245,11 @@
   <url>
     <loc>https://vorblock.cc/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2018-12-08T23:40:51+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/gcc/</loc>
     <lastmod>2018-10-22T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -295,7 +260,6 @@
   <url>
     <loc>https://vorblock.cc/tags/tools/</loc>
     <lastmod>2018-10-22T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -304,15 +268,13 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/crypto/</loc>
+    <loc>https://vorblock.cc/tags/crypto/</loc>
     <lastmod>2018-09-11T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/crypto/</loc>
+    <loc>https://vorblock.cc/categories/crypto/</loc>
     <lastmod>2018-09-11T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -323,19 +285,16 @@
   <url>
     <loc>https://vorblock.cc/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/</loc>
     <lastmod>2018-09-11T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/categories/llvm/</loc>
     <lastmod>2018-09-10T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/ollvm/</loc>
     <lastmod>2018-09-10T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -346,7 +305,6 @@
   <url>
     <loc>https://vorblock.cc/tags/ida/</loc>
     <lastmod>2018-08-31T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -360,26 +318,18 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://vorblock.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2018-08-29T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://vorblock.cc/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2018-08-29T20:39:26+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/post/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2018-08-10T19:34:10+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/tags/linux/</loc>
-    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -390,37 +340,31 @@
   <url>
     <loc>https://vorblock.cc/tags/qume/</loc>
     <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/%E6%A8%A1%E6%8B%9F%E5%99%A8/</loc>
     <lastmod>2018-08-09T19:34:34+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/android/</loc>
-    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/categories/cve/</loc>
-    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://vorblock.cc/</loc>
+    <lastmod>2018-08-06T11:13:06+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/cve/</loc>
     <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/cve/</loc>
+    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/cve-2018-9375/</loc>
     <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -431,19 +375,16 @@
   <url>
     <loc>https://vorblock.cc/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</loc>
     <lastmod>2018-08-05T21:16:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/categories/java/</loc>
-    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/java/</loc>
     <lastmod>2018-07-25T16:40:20+08:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/java/</loc>
+    <lastmod>2018-07-25T16:40:20+08:00</lastmod>
   </url>
   
   <url>
@@ -454,7 +395,6 @@
   <url>
     <loc>https://vorblock.cc/categories/%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2018-07-25T16:40:20+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -475,13 +415,6 @@
   <url>
     <loc>https://vorblock.cc/tags/androd/</loc>
     <lastmod>2018-07-08T17:35:46+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/categories/android/</loc>
-    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -495,15 +428,13 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/daily/</loc>
+    <loc>https://vorblock.cc/tags/daily/</loc>
     <lastmod>2017-10-02T21:49:20+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://vorblock.cc/tags/daily/</loc>
+    <loc>https://vorblock.cc/categories/daily/</loc>
     <lastmod>2017-10-02T21:49:20+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -513,7 +444,7 @@
   
   <url>
     <loc>https://vorblock.cc/img/</loc>
-    <priority>0</priority>
+    <lastmod>2017-10-02T21:49:20+02:00</lastmod>
   </url>
   
   <url>
@@ -523,12 +454,10 @@
   
   <url>
     <loc>https://vorblock.cc/tags/%E5%A4%87%E4%BB%BD/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/%E5%B7%A5%E5%85%B7/</loc>
-    <priority>0</priority>
   </url>
   
   <url>

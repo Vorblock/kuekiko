@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
         <title>Android应用安全防护和逆向分析-基础篇5-6 - root@v</title>
@@ -19,24 +19,19 @@
     
     <meta itemprop="name" content="Android应用安全防护和逆向分析-基础篇5-6">
 <meta itemprop="description" content="AndroidManifest.xml和resourec.arsc解析">
-
-
 <meta itemprop="datePublished" content="2018-08-29T20:39:26&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-29T20:39:26&#43;08:00" />
-<meta itemprop="wordCount" content="4114">
+<meta itemprop="wordCount" content="4072">
+<meta itemprop="image" content="https://vorblock.cc/favicon.svg"/>
 
 
 
 <meta itemprop="keywords" content="android安全,读书笔记," />
-
     <meta property="og:title" content="Android应用安全防护和逆向分析-基础篇5-6" />
 <meta property="og:description" content="AndroidManifest.xml和resourec.arsc解析" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vorblock.cc/post/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" />
-
-<meta property="og:image" content="https://vorblock.cc/favicon.svg" />
-
-<meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
+<meta property="og:image" content="https://vorblock.cc/favicon.svg"/>
 <meta property="article:published_time" content="2018-08-29T20:39:26+08:00" />
 <meta property="article:modified_time" content="2018-08-29T20:39:26+08:00" />
 
@@ -69,7 +64,9 @@
     
     
     <style media="screen">
-            html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#2a363b;color:#c6c6c7}button,input,select,textarea,label{margin:0;padding:0;font-family:inherit;font-size:inherit}img{max-width:100%}body{line-height:1.75}h1,h2,h3,h4,h5,h6{padding:0;line-height:1.25;text-align:center}h1{font-size:32px;font-weight:400}h2{font-size:22px;font-weight:700}h3,h4,h5,h6{font-size:19px;font-weight:700;text-align:left}blockquote{margin:1em 0;padding:0 2em;border-left:3px solid #ddd;font-style:oblique;background:#355c7d}pre,code{font-size:.9em}pre code{display:block;border:1px solid #ddd;padding:1em;overflow-x:auto;line-height:1.75}code{padding:.1rem .2rem;background:#99b898;color:#282c34}.vglnk{color:#282c34}pre code{background:#dbebc2}ul,ol{padding:0 0 0 20px}li{margin:4px 0;padding:0}a{color:#c6c6c7;text-decoration:none;padding-bottom:2px;border-bottom:1px solid}sup a{border-bottom:none}hr{display:block;height:1px;border:0;border-top:1px solid;margin:50px auto;padding:0;max-width:300px}.copyright{text-align:center}.post-nav{display:flex;justify-content:space-between;font-weight:700}.nav-next{margin-left:1em;text-align:right}.nav-prev{margin-right:1em}.comments{margin-top:20px}body{width:960px;margin:0 auto;padding:30px 0}.masthead{width:260px;padding:20px 50px 20px 10px;float:left}.main{width:700px;padding:32px 10px 20px 50px;margin-left:260px;border-left:3px solid #000;min-height:calc(100vh - 60px)}.masthead h1{margin-top:0;margin-bottom:34px;padding:0;text-align:right;font-size:46px;line-height:58px}.masthead h1 a{border-bottom:none}.masthead .tagline{font-style:italic;text-align:right}.masthead .menu{margin-right:20px;direction:rtl}.masthead .menu a{direction:ltr}.masthead .menu ul ul{list-style:none;margin-left:10px;margin-right:10px}.masthead .menu li li::before{content:"•\00a\000a0\00a0"}.title h3.post-meta{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace;text-align:right;margin:0 0 20px}.title h3.post-meta .tags a{font-size:.8em}.title h3.post-meta .category a{font-size:.9em}#menu-check{display:none}#menu-label{display:none}.main .title h1{margin-top:0;margin-bottom:40px}.title h3{font-weight:400;text-align:center}.subtitle{font-size:.9em;color:#666}.footnotes{font-size:.9em}table{margin:auto;border-top:1px solid #666;border-bottom:1px solid #666}table thead th{border-bottom:1px solid #666}th,td{padding:5px}thead,tfoot,tr:nth-child(even){background:#f8f8f8}.toc{margin-top:100px}.unselectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@-ms-viewport{width:device-width;}@viewport{width:device-width;}@media screen and (max-width:960px){body{width:auto;max-width:700px}.masthead{width:auto;float:none;text-align:center;margin-left:10px;margin-right:10px;padding:10px 10px 45px;border-bottom:3px solid #000}.main{width:auto;padding:20px 10px;margin-left:0;border-left:none;min-height:auto}.masthead h1{text-align:left;font-size:30px;margin-bottom:0;line-height:40px}.masthead .tagline{text-align:left;margin:0}.masthead .menu{direction:ltr;max-width:300px;margin-left:auto;margin-right:auto}.masthead #menu-label{position:absolute;top:30px;right:0}.masthead .menu ul{text-align:left;margin:0;padding:0;float:none}.masthead .menu ul ul{margin:0}.masthead .menu li{border-bottom:1px solid;list-style:none;margin:0;padding:0}.masthead .menu li:first-child{border-top:1px solid}.masthead .menu li li:last-child{border-bottom:none}.masthead .menu a{display:block;padding:15px 20px;border-bottom:none}.masthead .menu li li a{padding-left:30px}.masthead .menu li li::before{content:none}.masthead .menu li li a::before{content:"•\00a0\00a0\00a0"}#menu-label{display:inline-block;padding:0 20px;height:50px;cursor:pointer;line-height:50px;color:#fff5f5;font-size:20px;margin-top:10px}#menu-check~label .close-icon{display:none}#menu-check~label .open-icon{display:inline-block}#menu-check:checked~label .close-icon{display:inline-block}#menu-check:checked~label .open-icon{display:none}#menu-check~ul{display:none}#menu-check:checked~ul{display:block;margin-top:50px;margin-bottom:0}}@media screen and (max-width:720px){}@media screen and (max-width:480px){body{font-size:16px}h1{font-size:28px}h2{font-size:18px}h3,h4,h5,h6{font-size:16px}pre,code{font-size:12px}.masthead{padding-top:0}}body{font-family:Optima,lucida sans,Calibri,Candara,Arial,source-han-serif-sc,source han serif sc,source han serif cn,source han serif tc,source han serif tw,source han serif,songti sc,microsoft yahei,sans-serif}code{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace}pre code{font-family:Consolas,lucida console,Monaco,stkaiti,kaiti,simkai,monospace}.chroma{background-color:#f8f8f8}.chroma .x{color:#000}.chroma .err{color:#a40000}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em}.chroma .ln{margin-right:.4em;padding:0 .4em}.chroma .k{color:#204a87;font-weight:700}.chroma .kc{color:#204a87;font-weight:700}.chroma .kd{color:#204a87;font-weight:700}.chroma .kn{color:#204a87;font-weight:700}.chroma .kp{color:#204a87;font-weight:700}.chroma .kr{color:#204a87;font-weight:700}.chroma .kt{color:#204a87;font-weight:700}.chroma .n{color:#000}.chroma .na{color:#c4a000}.chroma .nb{color:#204a87}.chroma .bp{color:#3465a4}.chroma .nc{color:#000}.chroma .no{color:#000}.chroma .nd{color:#5c35cc;font-weight:700}.chroma .ni{color:#ce5c00}.chroma .ne{color:#c00;font-weight:700}.chroma .nf{color:#000}.chroma .fm{color:#000}.chroma .nl{color:#f57900}.chroma .nn{color:#000}.chroma .nx{color:#000}.chroma .py{color:#000}.chroma .nt{color:#204a87;font-weight:700}.chroma .nv{color:#000}.chroma .vc{color:#000}.chroma .vg{color:#000}.chroma .vi{color:#000}.chroma .vm{color:#000}.chroma .l{color:#000}.chroma .ld{color:#000}.chroma .s{color:#4e9a06}.chroma .sa{color:#4e9a06}.chroma .sb{color:#4e9a06}.chroma .sc{color:#4e9a06}.chroma .dl{color:#4e9a06}.chroma .sd{color:#8f5902;font-style:italic}.chroma .s2{color:#4e9a06}.chroma .se{color:#4e9a06}.chroma .sh{color:#4e9a06}.chroma .si{color:#4e9a06}.chroma .sx{color:#4e9a06}.chroma .sr{color:#4e9a06}.chroma .s1{color:#4e9a06}.chroma .ss{color:#4e9a06}.chroma .m{color:#0000cf;font-weight:700}.chroma .mb{color:#0000cf;font-weight:700}.chroma .mf{color:#0000cf;font-weight:700}.chroma .mh{color:#0000cf;font-weight:700}.chroma .mi{color:#0000cf;font-weight:700}.chroma .il{color:#0000cf;font-weight:700}.chroma .mo{color:#0000cf;font-weight:700}.chroma .o{color:#ce5c00;font-weight:700}.chroma .ow{color:#204a87;font-weight:700}.chroma .p{color:#000;font-weight:700}.chroma .c{color:#8f5902;font-style:italic}.chroma .ch{color:#8f5902;font-style:italic}.chroma .cm{color:#8f5902;font-style:italic}.chroma .c1{color:#8f5902;font-style:italic}.chroma .cs{color:#8f5902;font-style:italic}.chroma .cp{color:#8f5902;font-style:italic}.chroma .cpf{color:#8f5902;font-style:italic}.chroma .g{color:#000}.chroma .gd{color:#a40000}.chroma .ge{color:#000;font-style:italic}.chroma .gr{color:#ef2929}.chroma .gh{color:navy;font-weight:700}.chroma .gi{color:#00a000}.chroma .go{color:#000;font-style:italic}.chroma .gp{color:#8f5902}.chroma .gs{color:#000;font-weight:700}.chroma .gu{color:purple;font-weight:700}.chroma .gt{color:#a40000;font-weight:700}.chroma .gl{color:#000;text-decoration:underline}.chroma .w{color:#f8f8f8;text-decoration:underline}div#isso-thread .avatar>svg[data-hash=a0d752802ad5]{box-shadow:0 0 12px #b80f28;border-radius:50%}div#isso-thread a{border-bottom:none}
+            html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#2a363b;color:#c6c6c7}button,input,select,textarea,label{margin:0;padding:0;font-family:inherit;font-size:inherit}img{max-width:100%}body{line-height:1.75}h1,h2,h3,h4,h5,h6{padding:0;line-height:1.25;text-align:center}h1{font-size:32px;font-weight:400}h2{font-size:22px;font-weight:700}h3,h4,h5,h6{font-size:19px;font-weight:700;text-align:left}blockquote{margin:1em 0;padding:0 2em;border-left:3px solid #ddd;font-style:oblique;background:#355c7d}pre,code{font-size:.9em}pre code{display:block;border:1px solid #ddd;padding:1em;overflow-x:auto;line-height:1.75}code{padding:.1rem .2rem;background:#99b898;color:#282c34}.vglnk{color:#282c34}pre code{background:#dbebc2}ul,ol{padding:0 0 0 20px}li{margin:4px 0;padding:0}a{color:#c6c6c7;text-decoration:none;padding-bottom:2px;border-bottom:1px solid}sup a{border-bottom:none}hr{display:block;height:1px;border:0;border-top:1px solid;margin:50px auto;padding:0;max-width:300px}.copyright{text-align:center}.post-nav{display:flex;justify-content:space-between;font-weight:700}.nav-next{margin-left:1em;text-align:right}.nav-prev{margin-right:1em}.comments{margin-top:20px}body{width:960px;margin:0 auto;padding:30px 0}.masthead{width:260px;padding:20px 50px 20px 10px;float:left}.main{width:700px;padding:32px 10px 20px 50px;margin-left:260px;border-left:3px solid #000;min-height:calc(100vh - 60px)}.masthead h1{margin-top:0;margin-bottom:34px;padding:0;text-align:right;font-size:46px;line-height:58px}.masthead h1 a{border-bottom:none}.masthead .tagline{font-style:italic;text-align:right}.masthead .menu{margin-right:20px;direction:rtl}.masthead .menu a{direction:ltr}.masthead .menu ul ul{list-style:none;margin-left:10px;margin-right:10px}.masthead .menu li li::before{content:"•\00a\000a0\00a0"}.title h3.post-meta{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace;text-align:right;margin:0 0 20px}.title h3.post-meta .tags a{font-size:.8em}.title h3.post-meta .category a{font-size:.9em}#menu-check{display:none}#menu-label{display:none}.main .title h1{margin-top:0;margin-bottom:40px}.title h3{font-weight:400;text-align:center}.subtitle{font-size:.9em;color:#666}.footnotes{font-size:.9em}table{margin:auto;border-top:1px solid #666;border-bottom:1px solid #666}table thead th{border-bottom:1px solid #666}th,td{padding:5px}thead,tfoot,tr:nth-child(even){background:#f8f8f8}.toc{margin-top:100px}.unselectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@-ms-viewport{width: device-width;
+}@viewport{width: device-width;
+}@media screen and (max-width:960px){body{width:auto;max-width:700px}.masthead{width:auto;float:none;text-align:center;margin-left:10px;margin-right:10px;padding:10px 10px 45px;border-bottom:3px solid #000}.main{width:auto;padding:20px 10px;margin-left:0;border-left:none;min-height:auto}.masthead h1{text-align:left;font-size:30px;margin-bottom:0;line-height:40px}.masthead .tagline{text-align:left;margin:0}.masthead .menu{direction:ltr;max-width:300px;margin-left:auto;margin-right:auto}.masthead #menu-label{position:absolute;top:30px;right:0}.masthead .menu ul{text-align:left;margin:0;padding:0;float:none}.masthead .menu ul ul{margin:0}.masthead .menu li{border-bottom:1px solid;list-style:none;margin:0;padding:0}.masthead .menu li:first-child{border-top:1px solid}.masthead .menu li li:last-child{border-bottom:none}.masthead .menu a{display:block;padding:15px 20px;border-bottom:none}.masthead .menu li li a{padding-left:30px}.masthead .menu li li::before{content:none}.masthead .menu li li a::before{content:"•\00a0\00a0\00a0"}#menu-label{display:inline-block;padding:0 20px;height:50px;cursor:pointer;line-height:50px;color:#fff5f5;font-size:20px;margin-top:10px}#menu-check~label .close-icon{display:none}#menu-check~label .open-icon{display:inline-block}#menu-check:checked~label .close-icon{display:inline-block}#menu-check:checked~label .open-icon{display:none}#menu-check~ul{display:none}#menu-check:checked~ul{display:block;margin-top:50px;margin-bottom:0}}@media screen and (max-width:720px){}@media screen and (max-width:480px){body{font-size:16px}h1{font-size:28px}h2{font-size:18px}h3,h4,h5,h6{font-size:16px}pre,code{font-size:12px}.masthead{padding-top:0}}body{font-family:Optima,lucida sans,Calibri,Candara,Arial,source-han-serif-sc,source han serif sc,source han serif cn,source han serif tc,source han serif tw,source han serif,songti sc,microsoft yahei,sans-serif}code{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace}pre code{font-family:Consolas,lucida console,Monaco,stkaiti,kaiti,simkai,monospace}.chroma{background-color:#f8f8f8}.chroma .x{color:#000}.chroma .err{color:#a40000}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em}.chroma .ln{margin-right:.4em;padding:0 .4em}.chroma .k{color:#204a87;font-weight:700}.chroma .kc{color:#204a87;font-weight:700}.chroma .kd{color:#204a87;font-weight:700}.chroma .kn{color:#204a87;font-weight:700}.chroma .kp{color:#204a87;font-weight:700}.chroma .kr{color:#204a87;font-weight:700}.chroma .kt{color:#204a87;font-weight:700}.chroma .n{color:#000}.chroma .na{color:#c4a000}.chroma .nb{color:#204a87}.chroma .bp{color:#3465a4}.chroma .nc{color:#000}.chroma .no{color:#000}.chroma .nd{color:#5c35cc;font-weight:700}.chroma .ni{color:#ce5c00}.chroma .ne{color:#c00;font-weight:700}.chroma .nf{color:#000}.chroma .fm{color:#000}.chroma .nl{color:#f57900}.chroma .nn{color:#000}.chroma .nx{color:#000}.chroma .py{color:#000}.chroma .nt{color:#204a87;font-weight:700}.chroma .nv{color:#000}.chroma .vc{color:#000}.chroma .vg{color:#000}.chroma .vi{color:#000}.chroma .vm{color:#000}.chroma .l{color:#000}.chroma .ld{color:#000}.chroma .s{color:#4e9a06}.chroma .sa{color:#4e9a06}.chroma .sb{color:#4e9a06}.chroma .sc{color:#4e9a06}.chroma .dl{color:#4e9a06}.chroma .sd{color:#8f5902;font-style:italic}.chroma .s2{color:#4e9a06}.chroma .se{color:#4e9a06}.chroma .sh{color:#4e9a06}.chroma .si{color:#4e9a06}.chroma .sx{color:#4e9a06}.chroma .sr{color:#4e9a06}.chroma .s1{color:#4e9a06}.chroma .ss{color:#4e9a06}.chroma .m{color:#0000cf;font-weight:700}.chroma .mb{color:#0000cf;font-weight:700}.chroma .mf{color:#0000cf;font-weight:700}.chroma .mh{color:#0000cf;font-weight:700}.chroma .mi{color:#0000cf;font-weight:700}.chroma .il{color:#0000cf;font-weight:700}.chroma .mo{color:#0000cf;font-weight:700}.chroma .o{color:#ce5c00;font-weight:700}.chroma .ow{color:#204a87;font-weight:700}.chroma .p{color:#000;font-weight:700}.chroma .c{color:#8f5902;font-style:italic}.chroma .ch{color:#8f5902;font-style:italic}.chroma .cm{color:#8f5902;font-style:italic}.chroma .c1{color:#8f5902;font-style:italic}.chroma .cs{color:#8f5902;font-style:italic}.chroma .cp{color:#8f5902;font-style:italic}.chroma .cpf{color:#8f5902;font-style:italic}.chroma .g{color:#000}.chroma .gd{color:#a40000}.chroma .ge{color:#000;font-style:italic}.chroma .gr{color:#ef2929}.chroma .gh{color:navy;font-weight:700}.chroma .gi{color:#00a000}.chroma .go{color:#000;font-style:italic}.chroma .gp{color:#8f5902}.chroma .gs{color:#000;font-weight:700}.chroma .gu{color:purple;font-weight:700}.chroma .gt{color:#a40000;font-weight:700}.chroma .gl{color:#000;text-decoration:underline}.chroma .w{color:#f8f8f8;text-decoration:underline}div#isso-thread .avatar>svg[data-hash=a0d752802ad5]{box-shadow:0 0 12px #b80f28;border-radius:50%}div#isso-thread a{border-bottom:none}
         </style>
         
     
@@ -193,542 +190,493 @@
     
     
 
-    
-
-<h2 id="一-基础篇⑤-⑥">一、 基础篇⑤-⑥</h2>
-
+    <h2 id="一-基础篇-">一、 基础篇⑤-⑥</h2>
 <p>这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面是两章的笔记。</p>
-
-<h3 id="第五章-androidmanifest-xml格式解析">第五章 AndroidManifest.xml格式解析</h3>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829165213.png" alt="AndroidManifest.xml" /></p>
-
-<p><center>AndroidManifest.xml文件格式图</center></p>
-
+<h3 id="第五章-androidmanifestxml格式解析">第五章 AndroidManifest.xml格式解析</h3>
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829165213.png" alt="AndroidManifest.xml"></p>
+<!-- raw HTML omitted -->
 <h5 id="头部信息">头部信息</h5>
-
 <ul>
-<li><p>文件魔数：4bytes。</p></li>
-
-<li><p>文件大小：4bytes。</p></li>
-
-<li><p>Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。</p>
-
+<li>
+<p>文件魔数：4bytes。</p>
+</li>
+<li>
+<p>文件大小：4bytes。</p>
+</li>
+<li>
+<p>Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。</p>
 <ul>
-<li><p><strong>Sting Chunk</strong> ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。</p></li>
-
-<li><p>ChunkType：类型，固定4bytes（0x001C001)。</p></li>
-
-<li><p>ChunkSize：大小，4bytes。</p></li>
-
-<li><p>StringCount：字符串的个数 ，4bytes。</p></li>
-
-<li><p>StyleCount ：样式的个数，4bytes。</p></li>
-
-<li><p>Unknown ：位置区域。4bytes。</p></li>
-
-<li><p>StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。</p></li>
-
-<li><p>StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。</p></li>
-
-<li><p>StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。</p></li>
-
-<li><p>StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。</p></li>
+<li>
+<p><strong>Sting Chunk</strong> ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。</p>
+<ul>
+<li>ChunkType：类型，固定4bytes（0x001C001)。</li>
+<li>ChunkSize：大小，4bytes。</li>
+<li>StringCount：字符串的个数 ，4bytes。</li>
+<li>StyleCount ：样式的个数，4bytes。</li>
+<li>Unknown ：位置区域。4bytes。</li>
+<li>StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。</li>
+<li>StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。</li>
+<li>StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。</li>
+<li>StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。</li>
 </ul>
-
 <p>如何读取这个文件？</p>
-
+</li>
+<li>
+<p><strong>Resourceld Chunk</strong> ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID</p>
 <ul>
-<li><p><strong>Resourceld Chunk</strong> ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID</p></li>
-
-<li><p>ChunkType：类型，固定4bytes（0x00080108）。</p></li>
-
-<li><p>ChunkSize：大小，4bytes。</p></li>
-
-<li><p>ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。</p></li>
+<li>ChunkType：类型，固定4bytes（0x00080108）。</li>
+<li>ChunkSize：大小，4bytes。</li>
+<li>ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。</li>
 </ul>
-
 <p>解析？</p>
-
+</li>
+<li>
+<p><strong>Start Namespace Chunk</strong>：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。</p>
 <ul>
-<li><p><strong>Start Namespace Chunk</strong>：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。</p></li>
-
-<li><p>Chunk Type：类型，固定4bytes。（0x00100100)。</p></li>
-
-<li><p>Chunk Size：大小，4bytes。</p></li>
-
-<li><p>Line Number ：AndroidMaifest文件中行号，4bytes。</p></li>
-
-<li><p>Unknown：未知区域,4bytes。</p></li>
-
-<li><p>Prefix：命名空间的前缀（在字符串中的索引值），eg:<code>android</code>。</p></li>
-
-<li><p>Uri：命名空间的URI（在字符串中的索引值），eg:<code>http://schemas.android.com/apk/res/android</code></p></li>
-
-<li><p><strong>Start Tag Chunk</strong>：AndroidMaifest.xml的标签信息，最核心的内容，也是最复杂的内容。</p></li>
-
-<li><p>Chunk Type：类型，固定4bytes。（0x00100102)。</p></li>
-
-<li><p>Chunk Size：大小，4bytes。</p></li>
-
-<li><p>Line Number ：对应AndroidMaifest中的行号，4bytes。</p></li>
-
-<li><p>Unknown：未知区域,4bytes。</p></li>
-
-<li><p>Namespace Uri ：命名空间的Uri，4bytes。</p></li>
-
-<li><p>Name：标签名称（在字符串中的索引值），4bytes。</p></li>
-
-<li><p>Flags：标签的类型，4bytes。eg：是开始标签还是结束标签？</p></li>
-
-<li><p>Attributes Counk：便签中包含的属性的个数，4bytes。</p></li>
-
-<li><p>Class Attribute：标签包含的类属性，4bytes。</p></li>
-
-<li><p>Attributes ：属性内容，每个属性算是一个Entry，Entry是一个大小5的字节数组[Namespace,URI,Name,ValueString,Data]，大小为”属性个数* 5 *4&rdquo;个字节。</p></li>
-</ul></li>
+<li>Chunk Type：类型，固定4bytes。（0x00100100)。</li>
+<li>Chunk Size：大小，4bytes。</li>
+<li>Line Number ：AndroidMaifest文件中行号，4bytes。</li>
+<li>Unknown：未知区域,4bytes。</li>
+<li>Prefix：命名空间的前缀（在字符串中的索引值），eg:<code>android</code>。</li>
+<li>Uri：命名空间的URI（在字符串中的索引值），eg:<code>http://schemas.android.com/apk/res/android</code></li>
 </ul>
-
+</li>
+<li>
+<p><strong>Start Tag Chunk</strong>：AndroidMaifest.xml的标签信息，最核心的内容，也是最复杂的内容。</p>
+<ul>
+<li>Chunk Type：类型，固定4bytes。（0x00100102)。</li>
+<li>Chunk Size：大小，4bytes。</li>
+<li>Line Number ：对应AndroidMaifest中的行号，4bytes。</li>
+<li>Unknown：未知区域,4bytes。</li>
+<li>Namespace Uri ：命名空间的Uri，4bytes。</li>
+<li>Name：标签名称（在字符串中的索引值），4bytes。</li>
+<li>Flags：标签的类型，4bytes。eg：是开始标签还是结束标签？</li>
+<li>Attributes Counk：便签中包含的属性的个数，4bytes。</li>
+<li>Class Attribute：标签包含的类属性，4bytes。</li>
+<li>Attributes ：属性内容，每个属性算是一个Entry，Entry是一个大小5的字节数组[Namespace,URI,Name,ValueString,Data]，大小为”属性个数* 5 *4&quot;个字节。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h5 id="axmlprinter工具">AXMLPrinter工具</h5>
-
 <h5 id="aapt-工具">aapt 工具</h5>
-
-<h3 id="第六章-resourec-arsc文件格式解析">第六章 resourec.arsc文件格式解析</h3>
-
+<h3 id="第六章-resourecarsc文件格式解析">第六章 resourec.arsc文件格式解析</h3>
 <h5 id="资源文件id格式">资源文件id格式</h5>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200453.png" alt="" /></p>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200408.png" alt="" /></p>
-
-<p><center> resourec.arsc文件格式</center></p>
-
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200453.png" alt=""></p>
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200408.png" alt=""></p>
+<!-- raw HTML omitted -->
 <h5 id="数据结构">数据结构</h5>
-
 <p>上图</p>
-
 <ul>
-<li><strong>头部信息</strong></li>
-</ul>
-
+<li>
+<p><strong>头部信息</strong></p>
 <p>resourec.arsc文件格式由一系列chunk组成，每一个chunk均包含一个ResChunk_header</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResChunkHeader</span><span class="p">{</span>
-      <span class="kd">public</span> <span class="nf">short</span> <span class="n">type</span><span class="p">;</span>  <span class="c1">//当前chunk的类型
-</span><span class="c1"></span>      <span class="kd">public</span> <span class="nf">short</span> <span class="n">headerSize</span><span class="p">;</span> <span class="c1">//当前chunk的头部大小
-</span><span class="c1"></span>      <span class="kd">public</span> <span class="nf">int</span> <span class="n">size</span><span class="p">;</span>  <span class="c1">//当前chunk的大小
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResChunkHeader</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">short</span> <span class="n">type</span><span class="o">;</span>  <span class="c1">//当前chunk的类型
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">short</span> <span class="n">headerSize</span><span class="o">;</span> <span class="c1">//当前chunk的头部大小
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>  <span class="c1">//当前chunk的大小
 </span><span class="c1"></span>      
-      <span class="kd">public</span> <span class="nf">int</span> <span class="n">getHeaderSize</span><span class="p">(){</span>
-      	<span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">4</span>    
-      <span class="p">}</span>
-      <span class="nd">@Override</span>
-      <span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-          <span class="k">return</span> <span class="s">&#34;type:&#34;</span><span class="o">+</span><span class="n">Utils</span><span class="p">.</span><span class="na">bytesToHexString</span><span class="p">(</span>
-          <span class="n">Utils</span><span class="p">.</span><span class="na">int2Byte</span><span class="p">(</span><span class="n">type</span><span class="p">))</span><span class="o">+</span><span class="s">&#34;,headerSize:&#34;</span><span class="o">+</span><span class="n">headerSize</span><span class="o">+</span><span class="s">&#34;,size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="p">;</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
-  </code></pre></div>
-<ul>
-<li><strong>资源索引表的头部信息</strong></li>
-</ul>
-
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getHeaderSize</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">4</span>    
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="s">&#34;type:&#34;</span><span class="o">+</span><span class="n">Utils</span><span class="o">.</span><span class="na">bytesToHexString</span><span class="o">(</span>
+        <span class="n">Utils</span><span class="o">.</span><span class="na">int2Byte</span><span class="o">(</span><span class="n">type</span><span class="o">))+</span><span class="s">&#34;,headerSize:&#34;</span><span class="o">+</span><span class="n">headerSize</span><span class="o">+</span><span class="s">&#34;,size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+  
+</code></pre></div></li>
+<li>
+<p><strong>资源索引表的头部信息</strong></p>
 <p>resourec.arsc的第一个结构，结构描述了Resource.arsc文件的大小和资源包数量：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableHeader</span> <span class="p">{</span>
-    
-   	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//就是标准的Chunk头部信息格式
-</span><span class="c1"></span>   	<span class="kd">public</span> <span class="nf">int</span> <span class="n">packageCount</span><span class="p">;</span>  <span class="c1">//被编译的资源包的个数
-</span><span class="c1"></span>   	
-   	<span class="kd">public</span> <span class="nf">ResTableHeader</span><span class="p">(){</span>
-   		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
-   	<span class="p">}</span>
-   	
-   	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getHeaderSize</span><span class="p">(){</span>
-   		<span class="k">return</span> <span class="n">header</span><span class="p">.</span><span class="na">getHeaderSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
-   	<span class="p">}</span>
-   	
-   	<span class="nd">@Override</span>
-   	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-   		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;packageCount:&#34;</span><span class="o">+</span><span class="n">packageCount</span><span class="p">;</span>
-   	<span class="p">}</span>
-   	
-   <span class="p">}</span></code></pre></div>
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829204728.png" alt="" /></p>
-
-<ul>
-<li><strong>资源项的值字符串资源池</strong></li>
-</ul>
-
-<p>包含了所有在资源包里面定义的资源项的值字符串，结构如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResStringPoolHeader</span> <span class="p">{</span>
-  	
-  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//标准的Chunk头部信息结构
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">stringCount</span><span class="p">;</span>  <span class="c1">//字符串的个数
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">styleCount</span><span class="p">;</span>  <span class="c1">//字符串样式的个数
-</span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">SORTED_FLAG</span> <span class="o">=</span> <span class="n">1</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">UTF8_FLAG</span> <span class="o">=</span> <span class="p">(</span><span class="n">1</span><span class="o">&lt;&lt;</span><span class="n">8</span><span class="p">);</span>
-  	
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">flags</span><span class="p">;</span>  <span class="c1">//字符串的属性,可取值包括0x000(UTF-16),0x001(字符串经过排序)、0X100(UTF-8)和他们的组合值
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">stringsStart</span><span class="p">;</span>  <span class="c1">//字符串内容块相对于其头部的距离
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">stylesStart</span><span class="p">;</span>  <span class="c1">//字符串样式块相对于其头部的距离
-</span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">ResStringPoolHeader</span><span class="p">(){</span>
-  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
-  	<span class="p">}</span>
-  	
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getHeaderSize</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="n">header</span><span class="p">.</span><span class="na">getHeaderSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
-  	<span class="p">}</span>
-  	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;stringCount:&#34;</span><span class="o">+</span><span class="n">stringCount</span><span class="o">+</span><span class="s">&#34;,styleCount:&#34;</span><span class="o">+</span><span class="n">styleCount</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,stringStart:&#34;</span><span class="o">+</span><span class="n">stringsStart</span><span class="o">+</span><span class="s">&#34;,stylesStart:&#34;</span><span class="o">+</span><span class="n">stylesStart</span><span class="p">;</span>
-  	<span class="p">}</span>
-  	
-  <span class="p">}</span></code></pre></div>
-<p>接着头部的的是两个偏移数组，分别是字符串偏移数组和字符串样式偏移数组。这两个偏移数组的大小分别等于stringCount和styleCount的值，而每一个元素的类型都是无符号整型。整个字符中资源池结构如下。<img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205108.png" alt="" /></p>
-
-<p>字符串资源池中的字符串前两个字节为字符串长度,长度计算方法如下：</p>
-
-<p><code>len = (((hbyte &amp; 0x7F) &lt;&lt; 8)) | lbyte;</code></p>
-
-<p>如果字符串编码格式为UTF-8则字符串以0X00作为结束符,UTF-16则以0X0000作为结束符。</p>
-
-<ul>
-<li><strong>Package数据块</strong></li>
-</ul>
-
-<p>这个数据块记录编译包的元数据，头部信息如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTablePackage</span> <span class="p">{</span>
-  	
-  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//Chunk的头部信息数据结构
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">id</span><span class="p">;</span>  <span class="c1">//包的ID,等于Package Id,一般用户包的值Package Id为0X7F,系统资源包的Package Id为0X01；
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">char</span><span class="p">[]</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">128</span><span class="p">];</span> <span class="c1">//包名
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">typeStrings</span><span class="p">;</span>  <span class="c1">//类型字符串资源池相对头部的偏移
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">lastPublicType</span><span class="p">;</span>  <span class="c1">//最后一个导出的Public类型字符串在类型字符串资源池中的索引，目前这个值设置为类型字符串资源池的元素个数。在解析的过程中没发现他的用途
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">keyStrings</span><span class="p">;</span>  <span class="c1">//资源项名称字符串相对头部的偏移
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">lastPublicKey</span><span class="p">;</span> <span class="c1">// 最后一个导出的Public资源项名称字符串在资源项名称字符串资源池中的索引，目前这个值设置为资源项名称字符串资源池的元素个数。在解析的过程中没发现他的用途
-</span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">ResTablePackage</span><span class="p">(){</span>
-  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
-  	<span class="p">}</span>
-  	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;\n&#34;</span><span class="o">+</span><span class="s">&#34;,id=&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,name:&#34;</span><span class="o">+</span><span class="n">name</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,typeStrings:&#34;</span><span class="o">+</span><span class="n">typeStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicType:&#34;</span><span class="o">+</span><span class="n">lastPublicType</span><span class="o">+</span><span class="s">&#34;,keyStrings:&#34;</span><span class="o">+</span><span class="n">keyStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicKey:&#34;</span><span class="o">+</span><span class="n">lastPublicKey</span><span class="p">;</span>
-  	<span class="p">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableHeader</span> <span class="o">{</span>
    
-  <span class="p">}</span></code></pre></div>
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205652.png" alt="" /></p>
-
-<ul>
-<li><strong>类型规范数据块</strong></li>
-</ul>
-
+ <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//就是标准的Chunk头部信息格式
+</span><span class="c1"></span> <span class="kd">public</span> <span class="kt">int</span> <span class="n">packageCount</span><span class="o">;</span>  <span class="c1">//被编译的资源包的个数
+</span><span class="c1"></span>   
+ <span class="kd">public</span> <span class="nf">ResTableHeader</span><span class="o">(){</span>
+     <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
+ <span class="o">}</span>
+   
+ <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getHeaderSize</span><span class="o">(){</span>
+     <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="na">getHeaderSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
+ <span class="o">}</span>
+   
+ <span class="nd">@Override</span>
+ <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+     <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;packageCount:&#34;</span><span class="o">+</span><span class="n">packageCount</span><span class="o">;</span>
+ <span class="o">}</span>
+   
+<span class="o">}</span>
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829204728.png" alt=""></p>
+</li>
+<li>
+<p><strong>资源项的值字符串资源池</strong></p>
+<p>包含了所有在资源包里面定义的资源项的值字符串，结构如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResStringPoolHeader</span> <span class="o">{</span>
+  	
+  <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//标准的Chunk头部信息结构
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">stringCount</span><span class="o">;</span>  <span class="c1">//字符串的个数
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">styleCount</span><span class="o">;</span>  <span class="c1">//字符串样式的个数
+</span><span class="c1"></span>  	
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">SORTED_FLAG</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">UTF8_FLAG</span> <span class="o">=</span> <span class="o">(</span><span class="n">1</span><span class="o">&lt;&lt;</span><span class="n">8</span><span class="o">);</span>
+  	
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">;</span>  <span class="c1">//字符串的属性,可取值包括0x000(UTF-16),0x001(字符串经过排序)、0X100(UTF-8)和他们的组合值
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">stringsStart</span><span class="o">;</span>  <span class="c1">//字符串内容块相对于其头部的距离
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">stylesStart</span><span class="o">;</span>  <span class="c1">//字符串样式块相对于其头部的距离
+</span><span class="c1"></span>  	
+  <span class="kd">public</span> <span class="nf">ResStringPoolHeader</span><span class="o">(){</span>
+      <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
+  <span class="o">}</span>
+  	
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getHeaderSize</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="na">getHeaderSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
+  <span class="o">}</span>
+  	
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;\n&#34;</span> <span class="o">+</span> <span class="s">&#34;stringCount:&#34;</span><span class="o">+</span><span class="n">stringCount</span><span class="o">+</span><span class="s">&#34;,styleCount:&#34;</span><span class="o">+</span><span class="n">styleCount</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,stringStart:&#34;</span><span class="o">+</span><span class="n">stringsStart</span><span class="o">+</span><span class="s">&#34;,stylesStart:&#34;</span><span class="o">+</span><span class="n">stylesStart</span><span class="o">;</span>
+  <span class="o">}</span>
+  	
+<span class="o">}</span>
+</code></pre></div><p>接着头部的的是两个偏移数组，分别是字符串偏移数组和字符串样式偏移数组。这两个偏移数组的大小分别等于stringCount和styleCount的值，而每一个元素的类型都是无符号整型。整个字符中资源池结构如下。<img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205108.png" alt=""></p>
+<p>字符串资源池中的字符串前两个字节为字符串长度,长度计算方法如下：</p>
+<p><code>len = (((hbyte &amp; 0x7F) &lt;&lt; 8)) | lbyte;</code></p>
+<p>如果字符串编码格式为UTF-8则字符串以0X00作为结束符,UTF-16则以0X0000作为结束符。</p>
+</li>
+<li>
+<p><strong>Package数据块</strong></p>
+<p>这个数据块记录编译包的元数据，头部信息如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTablePackage</span> <span class="o">{</span>
+  	
+  <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//Chunk的头部信息数据结构
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>  <span class="c1">//包的ID,等于Package Id,一般用户包的值Package Id为0X7F,系统资源包的Package Id为0X01；
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">char</span><span class="o">[]</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">128</span><span class="o">];</span> <span class="c1">//包名
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">typeStrings</span><span class="o">;</span>  <span class="c1">//类型字符串资源池相对头部的偏移
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">lastPublicType</span><span class="o">;</span>  <span class="c1">//最后一个导出的Public类型字符串在类型字符串资源池中的索引，目前这个值设置为类型字符串资源池的元素个数。在解析的过程中没发现他的用途
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">keyStrings</span><span class="o">;</span>  <span class="c1">//资源项名称字符串相对头部的偏移
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">lastPublicKey</span><span class="o">;</span> <span class="c1">// 最后一个导出的Public资源项名称字符串在资源项名称字符串资源池中的索引，目前这个值设置为资源项名称字符串资源池的元素个数。在解析的过程中没发现他的用途
+</span><span class="c1"></span>  	
+  <span class="kd">public</span> <span class="nf">ResTablePackage</span><span class="o">(){</span>
+      <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
+  <span class="o">}</span>
+  	
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;\n&#34;</span><span class="o">+</span><span class="s">&#34;,id=&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,name:&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,typeStrings:&#34;</span><span class="o">+</span><span class="n">typeStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicType:&#34;</span><span class="o">+</span><span class="n">lastPublicType</span><span class="o">+</span><span class="s">&#34;,keyStrings:&#34;</span><span class="o">+</span><span class="n">keyStrings</span><span class="o">+</span><span class="s">&#34;,lastPublicKey:&#34;</span><span class="o">+</span><span class="n">lastPublicKey</span><span class="o">;</span>
+  <span class="o">}</span>
+   
+<span class="o">}</span>
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205652.png" alt=""></p>
+</li>
+<li>
+<p><strong>类型规范数据块</strong></p>
 <p>用来描述资源项的配置差异性。每一种类型都对应有一个类型规范数据块。</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  
-  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableTypeSpec</span> <span class="p">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableTypeSpec</span> <span class="o">{</span>
   	
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">SPEC_PUBLIC</span> <span class="o">=</span> <span class="n">0x40000000</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">SPEC_PUBLIC</span> <span class="o">=</span> <span class="n">0x40000000</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//Chunk的头部信息结构
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">id</span><span class="p">;</span>  <span class="c1">//标识资源的Type ID,Type ID是指资源的类型ID。资源的类型有animator、anim、color、drawable、layout、menu、raw、string和xml等等若干种，每一种都会被赋予一个ID。
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">res0</span><span class="p">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">res1</span><span class="p">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">entryCount</span><span class="p">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
+  <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//Chunk的头部信息结构
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">byte</span> <span class="n">id</span><span class="o">;</span>  <span class="c1">//标识资源的Type ID,Type ID是指资源的类型ID。资源的类型有animator、anim、color、drawable、layout、menu、raw、string和xml等等若干种，每一种都会被赋予一个ID。
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">byte</span> <span class="n">res0</span><span class="o">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">short</span> <span class="n">res1</span><span class="o">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">entryCount</span><span class="o">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
 </span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">ResTableTypeSpec</span><span class="p">(){</span>
-  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="nf">ResTableTypeSpec</span><span class="o">(){</span>
+      <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
+  <span class="o">}</span>
   	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="o">;</span>
+  <span class="o">}</span>
   	
-  <span class="p">}</span></code></pre></div>
-<ul>
-<li><strong>资源类型项数据块</strong></li>
-</ul>
-
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p><strong>资源类型项数据块</strong></p>
 <p>描述资源项的具体信息，名称、值、配置等信息</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableType</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableType</span> <span class="o">{</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResChunkHeader</span> <span class="n">header</span><span class="p">;</span>  <span class="c1">//Chunk的头部信息结构
+  <span class="kd">public</span> <span class="n">ResChunkHeader</span> <span class="n">header</span><span class="o">;</span>  <span class="c1">//Chunk的头部信息结构
 </span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">NO_ENTRY</span> <span class="o">=</span> <span class="n">0xFFFFFFFF</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">NO_ENTRY</span> <span class="o">=</span> <span class="n">0xFFFFFFFF</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">id</span><span class="p">;</span>  <span class="c1">//标识资源的Type ID
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">res0</span><span class="p">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">res1</span><span class="p">;</span>  <span class="c1">//保留,始终为0
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">entryCount</span><span class="p">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">entriesStart</span><span class="p">;</span>  <span class="c1">//等于资源项数据块相对头部的偏移值。
+  <span class="kd">public</span> <span class="kt">byte</span> <span class="n">id</span><span class="o">;</span>  <span class="c1">//标识资源的Type ID
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">byte</span> <span class="n">res0</span><span class="o">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">short</span> <span class="n">res1</span><span class="o">;</span>  <span class="c1">//保留,始终为0
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">entryCount</span><span class="o">;</span>  <span class="c1">//等于本类型的资源项个数,指名称相同的资源项的个数。
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">entriesStart</span><span class="o">;</span>  <span class="c1">//等于资源项数据块相对头部的偏移值。
 </span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">ResTableConfig</span> <span class="n">resConfig</span><span class="p">;</span>  <span class="c1">//指向一个ResTable_config,用来描述配置信息,地区,语言,分辨率等
+  <span class="kd">public</span> <span class="n">ResTableConfig</span> <span class="n">resConfig</span><span class="o">;</span>  <span class="c1">//指向一个ResTable_config,用来描述配置信息,地区,语言,分辨率等
 </span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">ResTableType</span><span class="p">(){</span>
-  		<span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="p">();</span>
-  		<span class="n">resConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableConfig</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="nf">ResTableType</span><span class="o">(){</span>
+      <span class="n">header</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResChunkHeader</span><span class="o">();</span>
+      <span class="n">resConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableConfig</span><span class="o">();</span>
+  <span class="o">}</span>
    
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="n">header</span><span class="p">.</span><span class="na">getHeaderSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">2</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="n">header</span><span class="o">.</span><span class="na">getHeaderSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">2</span> <span class="o">+</span> <span class="n">4</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
+  <span class="o">}</span>
   	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="o">+</span><span class="s">&#34;,entriesStart:&#34;</span><span class="o">+</span><span class="n">entriesStart</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="s">&#34;header:&#34;</span><span class="o">+</span><span class="n">header</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,res1:&#34;</span><span class="o">+</span><span class="n">res1</span><span class="o">+</span><span class="s">&#34;,entryCount:&#34;</span><span class="o">+</span><span class="n">entryCount</span><span class="o">+</span><span class="s">&#34;,entriesStart:&#34;</span><span class="o">+</span><span class="n">entriesStart</span><span class="o">;</span>
+  <span class="o">}</span>
    
-  <span class="p">}</span></code></pre></div>
-<p>ResTable_type后接着是一个大小为entryCount的uint32_t数组，每一个数组元素都用来描述一个资源项数据块的偏移位置。 紧跟在这个偏移数组后面的是一个大小为entryCount的ResTable_entry数组,每一个数组元素都用来描述一个资源项的具体信息。ResTable_entry的结构如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableEntry</span> <span class="p">{</span>
+<span class="o">}</span>
+</code></pre></div><p>ResTable_type后接着是一个大小为entryCount的uint32_t数组，每一个数组元素都用来描述一个资源项数据块的偏移位置。 紧跟在这个偏移数组后面的是一个大小为entryCount的ResTable_entry数组,每一个数组元素都用来描述一个资源项的具体信息。ResTable_entry的结构如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableEntry</span> <span class="o">{</span>
   	
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">FLAG_COMPLEX</span> <span class="o">=</span> <span class="n">0x0001</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">FLAG_PUBLIC</span> <span class="o">=</span> <span class="n">0x0002</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">FLAG_COMPLEX</span> <span class="o">=</span> <span class="n">0x0001</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">FLAG_PUBLIC</span> <span class="o">=</span> <span class="n">0x0002</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">size</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">flags</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="kt">short</span> <span class="n">size</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kt">short</span> <span class="n">flags</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResStringPoolRef</span> <span class="n">key</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="n">ResStringPoolRef</span> <span class="n">key</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResTableEntry</span><span class="p">(){</span>
-  		<span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResStringPoolRef</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="nf">ResTableEntry</span><span class="o">(){</span>
+      <span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResStringPoolRef</span><span class="o">();</span>
+  <span class="o">}</span>
   	
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">key</span><span class="p">.</span><span class="na">getSize</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="n">2</span><span class="o">+</span><span class="n">2</span><span class="o">+</span><span class="n">key</span><span class="o">.</span><span class="na">getSize</span><span class="o">();</span>
+  <span class="o">}</span>
   	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,key:&#34;</span><span class="o">+</span><span class="n">key</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,str:&#34;</span><span class="o">+</span><span class="n">ParseResourceUtils</span><span class="p">.</span><span class="na">getKeyString</span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">index</span><span class="p">);</span>
-  	<span class="p">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,flags:&#34;</span><span class="o">+</span><span class="n">flags</span><span class="o">+</span><span class="s">&#34;,key:&#34;</span><span class="o">+</span><span class="n">key</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,str:&#34;</span><span class="o">+</span><span class="n">ParseResourceUtils</span><span class="o">.</span><span class="na">getKeyString</span><span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">index</span><span class="o">);</span>
+  <span class="o">}</span>
    
-  <span class="p">}</span></code></pre></div>
-<p>ResTable_entry根据flags的不同,后面跟随的数据也不相同,如果flags此位为1,则ResTable_entry是ResTable_map_entry,ResTable_map_entry继承自ResTable_entry,其结构如下。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableMapEntry</span> <span class="nf">extends</span> <span class="n">ResTableEntry</span><span class="p">{</span>
+<span class="o">}</span>
+</code></pre></div><p>ResTable_entry根据flags的不同,后面跟随的数据也不相同,如果flags此位为1,则ResTable_entry是ResTable_map_entry,ResTable_map_entry继承自ResTable_entry,其结构如下。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableMapEntry</span> <span class="kd">extends</span> <span class="n">ResTableEntry</span><span class="o">{</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResTableRef</span> <span class="n">parent</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">count</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="n">ResTableRef</span> <span class="n">parent</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">count</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResTableMapEntry</span><span class="p">(){</span>
-  		<span class="n">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="nf">ResTableMapEntry</span><span class="o">(){</span>
+      <span class="n">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="o">();</span>
+  <span class="o">}</span>
   	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">parent</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">parent</span><span class="o">.</span><span class="na">getSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
+  <span class="o">}</span>
   	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#34;,parent:&#34;</span><span class="o">+</span><span class="n">parent</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,count:&#34;</span><span class="o">+</span><span class="n">count</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;,parent:&#34;</span><span class="o">+</span><span class="n">parent</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,count:&#34;</span><span class="o">+</span><span class="n">count</span><span class="o">;</span>
+  <span class="o">}</span>
    
-  <span class="p">}</span></code></pre></div>
-<p>ResTable_map_entry其后跟随则count个ResTable_map类型的数组,ResTable_map的结构如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kn">package</span> <span class="nf">com</span><span class="p">.</span><span class="na">wjdiankong</span><span class="p">.</span><span class="na">parseresource</span><span class="p">.</span><span class="na">type</span><span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div><p>ResTable_map_entry其后跟随则count个ResTable_map类型的数组,ResTable_map的结构如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.wjdiankong.parseresource.type</span><span class="o">;</span>
    
-  <span class="cm">/**
-</span><span class="cm">   struct ResTable_map
-</span><span class="cm">   {
-</span><span class="cm">       //bag资源项ID
-</span><span class="cm">       ResTable_ref name;
-</span><span class="cm">       //bag资源项值
-</span><span class="cm">       Res_value value;
-</span><span class="cm">   };
-</span><span class="cm">   * @author i
-</span><span class="cm">   *
-</span><span class="cm">   */</span>
-  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResTableMap</span> <span class="p">{</span>
+<span class="cm">/**
+</span><span class="cm"> struct ResTable_map
+</span><span class="cm"> {
+</span><span class="cm">     //bag资源项ID
+</span><span class="cm">     ResTable_ref name;
+</span><span class="cm">     //bag资源项值
+</span><span class="cm">     Res_value value;
+</span><span class="cm"> };
+</span><span class="cm"> * @author i
+</span><span class="cm"> *
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResTableMap</span> <span class="o">{</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResTableRef</span> <span class="n">name</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">ResValue</span> <span class="n">value</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="n">ResTableRef</span> <span class="n">name</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="n">ResValue</span> <span class="n">value</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">ResTableMap</span><span class="p">(){</span>
-  		<span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="p">();</span>
-  		<span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResValue</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="nf">ResTableMap</span><span class="o">(){</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResTableRef</span><span class="o">();</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResValue</span><span class="o">();</span>
+  <span class="o">}</span>
   	
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="n">name</span><span class="p">.</span><span class="na">getSize</span><span class="p">()</span> <span class="o">+</span> <span class="n">value</span><span class="p">.</span><span class="na">getSize</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="na">getSize</span><span class="o">()</span> <span class="o">+</span> <span class="n">value</span><span class="o">.</span><span class="na">getSize</span><span class="o">();</span>
+  <span class="o">}</span>
   	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="n">name</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,value:&#34;</span><span class="o">+</span><span class="n">value</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="na">toString</span><span class="o">()+</span><span class="s">&#34;,value:&#34;</span><span class="o">+</span><span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+  <span class="o">}</span>
    
-  <span class="p">}</span></code></pre></div>
-<p>如果flags此位为0,则ResTable_entry其后跟随的是一个Res_value,描述一个普通资源的值,Res_value结构如下。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="nf">class</span> <span class="n">ResValue</span> <span class="p">{</span>
+<span class="o">}</span>
+</code></pre></div><p>如果flags此位为0,则ResTable_entry其后跟随的是一个Res_value,描述一个普通资源的值,Res_value结构如下。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResValue</span> <span class="o">{</span>
   	
-  	<span class="c1">//dataType字段使用的常量
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_NULL</span> <span class="o">=</span> <span class="n">0x00</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_REFERENCE</span> <span class="o">=</span> <span class="n">0x01</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_ATTRIBUTE</span> <span class="o">=</span> <span class="n">0x02</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_STRING</span> <span class="o">=</span> <span class="n">0x03</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FLOAT</span> <span class="o">=</span> <span class="n">0x04</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_DIMENSION</span> <span class="o">=</span> <span class="n">0x05</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FRACTION</span> <span class="o">=</span> <span class="n">0x06</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">=</span> <span class="n">0x10</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_DEC</span> <span class="o">=</span> <span class="n">0x10</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_HEX</span> <span class="o">=</span> <span class="n">0x11</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_BOOLEAN</span> <span class="o">=</span> <span class="n">0x12</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1c</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_ARGB8</span> <span class="o">=</span> <span class="n">0x1c</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_RGB8</span> <span class="o">=</span> <span class="n">0x1d</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_ARGB4</span> <span class="o">=</span> <span class="n">0x1e</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_INT_COLOR_RGB4</span> <span class="o">=</span> <span class="n">0x1f</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_LAST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="p">;</span>
-  	<span class="kd">public</span> <span class="nf">final</span> <span class="kd">static</span> <span class="nf">int</span> <span class="n">TYPE_LAST_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="p">;</span>
+  <span class="c1">//dataType字段使用的常量
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_NULL</span> <span class="o">=</span> <span class="n">0x00</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_REFERENCE</span> <span class="o">=</span> <span class="n">0x01</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_ATTRIBUTE</span> <span class="o">=</span> <span class="n">0x02</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_STRING</span> <span class="o">=</span> <span class="n">0x03</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FLOAT</span> <span class="o">=</span> <span class="n">0x04</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_DIMENSION</span> <span class="o">=</span> <span class="n">0x05</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FRACTION</span> <span class="o">=</span> <span class="n">0x06</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">=</span> <span class="n">0x10</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_DEC</span> <span class="o">=</span> <span class="n">0x10</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_HEX</span> <span class="o">=</span> <span class="n">0x11</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_BOOLEAN</span> <span class="o">=</span> <span class="n">0x12</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1c</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_ARGB8</span> <span class="o">=</span> <span class="n">0x1c</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_RGB8</span> <span class="o">=</span> <span class="n">0x1d</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_ARGB4</span> <span class="o">=</span> <span class="n">0x1e</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_INT_COLOR_RGB4</span> <span class="o">=</span> <span class="n">0x1f</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_LAST_COLOR_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">TYPE_LAST_INT</span> <span class="o">=</span> <span class="n">0x1f</span><span class="o">;</span>
   	
-  	<span class="kd">public</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">int</span>
-      <span class="n">COMPLEX_UNIT_PX</span>			<span class="o">=</span><span class="n">0</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_DIP</span>		<span class="o">=</span><span class="n">1</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_SP</span>			<span class="o">=</span><span class="n">2</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_PT</span>			<span class="o">=</span><span class="n">3</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_IN</span>			<span class="o">=</span><span class="n">4</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_MM</span>			<span class="o">=</span><span class="n">5</span><span class="p">,</span>
-  	<span class="n">COMPLEX_UNIT_SHIFT</span>		<span class="o">=</span><span class="n">0</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_MASK</span>		<span class="o">=</span><span class="n">15</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_FRACTION</span>	<span class="o">=</span><span class="n">0</span><span class="p">,</span>
-      <span class="n">COMPLEX_UNIT_FRACTION_PARENT</span><span class="o">=</span><span class="n">1</span><span class="p">,</span>
-      <span class="n">COMPLEX_RADIX_23p0</span>		<span class="o">=</span><span class="n">0</span><span class="p">,</span>
-      <span class="n">COMPLEX_RADIX_16p7</span>		<span class="o">=</span><span class="n">1</span><span class="p">,</span>
-      <span class="n">COMPLEX_RADIX_8p15</span>		<span class="o">=</span><span class="n">2</span><span class="p">,</span>
-      <span class="n">COMPLEX_RADIX_0p23</span>		<span class="o">=</span><span class="n">3</span><span class="p">,</span>
-      <span class="n">COMPLEX_RADIX_SHIFT</span>		<span class="o">=</span><span class="n">4</span><span class="p">,</span>
-      <span class="n">COMPLEX_RADIX_MASK</span>		<span class="o">=</span><span class="n">3</span><span class="p">,</span>
-      <span class="n">COMPLEX_MANTISSA_SHIFT</span>	<span class="o">=</span><span class="n">8</span><span class="p">,</span>
-      <span class="n">COMPLEX_MANTISSA_MASK</span>	<span class="o">=</span><span class="n">0xFFFFFF</span><span class="p">;</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>
+    <span class="n">COMPLEX_UNIT_PX</span>			<span class="o">=</span><span class="n">0</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_DIP</span>		<span class="o">=</span><span class="n">1</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_SP</span>			<span class="o">=</span><span class="n">2</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_PT</span>			<span class="o">=</span><span class="n">3</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_IN</span>			<span class="o">=</span><span class="n">4</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_MM</span>			<span class="o">=</span><span class="n">5</span><span class="o">,</span>
+  <span class="n">COMPLEX_UNIT_SHIFT</span>		<span class="o">=</span><span class="n">0</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_MASK</span>		<span class="o">=</span><span class="n">15</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_FRACTION</span>	<span class="o">=</span><span class="n">0</span><span class="o">,</span>
+    <span class="n">COMPLEX_UNIT_FRACTION_PARENT</span><span class="o">=</span><span class="n">1</span><span class="o">,</span>
+    <span class="n">COMPLEX_RADIX_23p0</span>		<span class="o">=</span><span class="n">0</span><span class="o">,</span>
+    <span class="n">COMPLEX_RADIX_16p7</span>		<span class="o">=</span><span class="n">1</span><span class="o">,</span>
+    <span class="n">COMPLEX_RADIX_8p15</span>		<span class="o">=</span><span class="n">2</span><span class="o">,</span>
+    <span class="n">COMPLEX_RADIX_0p23</span>		<span class="o">=</span><span class="n">3</span><span class="o">,</span>
+    <span class="n">COMPLEX_RADIX_SHIFT</span>		<span class="o">=</span><span class="n">4</span><span class="o">,</span>
+    <span class="n">COMPLEX_RADIX_MASK</span>		<span class="o">=</span><span class="n">3</span><span class="o">,</span>
+    <span class="n">COMPLEX_MANTISSA_SHIFT</span>	<span class="o">=</span><span class="n">8</span><span class="o">,</span>
+    <span class="n">COMPLEX_MANTISSA_MASK</span>	<span class="o">=</span><span class="n">0xFFFFFF</span><span class="o">;</span>
   	
   	
-  	<span class="kd">public</span> <span class="nf">short</span> <span class="n">size</span><span class="p">;</span>  <span class="c1">//ResValue的头部大小
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">res0</span><span class="p">;</span>  <span class="c1">//保留，始终为0
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">byte</span> <span class="n">dataType</span><span class="p">;</span>  <span class="c1">//数据的类型,可以从上面的枚举类型中获取
-</span><span class="c1"></span>  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">data</span><span class="p">;</span>  <span class="c1">//数据对应的索引
+  <span class="kd">public</span> <span class="kt">short</span> <span class="n">size</span><span class="o">;</span>  <span class="c1">//ResValue的头部大小
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">byte</span> <span class="n">res0</span><span class="o">;</span>  <span class="c1">//保留，始终为0
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">byte</span> <span class="n">dataType</span><span class="o">;</span>  <span class="c1">//数据的类型,可以从上面的枚举类型中获取
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>  <span class="c1">//数据对应的索引
 </span><span class="c1"></span>  	
-  	<span class="kd">public</span> <span class="nf">int</span> <span class="n">getSize</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">4</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">1</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
+  <span class="o">}</span>
   	
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">getTypeStr</span><span class="p">(){</span>
-  		<span class="k">switch</span><span class="p">(</span><span class="n">dataType</span><span class="p">){</span>
-  			<span class="k">case</span> <span class="n">TYPE_NULL</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_NULL&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_REFERENCE</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_REFERENCE&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_ATTRIBUTE</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_ATTRIBUTE&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_STRING</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_STRING&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_FLOAT</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_FLOAT&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_DIMENSION</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_DIMENSION&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_FRACTION</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_FRACTION&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_FIRST_INT</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_FIRST_INT&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_INT_HEX</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_HEX&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_INT_BOOLEAN</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_BOOLEAN&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_FIRST_COLOR_INT</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_FIRST_COLOR_INT&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_INT_COLOR_RGB8</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB8&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_INT_COLOR_ARGB4</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_ARGB4&#34;</span><span class="p">;</span>
-  			<span class="k">case</span> <span class="n">TYPE_INT_COLOR_RGB4</span><span class="o">:</span>
-  				<span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB4&#34;</span><span class="p">;</span>
-  		<span class="p">}</span>
-  		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getTypeStr</span><span class="o">(){</span>
+      <span class="k">switch</span><span class="o">(</span><span class="n">dataType</span><span class="o">){</span>
+          <span class="k">case</span> <span class="n">TYPE_NULL</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_NULL&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_REFERENCE</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_REFERENCE&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_ATTRIBUTE</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_ATTRIBUTE&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_STRING</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_STRING&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_FLOAT</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_FLOAT&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_DIMENSION</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_DIMENSION&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_FRACTION</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_FRACTION&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_FIRST_INT</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_FIRST_INT&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_INT_HEX</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_INT_HEX&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_INT_BOOLEAN</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_INT_BOOLEAN&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_FIRST_COLOR_INT</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_FIRST_COLOR_INT&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_INT_COLOR_RGB8</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB8&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_INT_COLOR_ARGB4</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_ARGB4&#34;</span><span class="o">;</span>
+          <span class="k">case</span> <span class="n">TYPE_INT_COLOR_RGB4</span><span class="o">:</span>
+              <span class="k">return</span> <span class="s">&#34;TYPE_INT_COLOR_RGB4&#34;</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
   	
-  	<span class="cm">/*public String getDataStr(){
-</span><span class="cm">  		if(dataType == TYPE_STRING){
-</span><span class="cm">  			return ParseResourceUtils.getResString(data);
-</span><span class="cm">  		}else if(dataType == TYPE_FIRST_COLOR_INT){
-</span><span class="cm">  			return Utils.bytesToHexString(Utils.int2Byte(data));
-</span><span class="cm">  		}else if(dataType == TYPE_INT_BOOLEAN){
-</span><span class="cm">  			return data==0 ? &#34;false&#34; : &#34;true&#34;;
-</span><span class="cm">  		}
-</span><span class="cm">  		return data+&#34;&#34;;
-</span><span class="cm">  	}*/</span>
+  <span class="cm">/*public String getDataStr(){
+</span><span class="cm">      if(dataType == TYPE_STRING){
+</span><span class="cm">          return ParseResourceUtils.getResString(data);
+</span><span class="cm">      }else if(dataType == TYPE_FIRST_COLOR_INT){
+</span><span class="cm">          return Utils.bytesToHexString(Utils.int2Byte(data));
+</span><span class="cm">      }else if(dataType == TYPE_INT_BOOLEAN){
+</span><span class="cm">          return data==0 ? &#34;false&#34; : &#34;true&#34;;
+</span><span class="cm">      }
+</span><span class="cm">      return data+&#34;&#34;;
+</span><span class="cm">  }*/</span>
   	
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">getDataStr</span><span class="p">()</span> <span class="p">{</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_STRING</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">ParseResourceUtils</span><span class="p">.</span><span class="na">getResString</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_ATTRIBUTE</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;?%s%08X&#34;</span><span class="p">,</span><span class="n">getPackage</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="n">data</span><span class="p">);</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_REFERENCE</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;@%s%08X&#34;</span><span class="p">,</span><span class="n">getPackage</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="n">data</span><span class="p">);</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FLOAT</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">Float</span><span class="p">.</span><span class="na">intBitsToFloat</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_HEX</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;0x%08X&#34;</span><span class="p">,</span><span class="n">data</span><span class="p">);</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_BOOLEAN</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">data</span><span class="o">!=</span><span class="n">0</span><span class="o">?</span><span class="s">&#34;true&#34;</span><span class="o">:</span><span class="s">&#34;false&#34;</span><span class="p">;</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_DIMENSION</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">Float</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">complexToFloat</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">+</span>
-  				<span class="n">DIMENSION_UNITS</span><span class="p">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="p">];</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FRACTION</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">Float</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">complexToFloat</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">+</span>
-  				<span class="n">FRACTION_UNITS</span><span class="p">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="p">];</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_COLOR_INT</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;#%08X&#34;</span><span class="p">,</span><span class="n">data</span><span class="p">);</span>
-  		<span class="p">}</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_INT</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-  		<span class="p">}</span>
-  		<span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&#34;&lt;0x%X, type 0x%02X&gt;&#34;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="n">dataType</span><span class="p">);</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getDataStr</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_STRING</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">ParseResourceUtils</span><span class="o">.</span><span class="na">getResString</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_ATTRIBUTE</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;?%s%08X&#34;</span><span class="o">,</span><span class="n">getPackage</span><span class="o">(</span><span class="n">data</span><span class="o">),</span><span class="n">data</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_REFERENCE</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;@%s%08X&#34;</span><span class="o">,</span><span class="n">getPackage</span><span class="o">(</span><span class="n">data</span><span class="o">),</span><span class="n">data</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FLOAT</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">Float</span><span class="o">.</span><span class="na">intBitsToFloat</span><span class="o">(</span><span class="n">data</span><span class="o">));</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_HEX</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;0x%08X&#34;</span><span class="o">,</span><span class="n">data</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_INT_BOOLEAN</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">data</span><span class="o">!=</span><span class="n">0</span><span class="o">?</span><span class="s">&#34;true&#34;</span><span class="o">:</span><span class="s">&#34;false&#34;</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_DIMENSION</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">Float</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">complexToFloat</span><span class="o">(</span><span class="n">data</span><span class="o">))+</span>
+              <span class="n">DIMENSION_UNITS</span><span class="o">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="o">];</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">==</span> <span class="n">TYPE_FRACTION</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">Float</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">complexToFloat</span><span class="o">(</span><span class="n">data</span><span class="o">))+</span>
+              <span class="n">FRACTION_UNITS</span><span class="o">[</span><span class="n">data</span> <span class="o">&amp;</span> <span class="n">COMPLEX_UNIT_MASK</span><span class="o">];</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_COLOR_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_COLOR_INT</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;#%08X&#34;</span><span class="o">,</span><span class="n">data</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dataType</span> <span class="o">&gt;=</span> <span class="n">TYPE_FIRST_INT</span> <span class="o">&amp;&amp;</span> <span class="n">dataType</span> <span class="o">&lt;=</span> <span class="n">TYPE_LAST_INT</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">return</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;&lt;0x%X, type 0x%02X&gt;&#34;</span><span class="o">,</span><span class="n">data</span><span class="o">,</span> <span class="n">dataType</span><span class="o">);</span>
+  <span class="o">}</span>
   	
-  	<span class="kd">private</span> <span class="nf">static</span> <span class="n">String</span> <span class="nf">getPackage</span><span class="p">(</span><span class="kt">int</span> <span class="nf">id</span><span class="p">)</span> <span class="p">{</span>
-  		<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">&gt;&gt;&gt;</span><span class="n">24</span><span class="o">==</span><span class="n">1</span><span class="p">)</span> <span class="p">{</span>
-  			<span class="k">return</span> <span class="s">&#34;android:&#34;</span><span class="p">;</span>
-  		<span class="p">}</span>
-  		<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-  	<span class="p">}</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getPackage</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">id</span><span class="o">&gt;&gt;&gt;</span><span class="n">24</span><span class="o">==</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="s">&#34;android:&#34;</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
   	
-  	<span class="kd">public</span> <span class="nf">static</span> <span class="kt">float</span> <span class="nf">complexToFloat</span><span class="p">(</span><span class="kt">int</span> <span class="nf">complex</span><span class="p">)</span> <span class="p">{</span>
-  		<span class="k">return</span> <span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="n">complex</span> <span class="o">&amp;</span> <span class="n">0xFFFFFF00</span><span class="p">)</span><span class="o">*</span><span class="n">RADIX_MULTS</span><span class="p">[(</span><span class="n">complex</span><span class="o">&gt;&gt;</span><span class="n">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">3</span><span class="p">];</span>
-  	<span class="p">}</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">float</span> <span class="nf">complexToFloat</span><span class="o">(</span><span class="kt">int</span> <span class="n">complex</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="o">(</span><span class="kt">float</span><span class="o">)(</span><span class="n">complex</span> <span class="o">&amp;</span> <span class="n">0xFFFFFF00</span><span class="o">)*</span><span class="n">RADIX_MULTS</span><span class="o">[(</span><span class="n">complex</span><span class="o">&gt;&gt;</span><span class="n">4</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">3</span><span class="o">];</span>
+  <span class="o">}</span>
   	
-  	<span class="kd">private</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">float</span> <span class="n">RADIX_MULTS</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span>
-  		<span class="n">0</span><span class="p">.</span><span class="na">00390625F</span><span class="p">,</span><span class="n">3</span><span class="p">.</span><span class="na">051758E</span><span class="o">-</span><span class="n">005F</span><span class="p">,</span><span class="n">1</span><span class="p">.</span><span class="na">192093E</span><span class="o">-</span><span class="n">007F</span><span class="p">,</span><span class="n">4</span><span class="p">.</span><span class="na">656613E</span><span class="o">-</span><span class="n">010F</span>
-  	<span class="p">};</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">RADIX_MULTS</span><span class="o">[]={</span>
+      <span class="n">0</span><span class="o">.</span><span class="na">00390625F</span><span class="o">,</span><span class="n">3</span><span class="o">.</span><span class="na">051758E</span><span class="o">-</span><span class="n">005F</span><span class="o">,</span><span class="n">1</span><span class="o">.</span><span class="na">192093E</span><span class="o">-</span><span class="n">007F</span><span class="o">,</span><span class="n">4</span><span class="o">.</span><span class="na">656613E</span><span class="o">-</span><span class="n">010F</span>
+  <span class="o">};</span>
   	
-  	<span class="kd">private</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">String</span> <span class="n">DIMENSION_UNITS</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span>
-  		<span class="s">&#34;px&#34;</span><span class="p">,</span><span class="s">&#34;dip&#34;</span><span class="p">,</span><span class="s">&#34;sp&#34;</span><span class="p">,</span><span class="s">&#34;pt&#34;</span><span class="p">,</span><span class="s">&#34;in&#34;</span><span class="p">,</span><span class="s">&#34;mm&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span>
-  	<span class="p">};</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DIMENSION_UNITS</span><span class="o">[]={</span>
+      <span class="s">&#34;px&#34;</span><span class="o">,</span><span class="s">&#34;dip&#34;</span><span class="o">,</span><span class="s">&#34;sp&#34;</span><span class="o">,</span><span class="s">&#34;pt&#34;</span><span class="o">,</span><span class="s">&#34;in&#34;</span><span class="o">,</span><span class="s">&#34;mm&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span>
+  <span class="o">};</span>
   	
-  	<span class="kd">private</span> <span class="nf">static</span> <span class="kd">final</span> <span class="nf">String</span> <span class="n">FRACTION_UNITS</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span>
-  		<span class="s">&#34;%&#34;</span><span class="p">,</span><span class="s">&#34;%p&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span>
-  	<span class="p">};</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FRACTION_UNITS</span><span class="o">[]={</span>
+      <span class="s">&#34;%&#34;</span><span class="o">,</span><span class="s">&#34;%p&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">,</span><span class="s">&#34;&#34;</span>
+  <span class="o">};</span>
   	
-  	<span class="nd">@Override</span>
-  	<span class="kd">public</span> <span class="nf">String</span> <span class="n">toString</span><span class="p">(){</span>
-  		<span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,dataType:&#34;</span><span class="o">+</span><span class="n">getTypeStr</span><span class="p">()</span><span class="o">+</span><span class="s">&#34;,data:&#34;</span><span class="o">+</span><span class="n">getDataStr</span><span class="p">();</span>
-  	<span class="p">}</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+      <span class="k">return</span> <span class="s">&#34;size:&#34;</span><span class="o">+</span><span class="n">size</span><span class="o">+</span><span class="s">&#34;,res0:&#34;</span><span class="o">+</span><span class="n">res0</span><span class="o">+</span><span class="s">&#34;,dataType:&#34;</span><span class="o">+</span><span class="n">getTypeStr</span><span class="o">()+</span><span class="s">&#34;,data:&#34;</span><span class="o">+</span><span class="n">getDataStr</span><span class="o">();</span>
+  <span class="o">}</span>
    
-  <span class="p">}</span></code></pre></div>
-<p>以上代码来自于书的原作者的博客：<a href="https://blog.csdn.net/jiangwei0910410003/article/details/50628894" target="_blank">https://blog.csdn.net/jiangwei0910410003/article/details/50628894</a></p>
-
+<span class="o">}</span>
+</code></pre></div><p>以上代码来自于书的原作者的博客：https://blog.csdn.net/jiangwei0910410003/article/details/50628894</p>
 <p>博客里还有如何解析操作，留看。</p>
-
+</li>
+</ul>
 <h3 id="总结">总结</h3>
-
 <p>这两章讲的还是挺详细的，可以留着备用查阅，这两个文件都能加以混淆来保护应用，所以还是挺重要的。</p>
 
 
@@ -737,6 +685,7 @@
             <hr>
             
         <div id="disqus_thread"></div>
+
 <script>
 
 
@@ -752,8 +701,7 @@ s.setAttribute('data-timestamp', +new Date());
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         
-    <script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
-
+    <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
     
     <script>
         (function(){function center_el(tagName){var tags=document.getElementsByTagName(tagName),i,tag;for(i=0;i<tags.length;i++){tag=tags[i];var parent=tag.parentElement;if(parent.childNodes.length===1){if(parent.nodeName==='A'){parent=parent.parentElement;if(parent.childNodes.length!=1)continue;parent.firstChild.style.border='none';}

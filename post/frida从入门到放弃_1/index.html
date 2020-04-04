@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
         <title>Frida从入门到放弃_1 - root@v</title>
@@ -19,24 +19,19 @@
     
     <meta itemprop="name" content="Frida从入门到放弃_1">
 <meta itemprop="description" content="Frida安装简单介绍">
-
-
 <meta itemprop="datePublished" content="2019-01-22T20:39:26&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-22T20:39:26&#43;08:00" />
 <meta itemprop="wordCount" content="532">
+<meta itemprop="image" content="https://vorblock.cc/favicon.svg"/>
 
 
 
 <meta itemprop="keywords" content="android安全,HOOK,Frida," />
-
     <meta property="og:title" content="Frida从入门到放弃_1" />
 <meta property="og:description" content="Frida安装简单介绍" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vorblock.cc/post/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/" />
-
-<meta property="og:image" content="https://vorblock.cc/favicon.svg" />
-
-<meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
+<meta property="og:image" content="https://vorblock.cc/favicon.svg"/>
 <meta property="article:published_time" content="2019-01-22T20:39:26+08:00" />
 <meta property="article:modified_time" content="2019-01-22T20:39:26+08:00" />
 
@@ -67,7 +62,9 @@
     
     
     <style media="screen">
-            html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#2a363b;color:#c6c6c7}button,input,select,textarea,label{margin:0;padding:0;font-family:inherit;font-size:inherit}img{max-width:100%}body{line-height:1.75}h1,h2,h3,h4,h5,h6{padding:0;line-height:1.25;text-align:center}h1{font-size:32px;font-weight:400}h2{font-size:22px;font-weight:700}h3,h4,h5,h6{font-size:19px;font-weight:700;text-align:left}blockquote{margin:1em 0;padding:0 2em;border-left:3px solid #ddd;font-style:oblique;background:#355c7d}pre,code{font-size:.9em}pre code{display:block;border:1px solid #ddd;padding:1em;overflow-x:auto;line-height:1.75}code{padding:.1rem .2rem;background:#99b898;color:#282c34}.vglnk{color:#282c34}pre code{background:#dbebc2}ul,ol{padding:0 0 0 20px}li{margin:4px 0;padding:0}a{color:#c6c6c7;text-decoration:none;padding-bottom:2px;border-bottom:1px solid}sup a{border-bottom:none}hr{display:block;height:1px;border:0;border-top:1px solid;margin:50px auto;padding:0;max-width:300px}.copyright{text-align:center}.post-nav{display:flex;justify-content:space-between;font-weight:700}.nav-next{margin-left:1em;text-align:right}.nav-prev{margin-right:1em}.comments{margin-top:20px}body{width:960px;margin:0 auto;padding:30px 0}.masthead{width:260px;padding:20px 50px 20px 10px;float:left}.main{width:700px;padding:32px 10px 20px 50px;margin-left:260px;border-left:3px solid #000;min-height:calc(100vh - 60px)}.masthead h1{margin-top:0;margin-bottom:34px;padding:0;text-align:right;font-size:46px;line-height:58px}.masthead h1 a{border-bottom:none}.masthead .tagline{font-style:italic;text-align:right}.masthead .menu{margin-right:20px;direction:rtl}.masthead .menu a{direction:ltr}.masthead .menu ul ul{list-style:none;margin-left:10px;margin-right:10px}.masthead .menu li li::before{content:"•\00a\000a0\00a0"}.title h3.post-meta{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace;text-align:right;margin:0 0 20px}.title h3.post-meta .tags a{font-size:.8em}.title h3.post-meta .category a{font-size:.9em}#menu-check{display:none}#menu-label{display:none}.main .title h1{margin-top:0;margin-bottom:40px}.title h3{font-weight:400;text-align:center}.subtitle{font-size:.9em;color:#666}.footnotes{font-size:.9em}table{margin:auto;border-top:1px solid #666;border-bottom:1px solid #666}table thead th{border-bottom:1px solid #666}th,td{padding:5px}thead,tfoot,tr:nth-child(even){background:#f8f8f8}.toc{margin-top:100px}.unselectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@-ms-viewport{width:device-width;}@viewport{width:device-width;}@media screen and (max-width:960px){body{width:auto;max-width:700px}.masthead{width:auto;float:none;text-align:center;margin-left:10px;margin-right:10px;padding:10px 10px 45px;border-bottom:3px solid #000}.main{width:auto;padding:20px 10px;margin-left:0;border-left:none;min-height:auto}.masthead h1{text-align:left;font-size:30px;margin-bottom:0;line-height:40px}.masthead .tagline{text-align:left;margin:0}.masthead .menu{direction:ltr;max-width:300px;margin-left:auto;margin-right:auto}.masthead #menu-label{position:absolute;top:30px;right:0}.masthead .menu ul{text-align:left;margin:0;padding:0;float:none}.masthead .menu ul ul{margin:0}.masthead .menu li{border-bottom:1px solid;list-style:none;margin:0;padding:0}.masthead .menu li:first-child{border-top:1px solid}.masthead .menu li li:last-child{border-bottom:none}.masthead .menu a{display:block;padding:15px 20px;border-bottom:none}.masthead .menu li li a{padding-left:30px}.masthead .menu li li::before{content:none}.masthead .menu li li a::before{content:"•\00a0\00a0\00a0"}#menu-label{display:inline-block;padding:0 20px;height:50px;cursor:pointer;line-height:50px;color:#fff5f5;font-size:20px;margin-top:10px}#menu-check~label .close-icon{display:none}#menu-check~label .open-icon{display:inline-block}#menu-check:checked~label .close-icon{display:inline-block}#menu-check:checked~label .open-icon{display:none}#menu-check~ul{display:none}#menu-check:checked~ul{display:block;margin-top:50px;margin-bottom:0}}@media screen and (max-width:720px){}@media screen and (max-width:480px){body{font-size:16px}h1{font-size:28px}h2{font-size:18px}h3,h4,h5,h6{font-size:16px}pre,code{font-size:12px}.masthead{padding-top:0}}body{font-family:Optima,lucida sans,Calibri,Candara,Arial,source-han-serif-sc,source han serif sc,source han serif cn,source han serif tc,source han serif tw,source han serif,songti sc,microsoft yahei,sans-serif}code{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace}pre code{font-family:Consolas,lucida console,Monaco,stkaiti,kaiti,simkai,monospace}.chroma{background-color:#f8f8f8}.chroma .x{color:#000}.chroma .err{color:#a40000}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em}.chroma .ln{margin-right:.4em;padding:0 .4em}.chroma .k{color:#204a87;font-weight:700}.chroma .kc{color:#204a87;font-weight:700}.chroma .kd{color:#204a87;font-weight:700}.chroma .kn{color:#204a87;font-weight:700}.chroma .kp{color:#204a87;font-weight:700}.chroma .kr{color:#204a87;font-weight:700}.chroma .kt{color:#204a87;font-weight:700}.chroma .n{color:#000}.chroma .na{color:#c4a000}.chroma .nb{color:#204a87}.chroma .bp{color:#3465a4}.chroma .nc{color:#000}.chroma .no{color:#000}.chroma .nd{color:#5c35cc;font-weight:700}.chroma .ni{color:#ce5c00}.chroma .ne{color:#c00;font-weight:700}.chroma .nf{color:#000}.chroma .fm{color:#000}.chroma .nl{color:#f57900}.chroma .nn{color:#000}.chroma .nx{color:#000}.chroma .py{color:#000}.chroma .nt{color:#204a87;font-weight:700}.chroma .nv{color:#000}.chroma .vc{color:#000}.chroma .vg{color:#000}.chroma .vi{color:#000}.chroma .vm{color:#000}.chroma .l{color:#000}.chroma .ld{color:#000}.chroma .s{color:#4e9a06}.chroma .sa{color:#4e9a06}.chroma .sb{color:#4e9a06}.chroma .sc{color:#4e9a06}.chroma .dl{color:#4e9a06}.chroma .sd{color:#8f5902;font-style:italic}.chroma .s2{color:#4e9a06}.chroma .se{color:#4e9a06}.chroma .sh{color:#4e9a06}.chroma .si{color:#4e9a06}.chroma .sx{color:#4e9a06}.chroma .sr{color:#4e9a06}.chroma .s1{color:#4e9a06}.chroma .ss{color:#4e9a06}.chroma .m{color:#0000cf;font-weight:700}.chroma .mb{color:#0000cf;font-weight:700}.chroma .mf{color:#0000cf;font-weight:700}.chroma .mh{color:#0000cf;font-weight:700}.chroma .mi{color:#0000cf;font-weight:700}.chroma .il{color:#0000cf;font-weight:700}.chroma .mo{color:#0000cf;font-weight:700}.chroma .o{color:#ce5c00;font-weight:700}.chroma .ow{color:#204a87;font-weight:700}.chroma .p{color:#000;font-weight:700}.chroma .c{color:#8f5902;font-style:italic}.chroma .ch{color:#8f5902;font-style:italic}.chroma .cm{color:#8f5902;font-style:italic}.chroma .c1{color:#8f5902;font-style:italic}.chroma .cs{color:#8f5902;font-style:italic}.chroma .cp{color:#8f5902;font-style:italic}.chroma .cpf{color:#8f5902;font-style:italic}.chroma .g{color:#000}.chroma .gd{color:#a40000}.chroma .ge{color:#000;font-style:italic}.chroma .gr{color:#ef2929}.chroma .gh{color:navy;font-weight:700}.chroma .gi{color:#00a000}.chroma .go{color:#000;font-style:italic}.chroma .gp{color:#8f5902}.chroma .gs{color:#000;font-weight:700}.chroma .gu{color:purple;font-weight:700}.chroma .gt{color:#a40000;font-weight:700}.chroma .gl{color:#000;text-decoration:underline}.chroma .w{color:#f8f8f8;text-decoration:underline}div#isso-thread .avatar>svg[data-hash=a0d752802ad5]{box-shadow:0 0 12px #b80f28;border-radius:50%}div#isso-thread a{border-bottom:none}
+            html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#2a363b;color:#c6c6c7}button,input,select,textarea,label{margin:0;padding:0;font-family:inherit;font-size:inherit}img{max-width:100%}body{line-height:1.75}h1,h2,h3,h4,h5,h6{padding:0;line-height:1.25;text-align:center}h1{font-size:32px;font-weight:400}h2{font-size:22px;font-weight:700}h3,h4,h5,h6{font-size:19px;font-weight:700;text-align:left}blockquote{margin:1em 0;padding:0 2em;border-left:3px solid #ddd;font-style:oblique;background:#355c7d}pre,code{font-size:.9em}pre code{display:block;border:1px solid #ddd;padding:1em;overflow-x:auto;line-height:1.75}code{padding:.1rem .2rem;background:#99b898;color:#282c34}.vglnk{color:#282c34}pre code{background:#dbebc2}ul,ol{padding:0 0 0 20px}li{margin:4px 0;padding:0}a{color:#c6c6c7;text-decoration:none;padding-bottom:2px;border-bottom:1px solid}sup a{border-bottom:none}hr{display:block;height:1px;border:0;border-top:1px solid;margin:50px auto;padding:0;max-width:300px}.copyright{text-align:center}.post-nav{display:flex;justify-content:space-between;font-weight:700}.nav-next{margin-left:1em;text-align:right}.nav-prev{margin-right:1em}.comments{margin-top:20px}body{width:960px;margin:0 auto;padding:30px 0}.masthead{width:260px;padding:20px 50px 20px 10px;float:left}.main{width:700px;padding:32px 10px 20px 50px;margin-left:260px;border-left:3px solid #000;min-height:calc(100vh - 60px)}.masthead h1{margin-top:0;margin-bottom:34px;padding:0;text-align:right;font-size:46px;line-height:58px}.masthead h1 a{border-bottom:none}.masthead .tagline{font-style:italic;text-align:right}.masthead .menu{margin-right:20px;direction:rtl}.masthead .menu a{direction:ltr}.masthead .menu ul ul{list-style:none;margin-left:10px;margin-right:10px}.masthead .menu li li::before{content:"•\00a\000a0\00a0"}.title h3.post-meta{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace;text-align:right;margin:0 0 20px}.title h3.post-meta .tags a{font-size:.8em}.title h3.post-meta .category a{font-size:.9em}#menu-check{display:none}#menu-label{display:none}.main .title h1{margin-top:0;margin-bottom:40px}.title h3{font-weight:400;text-align:center}.subtitle{font-size:.9em;color:#666}.footnotes{font-size:.9em}table{margin:auto;border-top:1px solid #666;border-bottom:1px solid #666}table thead th{border-bottom:1px solid #666}th,td{padding:5px}thead,tfoot,tr:nth-child(even){background:#f8f8f8}.toc{margin-top:100px}.unselectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@-ms-viewport{width: device-width;
+}@viewport{width: device-width;
+}@media screen and (max-width:960px){body{width:auto;max-width:700px}.masthead{width:auto;float:none;text-align:center;margin-left:10px;margin-right:10px;padding:10px 10px 45px;border-bottom:3px solid #000}.main{width:auto;padding:20px 10px;margin-left:0;border-left:none;min-height:auto}.masthead h1{text-align:left;font-size:30px;margin-bottom:0;line-height:40px}.masthead .tagline{text-align:left;margin:0}.masthead .menu{direction:ltr;max-width:300px;margin-left:auto;margin-right:auto}.masthead #menu-label{position:absolute;top:30px;right:0}.masthead .menu ul{text-align:left;margin:0;padding:0;float:none}.masthead .menu ul ul{margin:0}.masthead .menu li{border-bottom:1px solid;list-style:none;margin:0;padding:0}.masthead .menu li:first-child{border-top:1px solid}.masthead .menu li li:last-child{border-bottom:none}.masthead .menu a{display:block;padding:15px 20px;border-bottom:none}.masthead .menu li li a{padding-left:30px}.masthead .menu li li::before{content:none}.masthead .menu li li a::before{content:"•\00a0\00a0\00a0"}#menu-label{display:inline-block;padding:0 20px;height:50px;cursor:pointer;line-height:50px;color:#fff5f5;font-size:20px;margin-top:10px}#menu-check~label .close-icon{display:none}#menu-check~label .open-icon{display:inline-block}#menu-check:checked~label .close-icon{display:inline-block}#menu-check:checked~label .open-icon{display:none}#menu-check~ul{display:none}#menu-check:checked~ul{display:block;margin-top:50px;margin-bottom:0}}@media screen and (max-width:720px){}@media screen and (max-width:480px){body{font-size:16px}h1{font-size:28px}h2{font-size:18px}h3,h4,h5,h6{font-size:16px}pre,code{font-size:12px}.masthead{padding-top:0}}body{font-family:Optima,lucida sans,Calibri,Candara,Arial,source-han-serif-sc,source han serif sc,source han serif cn,source han serif tc,source han serif tw,source han serif,songti sc,microsoft yahei,sans-serif}code{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace}pre code{font-family:Consolas,lucida console,Monaco,stkaiti,kaiti,simkai,monospace}.chroma{background-color:#f8f8f8}.chroma .x{color:#000}.chroma .err{color:#a40000}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em}.chroma .ln{margin-right:.4em;padding:0 .4em}.chroma .k{color:#204a87;font-weight:700}.chroma .kc{color:#204a87;font-weight:700}.chroma .kd{color:#204a87;font-weight:700}.chroma .kn{color:#204a87;font-weight:700}.chroma .kp{color:#204a87;font-weight:700}.chroma .kr{color:#204a87;font-weight:700}.chroma .kt{color:#204a87;font-weight:700}.chroma .n{color:#000}.chroma .na{color:#c4a000}.chroma .nb{color:#204a87}.chroma .bp{color:#3465a4}.chroma .nc{color:#000}.chroma .no{color:#000}.chroma .nd{color:#5c35cc;font-weight:700}.chroma .ni{color:#ce5c00}.chroma .ne{color:#c00;font-weight:700}.chroma .nf{color:#000}.chroma .fm{color:#000}.chroma .nl{color:#f57900}.chroma .nn{color:#000}.chroma .nx{color:#000}.chroma .py{color:#000}.chroma .nt{color:#204a87;font-weight:700}.chroma .nv{color:#000}.chroma .vc{color:#000}.chroma .vg{color:#000}.chroma .vi{color:#000}.chroma .vm{color:#000}.chroma .l{color:#000}.chroma .ld{color:#000}.chroma .s{color:#4e9a06}.chroma .sa{color:#4e9a06}.chroma .sb{color:#4e9a06}.chroma .sc{color:#4e9a06}.chroma .dl{color:#4e9a06}.chroma .sd{color:#8f5902;font-style:italic}.chroma .s2{color:#4e9a06}.chroma .se{color:#4e9a06}.chroma .sh{color:#4e9a06}.chroma .si{color:#4e9a06}.chroma .sx{color:#4e9a06}.chroma .sr{color:#4e9a06}.chroma .s1{color:#4e9a06}.chroma .ss{color:#4e9a06}.chroma .m{color:#0000cf;font-weight:700}.chroma .mb{color:#0000cf;font-weight:700}.chroma .mf{color:#0000cf;font-weight:700}.chroma .mh{color:#0000cf;font-weight:700}.chroma .mi{color:#0000cf;font-weight:700}.chroma .il{color:#0000cf;font-weight:700}.chroma .mo{color:#0000cf;font-weight:700}.chroma .o{color:#ce5c00;font-weight:700}.chroma .ow{color:#204a87;font-weight:700}.chroma .p{color:#000;font-weight:700}.chroma .c{color:#8f5902;font-style:italic}.chroma .ch{color:#8f5902;font-style:italic}.chroma .cm{color:#8f5902;font-style:italic}.chroma .c1{color:#8f5902;font-style:italic}.chroma .cs{color:#8f5902;font-style:italic}.chroma .cp{color:#8f5902;font-style:italic}.chroma .cpf{color:#8f5902;font-style:italic}.chroma .g{color:#000}.chroma .gd{color:#a40000}.chroma .ge{color:#000;font-style:italic}.chroma .gr{color:#ef2929}.chroma .gh{color:navy;font-weight:700}.chroma .gi{color:#00a000}.chroma .go{color:#000;font-style:italic}.chroma .gp{color:#8f5902}.chroma .gs{color:#000;font-weight:700}.chroma .gu{color:purple;font-weight:700}.chroma .gt{color:#a40000;font-weight:700}.chroma .gl{color:#000;text-decoration:underline}.chroma .w{color:#f8f8f8;text-decoration:underline}div#isso-thread .avatar>svg[data-hash=a0d752802ad5]{box-shadow:0 0 12px #b80f28;border-radius:50%}div#isso-thread a{border-bottom:none}
         </style>
         
     
@@ -195,124 +192,78 @@
     
     
 
-    
-
-<h3 id="0x00-frida">0x00 Frida</h3>
-
-<p>Frida 官网：<a href="https://www.frida.re/" target="_blank">https://www.frida.re/</a></p>
-
-<p>github: <a href="https://github.com/frida/frida" target="_blank">https://github.com/frida/frida</a></p>
-
+    <h3 id="0x00-frida">0x00 Frida</h3>
+<p>Frida 官网：https://www.frida.re/</p>
+<p>github: <a href="https://github.com/frida/frida">https://github.com/frida/frida</a></p>
 <p>Dynamic instrumentation toolkit for developers, reverse-engineers, and security
 researchers.</p>
-
 <ul>
 <li>Scriptable</li>
 <li>Portable</li>
 <li>Free</li>
 <li>Battle-tested</li>
 </ul>
-
 <h3 id="0x01-安装">0x01 安装</h3>
-
 <h5 id="二进制安装-推荐">二进制安装 (推荐)</h5>
-
 <p>pip install frida-tools 就一个命令搞定</p>
-
 <blockquote>
 <p>Failed to load the Frida native extension: DLL load failed: 找不到指定的模块</p>
-
 <p>报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。</p>
 </blockquote>
-
 <p>绑定：二选一就行</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">pip install frida       <span class="c1"># Python bindings</span>
-npm install frida       <span class="c1"># Node.js bindings</span></code></pre></div>
-<h5 id="手动编译">手动编译</h5>
-
+npm install frida       <span class="c1"># Node.js bindings</span>
+</code></pre></div><h5 id="手动编译">手动编译</h5>
 <p>依赖：</p>
-
 <p><code>pip3 install colorama prompt-toolkit pygments</code></p>
-
 <ul>
 <li>Linux</li>
 </ul>
-
 <p><code>make</code></p>
-
 <ul>
-<li><p>MacOS and iOS</p>
+<li>MacOS and iOS</li>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">MAC_CERTID</span><span class="o">=</span>frida-cert
 <span class="nb">export</span> <span class="nv">IOS_CERTID</span><span class="o">=</span>frida-cert
-make</code></pre></div></li>
-
-<li><p>Windows</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">frida.sln <span class="c1">#VS2017</span></code></pre></div></li>
+make
+</code></pre></div><ul>
+<li>Windows</li>
 </ul>
-
-<h3 id="0x02-android环境">0x02 Android环境</h3>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">frida.sln <span class="c1">#VS2017</span>
+</code></pre></div><h3 id="0x02-android环境">0x02 Android环境</h3>
 <p>设备：小米mix2 运行Android9.0 MIUI10开发版已解锁root</p>
-
 <p>frida-server: 用的arm64版本</p>
-
-<p><a href="https://github.com/frida/frida/releases" target="_blank">server文件下载</a></p>
-
+<p><a href="https://github.com/frida/frida/releases">server文件下载</a></p>
 <p>下载好对应的 frida-server  然后adb push 进去</p>
-
 <p><code>adb push frida-server /data/local/tmp</code></p>
-
 <p>然后<code>chomd 755 frida-server</code>修改权限</p>
-
 <p>运行<code>./frida-server</code></p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190112133452.png" alt="frida-server" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190112133452.png" alt="frida-server"></p>
 <p>这几个命令：</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">adb</span> <span class="n">root</span>
 <span class="n">adb</span> <span class="n">push</span> <span class="n">frida-server</span> <span class="p">/</span><span class="n">data</span><span class="p">/</span><span class="n">local</span><span class="p">/</span><span class="n">tmp</span>
 <span class="n">adb</span> <span class="n">shell</span> <span class="s2">&#34;chmod 755 /data/local/tmp/frida-server&#34;</span>
-<span class="n">adb</span> <span class="n">shell</span> <span class="s2">&#34;/data/local/tmp/frida-server &amp;&#34;</span></code></pre></div>
-<p>查看架构：</p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616145105.png" alt="aarch64" /></p>
-
+<span class="n">adb</span> <span class="n">shell</span> <span class="s2">&#34;/data/local/tmp/frida-server &amp;&#34;</span>
+</code></pre></div><p>查看架构：</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616145105.png" alt="aarch64"></p>
 <h3 id="0x03-简单测试">0x03 简单测试</h3>
-
 <p>命令行运行<code>frida-ps -U</code></p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190112133604.png" alt="frida-ps" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190112133604.png" alt="frida-ps"></p>
 <p>有显示就是连接成功</p>
-
 <p>接下来对浏览器进行简单测试</p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150349.png" alt="" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150349.png" alt=""></p>
 <p><code>frida-trace -U -i open com.android.browser</code></p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150506.png" alt="" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150506.png" alt=""></p>
 <p>随便点一下浏览器</p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150623.png" alt="" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150623.png" alt=""></p>
 <p>测试Diva</p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151039.jpg" alt="" /></p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151307.png" alt="" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151039.jpg" alt=""></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151307.png" alt=""></p>
 <p><code>frida-trace -U -i &quot;open*&quot; jakhar.aseem.diva</code></p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151432.png" alt="" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151432.png" alt=""></p>
 <p>进行Hook login.class checkout函数</p>
-
 <p>逆向过程略</p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151826.png" alt="" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151826.png" alt=""></p>
 <p>HOOK脚本：</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Java</span><span class="p">.</span><span class="nx">perfrom</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;######&#34;</span><span class="p">)</span>
@@ -321,21 +272,13 @@ make</code></pre></div></li>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hook&#34;</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">})</span>
-</code></pre></div>
-<p>命令行载入脚本运行</p>
-
+</code></pre></div><p>命令行载入脚本运行</p>
 <p><code>frida -U jakhar.aseem.diva -l diva1.js --no-pause</code></p>
-
 <p>进入logging关卡 点击check out，成功hook到checkout函数。</p>
-
-<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616153553.png" alt="" /></p>
-
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616153553.png" alt=""></p>
 <h3 id="0x04-总结">0x04 总结</h3>
-
-<hr />
-
+<hr>
 <p>算是简单的入门了frida。</p>
-
 <p>frida还有很多厉害的功能。多读读官方文档，收货会更多。</p>
 
 
@@ -344,6 +287,7 @@ make</code></pre></div></li>
             <hr>
             
         <div id="disqus_thread"></div>
+
 <script>
 
 
@@ -359,8 +303,7 @@ s.setAttribute('data-timestamp', +new Date());
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         
-    <script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
-
+    <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
     
     <script>
         (function(){function center_el(tagName){var tags=document.getElementsByTagName(tagName),i,tag;for(i=0;i<tags.length;i++){tag=tags[i];var parent=tag.parentElement;if(parent.childNodes.length===1){if(parent.nodeName==='A'){parent=parent.parentElement;if(parent.childNodes.length!=1)continue;parent.firstChild.style.border='none';}

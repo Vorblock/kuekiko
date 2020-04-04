@@ -16,63 +16,43 @@
         <pubDate>Mon, 02 Oct 2017 21:49:20 +0200</pubDate>
         
         <guid>https://vorblock.cc/daily/</guid>
-        <description>
-
-&lt;h2 id=&#34;daily-summary&#34;&gt;Daily summary&lt;/h2&gt;
-
+        <description>&lt;h2 id=&#34;daily-summary&#34;&gt;Daily summary&lt;/h2&gt;
 &lt;h3 id=&#34;2019&#34;&gt;2019&lt;/h3&gt;
-
 &lt;h4 id=&#34;04-28-天&#34;&gt;04-28 天&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;补课&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h4 id=&#34;04-27-六-阴-雨&#34;&gt;04-27 六 阴+雨&lt;/h4&gt;
-
+&lt;h4 id=&#34;04-27-六-阴雨&#34;&gt;04-27 六 阴+雨&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;*CTF2019 一个人打，tcl，放弃看pwn去了。&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h4 id=&#34;04-26-五-热30-傍晚大雨&#34;&gt;04-26 五 热30+傍晚大雨&lt;/h4&gt;
-
+&lt;h4 id=&#34;04-26-五-热30傍晚大雨&#34;&gt;04-26 五 热30+傍晚大雨&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;UAF利用练习&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-25-四-热30&#34;&gt;04-25 四 热30+&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;上课+看了一整天Android内核安全基础知识。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-24-三-热30&#34;&gt;04-24 三 热30°&lt;/h4&gt;
-
 &lt;ul&gt;
-&lt;li&gt;看了国赛逆向的逆向题strange_int &lt;a href=&#34;https://www.52pojie.cn/thread-936377-1-1.html&#34; target=&#34;_blank&#34;&gt;https://www.52pojie.cn/thread-936377-1-1.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;看了国赛逆向的逆向题strange_int &lt;a href=&#34;https://www.52pojie.cn/thread-936377-1-1.html&#34;&gt;https://www.52pojie.cn/thread-936377-1-1.html&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;想写一篇关于MBR逆向的文章做个记录！&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-23-二-热&#34;&gt;04-23 二 热&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;复现国赛 看了部分逆向和PWN、Crypto。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-22-一-热&#34;&gt;04-22 一 热&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;闲鱼的生活(睡懒觉+看权力的游戏+下自走棋)&lt;/li&gt;
 &lt;li&gt;打算明天继续进入正轨的学习&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h4 id=&#34;04-20-21-周末-暴雨打雷-六-大太阳-日&#34;&gt;04-20-21 周末 暴雨打雷（六）+ 大太阳（日）&lt;/h4&gt;
-
+&lt;h4 id=&#34;04-20-21-周末-暴雨打雷六-大太阳日&#34;&gt;04-20-21 周末 暴雨打雷（六）+ 大太阳（日）&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;打国赛的两天。感觉自己tcl。&lt;/li&gt;
 &lt;li&gt;pwn基本都不会做。。。第二天的re是真的难啊。。。&lt;/li&gt;
 &lt;li&gt;总结：
-
 &lt;ul&gt;
 &lt;li&gt;加强基础知识的掌握，感觉自己密码学学的真的是糟糕，不管是数学的密码学还是逆向的密码学都很差。&lt;/li&gt;
 &lt;li&gt;汇编也是很多时候缕不清整个流程。C看多了也会看懵逼。&lt;/li&gt;
@@ -80,28 +60,28 @@
 &lt;li&gt;脑筋很多时候转不过来，果然还是看的太少，练的太少。&lt;/li&gt;
 &lt;li&gt;做事还是不专一，看东西经常没耐心，容易半途而废，理解得太浅。&lt;/li&gt;
 &lt;li&gt;希望很多事情从现在看是改正还不算太晚吧。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;04-19-五-热-没太阳&#34;&gt;04-19 五 热 没太阳&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;早起去上最后一节移动终端安全的课。发现去了也白去。。Java-Web开发也不应该去。&lt;/li&gt;
 &lt;li&gt;国赛成功报上了。感谢组委会。晚上继续跑步。&lt;/li&gt;
 &lt;li&gt;下午看了一些Linux内核调试的基础文章。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-18-四-热&#34;&gt;04-18 四 热&lt;/h4&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;运动会继续放假。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;从早上开始忙国赛报名的事情。最终组委会还是同意补报。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;面试aaaa:感觉凉了。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;面试：有的忘记了，大概就这些&lt;/p&gt;
-
+&lt;li&gt;
+&lt;p&gt;运动会继续放假。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;从早上开始忙国赛报名的事情。最终组委会还是同意补报。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;面试aaaa:感觉凉了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;面试：有的忘记了，大概就这些&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;你最熟悉的项目：巴拉巴拉。。&lt;/li&gt;
 &lt;li&gt;开发相关：不想做开发，说的模模糊糊。。&lt;/li&gt;
@@ -120,53 +100,40 @@
 &lt;li&gt;还有什么你觉得没问到的？&lt;/li&gt;
 &lt;li&gt;你还想问些什么？&lt;/li&gt;
 &lt;li&gt;··· ···&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;04-17-三&#34;&gt;04-17 三&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;学校开运动会，放假，看面试的一些基础知识。&lt;/li&gt;
 &lt;li&gt;(⊙o⊙)…面试改到明天，发现国赛没报上，心烦意乱，约人去跑步。然后一整天就只看了一些Android Hook的基础原理。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-16-二&#34;&gt;04-16 二&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;找实习+复习知识点。&lt;/li&gt;
 &lt;li&gt;只怪自己太菜了，实习真难找。。。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-15-一&#34;&gt;04-15 一&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;复习之前学的数据结构、操作系统相关。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-14&#34;&gt;04-14&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;堆相关练习&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-13&#34;&gt;04-13&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;深入理解堆&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h4 id=&#34;04-12&#34;&gt;04-12&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;JIT编程-方法内联&lt;/li&gt;
 &lt;li&gt;Android HOOK 之 YAHFA原理&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/iqiyi/xHook/blob/master/docs/overview/android_plt_hook_overview.zh-CN.md&#34; target=&#34;_blank&#34;&gt;PLT Hook&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iqiyi/xHook/blob/master/docs/overview/android_plt_hook_overview.zh-CN.md&#34;&gt;PLT Hook&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Inline Hook&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h3 id=&#34;long-long-ago&#34;&gt;Long long ago&lt;/h3&gt;
-
-&lt;p&gt;[只剩回忆]()  已删除&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;&#34;&gt;只剩回忆&lt;/a&gt;  已删除&lt;/p&gt;
 </description>
         
       </item>

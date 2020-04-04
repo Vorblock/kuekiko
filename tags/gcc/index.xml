@@ -16,10 +16,7 @@
         <pubDate>Mon, 22 Oct 2018 20:39:26 +0800</pubDate>
         
         <guid>https://vorblock.cc/post/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
-        <description>
-
-&lt;h3 id=&#34;gcc-编译常用命令&#34;&gt;GCC 编译常用命令&lt;/h3&gt;
-
+        <description>&lt;h3 id=&#34;gcc-编译常用命令&#34;&gt;GCC 编译常用命令&lt;/h3&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -28,68 +25,57 @@
 &lt;th&gt;gcc test.c        将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
-
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;-o&lt;/td&gt;
 &lt;td&gt;指定生成的输出文件；&lt;/td&gt;
 &lt;td&gt;gcc test.c -o test  将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;-E&lt;/td&gt;
 &lt;td&gt;仅执行编译预处理；&lt;/td&gt;
 &lt;td&gt;gcc -E test.c -o test.i   将test.c预处理输出test.i文件。&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;-S&lt;/td&gt;
 &lt;td&gt;将C代码转换为汇编代码；&lt;/td&gt;
 &lt;td&gt;gcc -S test.i   将预处理输出文件test.i汇编成test.s文件。&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;-c&lt;/td&gt;
 &lt;td&gt;仅执行编译操作，不进行连接操作。&lt;/td&gt;
 &lt;td&gt;gcc -c test.s   将汇编输出文件test.s编译输出test.o文件。&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;-wall&lt;/td&gt;
 &lt;td&gt;显示警告信息；&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;&lt;strong&gt;无选项链接&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;-O&lt;/td&gt;
 &lt;td&gt;使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长&lt;/td&gt;
 &lt;td&gt;gcc -O1 test.c -o test&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;&lt;/td&gt;
 &lt;td&gt;关掉DEP/NX（堆栈不可执行）&lt;/td&gt;
 &lt;td&gt;gcc  -z execstack -o level level.c&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;&lt;/td&gt;
 &lt;td&gt;关掉Stack Protector/Canary（栈保护）&lt;/td&gt;
 &lt;td&gt;gcc -fno-stack-protector -o level level.c&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;&lt;/td&gt;
 &lt;td&gt;关掉程序ASLR/PIE（程序随机化保护）&lt;/td&gt;
 &lt;td&gt;gcc -no-pie level level.c&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td align=&#34;center&#34;&gt;&lt;/td&gt;
 &lt;td&gt;64位linux下面的GCC编译出一个32位可执行程序&lt;/td&gt;
@@ -97,7 +83,6 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
 &lt;h3 id=&#34;gdb常用调试命令&#34;&gt;GDB常用调试命令&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;n&#34;&gt;gcc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;                      &lt;span class=&#34;c1&#34;&gt;//在目标文件加入源代码的信息
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt;       
@@ -130,26 +115,20 @@
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ni&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;单步执行不进入&lt;/span&gt; 
 &lt;span class=&#34;n&#34;&gt;si&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;单步执行并进入&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;disas&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;addr&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;对地址&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addr处的指令进行反汇编&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addr可以是函数名&lt;/span&gt; 
-&lt;span class=&#34;n&#34;&gt;checksec&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;查看&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;elf编译的保护选项&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id=&#34;查壳&#34;&gt;查壳&lt;/h4&gt;
-
+&lt;span class=&#34;n&#34;&gt;checksec&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;查看&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;elf编译的保护选项&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;查壳&#34;&gt;查壳&lt;/h4&gt;
 &lt;blockquote&gt;
 &lt;p&gt;upx -d file&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h4 id=&#34;objjump&#34;&gt;objjump&lt;/h4&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;objdump是二进制文件快速查看工具。   常用命令：&lt;/p&gt;
-
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;objdump -d [file]&lt;/code&gt; 查看文件的所有汇编代码&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;objdump -d [file]&lt;/code&gt; 查看文件的所有汇编代码&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;objdump -f [file]&lt;/code&gt; 查看文件的每个文件的整体头部摘要&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;####python&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;python -c &amp;quot;...&amp;quot; | ./file&lt;/code&gt; python以命令方式执行并把结果传递给file&lt;/li&gt;
@@ -158,32 +137,26 @@
 &lt;li&gt;&lt;code&gt;os.putenv(&amp;quot;name&amp;quot;, &amp;quot;value&amp;quot;)&lt;/code&gt; 添加一个环境变量&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-
 &lt;h4 id=&#34;pwntools&#34;&gt;pwntools&lt;/h4&gt;
-
 &lt;blockquote&gt;
-&lt;p&gt;参考
-&lt;a href=&#34;http://pwntools.readthedocs.io/en/stable/&#34; target=&#34;_blank&#34;&gt;http://pwntools.readthedocs.io/en/stable/&lt;/a&gt;   （官网介绍）&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://brieflyx.me/2015/python-module/pwntools-intro/&#34; target=&#34;_blank&#34;&gt;http://brieflyx.me/2015/python-module/pwntools-intro/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://brieflyx.me/2015/python-module/pwntools-advanced/&#34; target=&#34;_blank&#34;&gt;http://brieflyx.me/2015/python-module/pwntools-advanced/&lt;/a&gt;&lt;/p&gt;
-
+&lt;p&gt;参考 
+&lt;a href=&#34;http://pwntools.readthedocs.io/en/stable/&#34;&gt;http://pwntools.readthedocs.io/en/stable/&lt;/a&gt;   （官网介绍）&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://brieflyx.me/2015/python-module/pwntools-intro/&#34;&gt;http://brieflyx.me/2015/python-module/pwntools-intro/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://brieflyx.me/2015/python-module/pwntools-advanced/&#34;&gt;http://brieflyx.me/2015/python-module/pwntools-advanced/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
 &lt;p&gt;一般直接用from pwn import * 或者import pwn将所有模块导入到当前命名空间，这条语句还会把os、sys等常用的系统库一并导入。&lt;/p&gt;
-
-&lt;p&gt;常用的模块有下面几个：
-- ==asm==:汇编与反汇编
-- ==dynelf==:用于远程符号泄露，需要提供leak方法
-- ==elf==:对elf文件进行操作
-- ==gdb==:配合gdb进行调试
-- ==memleak==:用于内存泄漏
-- ==shellcraft==: shellcode的生成器
-- ==tubes==:包括tubes: 包括tubes.sock, tubes.process, tubes.ssh, tubes.serialtube，分别适用于不同场景的PIPE
+&lt;p&gt;常用的模块有下面几个： 
+- ==asm==:汇编与反汇编 
+- ==dynelf==:用于远程符号泄露，需要提供leak方法 
+- ==elf==:对elf文件进行操作 
+- ==gdb==:配合gdb进行调试 
+- ==memleak==:用于内存泄漏 
+- ==shellcraft==: shellcode的生成器 
+- ==tubes==:包括tubes: 包括tubes.sock, tubes.process, tubes.ssh, tubes.serialtube，分别适用于不同场景的PIPE 
 - ==utils==:一些实用的小功能，例如CRC计算，cyclic pattern等&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h4 id=&#34;pwndbg&#34;&gt;pwndbg&lt;/h4&gt;
-
 &lt;ul&gt;
 &lt;li&gt;arena 堆检查&lt;/li&gt;
 &lt;li&gt;mp 显示堆&lt;/li&gt;

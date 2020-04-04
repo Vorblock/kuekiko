@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
         <title>OLLVM 混淆之一 - root@v</title>
@@ -19,24 +19,19 @@
     
     <meta itemprop="name" content="OLLVM 混淆之一">
 <meta itemprop="description" content="OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加">
-
-
 <meta itemprop="datePublished" content="2018-09-10T20:39:26&#43;08:00" />
 <meta itemprop="dateModified" content="2018-09-10T20:39:26&#43;08:00" />
 <meta itemprop="wordCount" content="1259">
+<meta itemprop="image" content="https://vorblock.cc/favicon.svg"/>
 
 
 
 <meta itemprop="keywords" content="android安全,OLLVM," />
-
     <meta property="og:title" content="OLLVM 混淆之一" />
 <meta property="og:description" content="OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://vorblock.cc/post/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/" />
-
-<meta property="og:image" content="https://vorblock.cc/favicon.svg" />
-
-<meta property="og:image" content="https://my-md-1253484710.cos.ap-chengdu.myqcloud.com/tx.jpg" />
+<meta property="og:image" content="https://vorblock.cc/favicon.svg"/>
 <meta property="article:published_time" content="2018-09-10T20:39:26+08:00" />
 <meta property="article:modified_time" content="2018-09-10T20:39:26+08:00" />
 
@@ -67,7 +62,9 @@
     
     
     <style media="screen">
-            html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#2a363b;color:#c6c6c7}button,input,select,textarea,label{margin:0;padding:0;font-family:inherit;font-size:inherit}img{max-width:100%}body{line-height:1.75}h1,h2,h3,h4,h5,h6{padding:0;line-height:1.25;text-align:center}h1{font-size:32px;font-weight:400}h2{font-size:22px;font-weight:700}h3,h4,h5,h6{font-size:19px;font-weight:700;text-align:left}blockquote{margin:1em 0;padding:0 2em;border-left:3px solid #ddd;font-style:oblique;background:#355c7d}pre,code{font-size:.9em}pre code{display:block;border:1px solid #ddd;padding:1em;overflow-x:auto;line-height:1.75}code{padding:.1rem .2rem;background:#99b898;color:#282c34}.vglnk{color:#282c34}pre code{background:#dbebc2}ul,ol{padding:0 0 0 20px}li{margin:4px 0;padding:0}a{color:#c6c6c7;text-decoration:none;padding-bottom:2px;border-bottom:1px solid}sup a{border-bottom:none}hr{display:block;height:1px;border:0;border-top:1px solid;margin:50px auto;padding:0;max-width:300px}.copyright{text-align:center}.post-nav{display:flex;justify-content:space-between;font-weight:700}.nav-next{margin-left:1em;text-align:right}.nav-prev{margin-right:1em}.comments{margin-top:20px}body{width:960px;margin:0 auto;padding:30px 0}.masthead{width:260px;padding:20px 50px 20px 10px;float:left}.main{width:700px;padding:32px 10px 20px 50px;margin-left:260px;border-left:3px solid #000;min-height:calc(100vh - 60px)}.masthead h1{margin-top:0;margin-bottom:34px;padding:0;text-align:right;font-size:46px;line-height:58px}.masthead h1 a{border-bottom:none}.masthead .tagline{font-style:italic;text-align:right}.masthead .menu{margin-right:20px;direction:rtl}.masthead .menu a{direction:ltr}.masthead .menu ul ul{list-style:none;margin-left:10px;margin-right:10px}.masthead .menu li li::before{content:"•\00a\000a0\00a0"}.title h3.post-meta{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace;text-align:right;margin:0 0 20px}.title h3.post-meta .tags a{font-size:.8em}.title h3.post-meta .category a{font-size:.9em}#menu-check{display:none}#menu-label{display:none}.main .title h1{margin-top:0;margin-bottom:40px}.title h3{font-weight:400;text-align:center}.subtitle{font-size:.9em;color:#666}.footnotes{font-size:.9em}table{margin:auto;border-top:1px solid #666;border-bottom:1px solid #666}table thead th{border-bottom:1px solid #666}th,td{padding:5px}thead,tfoot,tr:nth-child(even){background:#f8f8f8}.toc{margin-top:100px}.unselectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@-ms-viewport{width:device-width;}@viewport{width:device-width;}@media screen and (max-width:960px){body{width:auto;max-width:700px}.masthead{width:auto;float:none;text-align:center;margin-left:10px;margin-right:10px;padding:10px 10px 45px;border-bottom:3px solid #000}.main{width:auto;padding:20px 10px;margin-left:0;border-left:none;min-height:auto}.masthead h1{text-align:left;font-size:30px;margin-bottom:0;line-height:40px}.masthead .tagline{text-align:left;margin:0}.masthead .menu{direction:ltr;max-width:300px;margin-left:auto;margin-right:auto}.masthead #menu-label{position:absolute;top:30px;right:0}.masthead .menu ul{text-align:left;margin:0;padding:0;float:none}.masthead .menu ul ul{margin:0}.masthead .menu li{border-bottom:1px solid;list-style:none;margin:0;padding:0}.masthead .menu li:first-child{border-top:1px solid}.masthead .menu li li:last-child{border-bottom:none}.masthead .menu a{display:block;padding:15px 20px;border-bottom:none}.masthead .menu li li a{padding-left:30px}.masthead .menu li li::before{content:none}.masthead .menu li li a::before{content:"•\00a0\00a0\00a0"}#menu-label{display:inline-block;padding:0 20px;height:50px;cursor:pointer;line-height:50px;color:#fff5f5;font-size:20px;margin-top:10px}#menu-check~label .close-icon{display:none}#menu-check~label .open-icon{display:inline-block}#menu-check:checked~label .close-icon{display:inline-block}#menu-check:checked~label .open-icon{display:none}#menu-check~ul{display:none}#menu-check:checked~ul{display:block;margin-top:50px;margin-bottom:0}}@media screen and (max-width:720px){}@media screen and (max-width:480px){body{font-size:16px}h1{font-size:28px}h2{font-size:18px}h3,h4,h5,h6{font-size:16px}pre,code{font-size:12px}.masthead{padding-top:0}}body{font-family:Optima,lucida sans,Calibri,Candara,Arial,source-han-serif-sc,source han serif sc,source han serif cn,source han serif tc,source han serif tw,source han serif,songti sc,microsoft yahei,sans-serif}code{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace}pre code{font-family:Consolas,lucida console,Monaco,stkaiti,kaiti,simkai,monospace}.chroma{background-color:#f8f8f8}.chroma .x{color:#000}.chroma .err{color:#a40000}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em}.chroma .ln{margin-right:.4em;padding:0 .4em}.chroma .k{color:#204a87;font-weight:700}.chroma .kc{color:#204a87;font-weight:700}.chroma .kd{color:#204a87;font-weight:700}.chroma .kn{color:#204a87;font-weight:700}.chroma .kp{color:#204a87;font-weight:700}.chroma .kr{color:#204a87;font-weight:700}.chroma .kt{color:#204a87;font-weight:700}.chroma .n{color:#000}.chroma .na{color:#c4a000}.chroma .nb{color:#204a87}.chroma .bp{color:#3465a4}.chroma .nc{color:#000}.chroma .no{color:#000}.chroma .nd{color:#5c35cc;font-weight:700}.chroma .ni{color:#ce5c00}.chroma .ne{color:#c00;font-weight:700}.chroma .nf{color:#000}.chroma .fm{color:#000}.chroma .nl{color:#f57900}.chroma .nn{color:#000}.chroma .nx{color:#000}.chroma .py{color:#000}.chroma .nt{color:#204a87;font-weight:700}.chroma .nv{color:#000}.chroma .vc{color:#000}.chroma .vg{color:#000}.chroma .vi{color:#000}.chroma .vm{color:#000}.chroma .l{color:#000}.chroma .ld{color:#000}.chroma .s{color:#4e9a06}.chroma .sa{color:#4e9a06}.chroma .sb{color:#4e9a06}.chroma .sc{color:#4e9a06}.chroma .dl{color:#4e9a06}.chroma .sd{color:#8f5902;font-style:italic}.chroma .s2{color:#4e9a06}.chroma .se{color:#4e9a06}.chroma .sh{color:#4e9a06}.chroma .si{color:#4e9a06}.chroma .sx{color:#4e9a06}.chroma .sr{color:#4e9a06}.chroma .s1{color:#4e9a06}.chroma .ss{color:#4e9a06}.chroma .m{color:#0000cf;font-weight:700}.chroma .mb{color:#0000cf;font-weight:700}.chroma .mf{color:#0000cf;font-weight:700}.chroma .mh{color:#0000cf;font-weight:700}.chroma .mi{color:#0000cf;font-weight:700}.chroma .il{color:#0000cf;font-weight:700}.chroma .mo{color:#0000cf;font-weight:700}.chroma .o{color:#ce5c00;font-weight:700}.chroma .ow{color:#204a87;font-weight:700}.chroma .p{color:#000;font-weight:700}.chroma .c{color:#8f5902;font-style:italic}.chroma .ch{color:#8f5902;font-style:italic}.chroma .cm{color:#8f5902;font-style:italic}.chroma .c1{color:#8f5902;font-style:italic}.chroma .cs{color:#8f5902;font-style:italic}.chroma .cp{color:#8f5902;font-style:italic}.chroma .cpf{color:#8f5902;font-style:italic}.chroma .g{color:#000}.chroma .gd{color:#a40000}.chroma .ge{color:#000;font-style:italic}.chroma .gr{color:#ef2929}.chroma .gh{color:navy;font-weight:700}.chroma .gi{color:#00a000}.chroma .go{color:#000;font-style:italic}.chroma .gp{color:#8f5902}.chroma .gs{color:#000;font-weight:700}.chroma .gu{color:purple;font-weight:700}.chroma .gt{color:#a40000;font-weight:700}.chroma .gl{color:#000;text-decoration:underline}.chroma .w{color:#f8f8f8;text-decoration:underline}div#isso-thread .avatar>svg[data-hash=a0d752802ad5]{box-shadow:0 0 12px #b80f28;border-radius:50%}div#isso-thread a{border-bottom:none}
+            html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#2a363b;color:#c6c6c7}button,input,select,textarea,label{margin:0;padding:0;font-family:inherit;font-size:inherit}img{max-width:100%}body{line-height:1.75}h1,h2,h3,h4,h5,h6{padding:0;line-height:1.25;text-align:center}h1{font-size:32px;font-weight:400}h2{font-size:22px;font-weight:700}h3,h4,h5,h6{font-size:19px;font-weight:700;text-align:left}blockquote{margin:1em 0;padding:0 2em;border-left:3px solid #ddd;font-style:oblique;background:#355c7d}pre,code{font-size:.9em}pre code{display:block;border:1px solid #ddd;padding:1em;overflow-x:auto;line-height:1.75}code{padding:.1rem .2rem;background:#99b898;color:#282c34}.vglnk{color:#282c34}pre code{background:#dbebc2}ul,ol{padding:0 0 0 20px}li{margin:4px 0;padding:0}a{color:#c6c6c7;text-decoration:none;padding-bottom:2px;border-bottom:1px solid}sup a{border-bottom:none}hr{display:block;height:1px;border:0;border-top:1px solid;margin:50px auto;padding:0;max-width:300px}.copyright{text-align:center}.post-nav{display:flex;justify-content:space-between;font-weight:700}.nav-next{margin-left:1em;text-align:right}.nav-prev{margin-right:1em}.comments{margin-top:20px}body{width:960px;margin:0 auto;padding:30px 0}.masthead{width:260px;padding:20px 50px 20px 10px;float:left}.main{width:700px;padding:32px 10px 20px 50px;margin-left:260px;border-left:3px solid #000;min-height:calc(100vh - 60px)}.masthead h1{margin-top:0;margin-bottom:34px;padding:0;text-align:right;font-size:46px;line-height:58px}.masthead h1 a{border-bottom:none}.masthead .tagline{font-style:italic;text-align:right}.masthead .menu{margin-right:20px;direction:rtl}.masthead .menu a{direction:ltr}.masthead .menu ul ul{list-style:none;margin-left:10px;margin-right:10px}.masthead .menu li li::before{content:"•\00a\000a0\00a0"}.title h3.post-meta{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace;text-align:right;margin:0 0 20px}.title h3.post-meta .tags a{font-size:.8em}.title h3.post-meta .category a{font-size:.9em}#menu-check{display:none}#menu-label{display:none}.main .title h1{margin-top:0;margin-bottom:40px}.title h3{font-weight:400;text-align:center}.subtitle{font-size:.9em;color:#666}.footnotes{font-size:.9em}table{margin:auto;border-top:1px solid #666;border-bottom:1px solid #666}table thead th{border-bottom:1px solid #666}th,td{padding:5px}thead,tfoot,tr:nth-child(even){background:#f8f8f8}.toc{margin-top:100px}.unselectable{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@-ms-viewport{width: device-width;
+}@viewport{width: device-width;
+}@media screen and (max-width:960px){body{width:auto;max-width:700px}.masthead{width:auto;float:none;text-align:center;margin-left:10px;margin-right:10px;padding:10px 10px 45px;border-bottom:3px solid #000}.main{width:auto;padding:20px 10px;margin-left:0;border-left:none;min-height:auto}.masthead h1{text-align:left;font-size:30px;margin-bottom:0;line-height:40px}.masthead .tagline{text-align:left;margin:0}.masthead .menu{direction:ltr;max-width:300px;margin-left:auto;margin-right:auto}.masthead #menu-label{position:absolute;top:30px;right:0}.masthead .menu ul{text-align:left;margin:0;padding:0;float:none}.masthead .menu ul ul{margin:0}.masthead .menu li{border-bottom:1px solid;list-style:none;margin:0;padding:0}.masthead .menu li:first-child{border-top:1px solid}.masthead .menu li li:last-child{border-bottom:none}.masthead .menu a{display:block;padding:15px 20px;border-bottom:none}.masthead .menu li li a{padding-left:30px}.masthead .menu li li::before{content:none}.masthead .menu li li a::before{content:"•\00a0\00a0\00a0"}#menu-label{display:inline-block;padding:0 20px;height:50px;cursor:pointer;line-height:50px;color:#fff5f5;font-size:20px;margin-top:10px}#menu-check~label .close-icon{display:none}#menu-check~label .open-icon{display:inline-block}#menu-check:checked~label .close-icon{display:inline-block}#menu-check:checked~label .open-icon{display:none}#menu-check~ul{display:none}#menu-check:checked~ul{display:block;margin-top:50px;margin-bottom:0}}@media screen and (max-width:720px){}@media screen and (max-width:480px){body{font-size:16px}h1{font-size:28px}h2{font-size:18px}h3,h4,h5,h6{font-size:16px}pre,code{font-size:12px}.masthead{padding-top:0}}body{font-family:Optima,lucida sans,Calibri,Candara,Arial,source-han-serif-sc,source han serif sc,source han serif cn,source han serif tc,source han serif tw,source han serif,songti sc,microsoft yahei,sans-serif}code{font-family:lucida console,andale mono,stkaiti,kaiti,simkai,monospace}pre code{font-family:Consolas,lucida console,Monaco,stkaiti,kaiti,simkai,monospace}.chroma{background-color:#f8f8f8}.chroma .x{color:#000}.chroma .err{color:#a40000}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em}.chroma .ln{margin-right:.4em;padding:0 .4em}.chroma .k{color:#204a87;font-weight:700}.chroma .kc{color:#204a87;font-weight:700}.chroma .kd{color:#204a87;font-weight:700}.chroma .kn{color:#204a87;font-weight:700}.chroma .kp{color:#204a87;font-weight:700}.chroma .kr{color:#204a87;font-weight:700}.chroma .kt{color:#204a87;font-weight:700}.chroma .n{color:#000}.chroma .na{color:#c4a000}.chroma .nb{color:#204a87}.chroma .bp{color:#3465a4}.chroma .nc{color:#000}.chroma .no{color:#000}.chroma .nd{color:#5c35cc;font-weight:700}.chroma .ni{color:#ce5c00}.chroma .ne{color:#c00;font-weight:700}.chroma .nf{color:#000}.chroma .fm{color:#000}.chroma .nl{color:#f57900}.chroma .nn{color:#000}.chroma .nx{color:#000}.chroma .py{color:#000}.chroma .nt{color:#204a87;font-weight:700}.chroma .nv{color:#000}.chroma .vc{color:#000}.chroma .vg{color:#000}.chroma .vi{color:#000}.chroma .vm{color:#000}.chroma .l{color:#000}.chroma .ld{color:#000}.chroma .s{color:#4e9a06}.chroma .sa{color:#4e9a06}.chroma .sb{color:#4e9a06}.chroma .sc{color:#4e9a06}.chroma .dl{color:#4e9a06}.chroma .sd{color:#8f5902;font-style:italic}.chroma .s2{color:#4e9a06}.chroma .se{color:#4e9a06}.chroma .sh{color:#4e9a06}.chroma .si{color:#4e9a06}.chroma .sx{color:#4e9a06}.chroma .sr{color:#4e9a06}.chroma .s1{color:#4e9a06}.chroma .ss{color:#4e9a06}.chroma .m{color:#0000cf;font-weight:700}.chroma .mb{color:#0000cf;font-weight:700}.chroma .mf{color:#0000cf;font-weight:700}.chroma .mh{color:#0000cf;font-weight:700}.chroma .mi{color:#0000cf;font-weight:700}.chroma .il{color:#0000cf;font-weight:700}.chroma .mo{color:#0000cf;font-weight:700}.chroma .o{color:#ce5c00;font-weight:700}.chroma .ow{color:#204a87;font-weight:700}.chroma .p{color:#000;font-weight:700}.chroma .c{color:#8f5902;font-style:italic}.chroma .ch{color:#8f5902;font-style:italic}.chroma .cm{color:#8f5902;font-style:italic}.chroma .c1{color:#8f5902;font-style:italic}.chroma .cs{color:#8f5902;font-style:italic}.chroma .cp{color:#8f5902;font-style:italic}.chroma .cpf{color:#8f5902;font-style:italic}.chroma .g{color:#000}.chroma .gd{color:#a40000}.chroma .ge{color:#000;font-style:italic}.chroma .gr{color:#ef2929}.chroma .gh{color:navy;font-weight:700}.chroma .gi{color:#00a000}.chroma .go{color:#000;font-style:italic}.chroma .gp{color:#8f5902}.chroma .gs{color:#000;font-weight:700}.chroma .gu{color:purple;font-weight:700}.chroma .gt{color:#a40000;font-weight:700}.chroma .gl{color:#000;text-decoration:underline}.chroma .w{color:#f8f8f8;text-decoration:underline}div#isso-thread .avatar>svg[data-hash=a0d752802ad5]{box-shadow:0 0 12px #b80f28;border-radius:50%}div#isso-thread a{border-bottom:none}
         </style>
         
     
@@ -191,79 +188,62 @@
     
     
 
-    
-
-<h3 id="ollvm">OLLVM</h3>
-
-<p>OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加逆向难度，保护代码的安全。最新版本为<a href="https://github.com/obfuscator-llvm/obfuscator/tree/llvm-4.0" target="_blank">4.0</a>。OLLVM适用LLVM支持的所有语言（C, C++, Objective-C, Ada 和 Fortran）和目标平台（x86, x86-64, PowerPC, PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）。</p>
-
+    <h3 id="ollvm">OLLVM</h3>
+<p>OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加逆向难度，保护代码的安全。最新版本为<a href="https://github.com/obfuscator-llvm/obfuscator/tree/llvm-4.0">4.0</a>。OLLVM适用LLVM支持的所有语言（C, C++, Objective-C, Ada 和 Fortran）和目标平台（x86, x86-64, PowerPC, PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）。</p>
 <ul>
-<li><a href="http://llvm.org/" target="_blank">LLVM</a>是lowlevel virtual machine的简称，是一个编译器框架。详细介绍可以看<a href="https://zh.wikipedia.org/wiki/LLVM" target="_blank">WIKI-LLVM</a></li>
+<li><a href="http://llvm.org/">LLVM</a>是lowlevel virtual machine的简称，是一个编译器框架。详细介绍可以看<a href="https://zh.wikipedia.org/wiki/LLVM">WIKI-LLVM</a></li>
 </ul>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180823112535.png" alt="" /></p>
-
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180823112535.png" alt=""></p>
 <p>经典的三段式设计，前端使用不同的编译工具对代码进行分析转换成LLVM的中间表示IR（intermediate representation）。中间部分优化器只对IR进行操作，通过一系列的Pass对IR做优化。后端主要是讲优化好的IR解释成对应的机器码。</p>
-
 <p>对IR的处理过程下图：</p>
-
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180823113111.png" alt="IR Pass" /></p>
-
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180823113111.png" alt="IR Pass"></p>
 <p>OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。</p>
-
 <h3 id="ollvm-android环境搭建">OLLVM-Android环境搭建</h3>
-
 <p>前提环境：</p>
-
 <ul>
 <li>NDK环境</li>
 <li>LLVM</li>
 </ul>
-
 <p>下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：</p>
-
 <blockquote>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git
 $ mkdir build
 $ <span class="nb">cd</span> build
 $ cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>Release ../obfuscator/
 //（cmake -G <span class="s2">&#34;MinGW Makefiles&#34;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span>Release ../obfuscator/）<span class="o">(</span>windows<span class="o">)</span>
-$ make -j7   //这个数字自己看自己CPU填 太小可能非常编译慢 </code></pre></div></blockquote>
-
-<p>可以参照<a href="https://github.com/obfuscator-llvm/obfuscator/wiki" target="_blank">官方wiki</a>来操作。编译完成后，二进制文件放在build/bin目录下。</p>
-
+$ make -j7   //这个数字自己看自己CPU填 太小可能非常编译慢 
+</code></pre></div></blockquote>
+<p>可以参照<a href="https://github.com/obfuscator-llvm/obfuscator/wiki">官方wiki</a>来操作。编译完成后，二进制文件放在build/bin目录下。</p>
 <p>配置整合NDK：</p>
-
 <ol>
-<li><p>打开NDK目录ndk-bundle下的toolchains，新建obfuscator-llvm-4，将llvm文件夹里的所有文件复制到新建的目录下。</p></li>
-
-<li><p>将<code>\build\bin</code>目录下的<code>clang.exe</code>、<code>clang++.exe</code>和<code>clang-format.exe</code>复制到<code>\toolchains\llvm\prebuilt\windows-x86_64\bin</code>目录下，直接替换掉其中的文件。（Windows下）</p></li>
-
-<li><p>（linux下)将llvm目录下的prebuilt目录和文件 config.mk、setup.mk和setup-common.mk拷贝到创建的obfuscator-llvm目录下-&gt;然后替换obfuscator-llvm/prebuilt/linux-x86下的bin和lib为我们编译好的bin和lib</p></li>
-
-<li><p>然后将下面文件复制一份，改名称如下，比如arm-linux-androideabi-clang3.4复制一行改名为arm-linux-androideabi-obfuscator3.4</p></li>
-</ol>
-
+<li>
+<p>打开NDK目录ndk-bundle下的toolchains，新建obfuscator-llvm-4，将llvm文件夹里的所有文件复制到新建的目录下。</p>
+</li>
+<li>
+<p>将<code>\build\bin</code>目录下的<code>clang.exe</code>、<code>clang++.exe</code>和<code>clang-format.exe</code>复制到<code>\toolchains\llvm\prebuilt\windows-x86_64\bin</code>目录下，直接替换掉其中的文件。（Windows下）</p>
+</li>
+<li>
+<p>（linux下)将llvm目录下的prebuilt目录和文件 config.mk、setup.mk和setup-common.mk拷贝到创建的obfuscator-llvm目录下-&gt;然后替换obfuscator-llvm/prebuilt/linux-x86下的bin和lib为我们编译好的bin和lib</p>
+</li>
+<li>
+<p>然后将下面文件复制一份，改名称如下，比如arm-linux-androideabi-clang3.4复制一行改名为arm-linux-androideabi-obfuscator3.4</p>
 <p>arm-linux-androideabi-clang3.4-&gt; arm-linux-androideabi-obfuscator3.4</p>
-
 <p>mipsel-linux-android-clang3.4-&gt; mipsel-linux-android-obfuscator3.4</p>
-
 <p>x86-clang3.4-&gt; x86-obfuscator3.4</p>
-
-<ol>
-<li><p>分别修改以上三个文件的 setup.mk 中的 LLVM_NAME ，即将其指定到开始建立的obfuscator-llvm-3.4目录，也就是把把<code>LLVM_NAME := llvm-$(LLVM_VERSION)改成LLVM_NAME := obfuscator-llvm-$(LLVM_VERSION)</code></p></li>
-
-<li><p>如果是配置64位的ndk配置,还要额外修改$NDK_PATH/build/core/setup-toolchain.mk文件，在NDK_64BIT_TOOLCHAIN_LIST := 加入 obfuscator 对应的NDK_TOOLCHAIN_VERSION NDK_64BIT_TOOLCHAIN_LIST := obfuscator3.4 clang3.6 clang3.5 clang3.4 4.9&rsquo;</p></li>
+</li>
+<li>
+<p>分别修改以上三个文件的 setup.mk 中的 LLVM_NAME ，即将其指定到开始建立的obfuscator-llvm-3.4目录，也就是把把<code>LLVM_NAME := llvm-$(LLVM_VERSION)改成LLVM_NAME := obfuscator-llvm-$(LLVM_VERSION)</code></p>
+</li>
+<li>
+<p>如果是配置64位的ndk配置,还要额外修改$NDK_PATH/build/core/setup-toolchain.mk文件，在NDK_64BIT_TOOLCHAIN_LIST := 加入 obfuscator 对应的NDK_TOOLCHAIN_VERSION NDK_64BIT_TOOLCHAIN_LIST := obfuscator3.4 clang3.6 clang3.5 clang3.4 4.9&rsquo;</p>
+</li>
 </ol>
-
 <h3 id="开始使用ollvm">开始使用OLLVM</h3>
-
 <h3 id="参考">参考</h3>
-
 <ul>
-<li><a href="http://www.freebuf.com/articles/terminal/130142.html" target="_blank">http://www.freebuf.com/articles/terminal/130142.html</a></li>
-<li><a href="https://geneblue.github.io/2016/10/09/%E5%88%A9%E7%94%A8OLLVM%E6%B7%B7%E6%B7%86Android%20Native%E4%BB%A3%E7%A0%81%E7%AF%87%E4%B8%80/" target="_blank">https://geneblue.github.io/2016/10/09/%E5%88%A9%E7%94%A8OLLVM%E6%B7%B7%E6%B7%86Android%20Native%E4%BB%A3%E7%A0%81%E7%AF%87%E4%B8%80/</a></li>
-<li><a href="https://www.jmpoep.com/thread-4016-1-1.html" target="_blank">https://www.jmpoep.com/thread-4016-1-1.html</a></li>
+<li><a href="http://www.freebuf.com/articles/terminal/130142.html">http://www.freebuf.com/articles/terminal/130142.html</a></li>
+<li><a href="https://geneblue.github.io/2016/10/09/%E5%88%A9%E7%94%A8OLLVM%E6%B7%B7%E6%B7%86Android%20Native%E4%BB%A3%E7%A0%81%E7%AF%87%E4%B8%80/">https://geneblue.github.io/2016/10/09/%E5%88%A9%E7%94%A8OLLVM%E6%B7%B7%E6%B7%86Android%20Native%E4%BB%A3%E7%A0%81%E7%AF%87%E4%B8%80/</a></li>
+<li><a href="https://www.jmpoep.com/thread-4016-1-1.html">https://www.jmpoep.com/thread-4016-1-1.html</a></li>
 <li>BCTFhttp://ele7enxxh.com/Bctf-2016-LostFlower-Writeup.html</li>
 </ul>
 
@@ -273,6 +253,7 @@ $ make -j7   //这个数字自己看自己CPU填 太小可能非常编译慢 </c
             <hr>
             
         <div id="disqus_thread"></div>
+
 <script>
 
 
@@ -288,8 +269,7 @@ s.setAttribute('data-timestamp', +new Date());
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         
-    <script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
-
+    <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
     
     <script>
         (function(){function center_el(tagName){var tags=document.getElementsByTagName(tagName),i,tag;for(i=0;i<tags.length;i++){tag=tags[i];var parent=tag.parentElement;if(parent.childNodes.length===1){if(parent.nodeName==='A'){parent=parent.parentElement;if(parent.childNodes.length!=1)continue;parent.firstChild.style.border='none';}
