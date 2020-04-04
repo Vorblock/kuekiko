@@ -13,6 +13,7 @@
         data-isso-vote="true" src="{{ . }}js/embed.min.js"></script>
         {{ end }} -->
         <div id="disqus_thread"></div>
+
 <script>
 
 /**
@@ -43,8 +44,7 @@ s.setAttribute('data-timestamp', +new Date());
     onload="renderMathInElement(document.querySelector('.container'));"></script>
     {{- end -}}
 
-    <script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
-
+    <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
     {{ with resources.Get "js/center-img.js" | minify }}
     <script>
         {{ .Content | safeJS }}
