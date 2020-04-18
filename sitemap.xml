@@ -18,6 +18,56 @@
   </url>
   
   <url>
+    <loc>https://vorblock.cc/categories/</loc>
+    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/fuzzing/</loc>
+    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/</loc>
+    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/</loc>
+    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/unicorn/</loc>
+    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/unicorn/</loc>
+    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/unicorn%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/categories/fuzzing/</loc>
+    <lastmod>2020-04-10T18:59:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/tags/syzkaller/</loc>
+    <lastmod>2020-04-10T18:59:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vorblock.cc/post/syzkaller/</loc>
+    <lastmod>2020-04-10T18:59:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://vorblock.cc/tags/android/</loc>
     <lastmod>2020-04-05T18:18:59+08:00</lastmod>
   </url>
@@ -43,27 +93,12 @@
   </url>
   
   <url>
-    <loc>https://vorblock.cc/categories/</loc>
-    <lastmod>2020-04-05T18:18:59+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://vorblock.cc/categories/jemalloc/</loc>
     <lastmod>2020-04-05T18:18:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://vorblock.cc/tags/jemalloc%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2020-04-05T18:18:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/post/</loc>
-    <lastmod>2020-04-05T18:18:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vorblock.cc/tags/</loc>
     <lastmod>2020-04-05T18:18:59+08:00</lastmod>
   </url>
   

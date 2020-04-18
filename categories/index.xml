@@ -5,10 +5,30 @@
       <description>Recent content in Categories on root@v</description>
       <generator>Hugo -- gohugo.io</generator>
       <language>zh-CN</language>
-      <lastBuildDate>Sun, 05 Apr 2020 18:18:59 +0800</lastBuildDate>
+      <lastBuildDate>Fri, 17 Apr 2020 19:01:19 +0800</lastBuildDate>
       
           <atom:link href="https://vorblock.cc/categories/index.xml" rel="self" type="application/rss+xml" />
       
+      
+      <item>
+        <title>Unicorn</title>
+        <link>https://vorblock.cc/categories/unicorn/</link>
+        <pubDate>Fri, 17 Apr 2020 19:01:19 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/unicorn/</guid>
+        <description></description>
+        
+      </item>
+      
+      <item>
+        <title>Fuzzing</title>
+        <link>https://vorblock.cc/categories/fuzzing/</link>
+        <pubDate>Fri, 10 Apr 2020 18:59:00 +0800</pubDate>
+        
+        <guid>https://vorblock.cc/categories/fuzzing/</guid>
+        <description></description>
+        
+      </item>
       
       <item>
         <title>Android</title>
