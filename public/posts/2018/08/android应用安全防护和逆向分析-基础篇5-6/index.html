@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Vorblock">
+<meta name="description" content="一、 基础篇⑤-⑥ 这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面是两章的笔记。
+第五章 AndroidManifest.xml格式解析 头部信息   文件魔数：4bytes。
+  文件大小：4bytes。
+  Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。
+  Sting Chunk ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。
+ ChunkType：类型，固定4bytes（0x001C001)。 ChunkSize：大小，4bytes。 StringCount：字符串的个数 ，4bytes。 StyleCount ：样式的个数，4bytes。 Unknown ：位置区域。4bytes。 StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。 StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。 StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。 StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。  如何读取这个文件？
+  Resourceld Chunk ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID
+ ChunkType：类型，固定4bytes（0x00080108）。 ChunkSize：大小，4bytes。 ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。  解析？
+  Start Namespace Chunk：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。
+ Chunk Type：类型，固定4bytes。（0x00100100)。 Chunk Size：大小，4bytes。 Line Number ：AndroidMaifest文件中行号，4bytes。 Unknown：未知区域,4bytes。 Prefix：命名空间的前缀（在字符串中的索引值），eg:android。 Uri：命名空间的URI（在字符串中的索引值），eg:http://schemas." />
+<meta name="keywords" content=", android安全, 读书笔记" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/2018/08/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" />
+
+
+    <title>
+        
+            Android应用安全防护和逆向分析-基础篇5-6 :: ------------  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Android应用安全防护和逆向分析-基础篇5-6">
+<meta itemprop="description" content="AndroidManifest.xml和resourec.arsc解析">
+<meta itemprop="datePublished" content="2018-08-29T20:39:26&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-29T20:39:26&#43;08:00" />
+<meta itemprop="wordCount" content="1030">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="android安全,读书笔记," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="Android应用安全防护和逆向分析-基础篇5-6"/>
+<meta name="twitter:description" content="AndroidManifest.xml和resourec.arsc解析"/>
+
+
+
+    <meta property="og:title" content="Android应用安全防护和逆向分析-基础篇5-6" />
+<meta property="og:description" content="AndroidManifest.xml和resourec.arsc解析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/2018/08/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2018-08-29T20:39:26+08:00" />
+<meta property="article:modified_time" content="2018-08-29T20:39:26+08:00" />
+
+
+
+
+    <meta property="article:section" content="读书笔记" />
+
+    <meta property="article:section" content="Android安全" />
+
+
+
+    <meta property="article:published_time" content="2018-08-29 20:39:26 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd /root/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/2018/08/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/">Android应用安全防护和逆向分析-基础篇5-6</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="一-基础篇-">一、 基础篇⑤-⑥</h2>
+<p>这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面是两章的笔记。</p>
+<h3 id="第五章-androidmanifestxml格式解析">第五章 AndroidManifest.xml格式解析</h3>
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829165213.png" alt="AndroidManifest.xml"></p>
+<!-- raw HTML omitted -->
+<h5 id="头部信息">头部信息</h5>
+<ul>
+<li>
+<p>文件魔数：4bytes。</p>
+</li>
+<li>
+<p>文件大小：4bytes。</p>
+</li>
+<li>
+<p>Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。</p>
+<ul>
+<li>
+<p><strong>Sting Chunk</strong> ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。</p>
+<ul>
+<li>ChunkType：类型，固定4bytes（0x001C001)。</li>
+<li>ChunkSize：大小，4bytes。</li>
+<li>StringCount：字符串的个数 ，4bytes。</li>
+<li>StyleCount ：样式的个数，4bytes。</li>
+<li>Unknown ：位置区域。4bytes。</li>
+<li>StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。</li>
+<li>StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。</li>
+<li>StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。</li>
+<li>StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。</li>
+</ul>
+<p>如何读取这个文件？</p>
+</li>
+<li>
+<p><strong>Resourceld Chunk</strong> ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID</p>
+<ul>
+<li>ChunkType：类型，固定4bytes（0x00080108）。</li>
+<li>ChunkSize：大小，4bytes。</li>
+<li>ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。</li>
+</ul>
+<p>解析？</p>
+</li>
+<li>
+<p><strong>Start Namespace Chunk</strong>：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。</p>
+<ul>
+<li>Chunk Type：类型，固定4bytes。（0x00100100)。</li>
+<li>Chunk Size：大小，4bytes。</li>
+<li>Line Number ：AndroidMaifest文件中行号，4bytes。</li>
+<li>Unknown：未知区域,4bytes。</li>
+<li>Prefix：命名空间的前缀（在字符串中的索引值），eg:<code>android</code>。</li>
+<li>Uri：命名空间的URI（在字符串中的索引值），eg:<code>http://schemas.android.com/apk/res/android</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Start Tag Chunk</strong>：AndroidMaifest.xml的标签信息，最核心的内容，也是最复杂的内容。</p>
+<ul>
+<li>Chunk Type：类型，固定4bytes。（0x00100102)。</li>
+<li>Chunk Size：大小，4bytes。</li>
+<li>Line Number ：对应AndroidMaifest中的行号，4bytes。</li>
+<li>Unknown：未知区域,4bytes。</li>
+<li>Namespace Uri ：命名空间的Uri，4bytes。</li>
+<li>Name：标签名称（在字符串中的索引值），4bytes。</li>
+<li>Flags：标签的类型，4bytes。eg：是开始标签还是结束标签？</li>
+<li>Attributes Counk：便签中包含的属性的个数，4bytes。</li>
+<li>Class Attribute：标签包含的类属性，4bytes。</li>
+<li>Attributes ：属性内容，每个属性算是一个Entry，Entry是一个大小5的字节数组[Namespace,URI,Name,ValueString,Data]，大小为”属性个数* 5 *4&quot;个字节。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="axmlprinter工具">AXMLPrinter工具</h5>
+<h5 id="aapt-工具">aapt 工具</h5>
+<h3 id="第六章-resourecarsc文件格式解析">第六章 resourec.arsc文件格式解析</h3>
+<h5 id="资源文件id格式">资源文件id格式</h5>
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200453.png" alt=""></p>
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829200408.png" alt=""></p>
+<!-- raw HTML omitted -->
+<h5 id="数据结构">数据结构</h5>
+<p>上图</p>
+<ul>
+<li>
+<p><strong>头部信息</strong></p>
+<p>resourec.arsc文件格式由一系列chunk组成，每一个chunk均包含一个ResChunk_header</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResChunkHeader</span><span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">short</span> type<span style="color:#f92672">;</span>  <span style="color:#75715e">//当前chunk的类型
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">short</span> headerSize<span style="color:#f92672">;</span> <span style="color:#75715e">//当前chunk的头部大小
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> size<span style="color:#f92672">;</span>  <span style="color:#75715e">//当前chunk的大小
+</span><span style="color:#75715e"></span>      
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getHeaderSize</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> 2<span style="color:#f92672">+</span>2<span style="color:#f92672">+</span>4    
+    <span style="color:#f92672">}</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;type:&#34;</span><span style="color:#f92672">+</span>Utils<span style="color:#f92672">.</span><span style="color:#a6e22e">bytesToHexString</span><span style="color:#f92672">(</span>
+        Utils<span style="color:#f92672">.</span><span style="color:#a6e22e">int2Byte</span><span style="color:#f92672">(</span>type<span style="color:#f92672">))+</span><span style="color:#e6db74">&#34;,headerSize:&#34;</span><span style="color:#f92672">+</span>headerSize<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,size:&#34;</span><span style="color:#f92672">+</span>size<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+  
+</code></pre></div></li>
+<li>
+<p><strong>资源索引表的头部信息</strong></p>
+<p>resourec.arsc的第一个结构，结构描述了Resource.arsc文件的大小和资源包数量：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResTableHeader</span> <span style="color:#f92672">{</span>
+   
+ <span style="color:#66d9ef">public</span> ResChunkHeader header<span style="color:#f92672">;</span>  <span style="color:#75715e">//就是标准的Chunk头部信息格式
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> packageCount<span style="color:#f92672">;</span>  <span style="color:#75715e">//被编译的资源包的个数
+</span><span style="color:#75715e"></span>   
+ <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResTableHeader</span><span style="color:#f92672">(){</span>
+     header <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResChunkHeader<span style="color:#f92672">();</span>
+ <span style="color:#f92672">}</span>
+   
+ <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getHeaderSize</span><span style="color:#f92672">(){</span>
+     <span style="color:#66d9ef">return</span> header<span style="color:#f92672">.</span><span style="color:#a6e22e">getHeaderSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> 4<span style="color:#f92672">;</span>
+ <span style="color:#f92672">}</span>
+   
+ <span style="color:#a6e22e">@Override</span>
+ <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+     <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;header:&#34;</span><span style="color:#f92672">+</span>header<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;packageCount:&#34;</span><span style="color:#f92672">+</span>packageCount<span style="color:#f92672">;</span>
+ <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829204728.png" alt=""></p>
+</li>
+<li>
+<p><strong>资源项的值字符串资源池</strong></p>
+<p>包含了所有在资源包里面定义的资源项的值字符串，结构如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResStringPoolHeader</span> <span style="color:#f92672">{</span>
+  	
+  <span style="color:#66d9ef">public</span> ResChunkHeader header<span style="color:#f92672">;</span>  <span style="color:#75715e">//标准的Chunk头部信息结构
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> stringCount<span style="color:#f92672">;</span>  <span style="color:#75715e">//字符串的个数
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> styleCount<span style="color:#f92672">;</span>  <span style="color:#75715e">//字符串样式的个数
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> SORTED_FLAG <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> UTF8_FLAG <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>1<span style="color:#f92672">&lt;&lt;</span>8<span style="color:#f92672">);</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> flags<span style="color:#f92672">;</span>  <span style="color:#75715e">//字符串的属性,可取值包括0x000(UTF-16),0x001(字符串经过排序)、0X100(UTF-8)和他们的组合值
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> stringsStart<span style="color:#f92672">;</span>  <span style="color:#75715e">//字符串内容块相对于其头部的距离
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> stylesStart<span style="color:#f92672">;</span>  <span style="color:#75715e">//字符串样式块相对于其头部的距离
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResStringPoolHeader</span><span style="color:#f92672">(){</span>
+      header <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResChunkHeader<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getHeaderSize</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> header<span style="color:#f92672">.</span><span style="color:#a6e22e">getHeaderSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> 4 <span style="color:#f92672">+</span> 4 <span style="color:#f92672">+</span> 4 <span style="color:#f92672">+</span> 4 <span style="color:#f92672">+</span> 4<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;header:&#34;</span><span style="color:#f92672">+</span>header<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;stringCount:&#34;</span><span style="color:#f92672">+</span>stringCount<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,styleCount:&#34;</span><span style="color:#f92672">+</span>styleCount<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,flags:&#34;</span><span style="color:#f92672">+</span>flags<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,stringStart:&#34;</span><span style="color:#f92672">+</span>stringsStart<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,stylesStart:&#34;</span><span style="color:#f92672">+</span>stylesStart<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+<span style="color:#f92672">}</span>
+</code></pre></div><p>接着头部的的是两个偏移数组，分别是字符串偏移数组和字符串样式偏移数组。这两个偏移数组的大小分别等于stringCount和styleCount的值，而每一个元素的类型都是无符号整型。整个字符中资源池结构如下。<img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205108.png" alt=""></p>
+<p>字符串资源池中的字符串前两个字节为字符串长度,长度计算方法如下：</p>
+<p><code>len = (((hbyte &amp; 0x7F) &lt;&lt; 8)) | lbyte;</code></p>
+<p>如果字符串编码格式为UTF-8则字符串以0X00作为结束符,UTF-16则以0X0000作为结束符。</p>
+</li>
+<li>
+<p><strong>Package数据块</strong></p>
+<p>这个数据块记录编译包的元数据，头部信息如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResTablePackage</span> <span style="color:#f92672">{</span>
+  	
+  <span style="color:#66d9ef">public</span> ResChunkHeader header<span style="color:#f92672">;</span>  <span style="color:#75715e">//Chunk的头部信息数据结构
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>  <span style="color:#75715e">//包的ID,等于Package Id,一般用户包的值Package Id为0X7F,系统资源包的Package Id为0X01；
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> name <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[</span>128<span style="color:#f92672">];</span> <span style="color:#75715e">//包名
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> typeStrings<span style="color:#f92672">;</span>  <span style="color:#75715e">//类型字符串资源池相对头部的偏移
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> lastPublicType<span style="color:#f92672">;</span>  <span style="color:#75715e">//最后一个导出的Public类型字符串在类型字符串资源池中的索引，目前这个值设置为类型字符串资源池的元素个数。在解析的过程中没发现他的用途
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> keyStrings<span style="color:#f92672">;</span>  <span style="color:#75715e">//资源项名称字符串相对头部的偏移
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> lastPublicKey<span style="color:#f92672">;</span> <span style="color:#75715e">// 最后一个导出的Public资源项名称字符串在资源项名称字符串资源池中的索引，目前这个值设置为资源项名称字符串资源池的元素个数。在解析的过程中没发现他的用途
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResTablePackage</span><span style="color:#f92672">(){</span>
+      header <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResChunkHeader<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;header:&#34;</span><span style="color:#f92672">+</span>header<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;\n&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,id=&#34;</span><span style="color:#f92672">+</span>id<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,name:&#34;</span><span style="color:#f92672">+</span>name<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;,typeStrings:&#34;</span><span style="color:#f92672">+</span>typeStrings<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,lastPublicType:&#34;</span><span style="color:#f92672">+</span>lastPublicType<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,keyStrings:&#34;</span><span style="color:#f92672">+</span>keyStrings<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,lastPublicKey:&#34;</span><span style="color:#f92672">+</span>lastPublicKey<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180829205652.png" alt=""></p>
+</li>
+<li>
+<p><strong>类型规范数据块</strong></p>
+<p>用来描述资源项的配置差异性。每一种类型都对应有一个类型规范数据块。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResTableTypeSpec</span> <span style="color:#f92672">{</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> SPEC_PUBLIC <span style="color:#f92672">=</span> 0x40000000<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> ResChunkHeader header<span style="color:#f92672">;</span>  <span style="color:#75715e">//Chunk的头部信息结构
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span> id<span style="color:#f92672">;</span>  <span style="color:#75715e">//标识资源的Type ID,Type ID是指资源的类型ID。资源的类型有animator、anim、color、drawable、layout、menu、raw、string和xml等等若干种，每一种都会被赋予一个ID。
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span> res0<span style="color:#f92672">;</span>  <span style="color:#75715e">//保留,始终为0
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">short</span> res1<span style="color:#f92672">;</span>  <span style="color:#75715e">//保留,始终为0
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> entryCount<span style="color:#f92672">;</span>  <span style="color:#75715e">//等于本类型的资源项个数,指名称相同的资源项的个数。
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResTableTypeSpec</span><span style="color:#f92672">(){</span>
+      header <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResChunkHeader<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;header:&#34;</span><span style="color:#f92672">+</span>header<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;,id:&#34;</span><span style="color:#f92672">+</span>id<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,res0:&#34;</span><span style="color:#f92672">+</span>res0<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,res1:&#34;</span><span style="color:#f92672">+</span>res1<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,entryCount:&#34;</span><span style="color:#f92672">+</span>entryCount<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+<li>
+<p><strong>资源类型项数据块</strong></p>
+<p>描述资源项的具体信息，名称、值、配置等信息</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResTableType</span> <span style="color:#f92672">{</span>
+  	
+  <span style="color:#66d9ef">public</span> ResChunkHeader header<span style="color:#f92672">;</span>  <span style="color:#75715e">//Chunk的头部信息结构
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> NO_ENTRY <span style="color:#f92672">=</span> 0xFFFFFFFF<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span> id<span style="color:#f92672">;</span>  <span style="color:#75715e">//标识资源的Type ID
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span> res0<span style="color:#f92672">;</span>  <span style="color:#75715e">//保留,始终为0
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">short</span> res1<span style="color:#f92672">;</span>  <span style="color:#75715e">//保留,始终为0
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> entryCount<span style="color:#f92672">;</span>  <span style="color:#75715e">//等于本类型的资源项个数,指名称相同的资源项的个数。
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> entriesStart<span style="color:#f92672">;</span>  <span style="color:#75715e">//等于资源项数据块相对头部的偏移值。
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> ResTableConfig resConfig<span style="color:#f92672">;</span>  <span style="color:#75715e">//指向一个ResTable_config,用来描述配置信息,地区,语言,分辨率等
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResTableType</span><span style="color:#f92672">(){</span>
+      header <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResChunkHeader<span style="color:#f92672">();</span>
+      resConfig <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResTableConfig<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+   
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getSize</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> header<span style="color:#f92672">.</span><span style="color:#a6e22e">getHeaderSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> 1 <span style="color:#f92672">+</span> 1 <span style="color:#f92672">+</span> 2 <span style="color:#f92672">+</span> 4 <span style="color:#f92672">+</span> 4<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;header:&#34;</span><span style="color:#f92672">+</span>header<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;,id:&#34;</span><span style="color:#f92672">+</span>id<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,res0:&#34;</span><span style="color:#f92672">+</span>res0<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,res1:&#34;</span><span style="color:#f92672">+</span>res1<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,entryCount:&#34;</span><span style="color:#f92672">+</span>entryCount<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,entriesStart:&#34;</span><span style="color:#f92672">+</span>entriesStart<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+</code></pre></div><p>ResTable_type后接着是一个大小为entryCount的uint32_t数组，每一个数组元素都用来描述一个资源项数据块的偏移位置。 紧跟在这个偏移数组后面的是一个大小为entryCount的ResTable_entry数组,每一个数组元素都用来描述一个资源项的具体信息。ResTable_entry的结构如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResTableEntry</span> <span style="color:#f92672">{</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> FLAG_COMPLEX <span style="color:#f92672">=</span> 0x0001<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> FLAG_PUBLIC <span style="color:#f92672">=</span> 0x0002<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">short</span> size<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">short</span> flags<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> ResStringPoolRef key<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResTableEntry</span><span style="color:#f92672">(){</span>
+      key <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResStringPoolRef<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getSize</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> 2<span style="color:#f92672">+</span>2<span style="color:#f92672">+</span>key<span style="color:#f92672">.</span><span style="color:#a6e22e">getSize</span><span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;size:&#34;</span><span style="color:#f92672">+</span>size<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,flags:&#34;</span><span style="color:#f92672">+</span>flags<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,key:&#34;</span><span style="color:#f92672">+</span>key<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;,str:&#34;</span><span style="color:#f92672">+</span>ParseResourceUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">getKeyString</span><span style="color:#f92672">(</span>key<span style="color:#f92672">.</span><span style="color:#a6e22e">index</span><span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+</code></pre></div><p>ResTable_entry根据flags的不同,后面跟随的数据也不相同,如果flags此位为1,则ResTable_entry是ResTable_map_entry,ResTable_map_entry继承自ResTable_entry,其结构如下。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResTableMapEntry</span> <span style="color:#66d9ef">extends</span> ResTableEntry<span style="color:#f92672">{</span>
+  	
+  <span style="color:#66d9ef">public</span> ResTableRef parent<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> count<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResTableMapEntry</span><span style="color:#f92672">(){</span>
+      parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResTableRef<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getSize</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> parent<span style="color:#f92672">.</span><span style="color:#a6e22e">getSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> 4<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;,parent:&#34;</span><span style="color:#f92672">+</span>parent<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;,count:&#34;</span><span style="color:#f92672">+</span>count<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+</code></pre></div><p>ResTable_map_entry其后跟随则count个ResTable_map类型的数组,ResTable_map的结构如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> com.wjdiankong.parseresource.type<span style="color:#f92672">;</span>
+   
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> struct ResTable_map
+</span><span style="color:#75715e"> {
+</span><span style="color:#75715e">     //bag资源项ID
+</span><span style="color:#75715e">     ResTable_ref name;
+</span><span style="color:#75715e">     //bag资源项值
+</span><span style="color:#75715e">     Res_value value;
+</span><span style="color:#75715e"> };
+</span><span style="color:#75715e"> * @author i
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResTableMap</span> <span style="color:#f92672">{</span>
+  	
+  <span style="color:#66d9ef">public</span> ResTableRef name<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> ResValue value<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ResTableMap</span><span style="color:#f92672">(){</span>
+      name <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResTableRef<span style="color:#f92672">();</span>
+      value <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ResValue<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getSize</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> name<span style="color:#f92672">.</span><span style="color:#a6e22e">getSize</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> value<span style="color:#f92672">.</span><span style="color:#a6e22e">getSize</span><span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> name<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;,value:&#34;</span><span style="color:#f92672">+</span>value<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+</code></pre></div><p>如果flags此位为0,则ResTable_entry其后跟随的是一个Res_value,描述一个普通资源的值,Res_value结构如下。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ResValue</span> <span style="color:#f92672">{</span>
+  	
+  <span style="color:#75715e">//dataType字段使用的常量
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_NULL <span style="color:#f92672">=</span> 0x00<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_REFERENCE <span style="color:#f92672">=</span> 0x01<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_ATTRIBUTE <span style="color:#f92672">=</span> 0x02<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_STRING <span style="color:#f92672">=</span> 0x03<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_FLOAT <span style="color:#f92672">=</span> 0x04<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_DIMENSION <span style="color:#f92672">=</span> 0x05<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_FRACTION <span style="color:#f92672">=</span> 0x06<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_FIRST_INT <span style="color:#f92672">=</span> 0x10<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_INT_DEC <span style="color:#f92672">=</span> 0x10<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_INT_HEX <span style="color:#f92672">=</span> 0x11<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_INT_BOOLEAN <span style="color:#f92672">=</span> 0x12<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_FIRST_COLOR_INT <span style="color:#f92672">=</span> 0x1c<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_INT_COLOR_ARGB8 <span style="color:#f92672">=</span> 0x1c<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_INT_COLOR_RGB8 <span style="color:#f92672">=</span> 0x1d<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_INT_COLOR_ARGB4 <span style="color:#f92672">=</span> 0x1e<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_INT_COLOR_RGB4 <span style="color:#f92672">=</span> 0x1f<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_LAST_COLOR_INT <span style="color:#f92672">=</span> 0x1f<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> TYPE_LAST_INT <span style="color:#f92672">=</span> 0x1f<span style="color:#f92672">;</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span>
+    COMPLEX_UNIT_PX			<span style="color:#f92672">=</span>0<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_DIP		<span style="color:#f92672">=</span>1<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_SP			<span style="color:#f92672">=</span>2<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_PT			<span style="color:#f92672">=</span>3<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_IN			<span style="color:#f92672">=</span>4<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_MM			<span style="color:#f92672">=</span>5<span style="color:#f92672">,</span>
+  COMPLEX_UNIT_SHIFT		<span style="color:#f92672">=</span>0<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_MASK		<span style="color:#f92672">=</span>15<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_FRACTION	<span style="color:#f92672">=</span>0<span style="color:#f92672">,</span>
+    COMPLEX_UNIT_FRACTION_PARENT<span style="color:#f92672">=</span>1<span style="color:#f92672">,</span>
+    COMPLEX_RADIX_23p0		<span style="color:#f92672">=</span>0<span style="color:#f92672">,</span>
+    COMPLEX_RADIX_16p7		<span style="color:#f92672">=</span>1<span style="color:#f92672">,</span>
+    COMPLEX_RADIX_8p15		<span style="color:#f92672">=</span>2<span style="color:#f92672">,</span>
+    COMPLEX_RADIX_0p23		<span style="color:#f92672">=</span>3<span style="color:#f92672">,</span>
+    COMPLEX_RADIX_SHIFT		<span style="color:#f92672">=</span>4<span style="color:#f92672">,</span>
+    COMPLEX_RADIX_MASK		<span style="color:#f92672">=</span>3<span style="color:#f92672">,</span>
+    COMPLEX_MANTISSA_SHIFT	<span style="color:#f92672">=</span>8<span style="color:#f92672">,</span>
+    COMPLEX_MANTISSA_MASK	<span style="color:#f92672">=</span>0xFFFFFF<span style="color:#f92672">;</span>
+  	
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">short</span> size<span style="color:#f92672">;</span>  <span style="color:#75715e">//ResValue的头部大小
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span> res0<span style="color:#f92672">;</span>  <span style="color:#75715e">//保留，始终为0
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span> dataType<span style="color:#f92672">;</span>  <span style="color:#75715e">//数据的类型,可以从上面的枚举类型中获取
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> data<span style="color:#f92672">;</span>  <span style="color:#75715e">//数据对应的索引
+</span><span style="color:#75715e"></span>  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getSize</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> 2 <span style="color:#f92672">+</span> 1 <span style="color:#f92672">+</span> 1 <span style="color:#f92672">+</span> 4<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getTypeStr</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">switch</span><span style="color:#f92672">(</span>dataType<span style="color:#f92672">){</span>
+          <span style="color:#66d9ef">case</span> TYPE_NULL<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_NULL&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_REFERENCE<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_REFERENCE&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_ATTRIBUTE<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_ATTRIBUTE&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_STRING<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_STRING&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_FLOAT<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_FLOAT&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_DIMENSION<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_DIMENSION&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_FRACTION<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_FRACTION&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_FIRST_INT<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_FIRST_INT&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_INT_HEX<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_INT_HEX&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_INT_BOOLEAN<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_INT_BOOLEAN&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_FIRST_COLOR_INT<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_FIRST_COLOR_INT&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_INT_COLOR_RGB8<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_INT_COLOR_RGB8&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_INT_COLOR_ARGB4<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_INT_COLOR_ARGB4&#34;</span><span style="color:#f92672">;</span>
+          <span style="color:#66d9ef">case</span> TYPE_INT_COLOR_RGB4<span style="color:#f92672">:</span>
+              <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;TYPE_INT_COLOR_RGB4&#34;</span><span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#75715e">/*public String getDataStr(){
+</span><span style="color:#75715e">      if(dataType == TYPE_STRING){
+</span><span style="color:#75715e">          return ParseResourceUtils.getResString(data);
+</span><span style="color:#75715e">      }else if(dataType == TYPE_FIRST_COLOR_INT){
+</span><span style="color:#75715e">          return Utils.bytesToHexString(Utils.int2Byte(data));
+</span><span style="color:#75715e">      }else if(dataType == TYPE_INT_BOOLEAN){
+</span><span style="color:#75715e">          return data==0 ? &#34;false&#34; : &#34;true&#34;;
+</span><span style="color:#75715e">      }
+</span><span style="color:#75715e">      return data+&#34;&#34;;
+</span><span style="color:#75715e">  }*/</span>
+  	
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getDataStr</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_STRING<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> ParseResourceUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">getResString</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_ATTRIBUTE<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;?%s%08X&#34;</span><span style="color:#f92672">,</span>getPackage<span style="color:#f92672">(</span>data<span style="color:#f92672">),</span>data<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_REFERENCE<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;@%s%08X&#34;</span><span style="color:#f92672">,</span>getPackage<span style="color:#f92672">(</span>data<span style="color:#f92672">),</span>data<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_FLOAT<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>Float<span style="color:#f92672">.</span><span style="color:#a6e22e">intBitsToFloat</span><span style="color:#f92672">(</span>data<span style="color:#f92672">));</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_INT_HEX<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;0x%08X&#34;</span><span style="color:#f92672">,</span>data<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_INT_BOOLEAN<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> data<span style="color:#f92672">!=</span>0<span style="color:#f92672">?</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_DIMENSION<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> Float<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span>complexToFloat<span style="color:#f92672">(</span>data<span style="color:#f92672">))+</span>
+              DIMENSION_UNITS<span style="color:#f92672">[</span>data <span style="color:#f92672">&amp;</span> COMPLEX_UNIT_MASK<span style="color:#f92672">];</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">==</span> TYPE_FRACTION<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> Float<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span>complexToFloat<span style="color:#f92672">(</span>data<span style="color:#f92672">))+</span>
+              FRACTION_UNITS<span style="color:#f92672">[</span>data <span style="color:#f92672">&amp;</span> COMPLEX_UNIT_MASK<span style="color:#f92672">];</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">&gt;=</span> TYPE_FIRST_COLOR_INT <span style="color:#f92672">&amp;&amp;</span> dataType <span style="color:#f92672">&lt;=</span> TYPE_LAST_COLOR_INT<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#%08X&#34;</span><span style="color:#f92672">,</span>data<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dataType <span style="color:#f92672">&gt;=</span> TYPE_FIRST_INT <span style="color:#f92672">&amp;&amp;</span> dataType <span style="color:#f92672">&lt;=</span> TYPE_LAST_INT<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">return</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&lt;0x%X, type 0x%02X&gt;&#34;</span><span style="color:#f92672">,</span>data<span style="color:#f92672">,</span> dataType<span style="color:#f92672">);</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getPackage</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>id<span style="color:#f92672">&gt;&gt;&gt;</span>24<span style="color:#f92672">==</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+          <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;android:&#34;</span><span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">complexToFloat</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> complex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">float</span><span style="color:#f92672">)(</span>complex <span style="color:#f92672">&amp;</span> 0xFFFFFF00<span style="color:#f92672">)*</span>RADIX_MULTS<span style="color:#f92672">[(</span>complex<span style="color:#f92672">&gt;&gt;</span>4<span style="color:#f92672">)</span> <span style="color:#f92672">&amp;</span> 3<span style="color:#f92672">];</span>
+  <span style="color:#f92672">}</span>
+  	
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">float</span> RADIX_MULTS<span style="color:#f92672">[]={</span>
+      0<span style="color:#f92672">.</span><span style="color:#a6e22e">00390625F</span><span style="color:#f92672">,</span>3<span style="color:#f92672">.</span><span style="color:#a6e22e">051758E</span><span style="color:#f92672">-</span>005F<span style="color:#f92672">,</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">192093E</span><span style="color:#f92672">-</span>007F<span style="color:#f92672">,</span>4<span style="color:#f92672">.</span><span style="color:#a6e22e">656613E</span><span style="color:#f92672">-</span>010F
+  <span style="color:#f92672">};</span>
+  	
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String DIMENSION_UNITS<span style="color:#f92672">[]={</span>
+      <span style="color:#e6db74">&#34;px&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;dip&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;sp&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;pt&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;in&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;mm&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#f92672">};</span>
+  	
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String FRACTION_UNITS<span style="color:#f92672">[]={</span>
+      <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;%p&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#f92672">};</span>
+  	
+  <span style="color:#a6e22e">@Override</span>
+  <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">(){</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;size:&#34;</span><span style="color:#f92672">+</span>size<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,res0:&#34;</span><span style="color:#f92672">+</span>res0<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,dataType:&#34;</span><span style="color:#f92672">+</span>getTypeStr<span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;,data:&#34;</span><span style="color:#f92672">+</span>getDataStr<span style="color:#f92672">();</span>
+  <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+</code></pre></div><p>以上代码来自于书的原作者的博客：https://blog.csdn.net/jiangwei0910410003/article/details/50628894</p>
+<p>博客里还有如何解析操作，留看。</p>
+</li>
+</ul>
+<h3 id="总结">总结</h3>
+<p>这两章讲的还是挺详细的，可以留着备用查阅，这两个文件都能加以混淆来保护应用，所以还是挺重要的。</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/android%E5%AE%89%E5%85%A8">android安全</a></span><span class="tag"><a href="https://kuekiko.top/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1030 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-08-29 20:39 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2018/08/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">IDA 动态调试.so 基本步骤</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/2018/08/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/">
+                                <span class="button__text">ARM汇编基础</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

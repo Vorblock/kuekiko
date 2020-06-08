@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Vorblock">
+<meta name="description" content="0x00 简单介绍 想调一个CVE、发现对jemalloc 了解太少。重新复习复习jemalloc，做个记录。
+jemalloc最初是2005年 Jason Evans开发的新一代内存分配器， 之后没多久被添加到FreeBSD的libc中的默认内存分配器，用来替代原来的phkmalloc。2007年 Firefox Mozilla项目的独立版本也将jemalloc作为主要的分配器。2009年，Facebook 的后端项目也广泛使用jemalloc。2014年，Android 5 开始采用jemalloc作为主要的内存分配器，不过部分Android5/6依然能看到dlmalloc和jemalloc两者并存。
+jemalloc的一些特性与设计原则：
+ 强大的多核/多线程分配能力. 最小化的元数据开销 基于每个线程进行缓存，避免了同步问题。 避免了连续分配内存的碎片化问题。 简洁高效  0x01 结构  jemalloc对内存划分按照如下由高到低的顺序:
+   内存是由一定数量的arenas进行管理. 一个arena被分割成若干chunks, 后者主要负责记录bookkeeping（记录信息）. chunk内部又包含着若干runs, 作为分配小块内存的基本单元. run由pages组成, 最终被划分成一定数量的regions 对于small size的分配请求来说, 这些region就相当于user memory.   arenas 对于Android来说：
+限制了只使用两个arenas,每个带有一个lock。这意味着，不同线程尝试分配内存时，会循环、平均分配至两个arena，确保两个arena有大致相等的进程数量。只有在相同的arena中分配内存时才需要获取lock。
+#/android.bpandroid_product_variables = {// Only enable the tcache on non-svelte configurations, to save PSS. malloc_not_svelte: {cflags: [&amp;#34;-UANDROID_MAX_ARENAS&amp;#34;,&amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;,&amp;#34;-DJEMALLOC_TCACHE&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;,],},}用shadow查看arenas" />
+<meta name="keywords" content=", android安全, jemalloc原理" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/2020/04/android%E4%B9%8Bjemalloc/" />
+
+
+    <title>
+        
+            Android之jemalloc :: ------------  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Android之jemalloc">
+<meta itemprop="description" content="Android之jemalloc">
+<meta itemprop="datePublished" content="2020-04-05T18:18:59&#43;08:00" />
+<meta itemprop="dateModified" content="2020-04-05T18:18:59&#43;08:00" />
+<meta itemprop="wordCount" content="370">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="android安全,jemalloc原理," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="Android之jemalloc"/>
+<meta name="twitter:description" content="Android之jemalloc"/>
+
+
+
+    <meta property="og:title" content="Android之jemalloc" />
+<meta property="og:description" content="Android之jemalloc" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/2020/04/android%E4%B9%8Bjemalloc/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2020-04-05T18:18:59+08:00" />
+<meta property="article:modified_time" content="2020-04-05T18:18:59+08:00" />
+
+
+
+
+    <meta property="article:section" content="android安全" />
+
+    <meta property="article:section" content="jemalloc" />
+
+
+
+    <meta property="article:published_time" content="2020-04-05 18:18:59 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd /root/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/2020/04/android%E4%B9%8Bjemalloc/">Android之jemalloc</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h3 id="0x00-简单介绍">0x00 简单介绍</h3>
+<p>想调一个CVE、发现对jemalloc 了解太少。重新复习复习jemalloc，做个记录。</p>
+<p>jemalloc最初是2005年 Jason Evans开发的新一代内存分配器， 之后没多久被添加到FreeBSD的libc中的默认内存分配器，用来替代原来的phkmalloc。2007年 Firefox Mozilla项目的独立版本也将jemalloc作为主要的分配器。2009年，Facebook 的后端项目也广泛使用jemalloc。2014年，Android 5 开始采用jemalloc作为主要的内存分配器，不过部分Android5/6依然能看到dlmalloc和jemalloc两者并存。</p>
+<p>jemalloc的一些特性与设计原则：</p>
+<ul>
+<li>强大的多核/多线程分配能力.</li>
+<li>最小化的元数据开销</li>
+<li>基于每个线程进行缓存，避免了同步问题。</li>
+<li>避免了连续分配内存的碎片化问题。</li>
+<li>简洁高效</li>
+</ul>
+<h3 id="0x01-结构">0x01 结构</h3>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403011045.png" alt="结构图"></p>
+<blockquote>
+<p>jemalloc对内存划分按照如下<strong>由高到低</strong>的顺序:</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>内存是由一定数量的arenas进行管理.</li>
+<li>一个arena被分割成若干chunks, 后者主要负责记录bookkeeping（记录信息）.</li>
+<li>chunk内部又包含着若干runs, 作为分配小块内存的基本单元.</li>
+<li>run由pages组成, 最终被划分成一定数量的regions</li>
+<li>对于small size的分配请求来说, 这些region就相当于user memory.</li>
+</ol>
+</blockquote>
+<h5 id="arenas">arenas</h5>
+<p>对于Android来说：</p>
+<p>限制了只使用两个arenas,每个带有一个lock。这意味着，不同线程尝试分配内存时，会循环、平均分配至两个arena，确保两个arena有大致相等的进程数量。只有在相同的arena中分配内存时才需要获取lock。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#/android.bp
+</span><span style="color:#75715e"></span>android_product_variables <span style="color:#f92672">=</span> {
+    <span style="color:#75715e">// Only enable the tcache on non-svelte configurations, to save PSS.
+</span><span style="color:#75715e"></span>    malloc_not_svelte: {
+        cflags: [
+            <span style="color:#e6db74">&#34;-UANDROID_MAX_ARENAS&#34;</span>,
+            <span style="color:#e6db74">&#34;-DANDROID_MAX_ARENAS=2&#34;</span>,
+            <span style="color:#e6db74">&#34;-DJEMALLOC_TCACHE&#34;</span>,
+            <span style="color:#e6db74">&#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&#34;</span>,
+            <span style="color:#e6db74">&#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&#34;</span>,
+        ],
+    },
+}
+</code></pre></div><p>用shadow查看arenas</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403015253.png" alt=""></p>
+<h5 id="chunk">chunk</h5>
+<p>一个arena下会有若干个chunk，Android 7之前chunk为256k，之后32位系统改为512k，64位系统改为2MB。</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403012241.png" alt=""></p>
+<p>每个chunk都有一个chunk head 包含着这个chunk的元数据（metadata）.Android 7之后元数据增加了mapbias与mapbits flags。</p>
+<p>chunk是存放run的容器，大小固定相同，操作系统返回的内存被划分到chunk中管理</p>
+<p>chunk中的元数据结构，mapbit[0]与mapmisc[0]指向chunk中的第一个run：</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403012851.png" alt=""></p>
+<p>chunk元数据中mapmisc中的bitmap结构管理着run中的region的分配使用：</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403013355.png" alt="chunk"></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403015412.png" alt=""></p>
+<h5 id="run">run</h5>
+<p>run是存放连续的大小相同的region的容器，每个chunk中会包含若干个run，而run的metadata会存放在chunk的header当中，这样region里只存放数据本身，不再有内存属性说明。</p>
+<h5 id="region">region</h5>
+<p>region是最小的存储单元，每个run里面的region大小完全相同，也没有元数据，malloc实际返回的是region的地址。</p>
+<h5 id="bins">bins</h5>
+<p>jemalloc也用bin来管理内存，共有39个bins。bin的metadata存放于arena的header中，39个bin还会存放当前正在使用的run。所有带有空闲region的run和闲置的chunk信息会被放置在红黑树结构当中，这样寻找空闲内存的复杂度可以控制在o(log(n))。</p>
+<h5 id="tcache">tcache</h5>
+<p>为了优化多线程性能，jemalloc还采用了LIFO结构的tcache，存放近期被释放的region，每个线程的每个bin都对应一个tcache，存放在tcache中的内存并不会设置free标记位，并且由于tache附着于线程本身，使得大部分情况下从tcache分配内存时完全无需lock。</p>
+<p>当jemalloc新分配一块内存是发现tcache为空，会触发prefill事件，此时jemalloc会将单前的arena上lock,并从当前run中取出一定数量的region存入tcache，保证tcache不为空。</p>
+<p>当tcache满了（small bin是8，larger bin是20）的时候，会触发flush 事件，会释放部分region，并且才会被标记为已释放。这时这些region才能被其他线程自由分配。</p>
+<p>此外，jemalloc也实现是GC机制。会有一个计数器统计申请和释放，达到阈值之后会触发特别的事件，目标bin里的tcache的四分之三的region会被释放掉。下次GC时会轮到下一个bin。这是可以从tcache中删除region并使其恢复常规可用性的另一种方法。</p>
+<h5 id="分配流程">分配流程</h5>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403022314.png" alt=""></p>
+<blockquote>
+<ul>
+<li>计算申请内存大小</li>
+<li>从当前线程的tcache中找到合适的bin</li>
+<li>如果tcache为空，就从当前的run中prefill一些region进来</li>
+<li>如果当前run耗尽，就从低地址开始找到第一个非空run</li>
+<li>如果现有run里没有足够的内存就分配一个新run</li>
+<li>如果chunk里没有空间了就分配一个新chunk，同时分配新run并prefill一些region到tcache</li>
+</ul>
+</blockquote>
+<h3 id="0x02-shadow">0x02 shadow</h3>
+<p>使用shadow查看Android中的内存布局，简单学习下shadow的使用</p>
+<h4 id="查看arenas">查看arenas</h4>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403022557.png" alt=""></p>
+<p>可以看到一共两个arenas，每个arena有36个bin，一共2个chunk。</p>
+<h4 id="查看chunks">查看chunks</h4>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403023042.png" alt=""></p>
+<p>单个chunk，查看chunk中的run</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403023253.png" alt=""></p>
+<p>查看runs，会列出单前所有的run的详情 run_siez = region_size*no_regions</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403023401.png" alt=""></p>
+<p>只显示单前运行中的run</p>
+<p>是否是allocated状态是根据arena_chunk_map_bits_s  对应 bits的 第 [0] bit 来确定 这里jemalloc5 和 jemalloc4 3不一样。</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403023454.png" alt=""></p>
+<p>查看单个run的详情：</p>
+<p><img src="D:%5CProject%5CBLOG%5Cblog%5Ccontent%5Cpost%5Cimg%5Cimage-20200403023549875.png" alt="image-20200403023549875"></p>
+<p>run的布局如下：</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405030548.png" alt=""></p>
+<p>源代码arena.h中有很多关于bits之类的注释。能够帮助理解。</p>
+<p>查看bins:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> arena_bin_s {
+    malloc_mutex_t         lock;    
+    arena_run_t            <span style="color:#f92672">*</span>runcur;
+    arena_run_heap_t       runs; <span style="color:#75715e">//4之前版本为arena_run_tree_t 类型
+</span><span style="color:#75715e"></span>    malloc_bin_stats_t     stats; <span style="color:#75715e">//统计信息
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p><strong>runcur:</strong> 当前可用于分配的run, 一般情况下指向地址最低的non-full run, 同一时间一个bin只有一个current run用于分配.</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200403023802.png" alt=""></p>
+<p>看别人的文章说是除去0号bin以外没4个bin为一组，组内size差一样，但是在这里可以看到每8个为一组，01-8号bin的size差值都为0x10,算是第一组，那第二组就为9-12号，只有4个bin size差值为0x20,但是有的为空，算第二组。没两组之间的差值2倍。以此类推，后面每4个为一组。</p>
+<p>划分为{0}、{1-8}、{9-12}、{13-16}····· 可能不同版本会有区别。</p>
+<p>查看regions [换了一个进程]</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405031010.png" alt=""></p>
+<p>大小都是0x8</p>
+<p>按大小查找：第4个：</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405031343.png" alt=""></p>
+<p>tchche查看：</p>
+<p>tcache的定义：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> tcache_bin_info_s {
+	<span style="color:#66d9ef">unsigned</span>	ncached_max;	<span style="color:#75715e">/* Upper limit on ncached. */</span>
+};
+
+<span style="color:#66d9ef">struct</span> tcache_bin_s {
+	tcache_bin_stats_t tstats;
+	<span style="color:#66d9ef">int</span>		low_water;	<span style="color:#75715e">/* Min # cached since last GC. */</span>
+	<span style="color:#66d9ef">unsigned</span>	lg_fill_div;	<span style="color:#75715e">/* Fill (ncached_max &gt;&gt; lg_fill_div). */</span>
+	<span style="color:#66d9ef">unsigned</span>	ncached;	<span style="color:#75715e">/* # of cached objects. */</span>
+	<span style="color:#75715e">/*
+</span><span style="color:#75715e">	 * To make use of adjacent cacheline prefetch, the items in the avail
+</span><span style="color:#75715e">	 * stack goes to higher address for newer allocations.  avail points
+</span><span style="color:#75715e">	 * just above the available space, which means that
+</span><span style="color:#75715e">	 * avail[-ncached, ... -1] are available items and the lowest item will
+</span><span style="color:#75715e">	 * be allocated first.
+</span><span style="color:#75715e">	 */</span>
+	<span style="color:#66d9ef">void</span>		<span style="color:#f92672">**</span>avail;	<span style="color:#75715e">/* Stack of available objects. */</span>
+};
+<span style="color:#66d9ef">struct</span> tcache_s {
+	ql_elm(tcache_t) link;		<span style="color:#75715e">/* Used for aggregating stats. */</span>
+	uint64_t	prof_accumbytes;<span style="color:#75715e">/* Cleared after arena_prof_accum(). */</span>
+	ticker_t	gc_ticker;	<span style="color:#75715e">/* Drives incremental GC. */</span>
+	szind_t		next_gc_bin;	<span style="color:#75715e">/* Next bin to GC. */</span>
+	tcache_bin_t	tbins[<span style="color:#ae81ff">1</span>];	<span style="color:#75715e">/* Dynamically sized. */</span>
+	<span style="color:#75715e">/*
+</span><span style="color:#75715e">	 * The pointer stacks associated with tbins follow as a contiguous
+</span><span style="color:#75715e">	 * array.  During tcache initialization, the avail pointer in each
+</span><span style="color:#75715e">	 * element of tbins is initialized to point to the proper offset within
+</span><span style="color:#75715e">	 * this array.
+</span><span style="color:#75715e">	 */</span>
+};
+<span style="color:#66d9ef">struct</span> tcaches_s {
+	<span style="color:#66d9ef">union</span> {
+		tcache_t	<span style="color:#f92672">*</span>tcache;
+		tcaches_t	<span style="color:#f92672">*</span>next;
+	};
+};
+</code></pre></div><p><img src="https://my-md-1253484710.file.myqcloud.com/20200405034722.png" alt=""></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405034659.png" alt=""></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405190426.png" alt=""></p>
+<h3 id="0x03-利用">0x03 利用</h3>
+<h5 id="堆溢出">堆溢出</h5>
+<p>一般先利用gadget 绕过ASLR，再利用gadget拿到代码执行的权限，只要能执行代码就能逃出sandboxing或者摆脱selinux。</p>
+<ul>
+<li>Small region overflow</li>
+</ul>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405190147.png" alt=""></p>
+<ul>
+<li>Run overflow</li>
+</ul>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405190224.png" alt=""></p>
+<ul>
+<li>Chunk overflow</li>
+</ul>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200405190305.png" alt=""></p>
+<h3 id="总结">总结</h3>
+<p>后面还是得使用shadow工具具体调试CVE加深理解。</p>
+<p>jemalloc新版与旧版有挺多区别，之后想要深入了解jemalloc的细节以及一些实现还是得看看源码。</p>
+<h4 id="参考">参考</h4>
+<ul>
+<li><a href="https://github.com/jemalloc/jemalloc">https://github.com/jemalloc/jemalloc</a></li>
+<li><a href="https://blog.csdn.net/txx_683/article/details/53468211">https://blog.csdn.net/txx_683/article/details/53468211</a></li>
+<li><a href="https://blog.nsogroup.com/a-tale-of-two-mallocs-on-android-libc-allocators-part-2-jemalloc/">https://blog.nsogroup.com/a-tale-of-two-mallocs-on-android-libc-allocators-part-2-jemalloc/</a></li>
+<li><a href="https://www.anquanke.com/post/id/149132#h3-5">https://www.anquanke.com/post/id/149132#h3-5</a></li>
+<li><a href="https://www.anquanke.com/post/id/85982">https://www.anquanke.com/post/id/85982</a></li>
+<li>dlmalloc 的一个tools: <a href="https://github.com/s1341/shade">shade</a></li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/android%E5%AE%89%E5%85%A8">android安全</a></span><span class="tag"><a href="https://kuekiko.top/tags/jemalloc%E5%8E%9F%E7%90%86">jemalloc原理</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>370 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-04-05 18:18 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2020/04/syzkaller/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Syzkaller</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/2019/08/qemu-gdb%E8%B0%83%E8%AF%95linux%E5%86%85%E6%A0%B8/">
+                                <span class="button__text">Qemu&#43;gdb调试Linux内核</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

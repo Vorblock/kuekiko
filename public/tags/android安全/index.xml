@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>android安全 on ------------</title>
+    <link>https://kuekiko.top/tags/android%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in android安全 on ------------</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 05 Apr 2020 18:18:59 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/android%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android之jemalloc</title>
+      <link>https://kuekiko.top/posts/2020/04/android%E4%B9%8Bjemalloc/</link>
+      <pubDate>Sun, 05 Apr 2020 18:18:59 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2020/04/android%E4%B9%8Bjemalloc/</guid>
+      <description>0x00 简单介绍 想调一个CVE、发现对jemalloc 了解太少。重新复习复习jemalloc，做个记录。
+jemalloc最初是2005年 Jason Evans开发的新一代内存分配器， 之后没多久被添加到FreeBSD的libc中的默认内存分配器，用来替代原来的phkmalloc。2007年 Firefox Mozilla项目的独立版本也将jemalloc作为主要的分配器。2009年，Facebook 的后端项目也广泛使用jemalloc。2014年，Android 5 开始采用jemalloc作为主要的内存分配器，不过部分Android5/6依然能看到dlmalloc和jemalloc两者并存。
+jemalloc的一些特性与设计原则：
+ 强大的多核/多线程分配能力. 最小化的元数据开销 基于每个线程进行缓存，避免了同步问题。 避免了连续分配内存的碎片化问题。 简洁高效  0x01 结构  jemalloc对内存划分按照如下由高到低的顺序:
+   内存是由一定数量的arenas进行管理. 一个arena被分割成若干chunks, 后者主要负责记录bookkeeping（记录信息）. chunk内部又包含着若干runs, 作为分配小块内存的基本单元. run由pages组成, 最终被划分成一定数量的regions 对于small size的分配请求来说, 这些region就相当于user memory.   arenas 对于Android来说：
+限制了只使用两个arenas,每个带有一个lock。这意味着，不同线程尝试分配内存时，会循环、平均分配至两个arena，确保两个arena有大致相等的进程数量。只有在相同的arena中分配内存时才需要获取lock。
+#/android.bpandroid_product_variables = {// Only enable the tcache on non-svelte configurations, to save PSS. malloc_not_svelte: {cflags: [&amp;#34;-UANDROID_MAX_ARENAS&amp;#34;,&amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;,&amp;#34;-DJEMALLOC_TCACHE&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;,],},}用shadow查看arenas</description>
+    </item>
+    
+    <item>
+      <title>Frida从入门到放弃_2</title>
+      <link>https://kuekiko.top/posts/2019/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</link>
+      <pubDate>Sat, 02 Feb 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
+      <description>0x00 前言 复习一下Android安装frida命令
+adb rootadb push frida-server /data/local/tmpadb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+0x01 简单用例 Frida常用的两种启动方式：
+ python 绑定启动  import fridaimport sys,os## package name pkg_name = &amp;#34;com.</description>
+    </item>
+    
+    <item>
+      <title>Frida从入门到放弃_1</title>
+      <link>https://kuekiko.top/posts/2019/01/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</link>
+      <pubDate>Tue, 22 Jan 2019 20:39:26 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/01/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/</guid>
+      <description>0x00 Frida Frida 官网：https://www.frida.re/
+github: https://github.com/frida/frida
+Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers.
+ Scriptable Portable Free Battle-tested  0x01 安装 二进制安装 (推荐) pip install frida-tools 就一个命令搞定
+ Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
+报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
+ 绑定：二选一就行
+pip install frida # Python bindingsnpm install frida # Node.js bindings手动编译 依赖：
+pip3 install colorama prompt-toolkit pygments
+ Linux  make
+ MacOS and iOS  export MAC_CERTID=frida-certexport IOS_CERTID=frida-certmake Windows  frida.</description>
+    </item>
+    
+    <item>
+      <title>OLLVM 混淆之一</title>
+      <link>https://kuekiko.top/posts/2018/09/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</link>
+      <pubDate>Mon, 10 Sep 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/09/ollvm-%E6%B7%B7%E6%B7%86%E4%B9%8B%E4%B8%80/</guid>
+      <description>OLLVM OLLVM(Obfuscator-LLVM)是瑞士西北应用科技大学安全实验室于2010年6月份发起的一个针对LLVM代码混淆项目， 用于增加逆向难度，保护代码的安全。最新版本为4.0。OLLVM适用LLVM支持的所有语言（C, C++, Objective-C, Ada 和 Fortran）和目标平台（x86, x86-64, PowerPC, PowerPC-64, ARM, Thumb, SPARC, Alpha, CellSPU, MIPS, MSP430, SystemZ, 和 XCore）。
+ LLVM是lowlevel virtual machine的简称，是一个编译器框架。详细介绍可以看WIKI-LLVM  经典的三段式设计，前端使用不同的编译工具对代码进行分析转换成LLVM的中间表示IR（intermediate representation）。中间部分优化器只对IR进行操作，通过一系列的Pass对IR做优化。后端主要是讲优化好的IR解释成对应的机器码。
+对IR的处理过程下图：
+OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
+OLLVM-Android环境搭建 前提环境：
+ NDK环境 LLVM  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
+ $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git$ mkdir build$ cd build$ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator///（cmake -G &amp;#34;MinGW Makefiles&amp;#34; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows)$ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢  可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
+配置整合NDK：
+  打开NDK目录ndk-bundle下的toolchains，新建obfuscator-llvm-4，将llvm文件夹里的所有文件复制到新建的目录下。</description>
+    </item>
+    
+    <item>
+      <title>IDA 动态调试.so 基本步骤</title>
+      <link>https://kuekiko.top/posts/2018/08/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</link>
+      <pubDate>Fri, 31 Aug 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/08/ida-%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95.so-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/</guid>
+      <description>IDA 动态调试.so 基本步骤  待补图  0x00 IDA快捷键  Shirt+F12 字符串窗口 F5大法好 反汇编 Ctrl+S 查看so对应段的信息（非调试），快速定位so文件的内存地址（Debug） G 快速跳转到对应地址。s 调试-F7单步进入调试、F8单步、F9运行  0x01 方法一   获取运行Android_server。
+android_server文件放在IDA安装目录下的\dbgsrv目录下 注意版本的不同。
+之后只需 push android_server /data/local/tmp/。
+之后adb shell，su ，cd /data/local/tmp/。
+可能还得chmod 755 android_server 才有权限运行。
+  建立通信、attach进程。
+adb forward tcp:23946 tcp:23946命令。
+在IDA的Debugger选项中attach进程。
+  加载so、找函数下断点
+双开IDA ，Ctrl+S找到so文件的基地址，另外一个IDA找到函数的相对地址。相加得到绝对地址。
+  0x02 方法二 无法加载so文件需要在加载之前断点。反调试之类
+  Debug方式启动app。需要应用可调试开启
+adb shell am start -D -n 包名/.MainActivity
+  方法一的1，2两步 勾选选项。</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析-基础篇5-6</title>
+      <link>https://kuekiko.top/posts/2018/08/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</link>
+      <pubDate>Wed, 29 Aug 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/08/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%875-6/</guid>
+      <description>一、 基础篇⑤-⑥ 这两章主要描述AndroidManifest.xml和resourec.arsc这两个android文件。内容不是很多，下面是两章的笔记。
+第五章 AndroidManifest.xml格式解析 头部信息   文件魔数：4bytes。
+  文件大小：4bytes。
+  Chunk内容 头部相同（ChunkType(4bytes)、ChunkSize(4bytes)）。
+  Sting Chunk ：主要用于存放AndroidManifest.xml文件中所有的字符串信息。
+ ChunkType：类型，固定4bytes（0x001C001)。 ChunkSize：大小，4bytes。 StringCount：字符串的个数 ，4bytes。 StyleCount ：样式的个数，4bytes。 Unknown ：位置区域。4bytes。 StringPoolOffset ：字符串池的偏移值。4bytes。偏移值相对于StringChunk头部的位置。 StylePoolOffset : 样式池的偏移值。4bytes。没有Style可忽略。 StringOffsets ：每一个字符串的偏移值，大小为StringChunk*4。 StyleOffsets：每个样式的偏移值，大小为StyleChunk*4。  如何读取这个文件？
+  Resourceld Chunk ：主要用来存放AndroidManifest 中用到的系统属性值对应的资源ID
+ ChunkType：类型，固定4bytes（0x00080108）。 ChunkSize：大小，4bytes。 ResourceIds : 内容，大小为Resourceld Chunk大小除以4减去头部的8字节。  解析？
+  Start Namespace Chunk：主要包含了AndroidMaifest文件中的命名空间的内容，android中的xml都是采用Schema格式（两种格式DTD和Schema）的，所有肯定有Prefix和URI。
+ Chunk Type：类型，固定4bytes。（0x00100100)。 Chunk Size：大小，4bytes。 Line Number ：AndroidMaifest文件中行号，4bytes。 Unknown：未知区域,4bytes。 Prefix：命名空间的前缀（在字符串中的索引值），eg:android。 Uri：命名空间的URI（在字符串中的索引值），eg:http://schemas.</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析-基础篇④</title>
+      <link>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Sun, 22 Jul 2018 14:15:38 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>一、 基础篇④ 第四章 so文件格式解析   ELF文件格式
+so文件-&amp;gt;elf文件，文件格式看图（引用自@非虫）：
+  解析工具
+ readelf 常用命令  readelf -h xxx.so 查头部信息 readelf -S xxx.so 查节（Section）信息 readelf -l xxx.so 查段（Program）信息 readelf -a xxx.so 查全部信息      解析ELF文件
+动手解析一个elf文件 。。。
+太水 这里的内容
+直接去看源码实现用java解析elf文件信息https://github.com/fourbrother/parse_androidso
+ELF 相关内容还是单独详细分析 单独写一篇吧
+ELF书籍《Linux二进制分析》
+总结 加固脱壳必须掌握的知识点。
+  </description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析 基础篇③</title>
+      <link>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Mon, 16 Jul 2018 13:51:50 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>一、 基础篇③ 第三章 Android中开发与逆向常用命令总结 1. 基础命令 1.1 cat命令 ​	查看文件内容 结合grep进行过滤
+1.2 echo/touch命令 ​	写文件 配个定向符使用
+2. 非shell命令 2.1 adb shell dumpsys sctivity top ​	说明：查看当前应用的activity信息
+​	用法：运行需要查看的应用
+​	如果直接运行	 adb shell dmpsys会把当前系统中的所有应用运行的四大组件都打印出来 内容非常多 使用信息重定向来进行选择：可借助Windows的start命令
+2.2 adb shell dumpsys package ​	说明：查看指定包名应用的详细信息 （相当于AndroidManifest.xml的内容）
+​	用法：adb shell dumpsys package [pkgname]
+2.3 adb shell dumpsys meminfo ​	说明：查看指定进程名或者进程id的内存信息
+​	用法：adb shell dumpsys meminfo [pname/pid]
+​	和后面的top命令结合使用 可以分析应用的性能消耗情况
+2.4 adb shell dump dbnfo ​	说明：查看指定包名应用的数据库存储信息（包括存储的SQL语句）</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析 基础篇②</title>
+      <link>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Fri, 13 Jul 2018 15:01:09 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建
+2. JNI基础 2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多)) ​	参考文章Android安全和开发环境搭建中的JNI开发章节
+2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI();Java_com_naivete_jni_1study_MainActivity_stringFromJNI(JNIEnv *env,jobject /* this */) {std::string hello = &amp;#34;Hello from C++&amp;#34;;return env-&amp;gt;NewStringUTF(hello.c_str());  JNIEnv类型
+通过JNIEnv* 指针就可以对Java端的代码进行操作
+Jni的所有函数可以查看jni.h文件
+下面是一些函数eg：
+  NewObject : 创建Java类中的对象。
+  NewString : 创建Java类中的String对象。
+  NewArray : 创建类型为Type的数组对象
+  GetField: 获取型为Type的字段。
+  SetFileld: 设置类型为Type的字段的值。
+  GetStaticField: 获取类型为Type的static的字段。</description>
+    </item>
+    
+    <item>
+      <title>Android应用安全防护和逆向分析 基础篇①</title>
+      <link>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Mon, 02 Jul 2018 17:33:05 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式：  手势 九宫格连线 输入密码 指纹、人脸、虹膜 可穿戴设备  2. 这儿分析手势密码和输入密码 找到android源代码中的LockPatternUtils,java 这个工具类
+路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
+ 2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
+ public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) {return null;}try {byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword);byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword);//首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length];System.arraycopy(sha1, 0, combined, 0, sha1.</description>
+    </item>
+    
+  </channel>
+</rss>

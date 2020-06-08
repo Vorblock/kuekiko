@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jemalloc原理 on ------------</title>
+    <link>https://kuekiko.top/tags/jemalloc%E5%8E%9F%E7%90%86/</link>
+    <description>Recent content in jemalloc原理 on ------------</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 05 Apr 2020 18:18:59 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/jemalloc%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android之jemalloc</title>
+      <link>https://kuekiko.top/posts/2020/04/android%E4%B9%8Bjemalloc/</link>
+      <pubDate>Sun, 05 Apr 2020 18:18:59 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2020/04/android%E4%B9%8Bjemalloc/</guid>
+      <description>0x00 简单介绍 想调一个CVE、发现对jemalloc 了解太少。重新复习复习jemalloc，做个记录。
+jemalloc最初是2005年 Jason Evans开发的新一代内存分配器， 之后没多久被添加到FreeBSD的libc中的默认内存分配器，用来替代原来的phkmalloc。2007年 Firefox Mozilla项目的独立版本也将jemalloc作为主要的分配器。2009年，Facebook 的后端项目也广泛使用jemalloc。2014年，Android 5 开始采用jemalloc作为主要的内存分配器，不过部分Android5/6依然能看到dlmalloc和jemalloc两者并存。
+jemalloc的一些特性与设计原则：
+ 强大的多核/多线程分配能力. 最小化的元数据开销 基于每个线程进行缓存，避免了同步问题。 避免了连续分配内存的碎片化问题。 简洁高效  0x01 结构  jemalloc对内存划分按照如下由高到低的顺序:
+   内存是由一定数量的arenas进行管理. 一个arena被分割成若干chunks, 后者主要负责记录bookkeeping（记录信息）. chunk内部又包含着若干runs, 作为分配小块内存的基本单元. run由pages组成, 最终被划分成一定数量的regions 对于small size的分配请求来说, 这些region就相当于user memory.   arenas 对于Android来说：
+限制了只使用两个arenas,每个带有一个lock。这意味着，不同线程尝试分配内存时，会循环、平均分配至两个arena，确保两个arena有大致相等的进程数量。只有在相同的arena中分配内存时才需要获取lock。
+#/android.bpandroid_product_variables = {// Only enable the tcache on non-svelte configurations, to save PSS. malloc_not_svelte: {cflags: [&amp;#34;-UANDROID_MAX_ARENAS&amp;#34;,&amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;,&amp;#34;-DJEMALLOC_TCACHE&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;,],},}用shadow查看arenas</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CVE on ------------</title>
+    <link>https://kuekiko.top/tags/cve/</link>
+    <description>Recent content in CVE on ------------</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 05 Aug 2018 21:16:52 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/cve/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在Android的个人字典中发现和利用漏洞(CVE-2018-9375)</title>
+      <link>https://kuekiko.top/posts/2018/08/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</link>
+      <pubDate>Sun, 05 Aug 2018 21:16:52 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/08/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/</guid>
+      <description>翻译的文章 渣渣翻译 原作者：Daniel Kachakil
+ 我正在审计一款Android手机，审计范围是所有已经安装了的应用程序。我的首选方法是，在时间允许的时候，就手动检查尽可能多的代码。我发现了一个巧妙的漏洞，这个漏洞允许我与一个内容提供者交互，而该内容提供者应该在最近的Android版本中受到保护：用户的个人词典，它存储了用户想要保留的非标准单词的拼写。
+虽然理论上应该只授权给特权用户、授权的输入法编辑器(IMEs) ，以及拼写检查程序访问用户的个人词典，但是有一种方法可以绕过这些限制，允许恶意应用程序更新、删除甚至检索字典内的所有内容。而不需要任何权限或者与用户交互。
+这个中等风险的漏洞被归类为权限提升，并于2018年6月修复，影响到Android的以下版本：6.0、6.0.1、7.0、7.1.1、7.1.2、8.0和8.1。
+用户的个人词典 Android提供了一个自定义词典，可以手动输入或者自动定制，从用户的输入中学习。这本字典的入口为“设置→ 语言和键盘 → 个人词典” （也可能在“高级“或者不同的选项下）。他可能包含有敏感信息，比如姓名、地址、电话号码、电子邮件、密码、商业品牌、不存常的词汇（可能包括疾病、药品、技术术语等），甚至信用卡号。
+用户还可以为每个单词或者句子定义一个快捷方式，因此想要输入的家庭地址的时候，你可以添加一个条目并简单地为其添加一个快捷方式（比如“myhome”）来自动完成填写。
+在内部，这些单词存储在SQLLite数据库中，该数据库只包含有一个名为“words”的表（除了“android_metadata” ），这个表有6列：
+ _id (INTEGER, PRIMARY KEY) word (TEXT) frequency (INTEGER) locale (TEXT) appid (INTEGER) shortcut (TEXT)  我们主要注意“word&amp;quot;这列，正如名称所示，它包含了自定义的单词。然而，同一数据库中所有剩余的列和表也可以访问。
+漏洞细节 在较早版本的Android中，对个人字典的读写访问分别受到以下权限的保护：
+ android.permission.READ_USER_DICTIONARY android.permission.WRITE_USER_DICTIONARY  对于新版本来说，这已经不再适用了，根据官方文档[1]:&amp;ldquo;从API 23开始，用户字典只能通过IME和拼写检查器访问” ，以前的权限已经被内部检查所取代，因此理论上，只有特权帐户(比如 root 和 system), 启用的IMEs和拼写检查器可以访问个人字典内容提供者 (content://user_dictionary/words)。
+我们可以检查AOSP代码库，查看一个变更[2]中引入了一个新的名为canCallerAccessUserDictionary 的私有函数，并从 UserDictionary 内容提供者中的所有标准查询、插入、更新和删除函数中调用该函数，以防止对这些函数的未经授权的调用。
+虽然更改似乎对查询和插入函数都有效，但是在更新和删除过程中，授权检查发生滞后引入了安全漏洞，允许任何应用程序通过公开的内容提供者成功地调用受影响的函数，从而绕过错误的授权检查。
+在下面的 UserDictionaryProvider类[3]的代码中，注意高亮（标注在注释）的片段，查看在数据库已经被修改之后如何执行授权检查：
+@Overridepublic int delete(Uri uri, String where, String[] whereArgs) {SQLiteDatabase db = mOpenHelper.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ARM on ------------</title>
+    <link>https://kuekiko.top/categories/arm/</link>
+    <description>Recent content in ARM on ------------</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 03 Aug 2019 12:26:24 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/categories/arm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ARM-PWN从入门到放弃0x00-环境准备</title>
+      <link>https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</link>
+      <pubDate>Sat, 03 Aug 2019 12:26:24 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</guid>
+      <description>0x00 前言 学PWN也有一段时间了，x86/x86_64 下算是入了个门，平时接触ARM比较多，正好以ARM架构下再更加深入的学习PWN。
+会用的工具、环境：
+ 在Ubuntu 18.04/WSL2 Docker for wsl2 树莓派3B+ qemu unicorn IDA Radare2 GDB+gef+pwndbg+peda pwntools  0x01 环境安装 这里选用的有两种环境
+  ARM设备 树莓派
+之前618买了树莓派，派上用场了。
+把PI的官方系统换成了Ubuntu 18.04。
+安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
+关闭地址随机化
+sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
+安装
+#防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi 3B&#43; 0安装使用</title>
+      <link>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sun, 23 Jun 2019 01:14:22 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>Raspberry Pi 3B+ 0安装使用 0x00 购买 终于下手买了。打算用来学习ARM、以及一些硬件的知识。
+ 3B+ 裸机 32G SD card 散热片 保护壳  0x01 安装系统 首先下载系统镜像。
+官网有挺多系统可以选择，这里选择了安装Raspbian desktop最新版
+之后打算装Lite版，手上没有多余的显示器。而且桌面版占用很高。
+迅雷，3分钟搞定。
+其次开始向SD卡中写镜像。
+买的32G闪迪的高速卡，现在32G都白菜价了，想想几年前16G的死贵。
+官方教程用的是Etcher ，也可以用Win32DiskImager。这里省事还是用Etcher。
+步骤
+ 下载etcher.io安装包安装Etcher](https://etcher.io/) 运行Etcher,选择镜像和sd卡  Flash一键搞定。  0x02 配置 系统安装完，开始进行配置。
+先连上显示器看看
+然而平时显示器还是要连笔记本，而且这分辨率好糊。所以还是配ssh和VNC连接使用吧。
+ 修改源  # 编辑 `/etc/apt/sources.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contribdeb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib# 编辑 `/etc/apt/sources.list.d/raspi.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ stretch mainsudo apt update
+ 拓展SD卡  sudo raspi-config -&amp;gt; Advanced Opt -&amp;gt; A1 Expand Filesystem</description>
+    </item>
+    
+    <item>
+      <title>Android-ARM进阶</title>
+      <link>https://kuekiko.top/posts/2018/10/android-arm%E8%BF%9B%E9%98%B6/</link>
+      <pubDate>Wed, 10 Oct 2018 16:40:20 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/10/android-arm%E8%BF%9B%E9%98%B6/</guid>
+      <description>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。
+NDK-Build的使用 可以参考官方文档。
+  创建一个Android项目
+  cd 项目目录
+  /ndk-build 。也可以将NDK-build加入环境变量。
+  创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
+//Android.mkLOCAL_PATH := $(call my-dir)include $(CLEAR_VARS)# 要生成的.so库名称LOCAL_MODULE := hello# c++文件LOCAL_SRC_FILES := hello.cppinclude $(BUILD_SHARED_LIBRARY)//Application.mkAPP_PLATFORM := android-17# APP_ABI := allAPP_ABI :=armeabi-v7a arm64-v8a添加hello.cpp：
+#include&amp;lt;cstdio&amp;gt;int i,j;int num[] = {1,2,3,4,5};int main(){/* code */printf(&amp;#34;hello,world!\n&amp;#34;);for(i=0;i&amp;lt;5;i++){printf(&amp;#34;num value is %d\n&amp;#34;,num[i]);}return 0;}  ndk-build</description>
+    </item>
+    
+    <item>
+      <title>ARM汇编基础</title>
+      <link>https://kuekiko.top/posts/2018/08/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Fri, 10 Aug 2018 19:34:10 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/08/arm%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</guid>
+      <description>ARM汇编基础(简) 经常忘记，做个笔记，好作复习。。
+内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Azeria-labs
+ARM架构 ARM属于RISC CPU，
+ ARM模式 4个字节opcode 32位 Thumb模式 2个字节opcode 16位 Thumb-2模式 同上（只是有部分4个字节的opcode) 64位ARM 4个字节opcode ARM机器码在版本3之前是小端。但是之后默认采用大端格式，但可以设置切换到小端。  数据类型 数据类型在汇编语言中的扩展后缀为**-h**或者**-sh**对应着半字，**-b**或者**-sb**对应着字节，但是对于字并没有对应的扩展
+ldr = 加载字，宽度四字节ldrh = 加载无符号的半字，宽度两字节ldrsh = 加载有符号的半字，宽度两字节ldrb = 加载无符号的字节ldrsb = 加载有符号的字节str = 存储字，宽度四字节strh = 存储无符号的半字，宽度两字节strsh = 存储有符号的半字，宽度两字节strb = 存储无符号的字节strsb = 存储有符号的字节字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
+数据访问时采取大端序还是小端序使用程序状态寄存器(CPSR)的第9比特位来决定的。
+寄存器 37个32位寄存器，其中31个为基础寄存器，6个为状态寄存器。
+用户模式下有
+ 不分组寄存器（R0-R7） R7一般存放系统调用号 分组寄存器（R8-R14） 程序计数器（R15） 单前程序状态寄存器（CPSR）  两种状态：
+   ARM状态（32位对齐） Thumb状态(16位对齐)     R0-R7 R0-R7(相同)   CPSR CPSR（同）   R11 FP（栈帧指针）   R12 IP（内部程序调用）   R13 SP（栈指针）   R14 LR（链接寄存器）一般存放函数返回地址   R15 PC（程序计数器）    和x86对比：CSPR:32位的CPSR寄存器的比特位含义，左边是最大比特位，右边是最小比特位。每个单元代表一个比特。</description>
+    </item>
+    
+    <item>
+      <title>QEMU的安装使用</title>
+      <link>https://kuekiko.top/posts/2018/08/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 09 Aug 2018 19:34:34 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/08/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>QEMU的安装使用 安装 WIndows：https://qemu.weilnetz.de/w64/ 下载exe安装就行
+MACOS:brew install qemu or sudo port install qemu
+LINUX：
+ Arch: pacman -S qemu Debian/Ubuntu: apt-get install qemu Fedora: dnf install @virtualization Gentoo: emerge --ask app-emulation/qemu RHEL/CentOS: yum install qemu-kvm SUSE: zypper install qemu  源码安装：https://download.qemu.org/
+wget
+wget https://download.qemu.org/qemu-3.0.0-rc1.tar.xztar xvJf qemu-3.0.0-rc1.tar.xzcd qemu-3.0.0-rc1./configuremakegit
+git clone git://git.qemu.org/qemu.gitcd qemugit submodule initgit submodule update --recursive./configuremake最新的开发发生在主分支上。稳定的树位于名为“稳定x”的分支中。YY分支,X。YY是发布版本。
+树莓派内核制作（在windows上) 下载树莓派系统：http://downloads.raspberrypi.org/raspbian/images/
+下载qume 的树莓派内核： https://github.</description>
+    </item>
+    
+  </channel>
+</rss>

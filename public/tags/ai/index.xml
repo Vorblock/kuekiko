@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI on ------------</title>
+    <link>https://kuekiko.top/tags/ai/</link>
+    <description>Recent content in AI on ------------</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 08 Dec 2018 23:40:51 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pytorch学习_1安装</title>
+      <link>https://kuekiko.top/posts/2018/12/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sat, 08 Dec 2018 23:40:51 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/12/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/</guid>
+      <description>前言 本来想着用tensorflow的 然而GPU版总是报各种各样的BUG
+所以打算入坑一下学pytorch
+配置：win10+i76700HQ+GTX1060+16G
+软件版本：CUDA10+python3.6+pytorch 1 源码编译
+尝试1：官方安装方法不支持 CUDA 10 太坑，社区有编译通过的，所以只有自己编译试试
+报各种异常，但是没停，那就等等
+CPU被占满，巨卡。
+一觉起来之后：安装失败
+尝试2：等着完全支持CUDA10之后在用GPU跑吧。
+妥协：用阿里云的学生服务器装了CPU的版本：顺便把TensorFlow 也给装了。。
+然而 在一个星期之后 pytorch1.0出来了 支持了CUDA10 nice
+pip3 install http://download.pytorch.org/whl/cu100/torch-1.0.0-cp36-cp36m-win_amd64.whlpip3 install torchvision期间没有遇到任何问题 真舒畅。。。</description>
+    </item>
+    
+  </channel>
+</rss>

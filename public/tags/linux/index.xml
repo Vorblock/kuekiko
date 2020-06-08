@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on ------------</title>
+    <link>https://kuekiko.top/tags/linux/</link>
+    <description>Recent content in Linux on ------------</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 28 Aug 2019 23:24:18 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>QEMU的安装使用</title>
+      <link>https://kuekiko.top/posts/2018/08/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 09 Aug 2018 19:34:34 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/08/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>QEMU的安装使用 安装 WIndows：https://qemu.weilnetz.de/w64/ 下载exe安装就行
+MACOS:brew install qemu or sudo port install qemu
+LINUX：
+ Arch: pacman -S qemu Debian/Ubuntu: apt-get install qemu Fedora: dnf install @virtualization Gentoo: emerge --ask app-emulation/qemu RHEL/CentOS: yum install qemu-kvm SUSE: zypper install qemu  源码安装：https://download.qemu.org/
+wget
+wget https://download.qemu.org/qemu-3.0.0-rc1.tar.xztar xvJf qemu-3.0.0-rc1.tar.xzcd qemu-3.0.0-rc1./configuremakegit
+git clone git://git.qemu.org/qemu.gitcd qemugit submodule initgit submodule update --recursive./configuremake最新的开发发生在主分支上。稳定的树位于名为“稳定x”的分支中。YY分支,X。YY是发布版本。
+树莓派内核制作（在windows上) 下载树莓派系统：http://downloads.raspberrypi.org/raspbian/images/
+下载qume 的树莓派内核： https://github.</description>
+    </item>
+    
+  </channel>
+</rss>

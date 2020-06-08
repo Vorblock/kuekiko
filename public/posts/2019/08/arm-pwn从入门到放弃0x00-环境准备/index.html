@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Kuekiko ">
+<meta name="description" content="0x00 前言 学PWN也有一段时间了，x86/x86_64 下算是入了个门，平时接触ARM比较多，正好以ARM架构下再更加深入的学习PWN。
+会用的工具、环境：
+ 在Ubuntu 18.04/WSL2 Docker for wsl2 树莓派3B&#43; qemu unicorn IDA Radare2 GDB&#43;gef&#43;pwndbg&#43;peda pwntools  0x01 环境安装 这里选用的有两种环境
+  ARM设备 树莓派
+之前618买了树莓派，派上用场了。
+把PI的官方系统换成了Ubuntu 18.04。
+安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
+关闭地址随机化
+sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
+安装
+#防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派" />
+<meta name="keywords" content=", ARM, PWN" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" />
+
+
+    <title>
+        
+            ARM-PWN从入门到放弃0x00-环境准备 :: ------------  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="ARM-PWN从入门到放弃0x00-环境准备">
+<meta itemprop="description" content="ARM PWN从入门到放弃0x00 环境准备">
+<meta itemprop="datePublished" content="2019-08-03T12:26:24&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-03T12:26:24&#43;08:00" />
+<meta itemprop="wordCount" content="172">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="ARM,PWN," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="ARM-PWN从入门到放弃0x00-环境准备"/>
+<meta name="twitter:description" content="ARM PWN从入门到放弃0x00 环境准备"/>
+
+
+
+    <meta property="og:title" content="ARM-PWN从入门到放弃0x00-环境准备" />
+<meta property="og:description" content="ARM PWN从入门到放弃0x00 环境准备" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2019-08-03T12:26:24+08:00" />
+<meta property="article:modified_time" content="2019-08-03T12:26:24+08:00" />
+
+
+
+
+    <meta property="article:section" content="ARM" />
+
+    <meta property="article:section" content="PWN" />
+
+
+
+    <meta property="article:published_time" content="2019-08-03 12:26:24 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd /root/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">ARM-PWN从入门到放弃0x00-环境准备</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h3 id="0x00-前言">0x00 前言</h3>
+<p>学PWN也有一段时间了，x86/x86_64 下算是入了个门，平时接触ARM比较多，正好以ARM架构下再更加深入的学习PWN。</p>
+<p>会用的工具、环境：</p>
+<ul>
+<li>在Ubuntu 18.04/WSL2</li>
+<li>Docker for wsl2</li>
+<li>树莓派3B+</li>
+<li>qemu</li>
+<li>unicorn</li>
+<li>IDA</li>
+<li>Radare2</li>
+<li>GDB+gef+pwndbg+peda</li>
+<li>pwntools</li>
+</ul>
+<h3 id="0x01-环境安装">0x01 环境安装</h3>
+<p>这里选用的有两种环境</p>
+<ol>
+<li>
+<p>ARM设备 树莓派</p>
+<p>之前618买了树莓派，派上用场了。</p>
+<p>把PI的官方系统换成了Ubuntu 18.04。</p>
+<p>安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。</p>
+<p>关闭地址随机化</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cat /proc/sys/kernel/randomize_va_space <span style="color:#75715e"># 状态查看</span>
+<span style="color:#ae81ff">2</span> <span style="color:#75715e"># 开启中</span>
+sudo echo <span style="color:#ae81ff">0</span> &gt; /proc/sys/kernel/randomize_va_space 
+bash: /proc/sys/kernel/randomize_va_space: Permission denied
+su
+echo <span style="color:#ae81ff">0</span> &gt; /proc/sys/kernel/randomize_va_space
+cat /proc/sys/kernel/randomize_va_space
+<span style="color:#ae81ff">0</span> <span style="color:#75715e">#这就OK</span>
+</code></pre></div></li>
+<li>
+<p>QEMU 模拟 (WSL2)</p>
+<p>安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#防止又出什么乱七八糟的错误和需求，尽量都装上</span>
+apt install gdb gdb-multiarch <span style="color:#75715e">##</span>
+apt install qemu <span style="color:#75715e">##</span>
+apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu <span style="color:#75715e">##gcc arm 依赖库安装</span>
+</code></pre></div></li>
+</ol>
+<h3 id="0x02-启动和调试">0x02 启动和调试</h3>
+<ol>
+<li>
+<p>树莓派</p>
+<p>直接运行</p>
+<p>进行socat绑定端口 就OK</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">socat tcp-listen:6666,fork exec:./binfile
+</code></pre></div></li>
+<li>
+<p>QEMU</p>
+<ul>
+<li>32bit</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 本地GDB调试</span>
+qemu-arm -g <span style="color:#ae81ff">1234</span> -L /usr/arm-linux-gnueabi ./binfile
+gdb-multiarch
+target remote localhost:1234
+<span style="color:#75715e"># 绑定运行到指定端口 远程调试</span>
+socat tcp-l:10002,fork exec:<span style="color:#e6db74">&#34;qemu-arm  -L /usr/arm-linux-gnueabi ./binfile&#34;</span>,reuseaddr &amp;
+<span style="color:#75715e"># + -g 方便调试</span>  
+socat tcp-l:10002,fork exec:<span style="color:#e6db74">&#34;qemu-arm -g 1234 -L /usr/arm-linux-gnueabi ./binfile&#34;</span>,reuseaddr &amp;
+</code></pre></div><ul>
+<li>64bit</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 本地调试 -g 等待GDB调试</span>
+qemu-aarch64 -g <span style="color:#ae81ff">1111</span> -L /usr/aarch64-linux-gnu ./file
+socat tcp-l:10002,fork exec:<span style="color:#e6db74">&#34;qemu-aarch64  -L /usr/aarch64-linux-gnu ./binfile&#34;</span>,reuseaddr &amp;
+socat tcp-l:10002,fork exec:<span style="color:#e6db74">&#34;qemu-aarch64 -g 1234 -L /usr/aarch64-linux-gnu ./binfile&#34;</span>,reuseaddr &amp;
+</code></pre></div></li>
+</ol>
+<h3 id="0x03-调试过程">0x03 调试过程</h3>
+<p>在树莓派直接gdb调试就行。省略。。。</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190804221031.png" alt="img"></p>
+<p>使用qemu+gdb-multiarch+插件进行调试步骤</p>
+<p><code>qemu-aarch64 -g 10002 -L /usr/aarch64-linux-gnu ./baby_arm</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gdb-multiarch ./baby_arm -q
+target remote:10002
+</code></pre></div><p><img src="https://my-md-1253484710.file.myqcloud.com/20190804225625.png" alt="img"></p>
+<h3 id="0x04-题目搭建">0x04 题目搭建</h3>
+<p>基于<a href="https://github.com/Eadom/ctf_xinetd">ctf_xinetd</a>项目自己改了一个</p>
+<p>地址：<a href="https://github.com/Vorblock/CTF_arm_xinetd">CTF_ARM_xinetd</a></p>
+<h3 id="0x05-参考链接">0x05 参考链接</h3>
+<ul>
+<li><a href="https://xz.aliyun.com/t/3154">https://xz.aliyun.com/t/3154</a></li>
+<li><a href="https://github.com/Eadom/ctf_xinetd">https://github.com/Eadom/ctf_xinetd</a></li>
+<li><a href="https://github.com/bkerler/exploit_me">https://github.com/bkerler/exploit_me</a></li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/arm">ARM</a></span><span class="tag"><a href="https://kuekiko.top/tags/pwn">PWN</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>172 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-08-03 12:26 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2019/08/qemu-gdb%E8%B0%83%E8%AF%95linux%E5%86%85%E6%A0%B8/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Qemu&#43;gdb调试Linux内核</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">
+                                <span class="button__text">Raspberry Pi 3B&#43; 0安装使用</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

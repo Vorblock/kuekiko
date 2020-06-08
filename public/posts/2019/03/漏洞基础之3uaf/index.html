@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Kuekiko ">
+<meta name="description" content="" />
+<meta name="keywords" content=", 漏洞基础, UAF" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/2019/03/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/" />
+
+
+    <title>
+        
+            漏洞基础之3UAF :: ------------  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="漏洞基础之3UAF">
+<meta itemprop="description" content="漏洞基础之3UAF">
+<meta itemprop="datePublished" content="2019-03-20T15:37:13&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-20T15:37:13&#43;08:00" />
+<meta itemprop="wordCount" content="267">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="漏洞基础,UAF," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="漏洞基础之3UAF"/>
+<meta name="twitter:description" content="漏洞基础之3UAF"/>
+
+
+
+    <meta property="og:title" content="漏洞基础之3UAF" />
+<meta property="og:description" content="漏洞基础之3UAF" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/2019/03/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2019-03-20T15:37:13+08:00" />
+<meta property="article:modified_time" content="2019-03-20T15:37:13+08:00" />
+
+
+
+
+    <meta property="article:section" content="漏洞基础" />
+
+
+
+    <meta property="article:published_time" content="2019-03-20 15:37:13 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd /root/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/2019/03/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/">漏洞基础之3UAF</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <ul>
+<li>重写ing</li>
+</ul>
+<h3 id="0x00原理">0x00原理</h3>
+<p>堆内存在释放后被直接再次使用(释放了堆块之后，未将该指针值为NULL,导致指针处于悬空状态，被释放的内存能被恶意利用) 在浏览器中比较常见的漏洞</p>
+<p><strong>根本原因是：</strong></p>
+<blockquote>
+<p>应用程序调用free()释放内存时，如果内存块小于256kb，dlmalloc并不马上将内存块释放回内存，而是将内存块标记为空闲状态。这么做的原因有两个：一是内存块不一定能马上释放会内核（比如内存块不是位于堆顶端），二是供应用程序下次申请内存使用（这是主要原因）。当dlmalloc中空闲内存量达到一定值时dlmalloc才将空闲内存释放会内核。如果应用程序申请的内存大于256kb，dlmalloc调用mmap()向内核申请一块内存，返回返还给应用程序使用。如果应用程序释放的内存大于256kb，dlmalloc马上调用munmap()释放内存。dlmalloc不会缓存大于256kb的内存块，因为这样的内存块太大了，最好不要长期占用这么大的内存资源。</p>
+</blockquote>
+<h3 id="利用">利用</h3>
+<h5 id="简单利用">简单利用</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>func_ptr)(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">evil_fuc</span>(<span style="color:#66d9ef">char</span> command[])
+{
+system(command);
+}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">echo</span>(<span style="color:#66d9ef">char</span> content[])
+{
+printf(<span style="color:#e6db74">&#34;%s&#34;</span>,content);
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    func_ptr <span style="color:#f92672">*</span>p1<span style="color:#f92672">=</span>(func_ptr<span style="color:#f92672">*</span>)malloc(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+    printf(<span style="color:#e6db74">&#34;malloc addr: %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,p1);
+    p1[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>echo;
+    p1[<span style="color:#ae81ff">3</span>](<span style="color:#e6db74">&#34;hello world</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    free(p1); <span style="color:#75715e">//在这里free了p1,但并未将p1置空,导致后续可以再使用p1指针
+</span><span style="color:#75715e"></span>    p1[<span style="color:#ae81ff">3</span>](<span style="color:#e6db74">&#34;hello again</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>); <span style="color:#75715e">//p1指针未被置空,虽然free了,但仍可使用.
+</span><span style="color:#75715e"></span>    func_ptr <span style="color:#f92672">*</span>p2<span style="color:#f92672">=</span>(func_ptr<span style="color:#f92672">*</span>)malloc(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));<span style="color:#75715e">//malloc在free一块内存后,再次申请同样大小的指针会把刚刚释放的内存分配出来.
+</span><span style="color:#75715e"></span>    printf(<span style="color:#e6db74">&#34;malloc addr: %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,p2);
+    printf(<span style="color:#e6db74">&#34;malloc addr: %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,p1);<span style="color:#75715e">//p2与p1指针指向的内存为同一地址
+</span><span style="color:#75715e"></span>    p2[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>evil_fuc; <span style="color:#75715e">//在这里将p1指针里面保存的echo函数指针覆盖成为了evil_func指针.
+</span><span style="color:#75715e"></span>    p1[<span style="color:#ae81ff">3</span>](<span style="color:#e6db74">&#34;/bin/sh&#34;</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180912215411.png" alt=""></p>
+<h5 id="pwnablekr-uaf">pwnable.kr uaf</h5>
+<p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180912220453.png" alt=""></p>
+<p>先看看源码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt; </span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Human</span>{
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> give_shell(){
+        system(<span style="color:#e6db74">&#34;/bin/sh&#34;</span>);
+    }
+<span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> age;
+    string name;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> introduce(){
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;My name is &#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span> endl;
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;I am &#34;</span> <span style="color:#f92672">&lt;&lt;</span> age <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; years old&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Man</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Human{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Man(string name, <span style="color:#66d9ef">int</span> age){
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>name <span style="color:#f92672">=</span> name;
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>age <span style="color:#f92672">=</span> age;
+        }
+        <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">introduce</span>(){
+        Human<span style="color:#f92672">::</span>introduce();
+                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;I am a nice guy!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+        }
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Woman</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Human{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        Woman(string name, <span style="color:#66d9ef">int</span> age){
+                <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>name <span style="color:#f92672">=</span> name;
+                <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>age <span style="color:#f92672">=</span> age;
+        }
+        <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">introduce</span>(){
+                Human<span style="color:#f92672">::</span>introduce();
+                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;I am a cute girl!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+        }
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> argv[]){
+    Human<span style="color:#f92672">*</span> m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Man(<span style="color:#e6db74">&#34;Jack&#34;</span>, <span style="color:#ae81ff">25</span>);
+    Human<span style="color:#f92672">*</span> w <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Woman(<span style="color:#e6db74">&#34;Jill&#34;</span>, <span style="color:#ae81ff">21</span>);
+
+    size_t len;
+    <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> data;
+    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> op;
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;1. use</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">2. after</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">3. free</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+        cin <span style="color:#f92672">&gt;&gt;</span> op;
+
+        <span style="color:#66d9ef">switch</span>(op){
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+                m<span style="color:#f92672">-&gt;</span>introduce();
+                w<span style="color:#f92672">-&gt;</span>introduce();
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+                len <span style="color:#f92672">=</span> atoi(argv[<span style="color:#ae81ff">1</span>]);
+                data <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[len];
+                read(open(argv[<span style="color:#ae81ff">2</span>], O_RDONLY), data, len);
+                cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;your data is allocated&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+                <span style="color:#66d9ef">delete</span> m;
+                <span style="color:#66d9ef">delete</span> w;
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+                <span style="color:#66d9ef">break</span>;
+        }
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;    
+}
+</code></pre></div><h5 id="hcft2016-fheap">HCFt2016 fheap</h5>
+<h5 id="网鼎杯ctf2018-第一场-pwn-babyheap">网鼎杯CTF2018 第一场 Pwn Babyheap</h5>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/Ox9A82/p/5320857.html">https://www.cnblogs.com/Ox9A82/p/5320857.html</a></li>
+<li><a href="https://www.cnblogs.com/alert123/p/4918041.html">https://www.cnblogs.com/alert123/p/4918041.html</a></li>
+<li><a href="https://blog.csdn.net/qq_31481187/article/details/73612451">https://blog.csdn.net/qq_31481187/article/details/73612451</a></li>
+<li><a href="https://www.anquanke.com/post/id/85281">https://www.anquanke.com/post/id/85281</a></li>
+<li><a href="https://xz.aliyun.com/t/2609?accounttraceid=ce44f2b3-4957-4509-b7ba-f2bd6eed34d3#toc-4">https://xz.aliyun.com/t/2609?accounttraceid=ce44f2b3-4957-4509-b7ba-f2bd6eed34d3#toc-4</a></li>
+<li><a href="https://www.anquanke.com/post/id/85281">https://www.anquanke.com/post/id/85281</a></li>
+</ul>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80">漏洞基础</a></span><span class="tag"><a href="https://kuekiko.top/tags/uaf">UAF</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>267 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-03-20 15:37 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2019/06/mobsecvm/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">MobSecVM</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/2019/02/rop%E7%BB%83%E4%B9%A0/">
+                                <span class="button__text">ROP练习</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>
