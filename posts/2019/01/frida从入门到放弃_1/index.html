@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Kuekiko ">
+<meta name="description" content="0x00 Frida Frida 官网：https://www.frida.re/
+github: https://github.com/frida/frida
+Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers.
+ Scriptable Portable Free Battle-tested  0x01 安装 二进制安装 (推荐) pip install frida-tools 就一个命令搞定
+ Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
+报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
+ 绑定：二选一就行
+pip install frida # Python bindingsnpm install frida # Node.js bindings手动编译 依赖：
+pip3 install colorama prompt-toolkit pygments
+ Linux  make
+ MacOS and iOS  export MAC_CERTID=frida-certexport IOS_CERTID=frida-certmake Windows  frida." />
+<meta name="keywords" content=", android安全, HOOK, Frida" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/2019/01/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/" />
+
+
+    <title>
+        
+            Frida从入门到放弃_1 :: Kuekiko` blog  — Recorded living tip
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Frida从入门到放弃_1">
+<meta itemprop="description" content="Frida安装简单介绍">
+<meta itemprop="datePublished" content="2019-01-22T20:39:26&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-22T20:39:26&#43;08:00" />
+<meta itemprop="wordCount" content="161">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="android安全,HOOK,Frida," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="Frida从入门到放弃_1"/>
+<meta name="twitter:description" content="Frida安装简单介绍"/>
+
+
+
+    <meta property="og:title" content="Frida从入门到放弃_1" />
+<meta property="og:description" content="Frida安装简单介绍" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/2019/01/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2019-01-22T20:39:26+08:00" />
+<meta property="article:modified_time" content="2019-01-22T20:39:26+08:00" />
+
+
+
+
+    <meta property="article:section" content="HOOK" />
+
+    <meta property="article:section" content="Android安全" />
+
+    <meta property="article:section" content="工具环境" />
+
+
+
+    <meta property="article:published_time" content="2019-01-22 20:39:26 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd ~/kuekiko/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/reading/">Reading</a></li><li><a href="https://kuekiko.top/todo/">TODO</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/2019/01/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_1/">Frida从入门到放弃_1</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h3 id="0x00-frida">0x00 Frida</h3>
+<p>Frida 官网：https://www.frida.re/</p>
+<p>github: <a href="https://github.com/frida/frida">https://github.com/frida/frida</a></p>
+<p>Dynamic instrumentation toolkit for developers, reverse-engineers, and security
+researchers.</p>
+<ul>
+<li>Scriptable</li>
+<li>Portable</li>
+<li>Free</li>
+<li>Battle-tested</li>
+</ul>
+<h3 id="0x01-安装">0x01 安装</h3>
+<h5 id="二进制安装-推荐">二进制安装 (推荐)</h5>
+<p>pip install frida-tools 就一个命令搞定</p>
+<blockquote>
+<p>Failed to load the Frida native extension: DLL load failed: 找不到指定的模块</p>
+<p>报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。</p>
+</blockquote>
+<p>绑定：二选一就行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip install frida       <span style="color:#75715e"># Python bindings</span>
+npm install frida       <span style="color:#75715e"># Node.js bindings</span>
+</code></pre></div><h5 id="手动编译">手动编译</h5>
+<p>依赖：</p>
+<p><code>pip3 install colorama prompt-toolkit pygments</code></p>
+<ul>
+<li>Linux</li>
+</ul>
+<p><code>make</code></p>
+<ul>
+<li>MacOS and iOS</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export MAC_CERTID<span style="color:#f92672">=</span>frida-cert
+export IOS_CERTID<span style="color:#f92672">=</span>frida-cert
+make
+</code></pre></div><ul>
+<li>Windows</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">frida.sln <span style="color:#75715e">#VS2017</span>
+</code></pre></div><h3 id="0x02-android环境">0x02 Android环境</h3>
+<p>设备：小米mix2 运行Android9.0 MIUI10开发版已解锁root</p>
+<p>frida-server: 用的arm64版本</p>
+<p><a href="https://github.com/frida/frida/releases">server文件下载</a></p>
+<p>下载好对应的 frida-server  然后adb push 进去</p>
+<p><code>adb push frida-server /data/local/tmp</code></p>
+<p>然后<code>chomd 755 frida-server</code>修改权限</p>
+<p>运行<code>./frida-server</code></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190112133452.png" alt="frida-server"></p>
+<p>这几个命令：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">adb root
+adb push frida-server /data/local/tmp
+adb shell <span style="color:#e6db74">&#34;chmod 755 /data/local/tmp/frida-server&#34;</span>
+adb shell <span style="color:#e6db74">&#34;/data/local/tmp/frida-server &amp;&#34;</span>
+</code></pre></div><p>查看架构：</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616145105.png" alt="aarch64"></p>
+<h3 id="0x03-简单测试">0x03 简单测试</h3>
+<p>命令行运行<code>frida-ps -U</code></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190112133604.png" alt="frida-ps"></p>
+<p>有显示就是连接成功</p>
+<p>接下来对浏览器进行简单测试</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150349.png" alt=""></p>
+<p><code>frida-trace -U -i open com.android.browser</code></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150506.png" alt=""></p>
+<p>随便点一下浏览器</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616150623.png" alt=""></p>
+<p>测试Diva</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151039.jpg" alt=""></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151307.png" alt=""></p>
+<p><code>frida-trace -U -i &quot;open*&quot; jakhar.aseem.diva</code></p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151432.png" alt=""></p>
+<p>进行Hook login.class checkout函数</p>
+<p>逆向过程略</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616151826.png" alt=""></p>
+<p>HOOK脚本：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">perfrom</span>(<span style="color:#66d9ef">function</span>(){
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;######&#34;</span>)
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">logActivity</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Java</span>.<span style="color:#a6e22e">use</span>(<span style="color:#e6db74">&#34;jakhar.aseem.diva.LogActivity&#34;</span>);
+    <span style="color:#a6e22e">logActivity</span>.<span style="color:#a6e22e">checkout</span>.<span style="color:#a6e22e">implementation</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Hook&#34;</span>)
+    }
+})
+</code></pre></div><p>命令行载入脚本运行</p>
+<p><code>frida -U jakhar.aseem.diva -l diva1.js --no-pause</code></p>
+<p>进入logging关卡 点击check out，成功hook到checkout函数。</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190616153553.png" alt=""></p>
+<h3 id="0x04-总结">0x04 总结</h3>
+<hr>
+<p>算是简单的入门了frida。</p>
+<p>frida还有很多厉害的功能。多读读官方文档，收货会更多。</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/android%E5%AE%89%E5%85%A8">android安全</a></span><span class="tag"><a href="https://kuekiko.top/tags/hook">HOOK</a></span><span class="tag"><a href="https://kuekiko.top/tags/frida">Frida</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>161 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-01-22 20:39 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2019/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Frida从入门到放弃_2</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/2019/01/radare2-cutter%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+                                <span class="button__text">radare2&#43;cutter使用指南</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

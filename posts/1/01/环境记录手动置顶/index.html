@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Kuekiko ">
+<meta name="description" content="用来不时记录平时所用环境配置，以及遇到的各种问题以及解决办法。主要是为了防丢失，以及总是和空气斗志斗勇。
+ Win10  日常使用
+ WSL 默认不是root 设置默认root用户。ubuntu config --default-user root
+  on my zsh 装上
+官方github
+需要先安装ZSH。
+安装on my zsh:
+via curl：sh -c &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;
+via wget: sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&amp;quot;
+然后配置喜欢的 插件&#43;主题。vi ~/.zshrc 修改plugins属性
+必备插件git、autojump、zsh-autosuggestions。主题
+  GDB装上&#43;pwndbg&#43;peda&#43;gef
+wsl的ubuntu不支持x86，所以主要只能调试x64的程序，而且可能会出现莫名其妙的错误。
+不过可以使用qemu来运行x86的程序，调试还是不行会出错。参考
+sudo apt updatesudo apt install qemu-user-staticsudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39;# 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。sudo service binfmt-support start  pwndbg&#43;peda&#43;gef" />
+<meta name="keywords" content=", 工具, 备份" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/1/01/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E6%89%8B%E5%8A%A8%E7%BD%AE%E9%A1%B6/" />
+
+
+    <title>
+        
+            环境记录(手动置顶) :: Kuekiko` blog  — Recorded living tip
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="环境记录(手动置顶)">
+<meta itemprop="description" content="记录平时所用环境配置">
+
+<meta itemprop="wordCount" content="638">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="工具,备份," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="环境记录(手动置顶)"/>
+<meta name="twitter:description" content="记录平时所用环境配置"/>
+
+
+
+    <meta property="og:title" content="环境记录(手动置顶)" />
+<meta property="og:description" content="记录平时所用环境配置" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/1/01/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E6%89%8B%E5%8A%A8%E7%BD%AE%E9%A1%B6/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+
+
+
+
+
+    <meta property="article:section" content="工具环境" />
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd ~/kuekiko/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/reading/">Reading</a></li><li><a href="https://kuekiko.top/todo/">TODO</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/1/01/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E6%89%8B%E5%8A%A8%E7%BD%AE%E9%A1%B6/">环境记录(手动置顶)</a>
+            </h1>
+                <hr />
+                <aside id="toc">
+                <div class="toc-title">Table of Contents</div>
+                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#win10">Win10</a></li>
+        <li><a href="#ubuntu-1804">Ubuntu 18.04</a></li>
+        <li><a href="#manjaro">manjaro</a></li>
+        <li><a href="#没钱买mac留记录">没钱买Mac，留记录</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                </aside>
+                <hr />
+
+            
+
+            <div class="post-content">
+                <blockquote>
+<p>用来不时记录平时所用环境配置，以及遇到的各种问题以及解决办法。主要是为了防丢失，以及总是和空气斗志斗勇。</p>
+</blockquote>
+<h3 id="win10">Win10</h3>
+<blockquote>
+<p>日常使用</p>
+</blockquote>
+<h5 id="wsl">WSL</h5>
+<p>默认不是root 设置默认root用户。<code>ubuntu config --default-user root</code></p>
+<ul>
+<li>
+<p>on my zsh 装上</p>
+<p><a href="https://github.com/robbyrussell/oh-my-zsh">官方github</a></p>
+<p>需要先安装<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH">ZSH</a>。</p>
+<p>安装on my zsh:</p>
+<p>via curl：<code>sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</code></p>
+<p>via wget: <code>sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code></p>
+<p>然后配置喜欢的 插件+主题。<code>vi ~/.zshrc</code> 修改<code>plugins</code>属性</p>
+<p>必备插件git、autojump、zsh-autosuggestions。<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes">主题</a></p>
+</li>
+<li>
+<p>GDB装上+pwndbg+peda+gef</p>
+<p>wsl的ubuntu不支持x86，所以主要只能调试x64的程序，而且可能会出现莫名其妙的错误。</p>
+<p>不过可以使用qemu来运行x86的程序，调试还是不行会出错。<a href="https://github.com/Microsoft/WSL/issues/2468">参考</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt update
+sudo apt install qemu-user-static
+sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic <span style="color:#e6db74">&#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&#39;</span> --mask <span style="color:#e6db74">&#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&#39;</span>
+<span style="color:#75715e"># 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。</span>
+sudo service binfmt-support start
+</code></pre></div><ul>
+<li>
+<p>pwndbg+peda+gef</p>
+<p>三个都可能用到，三个工具特性不一样。各有强项，所以三个都装，使用脚本<code>gdb.sh</code>启动选项</p>
+<p>安装pwndbg:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/pwndbg/pwndbg
+cd pwndbg
+./setup.sh
+</code></pre></div><p>peda:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/longld/peda.git ~/peda
+echo <span style="color:#e6db74">&#34;source ~/peda/peda.py&#34;</span> &gt;&gt; ~/.gdbinit
+</code></pre></div><p>gef:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># via the install script</span>
+$ wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
+    
+<span style="color:#75715e"># manually</span>
+$ wget -O ~/.gdbinit-gef.py -q https://github.com/hugsy/gef/raw/master/gef.py
+$ echo source ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit
+</code></pre></div><p>gdb.sh  把该文件放在<code>/usr/local/sbin</code>  参考</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> Mode_change <span style="color:#f92672">{</span>
+        name<span style="color:#f92672">=</span>$1
+        gdbinitfile<span style="color:#f92672">=</span>~/.gdbinit    <span style="color:#75715e">#这个路径按照你的实际情况修改</span>
+        <span style="color:#75715e"># gdbinitfile=/root/Desktop/mode</span>
+        <span style="color:#75715e">#路径按照你的实际情况修改</span>
+        peda<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;source ~/peda/peda.py&#34;</span>   
+        gef<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;source ~/.gdbinit-gef.py&#34;</span>   
+        pwndbg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;source /home/pwndbg/gdbinit.py&#34;</span>  
+    
+        sign<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat $gdbinitfile | grep -n <span style="color:#e6db74">&#34;#this place is controled by user&#39;s shell&#34;</span><span style="color:#66d9ef">)</span>
+           <span style="color:#75715e">#此处上面的查找内容要和你自己的保持一致</span>
+    
+        pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;:#this place is controled by user&#39;s shell&#34;</span>
+        number<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>sign%$pattern<span style="color:#e6db74">}</span>
+        location<span style="color:#f92672">=</span>$<span style="color:#f92672">[</span>number+2<span style="color:#f92672">]</span>
+    
+        parameter_add<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>location<span style="color:#e6db74">}</span>i
+        parameter_del<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>location<span style="color:#e6db74">}</span>d
+    
+        message<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;TEST&#34;</span>
+    
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $name -eq <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+                sed -i <span style="color:#e6db74">&#34;</span>$parameter_del<span style="color:#e6db74">&#34;</span> $gdbinitfile
+                sed -i <span style="color:#e6db74">&#34;</span>$parameter_add<span style="color:#e6db74"> </span>$peda<span style="color:#e6db74">&#34;</span> $gdbinitfile
+                echo -e <span style="color:#e6db74">&#34;Please enjoy the peda!\n&#34;</span>
+        <span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> $name -eq <span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+                sed -i <span style="color:#e6db74">&#34;</span>$parameter_del<span style="color:#e6db74">&#34;</span> $gdbinitfile
+                sed -i <span style="color:#e6db74">&#34;</span>$parameter_add<span style="color:#e6db74"> </span>$gef<span style="color:#e6db74">&#34;</span> $gdbinitfile
+                echo -e <span style="color:#e6db74">&#34;Please enjoy the gef!\n&#34;</span>
+        <span style="color:#66d9ef">else</span>
+                sed -i <span style="color:#e6db74">&#34;</span>$parameter_del<span style="color:#e6db74">&#34;</span> $gdbinitfile
+                sed -i <span style="color:#e6db74">&#34;</span>$parameter_add<span style="color:#e6db74"> </span>$pwndbg<span style="color:#e6db74">&#34;</span> $gdbinitfile
+                echo -e <span style="color:#e6db74">&#34;Please enjoy the pwndbg!\n&#34;</span>
+        <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
+    
+echo -e <span style="color:#e6db74">&#34;Please choose one mode of GDB?\n1.peda    2.gef    3.pwndbg&#34;</span>
+    
+read -p <span style="color:#e6db74">&#34;Input your choice:&#34;</span> num
+    
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $num -eq <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+        Mode_change $num
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> $num -eq <span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+        Mode_change $num
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> $num -eq <span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+        Mode_change $num
+<span style="color:#66d9ef">else</span>
+        echo -e <span style="color:#e6db74">&#34;Error!\nPleasse input right number!&#34;</span>
+<span style="color:#66d9ef">fi</span>
+    
+gdb $1 $2 $3 $4 $5 $6 $7 $8 $9#
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>r2全家桶 （逆向调试神器）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/radare/radare2.git
+cd radare2
+sys/install.sh  <span style="color:#75715e">#Install / Update</span>
+</code></pre></div></li>
+<li>
+<p>gcc arm aarch aarch64</p>
+<p><code>sudo apt install gcc-arm-linux-gnueabi</code> 使用命令<code>arm-linux-gnueabi-gcc</code></p>
+<p><code>sudo apt install gcc-aarch64-linux-gnu</code>  使用命令<code>aarch64-linux-gnu-gcc</code></p>
+</li>
+<li>
+<p>clang+llvm</p>
+<ul>
+<li>
+<p>方法一，手动编译安装，费时费力</p>
+</li>
+<li>
+<p>方法二 apt</p>
+<p>完整方法这个<a href="http://apt.llvm.org/">地址</a></p>
+<p>只写ubuntu 18,04</p>
+<ol>
+<li>编辑 /etc/apt/sources.list，添加源</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># i386 not available</span>
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main
+deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic main
+<span style="color:#75715e"># 7</span>
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
+deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
+<span style="color:#75715e"># 8</span>
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main
+deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main
+</code></pre></div><ol start="2">
+<li>添加证书</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+<span style="color:#75715e"># Fingerprint: 6084 F3CF 814B 57C1 CF12 EFD5 15CF 4D18 AF4F 7421</span> 
+</code></pre></div><ol start="3">
+<li>安装 版本8</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># LLVM</span>
+apt-get install libllvm-8-ocaml-dev libllvm8 llvm-8 llvm-8-dev llvm-8-doc llvm-8-examples llvm-8-runtime
+<span style="color:#75715e"># Clang and co</span>
+apt-get install clang-8 clang-tools-8 clang-8-doc libclang-common-8-dev libclang-8-dev libclang1-8 clang-format-8 python-clang-8
+<span style="color:#75715e"># libfuzzer</span>
+apt-get install libfuzzer-8-dev
+<span style="color:#75715e"># lldb</span>
+apt-get install lldb-8
+<span style="color:#75715e"># lld (linker)</span>
+apt-get install lld-8
+<span style="color:#75715e"># libc++</span>
+apt-get install libc++-8-dev libc++abi-8-dev
+<span style="color:#75715e"># OpenMP</span>
+apt-get install libomp-8-dev
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>python3+pip</p>
+<p><code>apt install python3 python3-pip、python-pip</code></p>
+</li>
+<li>
+<p>python库</p>
+<ul>
+<li>
+<p>frida （hook) 同win下使用</p>
+</li>
+<li>
+<p>pwntools (py2)</p>
+</li>
+<li>
+<p>gmpy2 (py2-3)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>r2Frida</p>
+</li>
+<li>
+<p>Brida</p>
+</li>
+</ul>
+<h5 id="vscode-666">vscode （666）</h5>
+<blockquote>
+<p>主要是各种插件</p>
+</blockquote>
+<ul>
+<li>zh-ch （汉化包）</li>
+<li>background （右下角小萌人）</li>
+<li></li>
+</ul>
+<h5 id="cmderhttpscmdernet-win下强大的终端工具"><a href="https://cmder.net/">cmder</a> (Win下强大的终端工具)</h5>
+<ul>
+<li><a href="https://cmder.net/">官网</a>下载安装</li>
+<li>简单配置：</li>
+<li>wsl vim 无法使用上下左右键解决</li>
+</ul>
+<h5 id="py2-py3">py2-py3</h5>
+<p><a href="https://www.python.org/">官网</a>找想要的包下载，同时装两个版本。</p>
+<p>修改环境变量，日常使用py3,把py3的环境变量放在前面，去py2的安装目录复制一份python.exe 更名为python2.exe，就可以使用python2作为命令输入。</p>
+<p>pip配置为国内源会快很多</p>
+<h5 id="java8jdk最新">Java8+jdk最新</h5>
+<p><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">官网下载安装</a></p>
+<p>下个jdk最新版防止部分工具需要。</p>
+<p>可能有时候还需要配置环境变量JAVA_HOME为JDK路径。</p>
+<h5 id="golang">Golang</h5>
+<p>也是只需<a href="https://golang.google.cn/">下载</a>安装就ok.</p>
+<h5 id="nodejs">NodeJS</h5>
+<p>也是只需<a href="https://nodejs.org/en/">下载安装</a>就ok. 推荐稳定版。</p>
+<p>会默认安装npm，然而下载速度实在太慢，使用淘宝镜像<a href="https://npm.taobao.org/">cnpm</a> ,用法相同</p>
+<p><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code></p>
+<h5 id="git">git</h5>
+<p><a href="https://git-scm.com/">官网</a>下载安装完事</p>
+<h5 id="yarn">Yarn</h5>
+<p><a href="https://www.yarnpkg.com/zh-Hant/">官网</a>下载安装完事</p>
+<h5 id="cmake">CMake</h5>
+<p><a href="https://cmake.org/download/">下载</a>安装ok</p>
+<h5 id="hugo-博客工具">hugo (博客工具)</h5>
+<p><a href="https://github.com/gohugoio/hugo">下载exe</a>到本地，配置环境变量</p>
+<h5 id="haskell-stack">Haskell Stack</h5>
+<p><a href="https://docs.haskellstack.org/en/stable/README/#how-to-install">官方文档</a>、win直接下载安装</p>
+<h5 id="startlsback-win下的美化工具">StartlsBack (win下的美化工具)</h5>
+<p><a href="http://www.cnbigger.com/330.html">下载安装</a> 配置底部透明和居中</p>
+<h5 id="notepad-轻便的编辑器">Notepad++ (轻便的编辑器)</h5>
+<p><a href="https://notepad-plus-plus.org/">下载安装</a></p>
+<h5 id="android-sdk-配置">Android SDK 配置</h5>
+<ul>
+<li>adb工具 在目录<code>platform-tools</code></li>
+<li>emulator、monitor 在<code>tools</code>下</li>
+<li>NDK-build  在<code>ndk-bundle</code></li>
+</ul>
+<h5 id="flutter-google-跨平台框架">flutter (Google 跨平台框架)</h5>
+<p>有<a href="https://flutter.dev/">官网</a>了</p>
+<p>下载<a href="https://flutter.dev/docs/development/tools/sdk/releases#windows">SDK</a>-&gt;配置环境变量<code> flutter\bin</code> 。添加名为”PUB_HOSTED_URL”和”FLUTTER_STORAGE_BASE_URL”的条目。</p>
+<ul>
+<li>
+<p>Andorid Studio设置</p>
+<p>安装插件</p>
+<ul>
+<li><code>Flutter</code>插件： 支持Flutter开发工作流 (运行、调试、热重载等).</li>
+<li><code>Dart</code>插件： 提供代码分析 (输入代码时进行验证、代码补全等).</li>
+</ul>
+</li>
+<li>
+<p>VScode设置</p>
+<p>安装插件</p>
+<ul>
+<li><code>flutter</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="genymotion逍遥android-android-模拟器">Genymotion+逍遥Android (Android 模拟器)</h5>
+<p>下载安装ok</p>
+<h5 id="cuda-n卡xxx">CUDA （N卡xxx)</h5>
+<ul>
+<li>根据自己的显卡官网<a href="https://developer.nvidia.com/cuda-downloads">下载包</a></li>
+<li>根据需求安装。</li>
+</ul>
+<p>有个坑，如果为pytorch 或TensorFlow做前提 先看看这两支持的版本再安装相应的版本。</p>
+<h5 id="pytorch">pytorch</h5>
+<ul>
+<li>需求前置环境也得装好</li>
+</ul>
+<p><a href="https://pytorch.org/get-started/locally/">官方</a>有很方便的安装方法 根据不同平台和环境</p>
+<h5 id="tensorflowhttpwwwbaiducomlinkurlaofeaqzsb4aqhwkb6uuy47eeb5qmtcf0_8xfizfoj8isah2g4usrjsxcv1lxp2nx"><a href="http://www.baidu.com/link?url=AOFeAQZSb4aqHWKb6uUy47eeb5qMTcf0_8xfIZfoJ8iSah2g4UsrjsXcv1lXP2NX">TensorFlow</a></h5>
+<ul>
+<li>前置环境查官网</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># GPU版本 py3</span>
+pip3 install tensorflow-gpu  <span style="color:#75715e"># stable</span>
+pip3 install tf-nightly-gpu  <span style="color:#75715e"># preview</span>
+pip3 install tensorflow-gpu<span style="color:#f92672">==</span>2.0.0-alpha0 <span style="color:#75715e">##TensorFlow 2.0 Alpha</span>
+<span style="color:#75715e"># CPU 版本</span>
+pip3 install --user --upgrade tensorflow
+</code></pre></div><p><code>tensorflow</code> - 仅支持 CPU 的最新稳定版（建议新手使用）</p>
+<p><code>tensorflow-gpu</code> - <a href="https://tensorflow.google.cn/install/gpu">支持 GPU</a> 的最新稳定版（适用于 Ubuntu 和 Windows）</p>
+<p><code>tf-nightly</code> - 仅支持 CPU 的预览每夜版（不稳定）</p>
+<p><code>tf-nightly-gpu</code> - <a href="https://tensorflow.google.cn/install/gpu">支持 GPU</a> 的预览每夜版（不稳定，适用于 Ubuntu 和 Windows）</p>
+<p><code>tensorflow==2.0.0-alpha0</code> - 仅支持 CPU 的预览 TF 2.0 Alpha 版（不稳定）</p>
+<p><code>tensorflow-gpu==2.0.0-alpha0</code> - <a href="https://tensorflow.google.cn/install/gpu">支持 GPU</a> 的预览 TF 2.0 Alpha 版（不稳定，Ubuntu 和 Windows）</p>
+<h5 id="vmware-pro-虚拟机">VMware pro （虚拟机）</h5>
+<ul>
+<li>装MacOS记录</li>
+</ul>
+<h5 id="vbox-虚拟机">VBox （虚拟机）</h5>
+<ul>
+<li>安装拓展包</li>
+</ul>
+<h5 id="xshellxftp-free-for-homeschool">Xshell、Xftp (free for Home/School)</h5>
+<p>free 的要去<a href="https://www.netsarang.com/zh/free-for-home-school/">官网下载</a> 填写信息，邮箱打开链接下载。</p>
+<h5 id="teamviewer-远程连接">TeamViewer (远程连接)</h5>
+<h5 id="各种ide集成环境-只记录">各种IDE、集成环境 只记录</h5>
+<ul>
+<li>Visual Studio 2019</li>
+<li>Pycharm</li>
+<li>IDEA</li>
+<li>微信web开发工具</li>
+<li>phpStudy</li>
+<li>Android Studio (风扇~~ ~~)</li>
+</ul>
+<h5 id="other">Other</h5>
+<p>不做记录</p>
+<h3 id="ubuntu-1804">Ubuntu 18.04</h3>
+<blockquote>
+<p>一般用来调代码。 大部分配置同上面WSL,只记录不做过多介绍</p>
+</blockquote>
+<h5 id="on-my-zsh">on my zsh</h5>
+<h5 id="gdbpwndbgpedagef">gdb+pwndbg+peda+gef</h5>
+<h5 id="美化">美化</h5>
+<h3 id="manjaro">manjaro</h3>
+<p>很喜欢的Linux发行版。基于<strong>ArchLinux</strong>，软件多，好看又好用。</p>
+<h3 id="没钱买mac留记录">没钱买Mac，留记录</h3>
+<blockquote>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20190519150336.jpg" alt="穷"></p>
+</blockquote>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/%E5%B7%A5%E5%85%B7">工具</a></span><span class="tag"><a href="https://kuekiko.top/tags/%E5%A4%87%E4%BB%BD">备份</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>638 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>0001-01-01 08:00 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Android应用安全防护和逆向分析 基础篇①</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/1/01/%E8%AE%B0%E5%BD%95%E6%B1%87%E6%80%BB%E6%89%8B%E5%8A%A8%E7%BD%AE%E9%A1%B6/">
+                                <span class="button__text">记录汇总(手动置顶)</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

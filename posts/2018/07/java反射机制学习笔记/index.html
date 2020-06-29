@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Vorblock">
+<meta name="description" content="Java 反射机制学习记录 在逆向中反射也是能经常看见，之前理解不是很深透，现在来重点学习一下，做个笔记。
+什么是反射机制？ 反射(Reflection)是Java 程序开发语言的特征之一，它允许运行中的 Java 程序获取自身的信息，并且可以操作类或对象的内部属性。 通俗一点：在动态运行时，获取到一个类的所有方法以及成员。简而言之，通过反射，我们可以在运行时获得程序或程序集中每一个类型的成员和成员的信息。
+作用？  1.在运行时判断任意一个对象所属的类； 2.在运行时构造任意一个类的对象； 3.在运行时判断任意一个类所具有的成员变量和方法（通过反射甚至可以调用private方法）； 4.在运行时调用任意一个对象的方法  是运行时而不是编译时  获取某些类的一些变量，调用某些类的私有方法。 增加代码的灵活性。很多主流框架都使用了反射技术.像ssh框架都采用两种技术 xml做配置文件&#43;反射技术.  基本使用 反射相关的类一般都在java.lang.relfect 包里。
+  获取Class对象 3种方法
+(1)使用Class类的forName静态方法:
+public static Class&amp;lt;?&amp;gt; forName(String className)//在JDBC开发中常用此方法加载数据库驱动:Class.forName(driver);(2)直接获取某一个对象的class，比如:
+Class&amp;lt;?&amp;gt; klass = int.class;Class&amp;lt;?&amp;gt; classInt = Integer.TYPE;(3)调用某个对象的getClass()方法,比如:
+StringBuilder str = new StringBuilder(&amp;#34;123&amp;#34;);Class&amp;lt;?&amp;gt; klass = str.getClass();  判断是否为某一个类的实例
+一般使用instanceof来判断，也可以借助反射中的Class对象的isInstance()方法来判断 是一个Native方法：
+public native boolean isInstance(Object obj);  创建实例
+通过放射来生成对象两种方式：" />
+<meta name="keywords" content=", Java" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/2018/07/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+
+
+    <title>
+        
+            Java反射机制学习笔记 :: Kuekiko` blog  — Recorded living tip
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Java反射机制学习笔记">
+<meta itemprop="description" content="Java反射机制">
+<meta itemprop="datePublished" content="2018-07-25T16:40:20&#43;08:00" />
+<meta itemprop="dateModified" content="2018-07-25T16:40:20&#43;08:00" />
+<meta itemprop="wordCount" content="1754">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="Java," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="Java反射机制学习笔记"/>
+<meta name="twitter:description" content="Java反射机制"/>
+
+
+
+    <meta property="og:title" content="Java反射机制学习笔记" />
+<meta property="og:description" content="Java反射机制" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/2018/07/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2018-07-25T16:40:20+08:00" />
+<meta property="article:modified_time" content="2018-07-25T16:40:20+08:00" />
+
+
+
+
+    <meta property="article:section" content="Java" />
+
+    <meta property="article:section" content="笔记" />
+
+
+
+    <meta property="article:published_time" content="2018-07-25 16:40:20 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd ~/kuekiko/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/reading/">Reading</a></li><li><a href="https://kuekiko.top/todo/">TODO</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>9 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/2018/07/java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Java反射机制学习笔记</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="java-反射机制学习记录">Java 反射机制学习记录</h2>
+<p>在逆向中反射也是能经常看见，之前理解不是很深透，现在来重点学习一下，做个笔记。</p>
+<h3 id="什么是反射机制">什么是反射机制？</h3>
+<p>反射(Reflection)是Java 程序开发语言的特征之一，它允许运行中的 Java 程序获取自身的信息，并且可以操作类或对象的内部属性。 通俗一点：在动态运行时，获取到一个类的所有方法以及成员。简而言之，通过反射，我们可以在<strong>运行时</strong>获得程序或程序集中每一个类型的成员和成员的信息。</p>
+<h3 id="作用">作用？</h3>
+<ul>
+<li>1.在运行时判断任意一个对象所属的类；</li>
+<li>2.在运行时构造任意一个类的对象；</li>
+<li>3.在运行时判断任意一个类所具有的成员变量和方法（通过反射甚至可以调用private方法）；</li>
+<li>4.在运行时调用任意一个对象的方法</li>
+</ul>
+<h5 id="是运行时而不是编译时"><strong>是运行时而不是编译时</strong></h5>
+<ul>
+<li>获取某些类的一些变量，调用某些类的私有方法。</li>
+<li>增加代码的灵活性。很多主流框架都使用了反射技术.像ssh框架都采用两种技术 xml做配置文件+反射技术.</li>
+</ul>
+<h3 id="基本使用">基本使用</h3>
+<p>反射相关的类一般都在java.lang.relfect 包里。</p>
+<ol>
+<li>
+<p>获取Class对象 3种方法</p>
+<p>(1)使用Class类的forName静态方法:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Class<span style="color:#f92672">&lt;?&gt;</span> forName<span style="color:#f92672">(</span>String className<span style="color:#f92672">)</span>
+<span style="color:#75715e">//在JDBC开发中常用此方法加载数据库驱动:
+</span><span style="color:#75715e"></span>Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span>driver<span style="color:#f92672">);</span>
+</code></pre></div><p>(2)直接获取某一个对象的class，比如:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Class<span style="color:#f92672">&lt;?&gt;</span> klass <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+Class<span style="color:#f92672">&lt;?&gt;</span> classInt <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">;</span>
+</code></pre></div><p>(3)调用某个对象的getClass()方法,比如:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">StringBuilder str <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;123&#34;</span><span style="color:#f92672">);</span>
+Class<span style="color:#f92672">&lt;?&gt;</span> klass <span style="color:#f92672">=</span> str<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">();</span>
+</code></pre></div></li>
+<li>
+<p>判断是否为某一个类的实例</p>
+<p>一般使用instanceof来判断，也可以借助反射中的Class对象的isInstance()方法来判断  是一个Native方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">native</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isInstance</span><span style="color:#f92672">(</span>Object obj<span style="color:#f92672">);</span>
+</code></pre></div></li>
+<li>
+<p>创建实例</p>
+<p>通过放射来生成对象两种方式：</p>
+<p>（1）使用Class对象的newInstance()方法来创建Class对象对应类的实例。</p>
+<pre><code>Class&lt;?&gt; c = String.class;
+Object str = c.newInstance();
+</code></pre><p>（2）先通过Class对象获取指定的Constructor对象，再调用Constructor对象的newInstance()方法来创建实例。这种方法可以用指定的构造器构造类的实例。</p>
+<pre><code>//获取String所对应的Class对象
+Class&lt;?&gt; c = String.class;
+//获取String类带一个String参数的构造器
+Constructor constructor = c.getConstructor(String.class);
+//根据构造器创建实例
+Object obj = constructor.newInstance(&quot;23333&quot;);
+System.out.println(obj);
+</code></pre></li>
+<li>
+<p>获取方法</p>
+<p>getDeclaredMethods()方法返回类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但不包括继承的方法。</p>
+<pre><code>public Method[] getDeclaredMethods() throws SecurityException
+</code></pre><p>getMethods()方法返回某个类的所有公用（public）方法，包括其继承类的公用方法。</p>
+<pre><code>public Method[] getMethods() throws SecurityException
+</code></pre><p>getMethod方法返回一个特定的方法，其中第一个参数为方法名称，后面的参数为方法的参数对应Class的对象</p>
+<pre><code>public Method getMethod(String name, Class&lt;?&gt;... parameterTypes)
+</code></pre></li>
+</ol>
+<p>eg:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.lang.reflect.InvocationTargetException<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.lang.reflect.Method<span style="color:#f92672">;</span>
+
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test1</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> IllegalAccessException<span style="color:#f92672">,</span> InstantiationException<span style="color:#f92672">,</span>
+            NoSuchMethodException<span style="color:#f92672">,</span> InvocationTargetException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">&lt;?&gt;</span> c <span style="color:#f92672">=</span> methodClass<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+        Object object <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">();</span>
+        Method<span style="color:#f92672">[]</span> methods <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span><span style="color:#a6e22e">getMethods</span><span style="color:#f92672">();</span>
+        Method<span style="color:#f92672">[]</span> declaredMethods <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span><span style="color:#a6e22e">getDeclaredMethods</span><span style="color:#f92672">();</span>
+        Method method <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span><span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;add&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span> <span style="color:#75715e">//获取add方法
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getMethods获取的方法：&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Method m <span style="color:#f92672">:</span> methods<span style="color:#f92672">)</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>m<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getDeclaredMethods获取的方法：&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Method m <span style="color:#f92672">:</span> declaredMethods<span style="color:#f92672">)</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>m<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
+            test1<span style="color:#f92672">();</span>
+
+        <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">methodClass</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> fuck <span style="color:#f92672">=</span> 3<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> a<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sub</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> a<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180725151348.png" alt=""></p>
+<ol start="5">
+<li>
+<p>获取构造器信息</p>
+<p>通过Class类的getConstructor方法得到Constructor类的一个实例，而Constructor类有一个newInstance方法可以创建一个对象实例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> T <span style="color:#a6e22e">newInstance</span><span style="color:#f92672">(</span>Object <span style="color:#f92672">...</span> initargs<span style="color:#f92672">)</span>
+</code></pre></div></li>
+<li>
+<p>获取类的成员字段信息</p>
+<p><code>getFiled</code>: 访问公有的成员变量</p>
+<p><code>getDeclaredField</code>：所有已声明的成员变量。但不能得到其父类的成员变量</p>
+<p><code>getFileds</code>和<code>getDeclaredFields</code>用法同上（参照Method）</p>
+</li>
+<li>
+<p>调用方法</p>
+<p>获取到方法后使用invoke()方法来调用这个方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>Object obj<span style="color:#f92672">,</span> Object<span style="color:#f92672">...</span> args<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">throws</span> IllegalAccessException<span style="color:#f92672">,</span> IllegalArgumentException<span style="color:#f92672">,</span>
+           InvocationTargetException
+</code></pre></div><p>eg：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">test1</span> <span style="color:#f92672">{</span>
+   
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IllegalAccessException<span style="color:#f92672">,</span> InstantiationException<span style="color:#f92672">,</span> NoSuchMethodException<span style="color:#f92672">,</span> InvocationTargetException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">&lt;?&gt;</span> klass <span style="color:#f92672">=</span> methodClass<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+        <span style="color:#75715e">//创建methodClass的实例
+</span><span style="color:#75715e"></span>        Object obj <span style="color:#f92672">=</span> klass<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">();</span>
+        <span style="color:#75715e">//获取methodClass类的add方法
+</span><span style="color:#75715e"></span>        Method method <span style="color:#f92672">=</span> klass<span style="color:#f92672">.</span><span style="color:#a6e22e">getMethod</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;add&#34;</span><span style="color:#f92672">,</span><span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span><span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">//调用method对应的方法 =&gt; add(1,4)
+</span><span style="color:#75715e"></span>        Object result <span style="color:#f92672">=</span> method<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>obj<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span>4<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>result<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+   
+<span style="color:#f92672">}</span>
+   
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">methodClass</span> <span style="color:#f92672">{</span>
+   
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> fuck <span style="color:#f92672">=</span> 3<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> a<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sub</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> a<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+<li>
+<p>创建数组</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testArray</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">&lt;?&gt;</span> cls <span style="color:#f92672">=</span> Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;java.lang.String&#34;</span><span style="color:#f92672">);</span>
+        Object array <span style="color:#f92672">=</span> Array<span style="color:#f92672">.</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">(</span>cls<span style="color:#f92672">,</span>25<span style="color:#f92672">);</span> <span style="color:#75715e">//通过Array.newInstance()
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//往数组里添加内容
+</span><span style="color:#75715e"></span>        Array<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span>0<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">//Array类为java.lang.reflect.Array
+</span><span style="color:#75715e"></span>        Array<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;Java&#34;</span><span style="color:#f92672">);</span>
+        Array<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span>2<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;fuck&#34;</span><span style="color:#f92672">);</span>
+        Array<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span>3<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;Scala&#34;</span><span style="color:#f92672">);</span>
+        Array<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span>4<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;Clojure&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">//获取某一项的内容
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Array<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>array<span style="color:#f92672">,</span>3<span style="color:#f92672">));</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Object <span style="color:#a6e22e">newInstance</span><span style="color:#f92672">(</span>Class<span style="color:#f92672">&lt;?&gt;</span> componentType<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> length<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">throws</span> NegativeArraySizeException <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> newArray<span style="color:#f92672">(</span>componentType<span style="color:#f92672">,</span> length<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">native</span> Object <span style="color:#a6e22e">newArray</span><span style="color:#f92672">(</span>Class<span style="color:#f92672">&lt;?&gt;</span> componentType<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> length<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">throws</span> NegativeArraySizeException<span style="color:#f92672">;</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">arrayOop Reflection<span style="color:#f92672">::</span>reflect_new_array(oop element_mirror, jint length, TRAPS) {
+  <span style="color:#66d9ef">if</span> (element_mirror <span style="color:#f92672">==</span> NULL) {
+    THROW_0(vmSymbols<span style="color:#f92672">::</span>java_lang_NullPointerException());
+  }
+  <span style="color:#66d9ef">if</span> (length <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+    THROW_0(vmSymbols<span style="color:#f92672">::</span>java_lang_NegativeArraySizeException());
+  }
+  <span style="color:#66d9ef">if</span> (java_lang_Class<span style="color:#f92672">::</span>is_primitive(element_mirror)) {
+    Klass<span style="color:#f92672">*</span> tak <span style="color:#f92672">=</span> basic_type_mirror_to_arrayklass(element_mirror, CHECK_NULL);
+    <span style="color:#66d9ef">return</span> TypeArrayKlass<span style="color:#f92672">::</span>cast(tak)<span style="color:#f92672">-&gt;</span>allocate(length, THREAD);
+  } <span style="color:#66d9ef">else</span> {
+    Klass<span style="color:#f92672">*</span> k <span style="color:#f92672">=</span> java_lang_Class<span style="color:#f92672">::</span>as_Klass(element_mirror);
+    <span style="color:#66d9ef">if</span> (k<span style="color:#f92672">-&gt;</span>oop_is_array() <span style="color:#f92672">&amp;&amp;</span> ArrayKlass<span style="color:#f92672">::</span>cast(k)<span style="color:#f92672">-&gt;</span>dimension() <span style="color:#f92672">&gt;=</span> MAX_DIM) {
+      THROW_0(vmSymbols<span style="color:#f92672">::</span>java_lang_IllegalArgumentException());
+    }
+    <span style="color:#66d9ef">return</span> oopFactory<span style="color:#f92672">::</span>new_objArray(k, length, THREAD);
+  }
+}
+</code></pre></div><p>Array类的set()和get()方法都为Native方法，在HotSpot JVM里分别对应Reflection::array_set和Reflection::array_get方法</p>
+</li>
+<li>
+<p>获取泛型</p>
+<p>getGenericHelper(HashMap&lt;String, Person&gt; map)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span>  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getGenericType</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            Method method <span style="color:#f92672">=</span>TestHelper<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getDeclaredMethod</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;getGenericHelper&#34;</span><span style="color:#f92672">,</span>HashMap<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+            Type<span style="color:#f92672">[]</span> genericParameterTypes <span style="color:#f92672">=</span> method<span style="color:#f92672">.</span><span style="color:#a6e22e">getGenericParameterTypes</span><span style="color:#f92672">();</span>
+            <span style="color:#75715e">// 检验是否为空
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> genericParameterTypes <span style="color:#f92672">||</span> genericParameterTypes<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#75715e">// 取 getGenericHelper 方法的第一个参数
+</span><span style="color:#75715e"></span>   
+            ParameterizedType parameterizedType<span style="color:#f92672">=(</span>ParameterizedType<span style="color:#f92672">)</span>genericParameterTypes<span style="color:#f92672">[</span>0<span style="color:#f92672">];</span>
+            Type rawType <span style="color:#f92672">=</span> parameterizedType<span style="color:#f92672">.</span><span style="color:#a6e22e">getRawType</span><span style="color:#f92672">();</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;----&gt; rawType=&#34;</span> <span style="color:#f92672">+</span> rawType<span style="color:#f92672">);</span>
+            Type<span style="color:#f92672">[]</span> actualTypeArguments <span style="color:#f92672">=</span> parameterizedType<span style="color:#f92672">.</span><span style="color:#a6e22e">getActualTypeArguments</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>actualTypeArguments<span style="color:#f92672">==</span>genericParameterTypes <span style="color:#f92672">||</span> actualTypeArguments<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">&lt;</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#75715e">//  打印出每一个类型          
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> actualTypeArguments<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+                Type type <span style="color:#f92672">=</span> actualTypeArguments<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;----&gt; type=&#34;</span> <span style="color:#f92672">+</span> type<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+   
+        <span style="color:#f92672">}</span>
+   
+    <span style="color:#f92672">}</span>
+</code></pre></div><ol start="10">
+<li>
+<p>获得 Metho,Field,Constructor 的访问权限</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> modifiers <span style="color:#f92672">=</span> method<span style="color:#f92672">.</span><span style="color:#a6e22e">getModifiers</span><span style="color:#f92672">();</span> 
+Modifier<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span>modifiers<span style="color:#f92672">);</span> 
+</code></pre></div></li>
+</ol>
+</li>
+</ol>
+<h3 id="invoke方法">Invoke方法</h3>
+<p>比较重点</p>
+<p>invoke方法的实现：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@CallerSensitive</span>
+<span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>Object obj<span style="color:#f92672">,</span> Object<span style="color:#f92672">...</span> args<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">throws</span> IllegalAccessException<span style="color:#f92672">,</span> IllegalArgumentException<span style="color:#f92672">,</span>
+       InvocationTargetException
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>override<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>Reflection<span style="color:#f92672">.</span><span style="color:#a6e22e">quickCheckMemberAccess</span><span style="color:#f92672">(</span>clazz<span style="color:#f92672">,</span> modifiers<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            Class<span style="color:#f92672">&lt;?&gt;</span> caller <span style="color:#f92672">=</span> Reflection<span style="color:#f92672">.</span><span style="color:#a6e22e">getCallerClass</span><span style="color:#f92672">();</span>
+            checkAccess<span style="color:#f92672">(</span>caller<span style="color:#f92672">,</span> clazz<span style="color:#f92672">,</span> obj<span style="color:#f92672">,</span> modifiers<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    MethodAccessor ma <span style="color:#f92672">=</span> methodAccessor<span style="color:#f92672">;</span>             <span style="color:#75715e">// read volatile
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ma <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        ma <span style="color:#f92672">=</span> acquireMethodAccessor<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">return</span> ma<span style="color:#f92672">.</span><span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>obj<span style="color:#f92672">,</span> args<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ol>
+<li>
+<p>权限检查</p>
+<p>首先检查AccessibleObject的override属性的值 。AccessibleObject 类是 Field、Method 和 Constructor 对象的基类 。override 默认为false,调试需要权限调用规则，反正不需要。</p>
+<p>默认情况下首先用Reflection.quickCheckMemberAccess(clazz, modifiers)方法检查方法是否为public，如果是的话跳出本步；如果不是public方法，那么用Reflection.getCallerClass()方法获取调用这个方法的Class对象，这是一个native方法:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@CallerSensitive</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">native</span> Class<span style="color:#f92672">&lt;?&gt;</span> getCallerClass<span style="color:#f92672">();</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">JNIEXPORT jclass JNICALL <span style="color:#a6e22e">Java_sun_reflect_Reflection_getCallerClass__</span>
+<span style="color:#f92672">(</span>JNIEnv <span style="color:#f92672">*</span>env<span style="color:#f92672">,</span> jclass unused<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">return</span> JVM_GetCallerClass<span style="color:#f92672">(</span>env<span style="color:#f92672">,</span> JVM_CALLER_DEPTH<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">JVM_ENTRY(jclass, JVM_GetCallerClass(JNIEnv<span style="color:#f92672">*</span> env, <span style="color:#66d9ef">int</span> depth))
+  JVMWrapper(<span style="color:#e6db74">&#34;JVM_GetCallerClass&#34;</span>);
+   
+  <span style="color:#75715e">// Pre-JDK 8 and early builds of JDK 8 don&#39;t have a CallerSensitive annotation; or
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// sun.reflect.Reflection.getCallerClass with a depth parameter is provided
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// temporarily for existing code to use until a replacement API is defined.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (SystemDictionary<span style="color:#f92672">::</span>reflect_CallerSensitive_klass() <span style="color:#f92672">==</span> NULL <span style="color:#f92672">||</span> depth <span style="color:#f92672">!=</span> JVM_CALLER_DEPTH) {
+    Klass<span style="color:#f92672">*</span> k <span style="color:#f92672">=</span> <span style="color:#66d9ef">thread</span><span style="color:#f92672">-&gt;</span>security_get_caller_class(depth);
+    <span style="color:#66d9ef">return</span> (k <span style="color:#f92672">==</span> NULL) <span style="color:#f92672">?</span> NULL <span style="color:#f92672">:</span> (jclass) JNIHandles<span style="color:#f92672">::</span>make_local(env, k<span style="color:#f92672">-&gt;</span>java_mirror());
+  }
+   
+  <span style="color:#75715e">// Getting the class of the caller frame.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// The call stack at this point looks something like this:
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// [0] [ @CallerSensitive public sun.reflect.Reflection.getCallerClass ]
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// [1] [ @CallerSensitive API.method                                   ]
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// [.] [ (skipped intermediate frames)                                 ]
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// [n] [ caller                                                        ]
+</span><span style="color:#75715e"></span>  vframeStream <span style="color:#a6e22e">vfst</span>(<span style="color:#66d9ef">thread</span>);
+  <span style="color:#75715e">// Cf. LibraryCallKit::inline_native_Reflection_getCallerClass
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#f92672">!</span>vfst.at_end(); vfst.security_next(), n<span style="color:#f92672">++</span>) {
+    Method<span style="color:#f92672">*</span> m <span style="color:#f92672">=</span> vfst.method();
+    assert(m <span style="color:#f92672">!=</span> NULL, <span style="color:#e6db74">&#34;sanity&#34;</span>);
+    <span style="color:#66d9ef">switch</span> (n) {
+    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+      <span style="color:#75715e">// This must only be called from Reflection.getCallerClass
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> (m<span style="color:#f92672">-&gt;</span>intrinsic_id() <span style="color:#f92672">!=</span> vmIntrinsics<span style="color:#f92672">::</span>_getCallerClass) {
+        THROW_MSG_NULL(vmSymbols<span style="color:#f92672">::</span>java_lang_InternalError(), <span style="color:#e6db74">&#34;JVM_GetCallerClass must only be called from Reflection.getCallerClass&#34;</span>);
+      }
+      <span style="color:#75715e">// fall-through
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+      <span style="color:#75715e">// Frame 0 and 1 must be caller sensitive.
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>m<span style="color:#f92672">-&gt;</span>caller_sensitive()) {
+        THROW_MSG_NULL(vmSymbols<span style="color:#f92672">::</span>java_lang_InternalError(), err_msg(<span style="color:#e6db74">&#34;CallerSensitive annotation expected at frame %d&#34;</span>, n));
+      }
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>m<span style="color:#f92672">-&gt;</span>is_ignored_by_security_stack_walk()) {
+        <span style="color:#75715e">// We have reached the desired frame; return the holder class.
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> (jclass) JNIHandles<span style="color:#f92672">::</span>make_local(env, m<span style="color:#f92672">-&gt;</span>method_holder()<span style="color:#f92672">-&gt;</span>java_mirror());
+      }
+      <span style="color:#66d9ef">break</span>;
+    }
+  }
+  <span style="color:#66d9ef">return</span> NULL;
+JVM_END
+</code></pre></div><p>获取了这个Class对象caller后用checkAccess方法做一次快速的权限校验 :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">volatile</span> Object securityCheckCache<span style="color:#f92672">;</span>
+   
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">checkAccess</span><span style="color:#f92672">(</span>Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;</span> caller<span style="color:#f92672">,</span> Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;</span> clazz<span style="color:#f92672">,</span> Object obj<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> modifiers<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">throws</span> IllegalAccessException
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>caller <span style="color:#f92672">==</span> clazz<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>  <span style="color:#75715e">// 快速校验
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>             <span style="color:#75715e">// 权限通过校验
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+        Object cache <span style="color:#f92672">=</span> securityCheckCache<span style="color:#f92672">;</span>  <span style="color:#75715e">// read volatile
+</span><span style="color:#75715e"></span>        Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;</span> targetClass <span style="color:#f92672">=</span> clazz<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>obj <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>
+            <span style="color:#f92672">&amp;</span>amp<span style="color:#f92672">;&amp;</span>amp<span style="color:#f92672">;</span> Modifier<span style="color:#f92672">.</span><span style="color:#a6e22e">isProtected</span><span style="color:#f92672">(</span>modifiers<span style="color:#f92672">)</span>
+            <span style="color:#f92672">&amp;</span>amp<span style="color:#f92672">;&amp;</span>amp<span style="color:#f92672">;</span> <span style="color:#f92672">((</span>targetClass <span style="color:#f92672">=</span> obj<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">())</span> <span style="color:#f92672">!=</span> clazz<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// Must match a 2-list of { caller, targetClass }.
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>cache <span style="color:#66d9ef">instanceof</span> Class<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+                Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;[]</span> cache2 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;[])</span> cache<span style="color:#f92672">;</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>cache2<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> targetClass <span style="color:#f92672">&amp;</span>amp<span style="color:#f92672">;&amp;</span>amp<span style="color:#f92672">;</span>
+                    cache2<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> caller<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>     <span style="color:#75715e">// ACCESS IS OK
+</span><span style="color:#75715e"></span>                <span style="color:#f92672">}</span>
+                <span style="color:#75715e">// (Test cache[1] first since range check for [1]
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// subsumes range check for [0].)
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>cache <span style="color:#f92672">==</span> caller<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// Non-protected case (or obj.class == this.clazz).
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>             <span style="color:#75715e">// ACCESS IS OK
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+   
+        <span style="color:#75715e">// If no return, fall through to the slow path.
+</span><span style="color:#75715e"></span>        slowCheckMemberAccess<span style="color:#f92672">(</span>caller<span style="color:#f92672">,</span> clazz<span style="color:#f92672">,</span> obj<span style="color:#f92672">,</span> modifiers<span style="color:#f92672">,</span> targetClass<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>先快速检查，未通过的话建立缓存，中间再检查；</p>
+<p>如果都没有通过：进行更详细的检查;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// Keep all this slow stuff out of line:
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">slowCheckMemberAccess</span><span style="color:#f92672">(</span>Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;</span> caller<span style="color:#f92672">,</span> Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;</span> clazz<span style="color:#f92672">,</span> Object obj<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> modifiers<span style="color:#f92672">,</span>
+                           Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;</span> targetClass<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">throws</span> IllegalAccessException
+<span style="color:#f92672">{</span>
+    Reflection<span style="color:#f92672">.</span><span style="color:#a6e22e">ensureMemberAccess</span><span style="color:#f92672">(</span>caller<span style="color:#f92672">,</span> clazz<span style="color:#f92672">,</span> obj<span style="color:#f92672">,</span> modifiers<span style="color:#f92672">);</span>
+   
+    <span style="color:#75715e">// Success: Update the cache.
+</span><span style="color:#75715e"></span>    Object cache <span style="color:#f92672">=</span> <span style="color:#f92672">((</span>targetClass <span style="color:#f92672">==</span> clazz<span style="color:#f92672">)</span>
+                    <span style="color:#f92672">?</span> caller
+                    <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> Class<span style="color:#f92672">&amp;</span>lt<span style="color:#f92672">;?&amp;</span>gt<span style="color:#f92672">;[]</span> <span style="color:#f92672">{</span> caller<span style="color:#f92672">,</span> targetClass <span style="color:#f92672">});</span>
+   
+    <span style="color:#75715e">// Note:  The two cache elements are not volatile,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// but they are effectively final.  The Java memory model
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// guarantees that the initializing stores for the cache
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// elements will occur before the volatile write.
+</span><span style="color:#75715e"></span>    securityCheckCache <span style="color:#f92672">=</span> cache<span style="color:#f92672">;</span>         <span style="color:#75715e">// write volatile
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p>用Reflection.ensureMemberAccess方法继续检查权限，若检查通过就更新缓存，这样下一次同一个类调用同一个方法时就不用执行权限检查了，这是一种简单的缓存机制。</p>
+</li>
+<li>
+<p>调用MethodAccessor的invoke方法</p>
+<p>由sun.reflect.MethodAccessor 处理</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">  <span style="color:#75715e">/** This interface provides the declaration for
+</span><span style="color:#75715e">      java.lang.reflect.Method.invoke(). Each Method object is
+</span><span style="color:#75715e">      configured with a (possibly dynamically-generated) class which
+</span><span style="color:#75715e">      implements this interface.
+</span><span style="color:#75715e">  */</span>
+   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">MethodAccessor</span> <span style="color:#f92672">{</span>    <span style="color:#75715e">//是一个接口
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">/** Matches specification in {@link java.lang.reflect.Method} */</span>
+      <span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>Object obj<span style="color:#f92672">,</span> Object<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+          <span style="color:#66d9ef">throws</span> IllegalArgumentException<span style="color:#f92672">,</span> InvocationTargetException<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+</code></pre></div><p>分析其Usage可得它的具体实现类有:</p>
+<ul>
+<li>sun.reflect.DelegatingMethodAccessorImpl</li>
+<li>sun.reflect.MethodAccessorImpl</li>
+<li>sun.reflect.NativeMethodAccessorImpl</li>
+</ul>
+<p>methodAccessor实例由reflectionFactory对象操控生成，它在AccessibleObject下的声明如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// Reflection factory used by subclasses for creating field,
+</span><span style="color:#75715e">// method, and constructor accessors. Note that this is called
+</span><span style="color:#75715e">// very early in the bootstrapping process.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> ReflectionFactory reflectionFactory <span style="color:#f92672">=</span>
+    AccessController<span style="color:#f92672">.</span><span style="color:#a6e22e">doPrivileged</span><span style="color:#f92672">(</span>
+        <span style="color:#66d9ef">new</span> sun<span style="color:#f92672">.</span><span style="color:#a6e22e">reflect</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ReflectionFactory</span><span style="color:#f92672">.</span><span style="color:#a6e22e">GetReflectionFactoryAction</span><span style="color:#f92672">());</span>
+</code></pre></div><p>sun.reflect.ReflectionFactory类的源码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReflectionFactory</span> <span style="color:#f92672">{</span>
+     
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> initted <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Permission reflectionFactoryAccessPerm
+        <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RuntimePermission<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;reflectionFactoryAccess&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> ReflectionFactory soleInstance <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ReflectionFactory<span style="color:#f92672">();</span>
+    <span style="color:#75715e">// Provides access to package-private mechanisms in java.lang.reflect
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">volatile</span> LangReflectAccess langReflectAccess<span style="color:#f92672">;</span>
+     
+    <span style="color:#75715e">// 这里设计得非常巧妙
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// &#34;Inflation&#34; mechanism. Loading bytecodes to implement
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Method.invoke() and Constructor.newInstance() currently costs
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 3-4x more than an invocation via native code for the first
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// invocation (though subsequent invocations have been benchmarked
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// to be over 20x faster). Unfortunately this cost increases
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// startup time for certain applications that use reflection
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// intensively (but only once per class) to bootstrap themselves.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// To avoid this penalty we reuse the existing JVM entry points
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// for the first few invocations of Methods and Constructors and
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// then switch to the bytecode-based implementations.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Package-private to be accessible to NativeMethodAccessorImpl
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// and NativeConstructorAccessorImpl
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> noInflation        <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span>     inflationThreshold <span style="color:#f92672">=</span> 15<span style="color:#f92672">;</span>
+     
+    <span style="color:#75715e">//......
+</span><span style="color:#75715e"></span>     
+ <span style="color:#75715e">//这是生成MethodAccessor的方法
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> MethodAccessor <span style="color:#a6e22e">newMethodAccessor</span><span style="color:#f92672">(</span>Method method<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        checkInitted<span style="color:#f92672">();</span>
+     
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>noInflation <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>ReflectUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">isVMAnonymousClass</span><span style="color:#f92672">(</span>method<span style="color:#f92672">.</span><span style="color:#a6e22e">getDeclaringClass</span><span style="color:#f92672">()))</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MethodAccessorGenerator<span style="color:#f92672">().</span>
+                generateMethod<span style="color:#f92672">(</span>method<span style="color:#f92672">.</span><span style="color:#a6e22e">getDeclaringClass</span><span style="color:#f92672">(),</span>
+                               method<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span>
+                               method<span style="color:#f92672">.</span><span style="color:#a6e22e">getParameterTypes</span><span style="color:#f92672">(),</span>
+                               method<span style="color:#f92672">.</span><span style="color:#a6e22e">getReturnType</span><span style="color:#f92672">(),</span>
+                               method<span style="color:#f92672">.</span><span style="color:#a6e22e">getExceptionTypes</span><span style="color:#f92672">(),</span>
+                               method<span style="color:#f92672">.</span><span style="color:#a6e22e">getModifiers</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+            NativeMethodAccessorImpl acc <span style="color:#f92672">=</span>
+                <span style="color:#66d9ef">new</span> NativeMethodAccessorImpl<span style="color:#f92672">(</span>method<span style="color:#f92672">);</span>
+            DelegatingMethodAccessorImpl res <span style="color:#f92672">=</span>
+                <span style="color:#66d9ef">new</span> DelegatingMethodAccessorImpl<span style="color:#f92672">(</span>acc<span style="color:#f92672">);</span>
+            acc<span style="color:#f92672">.</span><span style="color:#a6e22e">setParent</span><span style="color:#f92672">(</span>res<span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">return</span> res<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+     
+    <span style="color:#75715e">//......
+</span><span style="color:#75715e"></span>     
+    <span style="color:#75715e">/** We have to defer full initialization of this class until after
+</span><span style="color:#75715e">    the static initializer is run since java.lang.reflect.Method&#39;s
+</span><span style="color:#75715e">    static initializer (more properly, that for
+</span><span style="color:#75715e">    java.lang.reflect.AccessibleObject) causes this class&#39;s to be
+</span><span style="color:#75715e">    run, before the system properties are set up. */</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">checkInitted</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>initted<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+        AccessController<span style="color:#f92672">.</span><span style="color:#a6e22e">doPrivileged</span><span style="color:#f92672">(</span>
+            <span style="color:#66d9ef">new</span> PrivilegedAction<span style="color:#f92672">&lt;</span>Void<span style="color:#f92672">&gt;()</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">public</span> Void <span style="color:#a6e22e">run</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+                    <span style="color:#75715e">// Tests to ensure the system properties table is fully
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// initialized. This is needed because reflection code is
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// called very early in the initialization process (before
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// command-line arguments have been parsed and therefore
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// these user-settable properties installed.) We assume that
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// if System.out is non-null then the System class has been
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// fully initialized and that the bulk of the startup code
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// has been run.
+</span><span style="color:#75715e"></span>     
+                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                        <span style="color:#75715e">// java.lang.System not yet fully initialized
+</span><span style="color:#75715e"></span>                        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+     
+                    String val <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sun.reflect.noInflation&#34;</span><span style="color:#f92672">);</span>
+                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>val <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> val<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                        noInflation <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+     
+                    val <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">getProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sun.reflect.inflationThreshold&#34;</span><span style="color:#f92672">);</span>
+                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>val <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+                            inflationThreshold <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">parseInt</span><span style="color:#f92672">(</span>val<span style="color:#f92672">);</span>
+                        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>NumberFormatException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Unable to parse property sun.reflect.inflationThreshold&#34;</span><span style="color:#f92672">,</span> e<span style="color:#f92672">);</span>
+                        <span style="color:#f92672">}</span>
+                    <span style="color:#f92672">}</span>
+     
+                    initted <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">});</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>MethodAccessor实现有两个版本，一个是Java版本，一个是native版本 。</p>
+<p>Java实现的版本在初始化时需要较多时间，但长久来说性能较好；native版本正好相反，启动时相对较快，但运行时间长了之后速度就比不过Java版了</p>
+<p>为了尽可能地减少性能损耗，HotSpot JDK采用“inflation”的技巧：让Java方法在被反射调用时，开头若干次使用native版，等反射调用次数超过阈值时则生成一个专用的MethodAccessor实现类，生成其中的invoke()方法的字节码，以后对该Java方法的反射调用就会使用Java版本。 这项优化是从JDK 1.4开始的。</p>
+<ol start="3">
+<li>
+<p>在JVM层面探究invoke0方法</p>
+<p>invoke0方法是一个native方法,它在HotSpot JVM里调用JVM_InvokeMethod函数:</p>
+</li>
+</ol>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">          JNIEXPORT jobject JNICALL <span style="color:#a6e22e">Java_sun_reflect_NativeMethodAccessorImpl_invoke0</span>
+          (JNIEnv <span style="color:#f92672">*</span>env, jclass unused, jobject m, jobject obj, jobjectArray args)
+          {
+              <span style="color:#66d9ef">return</span> JVM_InvokeMethod(env, m, obj, args);
+          }
+</code></pre></div><p>openjdk/hotspot/src/share/vm/prims/jvm.cpp</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">JVM_ENTRY(jobject, JVM_InvokeMethod(JNIEnv <span style="color:#f92672">*</span>env, jobject method, jobject obj, jobjectArray args0))
+  JVMWrapper(<span style="color:#e6db74">&#34;JVM_InvokeMethod&#34;</span>);
+  Handle method_handle;
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">thread</span><span style="color:#f92672">-&gt;</span>stack_available((address) <span style="color:#f92672">&amp;</span>method_handle) <span style="color:#f92672">&gt;=</span> JVMInvokeMethodSlack) {
+    method_handle <span style="color:#f92672">=</span> Handle(THREAD, JNIHandles<span style="color:#f92672">::</span>resolve(method));
+    Handle <span style="color:#a6e22e">receiver</span>(THREAD, JNIHandles<span style="color:#f92672">::</span>resolve(obj));
+    objArrayHandle <span style="color:#a6e22e">args</span>(THREAD, objArrayOop(JNIHandles<span style="color:#f92672">::</span>resolve(args0)));
+    oop result <span style="color:#f92672">=</span> Reflection<span style="color:#f92672">::</span>invoke_method(method_handle(), receiver, args, CHECK_NULL);
+    jobject res <span style="color:#f92672">=</span> JNIHandles<span style="color:#f92672">::</span>make_local(env, result);
+    <span style="color:#66d9ef">if</span> (JvmtiExport<span style="color:#f92672">::</span>should_post_vm_object_alloc()) {
+      oop ret_type <span style="color:#f92672">=</span> java_lang_reflect_Method<span style="color:#f92672">::</span>return_type(method_handle());
+      assert(ret_type <span style="color:#f92672">!=</span> NULL, <span style="color:#e6db74">&#34;sanity check: ret_type oop must not be NULL!&#34;</span>);
+      <span style="color:#66d9ef">if</span> (java_lang_Class<span style="color:#f92672">::</span>is_primitive(ret_type)) {
+        <span style="color:#75715e">// Only for primitive type vm allocates memory for java object.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// See box() method.
+</span><span style="color:#75715e"></span>        JvmtiExport<span style="color:#f92672">::</span>post_vm_object_alloc(JavaThread<span style="color:#f92672">::</span>current(), result);
+      }
+    }
+    <span style="color:#66d9ef">return</span> res;
+  } <span style="color:#66d9ef">else</span> {
+    THROW_0(vmSymbols<span style="color:#f92672">::</span>java_lang_StackOverflowError());
+  }
+JVM_END
+</code></pre></div><p>openjdk/hotspot/src/share/vm/runtime/reflection.cpp :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">oop Reflection<span style="color:#f92672">::</span>invoke_method(oop method_mirror, Handle receiver, objArrayHandle args, TRAPS) {
+  oop mirror             <span style="color:#f92672">=</span> java_lang_reflect_Method<span style="color:#f92672">::</span>clazz(method_mirror);
+  <span style="color:#66d9ef">int</span> slot               <span style="color:#f92672">=</span> java_lang_reflect_Method<span style="color:#f92672">::</span>slot(method_mirror);
+  <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">override</span>          <span style="color:#f92672">=</span> java_lang_reflect_Method<span style="color:#f92672">::</span><span style="color:#66d9ef">override</span>(method_mirror) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>;
+  objArrayHandle <span style="color:#a6e22e">ptypes</span>(THREAD, objArrayOop(java_lang_reflect_Method<span style="color:#f92672">::</span>parameter_types(method_mirror)));
+
+  oop return_type_mirror <span style="color:#f92672">=</span> java_lang_reflect_Method<span style="color:#f92672">::</span>return_type(method_mirror);
+  BasicType rtype;
+  <span style="color:#66d9ef">if</span> (java_lang_Class<span style="color:#f92672">::</span>is_primitive(return_type_mirror)) {
+    rtype <span style="color:#f92672">=</span> basic_type_mirror_to_basic_type(return_type_mirror, CHECK_NULL);
+  } <span style="color:#66d9ef">else</span> {
+    rtype <span style="color:#f92672">=</span> T_OBJECT;
+  }
+
+  instanceKlassHandle <span style="color:#a6e22e">klass</span>(THREAD, java_lang_Class<span style="color:#f92672">::</span>as_Klass(mirror));
+  Method<span style="color:#f92672">*</span> m <span style="color:#f92672">=</span> klass<span style="color:#f92672">-&gt;</span>method_with_idnum(slot);
+  <span style="color:#66d9ef">if</span> (m <span style="color:#f92672">==</span> NULL) {
+    THROW_MSG_0(vmSymbols<span style="color:#f92672">::</span>java_lang_InternalError(), <span style="color:#e6db74">&#34;invoke&#34;</span>);
+  }
+  methodHandle <span style="color:#a6e22e">method</span>(THREAD, m);
+
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">invoke</span>(klass, method, receiver, <span style="color:#66d9ef">override</span>, ptypes, rtype, args, true, THREAD);
+}
+</code></pre></div><ol start="4">
+<li>
+<p>Java版的实现</p>
+<p>Java版MethodAccessor的生成使用MethodAccessorGenerator实现  下面是开头的注释：</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/** Generator for sun.reflect.MethodAccessor and
+</span><span style="color:#75715e">    sun.reflect.ConstructorAccessor objects using bytecodes to
+</span><span style="color:#75715e">    implement reflection. A java.lang.reflect.Method or
+</span><span style="color:#75715e">    java.lang.reflect.Constructor object can delegate its invoke or
+</span><span style="color:#75715e">    newInstance method to an accessor using native code or to one
+</span><span style="color:#75715e">    generated by this class. (Methods and Constructors were merged
+</span><span style="color:#75715e">    together in this class to ensure maximum code sharing.) */</span>
+</code></pre></div>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/java">Java</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1754 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-07-25 16:40 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2018/08/%E5%9C%A8android%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%AD%97%E5%85%B8%E4%B8%AD%E5%8F%91%E7%8E%B0%E5%92%8C%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9Ecve-2018-9375/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">在Android的个人字典中发现和利用漏洞(CVE-2018-9375)</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+                                <span class="button__text">Android应用安全防护和逆向分析-基础篇④</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

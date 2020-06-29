@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Kuekiko ">
+<meta name="description" content="GCC 编译常用命令    不带选项  gcc test.c 将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。     -o 指定生成的输出文件； gcc test.c -o test 将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。   -E 仅执行编译预处理； gcc -E test.c -o test.i 将test.c预处理输出test.i文件。   -S 将C代码转换为汇编代码； gcc -S test.i 将预处理输出文件test.i汇编成test.s文件。   -c 仅执行编译操作，不进行连接操作。 gcc -c test.s 将汇编输出文件test.s编译输出test.o文件。   -wall 显示警告信息；    无选项链接  gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。   -O 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长 gcc -O1 test.c -o test    关掉DEP/NX（堆栈不可执行） gcc -z execstack -o level level." />
+<meta name="keywords" content=", PWN, GCC, tools" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/posts/2018/10/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/" />
+
+
+    <title>
+        
+            PWN 小tools的使用 :: Kuekiko` blog  — Recorded living tip
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="PWN 小tools的使用">
+<meta itemprop="description" content="GCC 编译常用命令    不带选项  gcc test.c 将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。     -o 指定生成的输出文件； gcc test.c -o test 将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。   -E 仅执行编译预处理； gcc -E test.c -o test.i 将test.c预处理输出test.i文件。   -S 将C代码转换为汇编代码； gcc -S test.i 将预处理输出文件test.i汇编成test.s文件。   -c 仅执行编译操作，不进行连接操作。 gcc -c test.s 将汇编输出文件test.s编译输出test.o文件。   -wall 显示警告信息；    无选项链接  gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。   -O 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长 gcc -O1 test.c -o test    关掉DEP/NX（堆栈不可执行） gcc -z execstack -o level level.">
+<meta itemprop="datePublished" content="2018-10-22T20:39:26&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-22T20:39:26&#43;08:00" />
+<meta itemprop="wordCount" content="290">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="PWN,GCC,tools," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="PWN 小tools的使用"/>
+<meta name="twitter:description" content="GCC 编译常用命令    不带选项  gcc test.c 将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。     -o 指定生成的输出文件； gcc test.c -o test 将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。   -E 仅执行编译预处理； gcc -E test.c -o test.i 将test.c预处理输出test.i文件。   -S 将C代码转换为汇编代码； gcc -S test.i 将预处理输出文件test.i汇编成test.s文件。   -c 仅执行编译操作，不进行连接操作。 gcc -c test.s 将汇编输出文件test.s编译输出test.o文件。   -wall 显示警告信息；    无选项链接  gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。   -O 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长 gcc -O1 test.c -o test    关掉DEP/NX（堆栈不可执行） gcc -z execstack -o level level."/>
+
+
+
+    <meta property="og:title" content="PWN 小tools的使用" />
+<meta property="og:description" content="GCC 编译常用命令    不带选项  gcc test.c 将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。     -o 指定生成的输出文件； gcc test.c -o test 将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。   -E 仅执行编译预处理； gcc -E test.c -o test.i 将test.c预处理输出test.i文件。   -S 将C代码转换为汇编代码； gcc -S test.i 将预处理输出文件test.i汇编成test.s文件。   -c 仅执行编译操作，不进行连接操作。 gcc -c test.s 将汇编输出文件test.s编译输出test.o文件。   -wall 显示警告信息；    无选项链接  gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。   -O 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长 gcc -O1 test.c -o test    关掉DEP/NX（堆栈不可执行） gcc -z execstack -o level level." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/posts/2018/10/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2018-10-22T20:39:26+08:00" />
+<meta property="article:modified_time" content="2018-10-22T20:39:26+08:00" />
+
+
+
+
+    <meta property="article:section" content="PWN" />
+
+    <meta property="article:section" content="工具环境" />
+
+
+
+    <meta property="article:published_time" content="2018-10-22 20:39:26 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd ~/kuekiko/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/reading/">Reading</a></li><li><a href="https://kuekiko.top/todo/">TODO</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://kuekiko.top/posts/2018/10/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/">PWN 小tools的使用</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h3 id="gcc-编译常用命令">GCC 编译常用命令</h3>
+<table>
+<thead>
+<tr>
+<th align="center">不带选项</th>
+<th></th>
+<th>gcc test.c        将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-o</td>
+<td>指定生成的输出文件；</td>
+<td>gcc test.c -o test  将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。</td>
+</tr>
+<tr>
+<td align="center">-E</td>
+<td>仅执行编译预处理；</td>
+<td>gcc -E test.c -o test.i   将test.c预处理输出test.i文件。</td>
+</tr>
+<tr>
+<td align="center">-S</td>
+<td>将C代码转换为汇编代码；</td>
+<td>gcc -S test.i   将预处理输出文件test.i汇编成test.s文件。</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td>仅执行编译操作，不进行连接操作。</td>
+<td>gcc -c test.s   将汇编输出文件test.s编译输出test.o文件。</td>
+</tr>
+<tr>
+<td align="center">-wall</td>
+<td>显示警告信息；</td>
+<td></td>
+</tr>
+<tr>
+<td align="center"><strong>无选项链接</strong></td>
+<td></td>
+<td>gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。</td>
+</tr>
+<tr>
+<td align="center">-O</td>
+<td>使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长</td>
+<td>gcc -O1 test.c -o test</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>关掉DEP/NX（堆栈不可执行）</td>
+<td>gcc  -z execstack -o level level.c</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>关掉Stack Protector/Canary（栈保护）</td>
+<td>gcc -fno-stack-protector -o level level.c</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>关掉程序ASLR/PIE（程序随机化保护）</td>
+<td>gcc -no-pie level level.c</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td>64位linux下面的GCC编译出一个32位可执行程序</td>
+<td>gcc -m32 -z execstack -fno-stack-protector -o level level.c</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gdb常用调试命令">GDB常用调试命令</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">gcc <span style="color:#f92672">-</span>g  main.c                      <span style="color:#75715e">//在目标文件加入源代码的信息
+</span><span style="color:#75715e"></span>gdb a.out       
+
+(gdb) start                         <span style="color:#75715e">//开始调试
+</span><span style="color:#75715e"></span>(gdb) n                             <span style="color:#75715e">//一条一条执行
+</span><span style="color:#75715e"></span>(gdb) step<span style="color:#f92672">/</span>s                        <span style="color:#75715e">//执行下一条，如果函数进入函数
+</span><span style="color:#75715e"></span>(gdb) backtrace<span style="color:#f92672">/</span>bt                  <span style="color:#75715e">//查看函数调用栈帧
+</span><span style="color:#75715e"></span>(gdb) info<span style="color:#f92672">/</span>i locals                 <span style="color:#75715e">//查看当前栈帧局部变量
+</span><span style="color:#75715e"></span>(gdb) frame<span style="color:#f92672">/</span>f                       <span style="color:#75715e">//选择栈帧，再查看局部变量
+</span><span style="color:#75715e"></span>(gdb) print<span style="color:#f92672">/</span>p                       <span style="color:#75715e">//打印变量的值
+</span><span style="color:#75715e"></span>(gdb) finish                        <span style="color:#75715e">//运行到当前函数返回
+</span><span style="color:#75715e"></span>(gdb) set var sum<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>                 <span style="color:#75715e">//修改变量值
+</span><span style="color:#75715e"></span>(gdb) list<span style="color:#f92672">/</span>l <span style="color:#960050;background-color:#1e0010">行号或函数名</span>             <span style="color:#75715e">//列出源码
+</span><span style="color:#75715e"></span>(gdb) display<span style="color:#f92672">/</span>undisplay sum         <span style="color:#75715e">//每次停下显示变量的值/取消跟踪
+</span><span style="color:#75715e"></span>(gdb) <span style="color:#66d9ef">break</span><span style="color:#f92672">/</span>b  <span style="color:#960050;background-color:#1e0010">行号或函数名</span>           <span style="color:#75715e">//设置断点
+</span><span style="color:#75715e"></span>(gdb) <span style="color:#66d9ef">continue</span><span style="color:#f92672">/</span>c                    <span style="color:#75715e">//连续运行
+</span><span style="color:#75715e"></span>(gdb) info<span style="color:#f92672">/</span>i breakpoints            <span style="color:#75715e">//查看已经设置的断点
+</span><span style="color:#75715e"></span>(gdb) delete breakpoints <span style="color:#ae81ff">2</span>          <span style="color:#75715e">//删除某个断点
+</span><span style="color:#75715e"></span>(gdb) disable<span style="color:#f92672">/</span>enable breakpoints <span style="color:#ae81ff">3</span>  <span style="color:#75715e">//禁用/启用某个断点
+</span><span style="color:#75715e"></span>(gdb) <span style="color:#66d9ef">break</span> <span style="color:#ae81ff">9</span> <span style="color:#66d9ef">if</span> sum <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>           <span style="color:#75715e">//满足条件才激活断点
+</span><span style="color:#75715e"></span>(gdb) run<span style="color:#f92672">/</span>r                         <span style="color:#75715e">//重新从程序开头连续执行
+</span><span style="color:#75715e"></span>(gdb) watch input[<span style="color:#ae81ff">4</span>]                <span style="color:#75715e">//设置观察点
+</span><span style="color:#75715e"></span>(gdb) info<span style="color:#f92672">/</span>i watchpoints            <span style="color:#75715e">//查看设置的观察点
+</span><span style="color:#75715e"></span>(gdb) x<span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>b input                    <span style="color:#75715e">//打印存储器内容，b--每个字节一组，7--7组
+</span><span style="color:#75715e"></span>(gdb) disassemble                   <span style="color:#75715e">//反汇编当前函数或指定函数
+</span><span style="color:#75715e"></span>(gdb) si                            <span style="color:#75715e">// 一条指令一条指令调试 而 s 是一行一行代码
+</span><span style="color:#75715e"></span>(gdb) info registers                <span style="color:#75715e">// 显示所有寄存器的当前值
+</span><span style="color:#75715e"></span>(gdb) x<span style="color:#f92672">/</span><span style="color:#ae81ff">20</span> <span style="color:#960050;background-color:#1e0010">$</span>esp                    <span style="color:#75715e">//查看内存中开始的20个数
+</span><span style="color:#75715e"></span>ni <span style="color:#960050;background-color:#1e0010">单步执行不进入</span> 
+si <span style="color:#960050;background-color:#1e0010">单步执行并进入</span>
+disas addr <span style="color:#960050;background-color:#1e0010">对地址</span>addr处的指令进行反汇编<span style="color:#960050;background-color:#1e0010">，</span>addr可以是函数名 
+checksec <span style="color:#960050;background-color:#1e0010">查看</span>elf编译的保护选项<span style="color:#960050;background-color:#1e0010">。</span> 
+</code></pre></div><h4 id="查壳">查壳</h4>
+<blockquote>
+<p>upx -d file</p>
+</blockquote>
+<h4 id="objjump">objjump</h4>
+<blockquote>
+<p>objdump是二进制文件快速查看工具。   常用命令：</p>
+<ol>
+<li><code>objdump -d [file]</code> 查看文件的所有汇编代码</li>
+<li><code>objdump -f [file]</code> 查看文件的每个文件的整体头部摘要</li>
+</ol>
+</blockquote>
+<p>####python</p>
+<blockquote>
+<ol>
+<li><code>python -c &quot;...&quot; | ./file</code> python以命令方式执行并把结果传递给file</li>
+<li><code>python -c &quot;...&quot; | xargs ./file</code> python以命令方式执行并当作命令行参数传递给file，具体的是：“它的作用是将参数列表转换成小块分段传递给其他命令，以避免参数列表过长的问题。”存在这个命令是因为很多的参数不支持以管道的方式传递。</li>
+<li><code>os.system()</code> 创建一个子进程</li>
+<li><code>os.putenv(&quot;name&quot;, &quot;value&quot;)</code> 添加一个环境变量</li>
+</ol>
+</blockquote>
+<h4 id="pwntools">pwntools</h4>
+<blockquote>
+<p>参考 
+<a href="http://pwntools.readthedocs.io/en/stable/">http://pwntools.readthedocs.io/en/stable/</a>   （官网介绍）</p>
+<p><a href="http://brieflyx.me/2015/python-module/pwntools-intro/">http://brieflyx.me/2015/python-module/pwntools-intro/</a></p>
+<p><a href="http://brieflyx.me/2015/python-module/pwntools-advanced/">http://brieflyx.me/2015/python-module/pwntools-advanced/</a></p>
+</blockquote>
+<blockquote>
+<p>一般直接用from pwn import * 或者import pwn将所有模块导入到当前命名空间，这条语句还会把os、sys等常用的系统库一并导入。</p>
+<p>常用的模块有下面几个： 
+- ==asm==:汇编与反汇编 
+- ==dynelf==:用于远程符号泄露，需要提供leak方法 
+- ==elf==:对elf文件进行操作 
+- ==gdb==:配合gdb进行调试 
+- ==memleak==:用于内存泄漏 
+- ==shellcraft==: shellcode的生成器 
+- ==tubes==:包括tubes: 包括tubes.sock, tubes.process, tubes.ssh, tubes.serialtube，分别适用于不同场景的PIPE 
+- ==utils==:一些实用的小功能，例如CRC计算，cyclic pattern等</p>
+</blockquote>
+<h4 id="pwndbg">pwndbg</h4>
+<ul>
+<li>arena 堆检查</li>
+<li>mp 显示堆</li>
+<li>bins,fastbins,unsorted,smallbins,largebins</li>
+<li>heap</li>
+<li>top_chunk</li>
+<li>procinfo 查看当前进程状态</li>
+<li>rop <code>rop --grep &quot;pop rdi&quot; -- --nojop --nosys --depth 2</code></li>
+<li>search <code>search -s “/bin/sh”</code></li>
+<li>vvmap 虚拟内存映射</li>
+<li>telescope 检查内存转储</li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/pwn">PWN</a></span><span class="tag"><a href="https://kuekiko.top/tags/gcc">GCC</a></span><span class="tag"><a href="https://kuekiko.top/tags/tools">tools</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>290 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-10-22 20:39 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://kuekiko.top/posts/2018/12/pytorch%E5%AD%A6%E4%B9%A0_1%E5%AE%89%E8%A3%85/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Pytorch学习_1安装</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://kuekiko.top/posts/2018/10/android-arm%E8%BF%9B%E9%98%B6/">
+                                <span class="button__text">Android-ARM进阶</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>
