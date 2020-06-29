@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具 on Kuekiko` blog</title>
+    <link>https://kuekiko.top/tags/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    
+	<atom:link href="https://kuekiko.top/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>环境记录(手动置顶)</title>
+      <link>https://kuekiko.top/posts/1/01/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E6%89%8B%E5%8A%A8%E7%BD%AE%E9%A1%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://kuekiko.top/posts/1/01/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E6%89%8B%E5%8A%A8%E7%BD%AE%E9%A1%B6/</guid>
+      <description>用来不时记录平时所用环境配置，以及遇到的各种问题以及解决办法。主要是为了防丢失，以及总是和空气斗志斗勇。
+ Win10  日常使用
+ WSL 默认不是root 设置默认root用户。ubuntu config --default-user root
+  on my zsh 装上
+官方github
+需要先安装ZSH。
+安装on my zsh:
+via curl：sh -c &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;
+via wget: sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&amp;quot;
+然后配置喜欢的 插件+主题。vi ~/.zshrc 修改plugins属性
+必备插件git、autojump、zsh-autosuggestions。主题
+  GDB装上+pwndbg+peda+gef
+wsl的ubuntu不支持x86，所以主要只能调试x64的程序，而且可能会出现莫名其妙的错误。
+不过可以使用qemu来运行x86的程序，调试还是不行会出错。参考
+sudo apt updatesudo apt install qemu-user-staticsudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39;# 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。sudo service binfmt-support start  pwndbg+peda+gef</description>
+    </item>
+    
+  </channel>
+</rss>

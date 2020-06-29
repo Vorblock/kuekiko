@@ -14,6 +14,6 @@ def newblog(blogname):
 if __name__ == "__main__":
     if len(sys.argv)== 2:
         print("新建文章："+ str(sys.argv[1])+".md")
-        newblog('post/' + str(sys.argv[1]) +'.md')
+        newblog('posts/' + str(sys.argv[1]) +'.md')
     else:
         print("请输入创建的文章名")

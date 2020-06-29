@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>环境 on Kuekiko` blog</title>
+    <link>https://kuekiko.top/tags/%E7%8E%AF%E5%A2%83/</link>
+    <description>Recent content in 环境 on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 16 Jun 2019 00:12:44 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MobSecVM</title>
+      <link>https://kuekiko.top/posts/2019/06/mobsecvm/</link>
+      <pubDate>Sun, 16 Jun 2019 00:12:44 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/06/mobsecvm/</guid>
+      <description>0x00 前言 最近不知为何VM-Ubuntu炸了，试了各种方法，折腾了很久之后，终于恢复了。又浪费时间和环境斗志斗勇。自此打算自己弄一个包含了Android安全所需各种工具的环境，做个备份。防止哪天又出各种各样的问题。
+项目地址：MobSecVM
+下载地址：baiduyun、google_yun
+0x01 环境准备  Ubuntu 18.04 LTS   Username：mobsec
+Password：mobsec
+  Vmware 15  0x02 Tools （不断补充）   AndroidStudio 开发全家桶带模拟器
+  Radare2 逆向框架
+  Frida Hook工具
+  Drozer Android应用程序安全评估框架
+  APKtool APK逆向工具
+  BurpSuite 抓改包，安全检测
+  Wireshare 抓包工具
+  MobSF 应用程序自动化分析框架
+  androguard 一款基于python的逆向工程，恶意软件和软件分析Android应用程序的框架。
+  VScode 编辑器
+  bytecode-viewer
+  barf&amp;ndash;project
+  jadx Dex to Java decompiler</description>
+    </item>
+    
+    <item>
+      <title>Android安全和开发环境搭建</title>
+      <link>https://kuekiko.top/posts/2018/07/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Thu, 05 Jul 2018 17:35:46 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/07/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>Android安全和开发环境搭建  补充中·····
+ JAVA环境  JDK下载与安装。 环境变量配置  Android Studio  官网下载（扶墙） SDK  NDK（JNI）开发  NDK下载 使用  Eclipse (还是推荐上面的AS) 不喜欢界面，弃用。
+ </description>
+    </item>
+    
+  </channel>
+</rss>

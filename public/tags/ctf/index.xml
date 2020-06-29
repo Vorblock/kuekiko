@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CTF on Kuekiko` blog</title>
+    <link>https://kuekiko.top/tags/ctf/</link>
+    <description>Recent content in CTF on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 20 Feb 2019 00:17:21 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CTF PWN刷题记录 CTFWiki_1栈溢出</title>
+      <link>https://kuekiko.top/posts/2019/02/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</link>
+      <pubDate>Wed, 20 Feb 2019 00:17:21 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/02/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</guid>
+      <description>看CTFWiki来入门CTF-PWN (Linux和arm) 做个记录
+ 知识点：PWN相关知识点总结
+ Linux PWN ARM PWN  题目全部来源于 CTFWiki 上所涉及题目
+Linux PWN 大部分原理参考CTFWiki
+栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); }void vulnerable() {char s[12];gets(s);puts(s);return;}int main(int argc, char **argv) {vulnerable();return 0;}# gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1stack1.c: In function ‘vulnerable’:stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Qemu on Kuekiko` blog</title>
+    <link>https://kuekiko.top/tags/qemu/</link>
+    <description>Recent content in Qemu on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 28 Aug 2019 23:24:18 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/qemu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Qemu&#43;gdb调试Linux内核</title>
+      <link>https://kuekiko.top/posts/2019/08/qemu-gdb%E8%B0%83%E8%AF%95linux%E5%86%85%E6%A0%B8/</link>
+      <pubDate>Wed, 28 Aug 2019 23:24:18 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/08/qemu-gdb%E8%B0%83%E8%AF%95linux%E5%86%85%E6%A0%B8/</guid>
+      <description>前言 调试Linux内核可以使用VM双机调试，不过使用qemu来调试会更加方便。
+环境搭建 编译源码 首先到Linux FTP仓库或者官网下载对应版本的源码。
+这里下载的是linux-4.10.10
+解压tar -xvJf linux-4.10.10.tar.xz
+安装依赖
+sudo apt install build-essential ncurses-dev xz-utils libssl-dev bc fakeroot aptitude libncurses5-dev​ sudo apt install qemu编译内核 make menuconfig进行配置：KernelHacking —&amp;gt; Compile-time checks and compiler options选中
+Compile the kernel with debug infoCompile the kernel with frame pointersProvide GDB scripts for kernel debuggingProcessor type and features→去掉Paravirtualized guest support保存退出。
+命令make -jN 进行编译
+之后make all
+make modules编译完成之后，vmlinux在源码根目录、bzImage在./arch/x86/boot/下</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>树莓派 on Kuekiko` blog</title>
+    <link>https://kuekiko.top/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+    <description>Recent content in 树莓派 on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 23 Jun 2019 01:14:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Raspberry Pi 3B&#43; 0安装使用</title>
+      <link>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sun, 23 Jun 2019 01:14:22 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>Raspberry Pi 3B+ 0安装使用 0x00 购买 终于下手买了。打算用来学习ARM、以及一些硬件的知识。
+ 3B+ 裸机 32G SD card 散热片 保护壳  0x01 安装系统 首先下载系统镜像。
+官网有挺多系统可以选择，这里选择了安装Raspbian desktop最新版
+之后打算装Lite版，手上没有多余的显示器。而且桌面版占用很高。
+迅雷，3分钟搞定。
+其次开始向SD卡中写镜像。
+买的32G闪迪的高速卡，现在32G都白菜价了，想想几年前16G的死贵。
+官方教程用的是Etcher ，也可以用Win32DiskImager。这里省事还是用Etcher。
+步骤
+ 下载etcher.io安装包安装Etcher](https://etcher.io/) 运行Etcher,选择镜像和sd卡  Flash一键搞定。  0x02 配置 系统安装完，开始进行配置。
+先连上显示器看看
+然而平时显示器还是要连笔记本，而且这分辨率好糊。所以还是配ssh和VNC连接使用吧。
+ 修改源  # 编辑 `/etc/apt/sources.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contribdeb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib# 编辑 `/etc/apt/sources.list.d/raspi.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ stretch mainsudo apt update
+ 拓展SD卡  sudo raspi-config -&amp;gt; Advanced Opt -&amp;gt; A1 Expand Filesystem</description>
+    </item>
+    
+    <item>
+      <title>QEMU的安装使用</title>
+      <link>https://kuekiko.top/posts/2018/08/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 09 Aug 2018 19:34:34 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/08/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>QEMU的安装使用 安装 WIndows：https://qemu.weilnetz.de/w64/ 下载exe安装就行
+MACOS:brew install qemu or sudo port install qemu
+LINUX：
+ Arch: pacman -S qemu Debian/Ubuntu: apt-get install qemu Fedora: dnf install @virtualization Gentoo: emerge --ask app-emulation/qemu RHEL/CentOS: yum install qemu-kvm SUSE: zypper install qemu  源码安装：https://download.qemu.org/
+wget
+wget https://download.qemu.org/qemu-3.0.0-rc1.tar.xztar xvJf qemu-3.0.0-rc1.tar.xzcd qemu-3.0.0-rc1./configuremakegit
+git clone git://git.qemu.org/qemu.gitcd qemugit submodule initgit submodule update --recursive./configuremake最新的开发发生在主分支上。稳定的树位于名为“稳定x”的分支中。YY分支,X。YY是发布版本。
+树莓派内核制作（在windows上) 下载树莓派系统：http://downloads.raspberrypi.org/raspbian/images/
+下载qume 的树莓派内核： https://github.</description>
+    </item>
+    
+  </channel>
+</rss>

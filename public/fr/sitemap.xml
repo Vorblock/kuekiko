@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://kuekiko.top/fr/categories/</loc>
+    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/fr/posts/2014/09/cr%C3%A9ation-dun-nouveau-th%C3%A8me/</loc>
+    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/posts/2014/09/creating-a-new-theme/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/posts/2014/09/cr%C3%A9ation-dun-nouveau-th%C3%A8me/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/fr/categories/hugo/</loc>
+    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/fr/</loc>
+    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/fr/posts/</loc>
+    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/fr/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/series/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/fr/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/tags/"
+                />
+  </url>
+  
+</urlset>

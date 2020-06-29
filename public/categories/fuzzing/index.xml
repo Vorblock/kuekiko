@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fuzzing on Kuekiko` blog</title>
+    <link>https://kuekiko.top/categories/fuzzing/</link>
+    <description>Recent content in Fuzzing on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 10 Apr 2020 18:59:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/categories/fuzzing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Syzkaller</title>
+      <link>https://kuekiko.top/posts/2020/04/syzkaller/</link>
+      <pubDate>Fri, 10 Apr 2020 18:59:00 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2020/04/syzkaller/</guid>
+      <description>0x00 介绍 syzkaller是google的安全研究人员开发并维护的内核fuzz工具。它主要是用go写的，也有少部分C代码，支持akaros/fuchsia/linux/android/freebsd/netbsd/openbsd/windows等系统，发现的漏洞多达上千。
+0x01 环境配置 环境要求：
+  C/C++ 编译器
+ GCC 6.1.0+    linux kernel
+ 编译 v4.6以后编译时确保CONFIG_KCOV=y 之前版本：这样添加支持 一些额外选项    VM 一般QEMU
+ 支持QEMU、kvmtool和GCE虚拟机、Android设备和Odroid C2开发板 需要进行通信：vm要提供网络支持 vm配置需要ssh服务器 要能执行ssh -i $SSHID -p $PORT root@localhost 需要将debugfs 挂在到 /sys/kernel/debug    Golang 安装
+wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gztar -C ~/goroot -xzf go1.14.1.linux-amd64.tar.gzvim /etc/profilemkdir /usr/local/gopath# 添加export export GOROOT=/home/kuekiko/gorootexport GOPATH=/home/kuekiko/gopathexport PATH=$GOROOT/bin:$PATHexport PATH=$GOPATH/bin:$PATHsource etc/profile  syzkaller</description>
+    </item>
+    
+  </channel>
+</rss>

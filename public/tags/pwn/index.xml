@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PWN on Kuekiko` blog</title>
+    <link>https://kuekiko.top/tags/pwn/</link>
+    <description>Recent content in PWN on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 03 Aug 2019 12:26:24 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ARM-PWN从入门到放弃0x00-环境准备</title>
+      <link>https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</link>
+      <pubDate>Sat, 03 Aug 2019 12:26:24 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</guid>
+      <description>0x00 前言 学PWN也有一段时间了，x86/x86_64 下算是入了个门，平时接触ARM比较多，正好以ARM架构下再更加深入的学习PWN。
+会用的工具、环境：
+ 在Ubuntu 18.04/WSL2 Docker for wsl2 树莓派3B+ qemu unicorn IDA Radare2 GDB+gef+pwndbg+peda pwntools  0x01 环境安装 这里选用的有两种环境
+  ARM设备 树莓派
+之前618买了树莓派，派上用场了。
+把PI的官方系统换成了Ubuntu 18.04。
+安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
+关闭地址随机化
+sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
+安装
+#防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派</description>
+    </item>
+    
+    <item>
+      <title>ROP练习</title>
+      <link>https://kuekiko.top/posts/2019/02/rop%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Thu, 28 Feb 2019 00:22:36 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/02/rop%E7%BB%83%E4%B9%A0/</guid>
+      <description>题目列表： IP:47.106.212.155    ret2libc3
+10008
+  ret2shellcode
+10002
+  ret2libc
+10005
+  train.cs.nctu.edu.tw: rop
+  2013-PlaidCTF-ropasaurusrex
+  Defcon 2015 Qualifier: R0pbaby
+10012
+  train.cs.nctu.edu.tw: ret2libc
+  AliCTF 2016：vss
+  RCTF2015-welpwn
+10010
+  lctf16-pwn100
+10011
+  xdctf15-pwn200
+10013
+  WP（持续更新）：</description>
+    </item>
+    
+    <item>
+      <title>CTF PWN刷题记录 CTFWiki_1栈溢出</title>
+      <link>https://kuekiko.top/posts/2019/02/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</link>
+      <pubDate>Wed, 20 Feb 2019 00:17:21 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/02/ctf-pwn%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-ctfwiki_1%E6%A0%88%E6%BA%A2%E5%87%BA/</guid>
+      <description>看CTFWiki来入门CTF-PWN (Linux和arm) 做个记录
+ 知识点：PWN相关知识点总结
+ Linux PWN ARM PWN  题目全部来源于 CTFWiki 上所涉及题目
+Linux PWN 大部分原理参考CTFWiki
+栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); }void vulnerable() {char s[12];gets(s);puts(s);return;}int main(int argc, char **argv) {vulnerable();return 0;}# gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1stack1.c: In function ‘vulnerable’:stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
+    </item>
+    
+    <item>
+      <title>PWN 小tools的使用</title>
+      <link>https://kuekiko.top/posts/2018/10/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 22 Oct 2018 20:39:26 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2018/10/pwn-%E5%B0%8Ftools%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>GCC 编译常用命令    不带选项  gcc test.c 将test.c预处理、汇编、编译并链接形成可执行文件。这里未指定输出文件，默认输出为a.out。     -o 指定生成的输出文件； gcc test.c -o test 将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。   -E 仅执行编译预处理； gcc -E test.c -o test.i 将test.c预处理输出test.i文件。   -S 将C代码转换为汇编代码； gcc -S test.i 将预处理输出文件test.i汇编成test.s文件。   -c 仅执行编译操作，不进行连接操作。 gcc -c test.s 将汇编输出文件test.s编译输出test.o文件。   -wall 显示警告信息；    无选项链接  gcc test.o -o test 将编译输出文件test.o链接成最终可执行文件test。   -O 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长 gcc -O1 test.c -o test    关掉DEP/NX（堆栈不可执行） gcc -z execstack -o level level.</description>
+    </item>
+    
+  </channel>
+</rss>

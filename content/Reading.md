@@ -1,8 +1,8 @@
 +++
-title = "/Reading/~"
+title = "Reading"
 date="2016-10-02T21:49:20+02:00"
 menu="main"
-weight=100
+weight=20
 +++
 
 <center><h2>
