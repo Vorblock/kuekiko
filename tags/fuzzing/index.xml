@@ -27,11 +27,11 @@ git clone https://github.com/unicorn-engine/unicorn.gitcd unicorn# UNICORN_ARC
     </item>
     
     <item>
-      <title>Syzkaller</title>
-      <link>https://kuekiko.top/posts/2020/04/syzkaller/</link>
+      <title>Syzkaller fuzzing 入门</title>
+      <link>https://kuekiko.top/posts/2020/04/syzkaller-fuzzing-%E5%85%A5%E9%97%A8/</link>
       <pubDate>Fri, 10 Apr 2020 18:59:00 +0800</pubDate>
       
-      <guid>https://kuekiko.top/posts/2020/04/syzkaller/</guid>
+      <guid>https://kuekiko.top/posts/2020/04/syzkaller-fuzzing-%E5%85%A5%E9%97%A8/</guid>
       <description>0x00 介绍 syzkaller是google的安全研究人员开发并维护的内核fuzz工具。它主要是用go写的，也有少部分C代码，支持akaros/fuchsia/linux/android/freebsd/netbsd/openbsd/windows等系统，发现的漏洞多达上千。
 0x01 环境配置 环境要求：
   C/C++ 编译器
