@@ -1,5 +1,5 @@
 ---
-title: "Syzkaller"
+title: "Syzkaller fuzzing 入门"
 date: 2020-04-10T18:59:00+08:00
 draft: false
 categories:

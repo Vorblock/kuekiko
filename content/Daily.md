@@ -1,11 +1,11 @@
 +++
 title = "Daily"
 date = "2017-10-02T21:49:20+02:00"
-tags = ["Daily"]
-categories = ["Daily"]
+
 
 +++
-
+<!-- tags = ["Daily"] -->
+<!-- categories = ["Daily"] -->
 ## Daily summary
 
 

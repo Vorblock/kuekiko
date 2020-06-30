@@ -3,21 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://kuekiko.top/posts/2014/09/creating-a-new-theme/</loc>
-    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://kuekiko.top/fr/posts/2014/09/cr%C3%A9ation-dun-nouveau-th%C3%A8me/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://kuekiko.top/posts/2014/09/creating-a-new-theme/"
-                />
-  </url>
-  
-  <url>
     <loc>https://kuekiko.top/reading/</loc>
     <lastmod>2016-10-02T21:49:20+02:00</lastmod>
   </url>
@@ -69,16 +54,6 @@
   <url>
     <loc>https://kuekiko.top/posts/</loc>
     <lastmod>2020-06-30T01:15:26+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://kuekiko.top/fr/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://kuekiko.top/posts/"
-                />
   </url>
   
   <url>
@@ -132,7 +107,7 @@
   </url>
   
   <url>
-    <loc>https://kuekiko.top/posts/2020/04/syzkaller/</loc>
+    <loc>https://kuekiko.top/posts/2020/04/syzkaller-fuzzing-%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2020-04-10T18:59:00+08:00</lastmod>
   </url>
   
@@ -547,16 +522,6 @@
   </url>
   
   <url>
-    <loc>https://kuekiko.top/tags/daily/</loc>
-    <lastmod>2017-10-02T21:49:20+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/categories/daily/</loc>
-    <lastmod>2017-10-02T21:49:20+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://kuekiko.top/daily/</loc>
     <lastmod>2017-10-02T21:49:20+02:00</lastmod>
   </url>
@@ -567,13 +532,17 @@
   </url>
   
   <url>
-    <loc>https://kuekiko.top/series/hugo-101/</loc>
-    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
+    <loc>https://kuekiko.top/about/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/%E5%8F%8B%E9%93%BE/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://kuekiko.top/series/</loc>
-    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -584,16 +553,6 @@
                 hreflang="en"
                 href="https://kuekiko.top/series/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/about/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/%E5%8F%8B%E9%93%BE/</loc>
-    <priority>0</priority>
   </url>
   
   <url>

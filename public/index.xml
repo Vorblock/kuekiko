@@ -13,46 +13,27 @@
     
     
     <item>
-      <title>Creating a New Theme</title>
-      <link>https://kuekiko.top/posts/2014/09/creating-a-new-theme/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://kuekiko.top/posts/2014/09/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
-We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
-    </item>
-    
-    <item>
       <title>Reading</title>
       <link>https://kuekiko.top/reading/</link>
       <pubDate>Sun, 02 Oct 2016 21:49:20 +0200</pubDate>
       
       <guid>https://kuekiko.top/reading/</guid>
       <description>大多数都是已买已看&amp;amp;已买未看&amp;amp;白嫖电子书&amp;amp;PDFx版
- 计算机基础&amp;amp;语言基础   汇编语言
-  C Primer plus 5
-  C++ Primer plus 5
-  Python 核心编程
-  锋利的jquery
-  javascript Dom编程艺术
-  java程序设计
-  kotlin程序入门开发
-  Windows Socket 网络编程
-  编码 隐匿在计算机软硬件背后的语言
-  逆向&amp;amp;漏洞利用  逆向工程权威指南（上下） Linux二进制分析 有趣的二进制 漏洞战争软件漏洞分析精要 C/C++安全编码  移动安全&amp;amp;开发   Android软件安全与逆向分析
-  Android软件安全攻防实例分析
-  Android安全攻防权威指南
-  Android安全攻防指南
-  Android应用安全防护和逆向分析</description>
+ 计算机基础&amp;amp;语言基础  汇编语言 C Primer plus 5 C++ Primer plus 5 Python 核心编程 python黑客攻防入门 锋利的jquery javascript Dom编程艺术 java程序设计 kotlin程序入门开发 Windows Socket 网络编程 编码-隐匿在计算机软硬件背后的语言 程序员的自我修养-链接、装载与库 编译原理 Linux内核分析   逆向&amp;amp;漏洞利用  逆向工程权威指南（上下） Linux二进制分析 有趣的二进制 漏洞战争软件漏洞分析精要 C/C++安全编码 内核漏洞的利用与防范 软件调试（第二版） 卷一 硬件基础 硬件安全攻防大揭秘  移动安全&amp;amp;开发  Android软件安全与逆向分析 Android软件安全攻防实例分析 Android安全攻防实战 Android安全攻防权威指南 Android安全攻防指南 Android应用安全防护和逆向分析 iOS应用逆向与安全 游戏安全-手游安全技术入门 最强Android书-构架大剖析 Android软件安全权威指南  Web安全&amp;amp;渗透  kali-linux 渗透测试的艺术  Other  重构 改善既有代码设计 Wireshark数据包分析实战详解 代码整洁之道-程序员的职业素养 信息隐藏技术  小说&amp;amp;&amp;amp;  三体（三部曲） 盗墓笔记（完整） 龙族（完整） 鬼吹灯（部分） 态度 简明英语写作手册  参考链接  https://github.</description>
     </item>
     
     <item>
-      <title>TODO</title>
+      <title>Todo</title>
       <link>https://kuekiko.top/todo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://kuekiko.top/todo/</guid>
-      <description>拖延症晚期患者治疗记录  TODO  保持更新 日常记录  </description>
+      <description>拖延症晚期患者治疗记录    保持更新
+  日常记录
+  CVE学习
+  Fritoo 工具开发
+  改Fuzzing
+  </description>
     </item>
     
     <item>
@@ -117,11 +98,11 @@ git clone https://github.com/unicorn-engine/unicorn.gitcd unicorn# UNICORN_ARC
     </item>
     
     <item>
-      <title>Syzkaller</title>
-      <link>https://kuekiko.top/posts/2020/04/syzkaller/</link>
+      <title>Syzkaller fuzzing 入门</title>
+      <link>https://kuekiko.top/posts/2020/04/syzkaller-fuzzing-%E5%85%A5%E9%97%A8/</link>
       <pubDate>Fri, 10 Apr 2020 18:59:00 +0800</pubDate>
       
-      <guid>https://kuekiko.top/posts/2020/04/syzkaller/</guid>
+      <guid>https://kuekiko.top/posts/2020/04/syzkaller-fuzzing-%E5%85%A5%E9%97%A8/</guid>
       <description>0x00 介绍 syzkaller是google的安全研究人员开发并维护的内核fuzz工具。它主要是用go写的，也有少部分C代码，支持akaros/fuchsia/linux/android/freebsd/netbsd/openbsd/windows等系统，发现的漏洞多达上千。
 0x01 环境配置 环境要求：
   C/C++ 编译器
@@ -181,6 +162,28 @@ make modules编译完成之后，vmlinux在源码根目录、bzImage在./arch/x
 sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
 安装
 #防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi 3B&#43; 0安装使用</title>
+      <link>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sun, 23 Jun 2019 01:14:22 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>Raspberry Pi 3B+ 0安装使用 0x00 购买 终于下手买了。打算用来学习ARM、以及一些硬件的知识。
+ 3B+ 裸机 32G SD card 散热片 保护壳  0x01 安装系统 首先下载系统镜像。
+官网有挺多系统可以选择，这里选择了安装Raspbian desktop最新版
+之后打算装Lite版，手上没有多余的显示器。而且桌面版占用很高。
+迅雷，3分钟搞定。
+其次开始向SD卡中写镜像。
+买的32G闪迪的高速卡，现在32G都白菜价了，想想几年前16G的死贵。
+官方教程用的是Etcher ，也可以用Win32DiskImager。这里省事还是用Etcher。
+步骤
+ 下载etcher.io安装包安装Etcher](https://etcher.io/) 运行Etcher,选择镜像和sd卡  Flash一键搞定。  0x02 配置 系统安装完，开始进行配置。
+先连上显示器看看
+然而平时显示器还是要连笔记本，而且这分辨率好糊。所以还是配ssh和VNC连接使用吧。
+ 修改源  # 编辑 `/etc/apt/sources.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contribdeb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib# 编辑 `/etc/apt/sources.list.d/raspi.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ stretch mainsudo apt update
+ 拓展SD卡  sudo raspi-config -&amp;gt; Advanced Opt -&amp;gt; A1 Expand Filesystem</description>
     </item>
     
   </channel>
