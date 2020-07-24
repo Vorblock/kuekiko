@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Kuekiko ">
+<meta name="description" content="0x00 前言 之前想着用wsl2去跑qemu，发现很多内核pwn题给的环境需要开启-enable-kvm选项，还有自己编译的内核也没法，然而wsl2没法开启kvm，解决办法就是去把hype-v给关了，老老实实用vmware/vmbox开个虚拟机，这样每次都要切来切去很麻烦。
+直到看到vmware和vmbox都可以与hype-v并存，以为看到了曙光，没想到是没法开启虚拟化选项的。
+后来看到WSL上这个Issues，当时也没这么多评论，不过暂且能用脚本实现。不过还是很麻烦。
+最后看了这篇文章，跟着试了一遍，一直没报错，最后还是不行。某天又去看了看issuse，发现这个办法要最新阅览版。更新后一个新的发现就是wsl2速度明显变快了。。
+0x01 环境   Windows 10 2004 20175.1000
+  Windows Feature Experience Pack 120.18201.0.0
+  wsl2 - Ubuntu 20
+  Intel i7-8550U
+  WSL-Linux-kernel: 4.19.121-microsoft-standard 
+  qemu 5.0
+  0x02 编译Kernel sudo apt -y install build-essential libncurses-dev bison flex libssl-dev libelf-dev cpu-checker qemu-kvm tar -xf WSL2-Linux-Kernel-4.19.121-microsoft-standard.tar.gz cd WSL2-Linux-Kernel-4.19.104-microsoft-standard/ ## cp Microsoft/config-wsl .config 有bug 使用最新版commit已修复 make menuconfig .config文件用这个 或者这个" />
+<meta name="keywords" content=", wsl2, kvm, qemu" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://kuekiko.top/post/wsl2%E5%BC%80%E5%90%AFkvm/" />
+
+
+    <title>
+        
+            WSL2开启kvm :: Kuekiko` blog  — Recorded living tip
+        
+    </title>
+
+
+
+
+<link href="https://cdn.bootcdn.net/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://kuekiko.top/main.154a87e0ff720e102948892a8eb80881aa81a4faf37376f3093be219f6296c3d.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kuekiko.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kuekiko.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kuekiko.top/favicon-16x16.png">
+    <link rel="manifest" href="https://kuekiko.top/site.webmanifest">
+    <link rel="mask-icon" href="https://kuekiko.top/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://kuekiko.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="WSL2开启kvm">
+<meta itemprop="description" content="最新版win10 wsl2 开启kvm的方法">
+<meta itemprop="datePublished" content="2020-07-24T22:47:12&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-24T22:47:12&#43;08:00" />
+<meta itemprop="wordCount" content="212">
+<meta itemprop="image" content="https://kuekiko.top"/>
+
+
+
+<meta itemprop="keywords" content="wsl2,kvm,qemu," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kuekiko.top"/>
+
+<meta name="twitter:title" content="WSL2开启kvm"/>
+<meta name="twitter:description" content="最新版win10 wsl2 开启kvm的方法"/>
+
+
+
+    <meta property="og:title" content="WSL2开启kvm" />
+<meta property="og:description" content="最新版win10 wsl2 开启kvm的方法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kuekiko.top/post/wsl2%E5%BC%80%E5%90%AFkvm/" />
+<meta property="og:image" content="https://kuekiko.top"/>
+<meta property="article:published_time" content="2020-07-24T22:47:12+08:00" />
+<meta property="article:modified_time" content="2020-07-24T22:47:12+08:00" />
+
+
+
+
+    <meta property="article:section" content="qemu" />
+
+
+
+    <meta property="article:published_time" content="2020-07-24 22:47:12 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://kuekiko.top/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># cd ~/kuekiko/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://kuekiko.top/posts/">Posts</a></li><li><a href="https://kuekiko.top/reading/">Reading</a></li><li><a href="https://kuekiko.top/todo/">Todo</a></li><li><a href="https://kuekiko.top/about/">About</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://kuekiko.top/post/wsl2%E5%BC%80%E5%90%AFkvm/">WSL2开启kvm</a></h2>
+
+            
+
+            <div class="post-content">
+                <h3 id="0x00-前言">0x00 前言</h3>
+<p>之前想着用wsl2去跑qemu，发现很多内核pwn题给的环境需要开启<code>-enable-kvm</code>选项，还有自己编译的内核也没法，然而wsl2没法开启kvm，解决办法就是去把hype-v给关了，老老实实用vmware/vmbox开个虚拟机，这样每次都要切来切去很麻烦。</p>
+<p>直到看到vmware和vmbox都可以与hype-v并存，以为看到了曙光，没想到是没法开启虚拟化选项的。</p>
+<p>后来看到WSL上这个<a href="https://github.com/microsoft/WSL/issues/4193">Issues</a>，当时也没这么多评论，不过暂且能用<a href="https://gist.github.com/offlinehacker/b1d96515f87a47bd0b0bea574eab5583">脚本</a>实现。不过还是很麻烦。</p>
+<p>最后看了这篇<a href="https://boxofcables.dev/accelerated-kvm-guests-on-wsl-2/">文章</a>，跟着试了一遍，一直没报错，最后还是不行。某天又去看了看issuse，发现这个办法要最新阅览版。更新后一个新的发现就是wsl2速度明显变快了。。</p>
+<h3 id="0x01-环境">0x01 环境</h3>
+<ul>
+<li>
+<p>Windows 10 2004 20175.1000</p>
+</li>
+<li>
+<p>Windows Feature Experience Pack 120.18201.0.0</p>
+</li>
+<li>
+<p>wsl2 - Ubuntu 20</p>
+</li>
+<li>
+<p>Intel  i7-8550U</p>
+</li>
+<li>
+<p>WSL-Linux-kernel: <a href="https://github.com/microsoft/WSL2-Linux-Kernel/releases/tag/4.19.121-microsoft-standard">4.19.121-microsoft-standard </a></p>
+</li>
+<li>
+<p>qemu 5.0</p>
+</li>
+</ul>
+<h3 id="0x02-编译kernel">0x02 编译Kernel</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt -y install build-essential libncurses-dev bison flex libssl-dev libelf-dev cpu-checker qemu-kvm
+tar -xf WSL2-Linux-Kernel-4.19.121-microsoft-standard.tar.gz
+cd WSL2-Linux-Kernel-4.19.104-microsoft-standard/
+<span style="color:#75715e">## cp Microsoft/config-wsl .config 有bug 使用最新版commit已修复</span>
+make menuconfig
+</code></pre></div><p><code>.config</code>文件用<a href="https://github.com/microsoft/WSL/files/4830946/config.txt">这个</a> 或者<a href="https://github.com/microhobby/WSL2-Linux-Kernel/blob/5e3fa9a98ea1ac05b397e0acd5bf08ce0e60bd3e/Microsoft/config-wsl">这个</a></p>
+<p>确保里面的选项kvm的选项。</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200724222001.png" alt=""></p>
+<p>这里可选的编译为&lt; M &gt; 模块或者&lt; * &gt; 内置，建议内置吗模块的话后续每次重启都得自己加载一次。</p>
+<p>确保Linux guest support enable选项。</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200724221933.png" alt=""></p>
+<p>退出保存。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">make -j8
+</code></pre></div><p>waitting&hellip;&hellip;&hellip;&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">cp arch/x86/boot/bzImage /mnt/c/Users/&lt;username&gt;/bzImage
+nano /mnt/c/Users/&lt;username&gt;/.wslconfig
+<span style="color:#75715e">### 如果是 &lt;M&gt; 模块编译</span>
+sudo make modules_install
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Toml" data-lang="Toml">[<span style="color:#a6e22e">wsl2</span>]
+<span style="color:#a6e22e">nestedVirtualization</span>=<span style="color:#66d9ef">true</span>
+<span style="color:#a6e22e">kernel</span>=<span style="color:#a6e22e">C</span><span style="color:#960050;background-color:#1e0010">:\\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\\&lt;</span><span style="color:#a6e22e">username</span><span style="color:#960050;background-color:#1e0010">&gt;\\</span><span style="color:#a6e22e">bzImage</span>
+<span style="color:#a6e22e">debugConsole</span>=<span style="color:#66d9ef">true</span>  <span style="color:#75715e">##可选</span>
+<span style="color:#a6e22e">pageReporting</span>=<span style="color:#66d9ef">true</span> <span style="color:#75715e">##可选</span>
+</code></pre></div><pre><code>wsl.exe --shutdown Ubuntu
+wsl.exe -d Ubuntu
+nano /etc/modprobe.d/kvm-nested.conf
+</code></pre><p>mod加载的话还要写入：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">options kvm-intel nested<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+options kvm-intel enable_shadow_vmcs<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+options kvm-intel enable_apicv<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+options kvm-intel ept<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</code></pre></div><p>之前模块编译的有bug版本的图 mount无法挂载。</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200724214713.png" alt=""></p>
+<p>成功的图 可以挂载。。无需手动加载mod</p>
+<p><img src="https://my-md-1253484710.file.myqcloud.com/20200724223913.png" alt=""></p>
+<p>要先配置界面以及GPU支持可以参考这篇<a href="https://boxofcables.dev/accelerated-kvm-guests-on-wsl-2/">文章</a>后续的部分，没这个需求。。</p>
+<h3 id="issuse">issuse</h3>
+<p>还是会遇到奇奇怪怪的坑。</p>
+<p><code>An error occurred mounting one of your file systems. Please run 'dmesg' for more details.</code></p>
+<p>报错信息：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>    2.268879<span style="color:#f92672">]</span> init: <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> ERROR: MountPlan9WithRetry:282: mount drvfs on /mnt/c <span style="color:#f92672">(</span>cache<span style="color:#f92672">=</span>mmap,noatime,msize<span style="color:#f92672">=</span>262144,trans<span style="color:#f92672">=</span>virtio,aname<span style="color:#f92672">=</span>drvfs;path<span style="color:#f92672">=</span>C:<span style="color:#ae81ff">\;</span>uid<span style="color:#f92672">=</span>0;gid<span style="color:#f92672">=</span>0;symlinkroot<span style="color:#f92672">=</span>/mnt/
+<span style="color:#f92672">[</span>    2.268880<span style="color:#f92672">]</span> <span style="color:#f92672">)</span> failed: <span style="color:#ae81ff">22</span>
+<span style="color:#f92672">[</span>    2.277772<span style="color:#f92672">]</span> 9pnet: Could not find request transport: virtio
+<span style="color:#f92672">[</span>    2.280962<span style="color:#f92672">]</span> init: <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> ERROR: MountPlan9WithRetry:282: mount drvfs on /mnt/d <span style="color:#f92672">(</span>cache<span style="color:#f92672">=</span>mmap,noatime,msize<span style="color:#f92672">=</span>262144,trans<span style="color:#f92672">=</span>virtio,aname<span style="color:#f92672">=</span>drvfs;path<span style="color:#f92672">=</span>D:<span style="color:#ae81ff">\;</span>uid<span style="color:#f92672">=</span>0;gid<span style="color:#f92672">=</span>0;symlinkroot<span style="color:#f92672">=</span>/mnt/
+<span style="color:#f92672">[</span>    2.280964<span style="color:#f92672">]</span> <span style="color:#f92672">)</span> failed: <span style="color:#ae81ff">22</span>
+<span style="color:#f92672">[</span>    2.305491<span style="color:#f92672">]</span> init: <span style="color:#f92672">(</span>8<span style="color:#f92672">)</span> ERROR: CreateProcessParseCommon:874: Failed to translate D:<span style="color:#ae81ff">\o</span>penSRC<span style="color:#ae81ff">\W</span>SL2-Linux-Kernel-4.19.121-microsoft-standard
+<span style="color:#f92672">[</span>    2.312584<span style="color:#f92672">]</span> init: <span style="color:#f92672">(</span>8<span style="color:#f92672">)</span> ERROR: UtilTranslatePathList:2624: Failed to translate D:<span style="color:#ae81ff">\L</span>ife_Tools<span style="color:#ae81ff">\S</span>ys_Tools<span style="color:#ae81ff">\c</span>mder<span style="color:#ae81ff">\b</span>in
+<span style="color:#f92672">[</span>    2.319445<span style="color:#f92672">]</span> init: <span style="color:#f92672">(</span>8<span style="color:#f92672">)</span> ERROR: UtilTranslatePathList:2624: Failed to translate D:<span style="color:#ae81ff">\L</span>ife_Tools<span style="color:#ae81ff">\S</span>ys_Tools<span style="color:#ae81ff">\c</span>mder<span style="color:#ae81ff">\v</span>endor<span style="color:#ae81ff">\b</span>in
+</code></pre></div><p>这是内核的问题，很坑的地方。是官网没切换新的config文件造成的，换成新的重新编译即可。具体看着这个<a href="https://github.com/microsoft/WSL/issues/5481">issuse</a>  <a href="https://github.com/microsoft/WSL2-Linux-Kernel/pull/146/commits/5e3fa9a98ea1ac05b397e0acd5bf08ce0e60bd3e">修复</a></p>
+<p>重新编译内核。</p>
+<h4 id="参考">参考</h4>
+<ul>
+<li><a href="https://boxofcables.dev/accelerated-kvm-guests-on-wsl-2/">https://boxofcables.dev/accelerated-kvm-guests-on-wsl-2/</a></li>
+<li><a href="https://github.com/microsoft/WSL/issues/4193">https://github.com/microsoft/WSL/issues/4193</a></li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+  				<p>
+  					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/wsl2">wsl2</a></span><span class="tag"><a href="https://kuekiko.top/tags/kvm">kvm</a></span><span class="tag"><a href="https://kuekiko.top/tags/qemu">qemu</a></span>
+  				</p>
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://kuekiko.top">Kuekiko</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            
+            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

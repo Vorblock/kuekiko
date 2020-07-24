@@ -7,10 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 30 Jun 2020 01:15:26 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2020 22:47:12 +0800</lastBuildDate>
     
 	<atom:link href="https://kuekiko.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kvm</title>
+      <link>https://kuekiko.top/tags/kvm/</link>
+      <pubDate>Fri, 24 Jul 2020 22:47:12 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/tags/kvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>qemu</title>
+      <link>https://kuekiko.top/tags/qemu/</link>
+      <pubDate>Fri, 24 Jul 2020 22:47:12 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/tags/qemu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wsl2</title>
+      <link>https://kuekiko.top/tags/wsl2/</link>
+      <pubDate>Fri, 24 Jul 2020 22:47:12 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/tags/wsl2/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Android</title>
@@ -72,33 +99,6 @@
       <pubDate>Sun, 05 Apr 2020 18:18:59 +0800</pubDate>
       
       <guid>https://kuekiko.top/tags/android%E5%AE%89%E5%85%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>jemalloc原理</title>
-      <link>https://kuekiko.top/tags/jemalloc%E5%8E%9F%E7%90%86/</link>
-      <pubDate>Sun, 05 Apr 2020 18:18:59 +0800</pubDate>
-      
-      <guid>https://kuekiko.top/tags/jemalloc%E5%8E%9F%E7%90%86/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://kuekiko.top/tags/linux/</link>
-      <pubDate>Wed, 28 Aug 2019 23:24:18 +0800</pubDate>
-      
-      <guid>https://kuekiko.top/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux内核</title>
-      <link>https://kuekiko.top/tags/linux%E5%86%85%E6%A0%B8/</link>
-      <pubDate>Wed, 28 Aug 2019 23:24:18 +0800</pubDate>
-      
-      <guid>https://kuekiko.top/tags/linux%E5%86%85%E6%A0%B8/</guid>
       <description></description>
     </item>
     
