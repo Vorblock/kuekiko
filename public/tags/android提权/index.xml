@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android提权 on Kuekiko` blog</title>
+    <link>https://kuekiko.top/tags/android%E6%8F%90%E6%9D%83/</link>
+    <description>Recent content in Android提权 on Kuekiko` blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 30 Jun 2020 01:15:26 +0800</lastBuildDate>
+    
+	<atom:link href="https://kuekiko.top/tags/android%E6%8F%90%E6%9D%83/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CVE-2019-2215分析利用记录</title>
+      <link>https://kuekiko.top/posts/2020/06/cve-2019-2215%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 30 Jun 2020 01:15:26 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2020/06/cve-2019-2215%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8%E8%AE%B0%E5%BD%95/</guid>
+      <description>0x00 前言 CVE-2019-2215最初是由syzbot(syzkaller bot)在2017年发现的一个bug，在2018年初该bug被修复，没有分配CVE编号，但是该补丁没有向后移植到许多已发布的设备上,比如Pixel和pixel2。
+Project Zero的**Maddie Stone (@maddiestone)**根据Google的威胁情报小组（TAG）的情报报告再次发现的该bug，她在2019年9月报告了该漏洞。TAG确认其已用于现实攻击中，TAG表示该漏洞利用可能跟一家出售漏洞和利用工具的以色列公司NSO有关，随后NSO集团发言人公开否认与该漏洞存在任何关系。
+0x01 分析环境  Android avd api29 x86_64 kernel：q-goldfish-android-goldfish-4.14-dev commit id 7a3cee43e935b9d526ad07f20bf005ba7e74d05b pixel Android 10 kernel 3.18  0x02 漏洞分析 漏洞为内核上Bind IPC的一个UAF漏洞，成功利用可本地提权，无需进行任何交互，已被恶意软件利用。
+原理分析 先看一个project-zero公开的poc
+/* binder_poll() passes the thread-&amp;gt;wait waitqueue that can be slept on for work. When a thread that uses epoll explicitly exits using BINDER_THREAD_EXIT, the waitqueue is freed, but it is never removed from the corresponding epoll data structure. When the process subsequently exits, the epoll cleanup code tries to access the waitlist, which results in a use-after-free.</description>
+    </item>
+    
+  </channel>
+</rss>

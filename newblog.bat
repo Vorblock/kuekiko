@@ -1,2 +1,2 @@
 @echo off
-python D:\Project_ALL\hugo\BLOG\newblog.py %1
+python D:\Project\BLOG\newblog.py %1
