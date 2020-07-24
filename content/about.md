@@ -9,7 +9,7 @@
 
 - ヾ(◍°∇°◍)ﾉﾞ
 
-#### Links me
+#### Links
 
 - email:  [kuekiko7@gmail.com](kuekiko7@gmail.com)
 - Twitter: [kuekiko](https://twitter.com/kuekiko)

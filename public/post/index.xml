@@ -1,74 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kuekiko` blog</title>
-    <link>https://kuekiko.top/</link>
-    <description>Recent content on Kuekiko` blog</description>
+    <title>Posts on Kuekiko` blog</title>
+    <link>https://kuekiko.top/post/</link>
+    <description>Recent content in Posts on Kuekiko` blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 06 Aug 2018 11:13:06 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2020 22:47:12 +0800</lastBuildDate>
     
-	<atom:link href="https://kuekiko.top/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://kuekiko.top/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Reading</title>
-      <link>https://kuekiko.top/reading/</link>
-      <pubDate>Sun, 02 Oct 2016 21:49:20 +0200</pubDate>
-      
-      <guid>https://kuekiko.top/reading/</guid>
-      <description>大多数都是已买已看&amp;amp;已买未看&amp;amp;白嫖电子书&amp;amp;PDFx版
- 计算机基础&amp;amp;语言基础  汇编语言 C Primer plus 5 C++ Primer plus 5 Python 核心编程 python黑客攻防入门 锋利的jquery javascript Dom编程艺术 java程序设计 kotlin程序入门开发 Windows Socket 网络编程 编码-隐匿在计算机软硬件背后的语言 程序员的自我修养-链接、装载与库 编译原理 Linux内核分析   逆向&amp;amp;漏洞利用  逆向工程权威指南（上下） Linux二进制分析 有趣的二进制 漏洞战争软件漏洞分析精要 C/C++安全编码 内核漏洞的利用与防范 软件调试（第二版） 卷一 硬件基础 硬件安全攻防大揭秘  移动安全&amp;amp;开发  Android软件安全与逆向分析 Android软件安全攻防实例分析 Android安全攻防实战 Android安全攻防权威指南 Android安全攻防指南 Android应用安全防护和逆向分析 iOS应用逆向与安全 游戏安全-手游安全技术入门 最强Android书-构架大剖析 Android软件安全权威指南  Web安全&amp;amp;渗透  kali-linux 渗透测试的艺术  Other  重构 改善既有代码设计 Wireshark数据包分析实战详解 代码整洁之道-程序员的职业素养 信息隐藏技术  小说&amp;amp;&amp;amp;  三体（三部曲） 盗墓笔记（完整） 龙族（完整） 鬼吹灯（部分） 态度 简明英语写作手册  参考链接  https://github.</description>
-    </item>
-    
-    <item>
-      <title>Todo</title>
-      <link>https://kuekiko.top/todo/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://kuekiko.top/todo/</guid>
-      <description>拖延症晚期患者治疗记录    保持更新
-  日常记录
-  CVE学习
-  Fritoo 工具开发
-  改Fuzzing
-  </description>
-    </item>
-    
-    <item>
-      <title>日记</title>
-      <link>https://kuekiko.top/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/</link>
-      <pubDate>Mon, 06 Aug 2018 11:13:06 +0800</pubDate>
-      
-      <guid>https://kuekiko.top/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/</guid>
-      <description>乱七八糟的日记 七天国庆，死肥宅的日常修炼 10.1 昨晚大约3天才睡，第二天更是没精神。学了一个晚上Linux提权。
-早上8点钟醒，下雨ing，开始懒床。又不小心睡着了。醒来已经是11点。起床，吃饭，打开电脑，开始了修炼的第一天。心里很是烦躁，天气又冷，好想回到被窝里继续暖着。（这才是死肥宅该过的日子）。
-下午出去吃了碗米线，买了一些备战粮食，晚上继续刚。不弄懂坚决不睡觉！
-10.2 停电时怎么一肥事。起床就发现停电了，电脑无法开机，手机没充电。热水也没有。好恐怖，随便洗漱，直接冲到实验室。
-今天的打算是看完同态加密的那篇论文。然而，看完一脸懵逼，计组、电路、离散的知识早就不记得那么多了。明天继续理解，做点其他的吧。放松了一下。然后不小心把招新的网站调崩了，算了，睡觉去了。
-10.3 不想通宵的晚上，聊着聊着就差不多2点了。早上起床失败，12点钟到实验室，真是怠惰呀。先把招新网站调好。话了好几个小时，终于搞完了。后面还是看论文。心累呀，作业还没做。计划的C++复习又耽搁了。zoom了一下，被指导之后忽然有点豁然开朗。明天真的要按计划完成作业。后面吧知识点补上，要补的知识点有：逻辑门运算，加法器相关知识、硬件上二进制的加减乘除。
-10.4 今天也很元气满满的哟。早上不知道做了什么，中午吃了冒菜。下午好困，还是坚持看完了同态加密的BGV的基础知识，虽然还是有点懵逼，但是比之前完全懵逼好很多了。
- 知识点：  10.5 躺尸ing。C++知识补充ing。调HElib加密操作。终于是弄懂了这个库的基本操作。
-10.6 搞一整天的HElib，二进制的XOR门什么的。作业什么的，完全没做呀。
-10.7 不知不觉国庆长假（？）就没了，怎么感觉什么都没发生。。就没了？明天开学，今天补作业。
-2018-11月 日记写在博客还是麻烦、日记从此写在平时世界APP上。
-2018-11-03-08 部分日记用手机端的平行世界上去了，比较方便写&amp;hellip;
-2018-11-02 星期五 没课，
-2018-11-01 星期四 写各种实验报告。
-2018-10月 2018-10-29-31 这个月结束了。。。
-2018-10-22-28 6天 这段时间不知道做了些什么，补了些乱七八糟的东西。打了一些乱七八糟的CTF。
-2018-10-21 星期天 今天决定就把云计算的团队退了，以后就安心学移动安全和看一些IoT吧。补知识ing。
-2018-10-18-20 咸鱼的生活，第八周了很多课要做大作业，还得赶。。
-2018-10-17 星期三 雾霾w(ﾟДﾟ)w。
-2018-10-15-16 课比较多的两天。花时间调库，补C++ing。
-2018-10-14 星期天 昨晚又通宵了。早上起床困难。今天为了出题，试了一波音频隐写，jpg隐写，又配了一下抓包的环境。出了一道很简单的题。没达到想要的效果。
-2018-10-13 星期六 终于周末了，护网杯打开-&amp;gt;护网杯结束。 电影院看了《无双》。over。
-2018-10-10 - 12 赶作业+屁事不断。Helib库基本搞懂了，对二级制的加减乘除也基本搞懂了，会弄half adder -&amp;gt; full adder了。
-2018-10-09 星期二 满课的一天，还要忙奖学金的事情。今天可以说是最烦的一天。做不完的事情，空闲时间都不知道用来干嘛了。
-2018-10-08 星期一 上课生涯又开始了。早起的开始。无聊啊，这些课都没啥意义，像小白鼠一样的拿来做实验似的。
-招新赛开始，题目还没出完，学了新的东西，忘记了旧的知识。。只打算出两道Android的。</description>
-    </item>
     
     <item>
       <title>WSL2开启kvm</title>
@@ -181,6 +123,63 @@ make modules编译完成之后，vmlinux在源码根目录、bzImage在./arch/x
 sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
 安装
 #防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi 3B&#43; 0安装使用</title>
+      <link>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sun, 23 Jun 2019 01:14:22 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/06/raspberry-pi-3b-0%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>Raspberry Pi 3B+ 0安装使用 0x00 购买 终于下手买了。打算用来学习ARM、以及一些硬件的知识。
+ 3B+ 裸机 32G SD card 散热片 保护壳  0x01 安装系统 首先下载系统镜像。
+官网有挺多系统可以选择，这里选择了安装Raspbian desktop最新版
+之后打算装Lite版，手上没有多余的显示器。而且桌面版占用很高。
+迅雷，3分钟搞定。
+其次开始向SD卡中写镜像。
+买的32G闪迪的高速卡，现在32G都白菜价了，想想几年前16G的死贵。
+官方教程用的是Etcher ，也可以用Win32DiskImager。这里省事还是用Etcher。
+步骤
+ 下载etcher.io安装包安装Etcher](https://etcher.io/) 运行Etcher,选择镜像和sd卡  Flash一键搞定。  0x02 配置 系统安装完，开始进行配置。
+先连上显示器看看
+然而平时显示器还是要连笔记本，而且这分辨率好糊。所以还是配ssh和VNC连接使用吧。
+ 修改源  # 编辑 `/etc/apt/sources.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contribdeb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main non-free contrib# 编辑 `/etc/apt/sources.list.d/raspi.list` 文件，删除原文件所有内容，用以下内容取代：deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ stretch mainsudo apt update
+ 拓展SD卡  sudo raspi-config -&amp;gt; Advanced Opt -&amp;gt; A1 Expand Filesystem</description>
+    </item>
+    
+    <item>
+      <title>MobSecVM</title>
+      <link>https://kuekiko.top/posts/2019/06/mobsecvm/</link>
+      <pubDate>Sun, 16 Jun 2019 00:12:44 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/06/mobsecvm/</guid>
+      <description>0x00 前言 最近不知为何VM-Ubuntu炸了，试了各种方法，折腾了很久之后，终于恢复了。又浪费时间和环境斗志斗勇。自此打算自己弄一个包含了Android安全所需各种工具的环境，做个备份。防止哪天又出各种各样的问题。
+项目地址：MobSecVM
+下载地址：baiduyun、google_yun
+0x01 环境准备  Ubuntu 18.04 LTS   Username：mobsec
+Password：mobsec
+  Vmware 15  0x02 Tools （不断补充）   AndroidStudio 开发全家桶带模拟器
+  Radare2 逆向框架
+  Frida Hook工具
+  Drozer Android应用程序安全评估框架
+  APKtool APK逆向工具
+  BurpSuite 抓改包，安全检测
+  Wireshare 抓包工具
+  MobSF 应用程序自动化分析框架
+  androguard 一款基于python的逆向工程，恶意软件和软件分析Android应用程序的框架。
+  VScode 编辑器
+  bytecode-viewer
+  barf&amp;ndash;project
+  jadx Dex to Java decompiler</description>
+    </item>
+    
+    <item>
+      <title>漏洞基础之3UAF</title>
+      <link>https://kuekiko.top/posts/2019/03/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</link>
+      <pubDate>Wed, 20 Mar 2019 15:37:13 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2019/03/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E4%B9%8B3uaf/</guid>
+      <description></description>
     </item>
     
   </channel>
