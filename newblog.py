@@ -10,6 +10,8 @@ def newblog(blogname):
     os.chdir(blogsource)
     print(os.getcwd())
     os.system(f'hugo new {blogname}')
+    ## vscode
+    os.system(f'code content/{blogname}')
 
 if __name__ == "__main__":
     if len(sys.argv)== 2:

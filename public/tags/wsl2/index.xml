@@ -14,10 +14,10 @@
     
     <item>
       <title>WSL2开启kvm</title>
-      <link>https://kuekiko.top/post/wsl2%E5%BC%80%E5%90%AFkvm/</link>
+      <link>https://kuekiko.top/posts/2020/07/wsl2%E5%BC%80%E5%90%AFkvm/</link>
       <pubDate>Fri, 24 Jul 2020 22:47:12 +0800</pubDate>
       
-      <guid>https://kuekiko.top/post/wsl2%E5%BC%80%E5%90%AFkvm/</guid>
+      <guid>https://kuekiko.top/posts/2020/07/wsl2%E5%BC%80%E5%90%AFkvm/</guid>
       <description>0x00 前言 之前想着用wsl2去跑qemu，发现很多内核pwn题给的环境需要开启-enable-kvm选项，还有自己编译的内核也没法，然而wsl2没法开启kvm，解决办法就是去把hype-v给关了，老老实实用vmware/vmbox开个虚拟机，这样每次都要切来切去很麻烦。
 直到看到vmware和vmbox都可以与hype-v并存，以为看到了曙光，没想到是没法开启虚拟化选项的。
 后来看到WSL上这个Issues，当时也没这么多评论，不过暂且能用脚本实现。不过还是很麻烦。
