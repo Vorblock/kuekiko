@@ -23,11 +23,11 @@
 作用？  1.在运行时判断任意一个对象所属的类； 2.在运行时构造任意一个类的对象； 3.在运行时判断任意一个类所具有的成员变量和方法（通过反射甚至可以调用private方法）； 4.在运行时调用任意一个对象的方法  是运行时而不是编译时  获取某些类的一些变量，调用某些类的私有方法。 增加代码的灵活性。很多主流框架都使用了反射技术.像ssh框架都采用两种技术 xml做配置文件+反射技术.  基本使用 反射相关的类一般都在java.lang.relfect 包里。
   获取Class对象 3种方法
 (1)使用Class类的forName静态方法:
-public static Class&amp;lt;?&amp;gt; forName(String className)//在JDBC开发中常用此方法加载数据库驱动:Class.forName(driver);(2)直接获取某一个对象的class，比如:
-Class&amp;lt;?&amp;gt; klass = int.class;Class&amp;lt;?&amp;gt; classInt = Integer.TYPE;(3)调用某个对象的getClass()方法,比如:
-StringBuilder str = new StringBuilder(&amp;#34;123&amp;#34;);Class&amp;lt;?&amp;gt; klass = str.getClass();  判断是否为某一个类的实例
+public static Class&amp;lt;?&amp;gt; forName(String className) //在JDBC开发中常用此方法加载数据库驱动: Class.forName(driver); (2)直接获取某一个对象的class，比如:
+Class&amp;lt;?&amp;gt; klass = int.class; Class&amp;lt;?&amp;gt; classInt = Integer.TYPE; (3)调用某个对象的getClass()方法,比如:
+StringBuilder str = new StringBuilder(&amp;#34;123&amp;#34;); Class&amp;lt;?&amp;gt; klass = str.getClass();   判断是否为某一个类的实例
 一般使用instanceof来判断，也可以借助反射中的Class对象的isInstance()方法来判断 是一个Native方法：
-public native boolean isInstance(Object obj);  创建实例
+public native boolean isInstance(Object obj);   创建实例
 通过放射来生成对象两种方式：</description>
     </item>
     

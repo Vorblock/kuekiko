@@ -10,7 +10,7 @@
 这里下载的是linux-4.10.10
 解压tar -xvJf linux-4.10.10.tar.xz
 安装依赖
-sudo apt install build-essential ncurses-dev xz-utils libssl-dev bc fakeroot aptitude libncurses5-dev​ sudo apt install qemu编译内核 make menuconfig进行配置：KernelHacking —&amp;gt; Compile-time checks and compiler options选中
+sudo apt install build-essential ncurses-dev xz-utils libssl-dev bc fakeroot aptitude libncurses5-dev ​ sudo apt install qemu 编译内核 make menuconfig 进行配置：KernelHacking —&amp;gt; Compile-time checks and compiler options选中
 Compile the kernel with debug infoCompile the kernel with frame pointersProvide GDB scripts for kernel debuggingProcessor type and features→去掉Paravirtualized guest support保存退出。
 命令make -jN 进行编译
 之后make all
@@ -53,14 +53,15 @@ make modules编译完成之后，vmlinux在源码根目录、bzImage在./arch/x
 
 <meta itemprop="name" content="Qemu&#43;gdb调试Linux内核">
 <meta itemprop="description" content="Qemu&#43;gdb调试Linux内核">
-<meta itemprop="datePublished" content="2019-08-28T23:24:18&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-28T23:24:18&#43;08:00" />
+<meta itemprop="datePublished" content="2019-08-28T23:24:18+08:00" />
+<meta itemprop="dateModified" content="2019-08-28T23:24:18+08:00" />
 <meta itemprop="wordCount" content="205">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="Qemu,Linux内核," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
@@ -215,18 +216,18 @@ make install
 </code></pre></div><p>创建文件系统</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . | cpio -o --format<span style="color:#f92672">=</span>newc &gt; ../rootfs.img
 </code></pre></div><h4 id="运行内核">运行内核</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    qemu-system-x86_64 <span style="color:#ae81ff">\</span>
-
-​    -kernel ~/linux-4.10.10/arch/x86_64/boot/bzImage <span style="color:#ae81ff">\</span>
-
-​    -initrd ~/busybox-1.31.0/rootfs.img <span style="color:#ae81ff">\</span>
-
-​    -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/ram rdinit=/sbin/init&#34;</span> <span style="color:#ae81ff">\</span>
-
-​    -cpu kvm64,+smep,+smap <span style="color:#ae81ff">\</span>
-
-​    -nographic <span style="color:#ae81ff">\</span>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    qemu-system-x86_64 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -kernel ~/linux-4.10.10/arch/x86_64/boot/bzImage <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -initrd ~/busybox-1.31.0/rootfs.img <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/ram rdinit=/sbin/init&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -cpu kvm64,+smep,+smap <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -nographic <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
 ​    -gdb tcp::1234
 </code></pre></div><p>**<code>-**cpu kvm64,**+**smep,**+**smap</code> 设置CPU的安全选项，这里开启了smap和smep</p>
 <p>**<code>-**kernel</code> 设置内核bzImage文件的路径</p>

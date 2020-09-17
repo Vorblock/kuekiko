@@ -42,7 +42,7 @@
 这里下载的是linux-4.10.10
 解压tar -xvJf linux-4.10.10.tar.xz
 安装依赖
-sudo apt install build-essential ncurses-dev xz-utils libssl-dev bc fakeroot aptitude libncurses5-dev​ sudo apt install qemu编译内核 make menuconfig进行配置：KernelHacking —&amp;gt; Compile-time checks and compiler options选中
+sudo apt install build-essential ncurses-dev xz-utils libssl-dev bc fakeroot aptitude libncurses5-dev ​ sudo apt install qemu 编译内核 make menuconfig 进行配置：KernelHacking —&amp;gt; Compile-time checks and compiler options选中
 Compile the kernel with debug infoCompile the kernel with frame pointersProvide GDB scripts for kernel debuggingProcessor type and features→去掉Paravirtualized guest support保存退出。
 命令make -jN 进行编译
 之后make all

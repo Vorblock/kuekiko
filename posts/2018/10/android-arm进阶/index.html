@@ -11,8 +11,8 @@ NDK-Build的使用 可以参考官方文档。
   cd 项目目录
   /ndk-build 。也可以将NDK-build加入环境变量。
   创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
-//Android.mkLOCAL_PATH := $(call my-dir)include $(CLEAR_VARS)# 要生成的.so库名称LOCAL_MODULE := hello# c&#43;&#43;文件LOCAL_SRC_FILES := hello.cppinclude $(BUILD_SHARED_LIBRARY)//Application.mkAPP_PLATFORM := android-17# APP_ABI := allAPP_ABI :=armeabi-v7a arm64-v8a添加hello.cpp：
-#include&amp;lt;cstdio&amp;gt;int i,j;int num[] = {1,2,3,4,5};int main(){/* code */printf(&amp;#34;hello,world!\n&amp;#34;);for(i=0;i&amp;lt;5;i&#43;&#43;){printf(&amp;#34;num value is %d\n&amp;#34;,num[i]);}return 0;}  ndk-build" />
+//Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c&#43;&#43;文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY) //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a 添加hello.cpp：
+#include&amp;lt;cstdio&amp;gt;int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;#34;hello,world!\n&amp;#34;); for(i=0;i&amp;lt;5;i&#43;&#43;){ printf(&amp;#34;num value is %d\n&amp;#34;,num[i]); } return 0; }   ndk-build" />
 <meta name="keywords" content=", ARM" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -51,14 +51,15 @@ NDK-Build的使用 可以参考官方文档。
 
 <meta itemprop="name" content="Android-ARM进阶">
 <meta itemprop="description" content="ARM">
-<meta itemprop="datePublished" content="2018-10-10T16:40:20&#43;08:00" />
-<meta itemprop="dateModified" content="2018-10-10T16:40:20&#43;08:00" />
-<meta itemprop="wordCount" content="94">
+<meta itemprop="datePublished" content="2018-10-10T16:40:20+08:00" />
+<meta itemprop="dateModified" content="2018-10-10T16:40:20+08:00" />
+<meta itemprop="wordCount" content="93">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="ARM," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
@@ -189,7 +190,7 @@ APP_PLATFORM <span style="color:#f92672">:=</span> android-17
 <span style="color:#75715e"># APP_ABI := all
 </span><span style="color:#75715e"></span>APP_ABI <span style="color:#f92672">:=</span>armeabi-v7a arm64-v8a
 </code></pre></div><p>添加hello.cpp：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> i,j;
 <span style="color:#66d9ef">int</span> num[] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>};
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
@@ -239,7 +240,7 @@ APP_PLATFORM <span style="color:#f92672">:=</span> android-17
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/arm">ARM</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>94 Words</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>93 Words</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-10-10 16:40 &#43;0800</p>
         </div>

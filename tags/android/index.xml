@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 30 Jun 2020 01:15:26 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 Aug 2018 21:16:52 +0800</lastBuildDate>
     
 	<atom:link href="https://kuekiko.top/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
@@ -31,7 +31,7 @@
 我们可以检查AOSP代码库，查看一个变更[2]中引入了一个新的名为canCallerAccessUserDictionary 的私有函数，并从 UserDictionary 内容提供者中的所有标准查询、插入、更新和删除函数中调用该函数，以防止对这些函数的未经授权的调用。
 虽然更改似乎对查询和插入函数都有效，但是在更新和删除过程中，授权检查发生滞后引入了安全漏洞，允许任何应用程序通过公开的内容提供者成功地调用受影响的函数，从而绕过错误的授权检查。
 在下面的 UserDictionaryProvider类[3]的代码中，注意高亮（标注在注释）的片段，查看在数据库已经被修改之后如何执行授权检查：
-@Overridepublic int delete(Uri uri, String where, String[] whereArgs) {SQLiteDatabase db = mOpenHelper.</description>
+@Override public int delete(Uri uri, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.</description>
     </item>
     
   </channel>

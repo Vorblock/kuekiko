@@ -19,7 +19,7 @@ via wget: sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/
   GDB装上&#43;pwndbg&#43;peda&#43;gef
 wsl的ubuntu不支持x86，所以主要只能调试x64的程序，而且可能会出现莫名其妙的错误。
 不过可以使用qemu来运行x86的程序，调试还是不行会出错。参考
-sudo apt updatesudo apt install qemu-user-staticsudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39;# 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。sudo service binfmt-support start  pwndbg&#43;peda&#43;gef" />
+sudo apt update sudo apt install qemu-user-static sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39; # 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。 sudo service binfmt-support start   pwndbg&#43;peda&#43;gef" />
 <meta name="keywords" content=", 工具, 备份" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -65,6 +65,7 @@ sudo apt updatesudo apt install qemu-user-staticsudo update-binfmts --install 
 
 
 <meta itemprop="keywords" content="工具,备份," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 

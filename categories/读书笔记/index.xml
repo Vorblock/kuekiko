@@ -76,7 +76,7 @@ ELF书籍《Linux二进制分析》
       <guid>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
       <description>一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建
 2. JNI基础 2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多)) ​	参考文章Android安全和开发环境搭建中的JNI开发章节
-2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI();Java_com_naivete_jni_1study_MainActivity_stringFromJNI(JNIEnv *env,jobject /* this */) {std::string hello = &amp;#34;Hello from C++&amp;#34;;return env-&amp;gt;NewStringUTF(hello.c_str());  JNIEnv类型
+2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI(); Java_com_naivete_jni_1study_MainActivity_stringFromJNI( JNIEnv *env, jobject /* this */) { std::string hello = &amp;#34;Hello from C++&amp;#34;; return env-&amp;gt;NewStringUTF(hello.c_str());   JNIEnv类型
 通过JNIEnv* 指针就可以对Java端的代码进行操作
 Jni的所有函数可以查看jni.h文件
 下面是一些函数eg：
@@ -97,7 +97,7 @@ Jni的所有函数可以查看jni.h文件
       <description>第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式：  手势 九宫格连线 输入密码 指纹、人脸、虹膜 可穿戴设备  2. 这儿分析手势密码和输入密码 找到android源代码中的LockPatternUtils,java 这个工具类
 路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
  2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
- public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) {return null;}try {byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword);byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword);//首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length];System.arraycopy(sha1, 0, combined, 0, sha1.</description>
+ public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0  if (password == null) { return null; } try { byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword); //首先让 password+salt值 再SHA-1和MD5  byte[] combined = new byte[sha1.length + md5.length]; System.arraycopy(sha1, 0, combined, 0, sha1.</description>
     </item>
     
   </channel>

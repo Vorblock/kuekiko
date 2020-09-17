@@ -24,7 +24,7 @@
 OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
 OLLVM-Android环境搭建 前提环境：
  NDK环境 LLVM  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
- $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git$ mkdir build$ cd build$ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator///（cmake -G &amp;#34;MinGW Makefiles&amp;#34; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows)$ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢  可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
+ $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git $ mkdir build $ cd build $ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/ //（cmake -G &amp;#34;MinGW Makefiles&amp;#34; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows) $ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢  可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
 配置整合NDK：
   打开NDK目录ndk-bundle下的toolchains，新建obfuscator-llvm-4，将llvm文件夹里的所有文件复制到新建的目录下。</description>
     </item>

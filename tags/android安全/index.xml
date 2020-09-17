@@ -24,7 +24,7 @@ jemalloc的一些特性与设计原则：
  强大的多核/多线程分配能力. 最小化的元数据开销 基于每个线程进行缓存，避免了同步问题。 避免了连续分配内存的碎片化问题。 简洁高效  0x01 结构  jemalloc对内存划分按照如下由高到低的顺序:
    内存是由一定数量的arenas进行管理. 一个arena被分割成若干chunks, 后者主要负责记录bookkeeping（记录信息）. chunk内部又包含着若干runs, 作为分配小块内存的基本单元. run由pages组成, 最终被划分成一定数量的regions 对于small size的分配请求来说, 这些region就相当于user memory.   arenas 对于Android来说：
 限制了只使用两个arenas,每个带有一个lock。这意味着，不同线程尝试分配内存时，会循环、平均分配至两个arena，确保两个arena有大致相等的进程数量。只有在相同的arena中分配内存时才需要获取lock。
-#/android.bpandroid_product_variables = {// Only enable the tcache on non-svelte configurations, to save PSS. malloc_not_svelte: {cflags: [&amp;#34;-UANDROID_MAX_ARENAS&amp;#34;,&amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;,&amp;#34;-DJEMALLOC_TCACHE&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;,],},}用shadow查看arenas</description>
+#/android.bp android_product_variables = { // Only enable the tcache on non-svelte configurations, to save PSS.  malloc_not_svelte: { cflags: [ &amp;#34;-UANDROID_MAX_ARENAS&amp;#34;, &amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;, &amp;#34;-DJEMALLOC_TCACHE&amp;#34;, &amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;, &amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;, ], }, } 用shadow查看arenas</description>
     </item>
     
     <item>
@@ -34,10 +34,10 @@ jemalloc的一些特性与设计原则：
       
       <guid>https://kuekiko.top/posts/2019/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
       <description>0x00 前言 复习一下Android安装frida命令
-adb rootadb push frida-server /data/local/tmpadb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;常用Frida 命令
-frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+adb root adb push frida-server /data/local/tmp adb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34; adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34; 常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程 frida-ps -Ua #列出运行中的应用 frida-ps -Uai #列出已安装的应用列表 frida-ps -D xxx #连接指定的设备 frida-ps -R #在Safari中跟踪recv*和send* API frida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用 frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari #在iPhone上启动SnapChat，跟踪加密API调用 frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34; #当程序启动时，frida跟踪所有open function frida-trace -U -i open com.app.testing 下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
 0x01 简单用例 Frida常用的两种启动方式：
- python 绑定启动  import fridaimport sys,os## package name pkg_name = &amp;#34;com.</description>
+ python 绑定启动  import frida import sys,os ## package name pkg_name = &amp;#34;com.</description>
     </item>
     
     <item>
@@ -53,10 +53,10 @@ Dynamic instrumentation toolkit for developers, reverse-engineers, and security 
  Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
 报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
  绑定：二选一就行
-pip install frida # Python bindingsnpm install frida # Node.js bindings手动编译 依赖：
+pip install frida # Python bindings npm install frida # Node.js bindings 手动编译 依赖：
 pip3 install colorama prompt-toolkit pygments
  Linux  make
- MacOS and iOS  export MAC_CERTID=frida-certexport IOS_CERTID=frida-certmake Windows  frida.</description>
+ MacOS and iOS  export MAC_CERTID=frida-cert export IOS_CERTID=frida-cert make  Windows  frida.</description>
     </item>
     
     <item>
@@ -71,7 +71,7 @@ pip3 install colorama prompt-toolkit pygments
 OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
 OLLVM-Android环境搭建 前提环境：
  NDK环境 LLVM  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
- $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git$ mkdir build$ cd build$ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator///（cmake -G &amp;#34;MinGW Makefiles&amp;#34; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows)$ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢  可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
+ $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git $ mkdir build $ cd build $ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/ //（cmake -G &amp;#34;MinGW Makefiles&amp;#34; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows) $ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢  可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
 配置整合NDK：
   打开NDK目录ndk-bundle下的toolchains，新建obfuscator-llvm-4，将llvm文件夹里的所有文件复制到新建的目录下。</description>
     </item>
@@ -162,7 +162,7 @@ ELF书籍《Linux二进制分析》
       <guid>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
       <description>一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建
 2. JNI基础 2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多)) ​	参考文章Android安全和开发环境搭建中的JNI开发章节
-2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI();Java_com_naivete_jni_1study_MainActivity_stringFromJNI(JNIEnv *env,jobject /* this */) {std::string hello = &amp;#34;Hello from C++&amp;#34;;return env-&amp;gt;NewStringUTF(hello.c_str());  JNIEnv类型
+2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI(); Java_com_naivete_jni_1study_MainActivity_stringFromJNI( JNIEnv *env, jobject /* this */) { std::string hello = &amp;#34;Hello from C++&amp;#34;; return env-&amp;gt;NewStringUTF(hello.c_str());   JNIEnv类型
 通过JNIEnv* 指针就可以对Java端的代码进行操作
 Jni的所有函数可以查看jni.h文件
 下面是一些函数eg：
@@ -183,7 +183,7 @@ Jni的所有函数可以查看jni.h文件
       <description>第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式：  手势 九宫格连线 输入密码 指纹、人脸、虹膜 可穿戴设备  2. 这儿分析手势密码和输入密码 找到android源代码中的LockPatternUtils,java 这个工具类
 路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
  2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
- public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) {return null;}try {byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword);byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword);//首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length];System.arraycopy(sha1, 0, combined, 0, sha1.</description>
+ public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0  if (password == null) { return null; } try { byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword); //首先让 password+salt值 再SHA-1和MD5  byte[] combined = new byte[sha1.length + md5.length]; System.arraycopy(sha1, 0, combined, 0, sha1.</description>
     </item>
     
   </channel>

@@ -45,10 +45,10 @@ Password：mobsec
       
       <guid>https://kuekiko.top/posts/2019/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
       <description>0x00 前言 复习一下Android安装frida命令
-adb rootadb push frida-server /data/local/tmpadb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;常用Frida 命令
-frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+adb root adb push frida-server /data/local/tmp adb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34; adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34; 常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程 frida-ps -Ua #列出运行中的应用 frida-ps -Uai #列出已安装的应用列表 frida-ps -D xxx #连接指定的设备 frida-ps -R #在Safari中跟踪recv*和send* API frida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用 frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari #在iPhone上启动SnapChat，跟踪加密API调用 frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34; #当程序启动时，frida跟踪所有open function frida-trace -U -i open com.app.testing 下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
 0x01 简单用例 Frida常用的两种启动方式：
- python 绑定启动  import fridaimport sys,os## package name pkg_name = &amp;#34;com.</description>
+ python 绑定启动  import frida import sys,os ## package name pkg_name = &amp;#34;com.</description>
     </item>
     
     <item>
@@ -64,10 +64,10 @@ Dynamic instrumentation toolkit for developers, reverse-engineers, and security 
  Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
 报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
  绑定：二选一就行
-pip install frida # Python bindingsnpm install frida # Node.js bindings手动编译 依赖：
+pip install frida # Python bindings npm install frida # Node.js bindings 手动编译 依赖：
 pip3 install colorama prompt-toolkit pygments
  Linux  make
- MacOS and iOS  export MAC_CERTID=frida-certexport IOS_CERTID=frida-certmake Windows  frida.</description>
+ MacOS and iOS  export MAC_CERTID=frida-cert export IOS_CERTID=frida-cert make  Windows  frida.</description>
     </item>
     
     <item>
@@ -81,7 +81,7 @@ cutter 是r2的GUI版。
 0x01 安装 支持的平台有如下：
  Windows (since XP), GNU/Linux, OS X, [Net|Free|Open]BSD, Android, iOS, OSX, QNX, Solaris, Haiku, FirefoxOS.
  Linux平台下直接
-git clone https://github.com/radare/radare2cd radare2sys/install.sh //(or sys/user.sh)Windows下可以下载二进制安装包安装。官网下载
+git clone https://github.com/radare/radare2 cd radare2 sys/install.sh //(or sys/user.sh) Windows下可以下载二进制安装包安装。官网下载
 Windows用户推荐使用Windows下的linux（wsl）来使用， win下更新慢。还是linux下用得舒服（方便，快捷）。
 0x03 工具介绍 r2常用的包含有一下组件：
  rax2 用于数值转换 rasm2 反汇编和汇编 rabin2 查看文件格式 radiff2 对文件进行 diff ragg2/ragg2­cc 开发shellcode工具 rahash2 各种密码算法， hash算法 radare2 整合了所有工具  使用帮助直接-h
@@ -154,7 +154,7 @@ via wget: sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/
   GDB装上+pwndbg+peda+gef
 wsl的ubuntu不支持x86，所以主要只能调试x64的程序，而且可能会出现莫名其妙的错误。
 不过可以使用qemu来运行x86的程序，调试还是不行会出错。参考
-sudo apt updatesudo apt install qemu-user-staticsudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39;# 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。sudo service binfmt-support start  pwndbg+peda+gef</description>
+sudo apt update sudo apt install qemu-user-static sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39; # 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。 sudo service binfmt-support start   pwndbg+peda+gef</description>
     </item>
     
   </channel>

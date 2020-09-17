@@ -26,9 +26,9 @@
 把PI的官方系统换成了Ubuntu 18.04。
 安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
 关闭地址随机化
-sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
+sudo cat /proc/sys/kernel/randomize_va_space # 状态查看 2 # 开启中 sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission denied su echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space cat /proc/sys/kernel/randomize_va_space 0 #这就OK   QEMU 模拟 (WSL2)
 安装
-#防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派</description>
+#防止又出什么乱七八糟的错误和需求，尽量都装上 apt install gdb gdb-multiarch ## apt install qemu ## apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装   0x02 启动和调试   树莓派</description>
     </item>
     
     <item>
@@ -65,8 +65,8 @@ NDK-Build的使用 可以参考官方文档。
   cd 项目目录
   /ndk-build 。也可以将NDK-build加入环境变量。
   创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
-//Android.mkLOCAL_PATH := $(call my-dir)include $(CLEAR_VARS)# 要生成的.so库名称LOCAL_MODULE := hello# c++文件LOCAL_SRC_FILES := hello.cppinclude $(BUILD_SHARED_LIBRARY)//Application.mkAPP_PLATFORM := android-17# APP_ABI := allAPP_ABI :=armeabi-v7a arm64-v8a添加hello.cpp：
-#include&amp;lt;cstdio&amp;gt;int i,j;int num[] = {1,2,3,4,5};int main(){/* code */printf(&amp;#34;hello,world!\n&amp;#34;);for(i=0;i&amp;lt;5;i++){printf(&amp;#34;num value is %d\n&amp;#34;,num[i]);}return 0;}  ndk-build</description>
+//Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c++文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY) //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a 添加hello.cpp：
+#include&amp;lt;cstdio&amp;gt;int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;#34;hello,world!\n&amp;#34;); for(i=0;i&amp;lt;5;i++){ printf(&amp;#34;num value is %d\n&amp;#34;,num[i]); } return 0; }   ndk-build</description>
     </item>
     
     <item>
@@ -79,7 +79,7 @@ NDK-Build的使用 可以参考官方文档。
 内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Azeria-labs
 ARM架构 ARM属于RISC CPU，
  ARM模式 4个字节opcode 32位 Thumb模式 2个字节opcode 16位 Thumb-2模式 同上（只是有部分4个字节的opcode) 64位ARM 4个字节opcode ARM机器码在版本3之前是小端。但是之后默认采用大端格式，但可以设置切换到小端。  数据类型 数据类型在汇编语言中的扩展后缀为**-h**或者**-sh**对应着半字，**-b**或者**-sb**对应着字节，但是对于字并没有对应的扩展
-ldr = 加载字，宽度四字节ldrh = 加载无符号的半字，宽度两字节ldrsh = 加载有符号的半字，宽度两字节ldrb = 加载无符号的字节ldrsb = 加载有符号的字节str = 存储字，宽度四字节strh = 存储无符号的半字，宽度两字节strsh = 存储有符号的半字，宽度两字节strb = 存储无符号的字节strsb = 存储有符号的字节字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
+ldr = 加载字，宽度四字节 ldrh = 加载无符号的半字，宽度两字节 ldrsh = 加载有符号的半字，宽度两字节 ldrb = 加载无符号的字节 ldrsb = 加载有符号的字节 str = 存储字，宽度四字节 strh = 存储无符号的半字，宽度两字节 strsh = 存储有符号的半字，宽度两字节 strb = 存储无符号的字节 strsb = 存储有符号的字节 字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
 数据访问时采取大端序还是小端序使用程序状态寄存器(CPSR)的第9比特位来决定的。
 寄存器 37个32位寄存器，其中31个为基础寄存器，6个为状态寄存器。
 用户模式下有

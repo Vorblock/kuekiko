@@ -11,7 +11,7 @@ jemalloc的一些特性与设计原则：
  强大的多核/多线程分配能力. 最小化的元数据开销 基于每个线程进行缓存，避免了同步问题。 避免了连续分配内存的碎片化问题。 简洁高效  0x01 结构  jemalloc对内存划分按照如下由高到低的顺序:
    内存是由一定数量的arenas进行管理. 一个arena被分割成若干chunks, 后者主要负责记录bookkeeping（记录信息）. chunk内部又包含着若干runs, 作为分配小块内存的基本单元. run由pages组成, 最终被划分成一定数量的regions 对于small size的分配请求来说, 这些region就相当于user memory.   arenas 对于Android来说：
 限制了只使用两个arenas,每个带有一个lock。这意味着，不同线程尝试分配内存时，会循环、平均分配至两个arena，确保两个arena有大致相等的进程数量。只有在相同的arena中分配内存时才需要获取lock。
-#/android.bpandroid_product_variables = {// Only enable the tcache on non-svelte configurations, to save PSS. malloc_not_svelte: {cflags: [&amp;#34;-UANDROID_MAX_ARENAS&amp;#34;,&amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;,&amp;#34;-DJEMALLOC_TCACHE&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;,],},}用shadow查看arenas" />
+#/android.bp android_product_variables = { // Only enable the tcache on non-svelte configurations, to save PSS.  malloc_not_svelte: { cflags: [ &amp;#34;-UANDROID_MAX_ARENAS&amp;#34;, &amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;, &amp;#34;-DJEMALLOC_TCACHE&amp;#34;, &amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;, &amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;, ], }, } 用shadow查看arenas" />
 <meta name="keywords" content=", android安全, jemalloc原理" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -50,14 +50,15 @@ jemalloc的一些特性与设计原则：
 
 <meta itemprop="name" content="Android之jemalloc">
 <meta itemprop="description" content="Android之jemalloc">
-<meta itemprop="datePublished" content="2020-04-05T18:18:59&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-05T18:18:59&#43;08:00" />
+<meta itemprop="datePublished" content="2020-04-05T18:18:59+08:00" />
+<meta itemprop="dateModified" content="2020-04-05T18:18:59+08:00" />
 <meta itemprop="wordCount" content="370">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="android安全,jemalloc原理," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 

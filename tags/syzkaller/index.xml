@@ -24,7 +24,7 @@
  GCC 6.1.0+    linux kernel
  编译 v4.6以后编译时确保CONFIG_KCOV=y 之前版本：这样添加支持 一些额外选项    VM 一般QEMU
  支持QEMU、kvmtool和GCE虚拟机、Android设备和Odroid C2开发板 需要进行通信：vm要提供网络支持 vm配置需要ssh服务器 要能执行ssh -i $SSHID -p $PORT root@localhost 需要将debugfs 挂在到 /sys/kernel/debug    Golang 安装
-wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gztar -C ~/goroot -xzf go1.14.1.linux-amd64.tar.gzvim /etc/profilemkdir /usr/local/gopath# 添加export export GOROOT=/home/kuekiko/gorootexport GOPATH=/home/kuekiko/gopathexport PATH=$GOROOT/bin:$PATHexport PATH=$GOPATH/bin:$PATHsource etc/profile  syzkaller</description>
+wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gz tar -C ~/goroot -xzf go1.14.1.linux-amd64.tar.gz vim /etc/profile mkdir /usr/local/gopath # 添加export export GOROOT=/home/kuekiko/goroot export GOPATH=/home/kuekiko/gopath export PATH=$GOROOT/bin:$PATH export PATH=$GOPATH/bin:$PATH source etc/profile   syzkaller</description>
     </item>
     
   </channel>

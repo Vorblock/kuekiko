@@ -26,9 +26,9 @@
 把PI的官方系统换成了Ubuntu 18.04。
 安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
 关闭地址随机化
-sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
+sudo cat /proc/sys/kernel/randomize_va_space # 状态查看 2 # 开启中 sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission denied su echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space cat /proc/sys/kernel/randomize_va_space 0 #这就OK   QEMU 模拟 (WSL2)
 安装
-#防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派</description>
+#防止又出什么乱七八糟的错误和需求，尽量都装上 apt install gdb gdb-multiarch ## apt install qemu ## apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装   0x02 启动和调试   树莓派</description>
     </item>
     
     <item>
@@ -68,7 +68,7 @@ sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo e
  知识点：PWN相关知识点总结
  Linux PWN ARM PWN  题目全部来源于 CTFWiki 上所涉及题目
 Linux PWN 大部分原理参考CTFWiki
-栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); }void vulnerable() {char s[12];gets(s);puts(s);return;}int main(int argc, char **argv) {vulnerable();return 0;}# gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1stack1.c: In function ‘vulnerable’:stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
+栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); } void vulnerable() { char s[12]; gets(s); puts(s); return; } int main(int argc, char **argv) { vulnerable(); return 0; } # gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1 stack1.c: In function ‘vulnerable’: stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
     </item>
     
     <item>
