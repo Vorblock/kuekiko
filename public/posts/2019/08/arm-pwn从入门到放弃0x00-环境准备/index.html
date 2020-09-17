@@ -13,9 +13,9 @@
 把PI的官方系统换成了Ubuntu 18.04。
 安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
 关闭地址随机化
-sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
+sudo cat /proc/sys/kernel/randomize_va_space # 状态查看 2 # 开启中 sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission denied su echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space cat /proc/sys/kernel/randomize_va_space 0 #这就OK   QEMU 模拟 (WSL2)
 安装
-#防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派" />
+#防止又出什么乱七八糟的错误和需求，尽量都装上 apt install gdb gdb-multiarch ## apt install qemu ## apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装   0x02 启动和调试   树莓派" />
 <meta name="keywords" content=", ARM, PWN" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -54,14 +54,15 @@ sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo e
 
 <meta itemprop="name" content="ARM-PWN从入门到放弃0x00-环境准备">
 <meta itemprop="description" content="ARM PWN从入门到放弃0x00 环境准备">
-<meta itemprop="datePublished" content="2019-08-03T12:26:24&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-03T12:26:24&#43;08:00" />
+<meta itemprop="datePublished" content="2019-08-03T12:26:24+08:00" />
+<meta itemprop="dateModified" content="2019-08-03T12:26:24+08:00" />
 <meta itemprop="wordCount" content="172">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="ARM,PWN," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 

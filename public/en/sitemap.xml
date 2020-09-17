@@ -32,6 +32,21 @@
   </url>
   
   <url>
+    <loc>https://kuekiko.top/</loc>
+    <lastmod>2020-07-24T22:47:12+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/"
+                />
+  </url>
+  
+  <url>
     <loc>https://kuekiko.top/tags/kvm/</loc>
     <lastmod>2020-07-24T22:47:12+08:00</lastmod>
   </url>
@@ -74,16 +89,6 @@
   <url>
     <loc>https://kuekiko.top/posts/2020/07/wsl2%E5%BC%80%E5%90%AFkvm/</loc>
     <lastmod>2020-07-24T22:47:12+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/tags/android/</loc>
-    <lastmod>2020-06-30T01:15:26+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/categories/android/</loc>
-    <lastmod>2020-06-30T01:15:26+08:00</lastmod>
   </url>
   
   <url>
@@ -174,11 +179,6 @@
   <url>
     <loc>https://kuekiko.top/tags/jemalloc%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2020-04-05T18:18:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/tags/linux/</loc>
-    <lastmod>2019-08-28T23:24:18+08:00</lastmod>
   </url>
   
   <url>
@@ -452,6 +452,11 @@
   </url>
   
   <url>
+    <loc>https://kuekiko.top/tags/linux/</loc>
+    <lastmod>2018-08-09T19:34:34+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://kuekiko.top/posts/2018/08/qemu%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2018-08-09T19:34:34+08:00</lastmod>
   </url>
@@ -467,18 +472,8 @@
   </url>
   
   <url>
-    <loc>https://kuekiko.top/</loc>
-    <lastmod>2018-08-06T11:13:06+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://kuekiko.top/fr/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://kuekiko.top/"
-                />
+    <loc>https://kuekiko.top/tags/android/</loc>
+    <lastmod>2018-08-05T21:16:52+08:00</lastmod>
   </url>
   
   <url>
@@ -533,6 +528,11 @@
   
   <url>
     <loc>https://kuekiko.top/tags/androd/</loc>
+    <lastmod>2018-07-08T17:35:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/categories/android/</loc>
     <lastmod>2018-07-08T17:35:46+08:00</lastmod>
   </url>
   

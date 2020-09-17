@@ -22,15 +22,6 @@
     </item>
     
     <item>
-      <title>Android</title>
-      <link>https://kuekiko.top/categories/android/</link>
-      <pubDate>Tue, 30 Jun 2020 01:15:26 +0800</pubDate>
-      
-      <guid>https://kuekiko.top/categories/android/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Android提权</title>
       <link>https://kuekiko.top/categories/android%E6%8F%90%E6%9D%83/</link>
       <pubDate>Tue, 30 Jun 2020 01:15:26 +0800</pubDate>
@@ -99,6 +90,15 @@
       <pubDate>Wed, 28 Aug 2019 23:24:18 +0800</pubDate>
       
       <guid>https://kuekiko.top/categories/linux%E5%86%85%E6%A0%B8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ARM</title>
+      <link>https://kuekiko.top/categories/arm/</link>
+      <pubDate>Sat, 03 Aug 2019 12:26:24 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/categories/arm/</guid>
       <description></description>
     </item>
     

@@ -11,7 +11,7 @@
  GCC 6.1.0&#43;    linux kernel
  编译 v4.6以后编译时确保CONFIG_KCOV=y 之前版本：这样添加支持 一些额外选项    VM 一般QEMU
  支持QEMU、kvmtool和GCE虚拟机、Android设备和Odroid C2开发板 需要进行通信：vm要提供网络支持 vm配置需要ssh服务器 要能执行ssh -i $SSHID -p $PORT root@localhost 需要将debugfs 挂在到 /sys/kernel/debug    Golang 安装
-wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gztar -C ~/goroot -xzf go1.14.1.linux-amd64.tar.gzvim /etc/profilemkdir /usr/local/gopath# 添加export export GOROOT=/home/kuekiko/gorootexport GOPATH=/home/kuekiko/gopathexport PATH=$GOROOT/bin:$PATHexport PATH=$GOPATH/bin:$PATHsource etc/profile  syzkaller" />
+wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gz tar -C ~/goroot -xzf go1.14.1.linux-amd64.tar.gz vim /etc/profile mkdir /usr/local/gopath # 添加export export GOROOT=/home/kuekiko/goroot export GOPATH=/home/kuekiko/gopath export PATH=$GOROOT/bin:$PATH export PATH=$GOPATH/bin:$PATH source etc/profile   syzkaller" />
 <meta name="keywords" content=", Syzkaller, Fuzzing" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -50,14 +50,15 @@ wget https://dl.google.com/go/go1.14.1.linux-amd64.tar.gztar -C ~/goroot -xzf g
 
 <meta itemprop="name" content="Syzkaller fuzzing 入门">
 <meta itemprop="description" content="简单学习使用Syzkaller">
-<meta itemprop="datePublished" content="2020-04-10T18:59:00&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-10T18:59:00&#43;08:00" />
+<meta itemprop="datePublished" content="2020-04-10T18:59:00+08:00" />
+<meta itemprop="dateModified" content="2020-04-10T18:59:00+08:00" />
 <meta itemprop="wordCount" content="255">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="Syzkaller,Fuzzing," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
@@ -245,17 +246,17 @@ CONFIG_SECURITYFS<span style="color:#f92672">=</span>y
 make CC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$GCC<span style="color:#e6db74">/bin/gcc&#34;</span> olddefconfig
 make CC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$GCC<span style="color:#e6db74">/bin/gcc&#34;</span> -j4
 </code></pre></div><h5 id="qemu">qemu</h5>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">qemu-system-x86_64 <span style="color:#ae81ff">\</span>
-  -kernel $KERNEL/arch/x86/boot/bzImage <span style="color:#ae81ff">\</span>
-  -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/sda earlyprintk=serial&#34;</span><span style="color:#ae81ff">\</span>
-  -hda $IMAGE/stretch.img <span style="color:#ae81ff">\</span>
-  -net user,hostfwd<span style="color:#f92672">=</span>tcp::10021-:22 -net nic <span style="color:#ae81ff">\</span>
-  -enable-kvm <span style="color:#ae81ff">\</span>
-  -nographic <span style="color:#ae81ff">\</span>
-  -m 2G <span style="color:#ae81ff">\</span>
-  -smp <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">\</span>
-  -pidfile vm.pid <span style="color:#ae81ff">\</span>
-  2&gt;&amp;<span style="color:#ae81ff">1</span> | tee vm.log
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">qemu-system-x86_64 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -kernel $KERNEL/arch/x86/boot/bzImage <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -append <span style="color:#e6db74">&#34;console=ttyS0 root=/dev/sda earlyprintk=serial&#34;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -hda $IMAGE/stretch.img <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -net user,hostfwd<span style="color:#f92672">=</span>tcp::10021-:22 -net nic <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -enable-kvm <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -nographic <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -m 2G <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -smp <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -pidfile vm.pid <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  2&gt;&amp;<span style="color:#ae81ff">1</span> | tee vm.log
 </code></pre></div><p>ssh连接</p>
 <p><code>ssh -i $IMG/stretch.id_rsa -p 10021 -o &quot;StrictHostKeyChecking no&quot; root@localhost</code></p>
 <p><img src="https://my-md-1253484710.file.myqcloud.com/20200417165654.png" alt=""></p>

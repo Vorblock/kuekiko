@@ -8,9 +8,9 @@
 <meta name="description" content="0x00 介绍 Unicorn是一个轻量级, 多平台, 多架构的CPU模拟器框架，基于qemu开发，它可以代替CPU模拟代码的执行，常用于恶意代码分析，Fuzz等。
 0x01 安装   官网有编译好不同平台的二进制包，直接安装就行。但是看了一下时间2017年的，qemu已经升级好几个版本了。api也比较老旧。
   去github看了一下是否有在更新，发现一直有在更新，不过好像也没更新啥，只是修复一些bug，下载git源码，自己编译。目前最新1.0.2rc
-git clone https://github.com/unicorn-engine/unicorn.gitcd unicorn# UNICORN_ARCHS=&amp;#34;arm aarch64 x86&amp;#34; ./make.sh # 设置要编译的架构 可选 默认6种全编译 (Arm, Arm64, M68K, Mips, Sparc, &amp;amp; X86)./make.shsudo ./make.sh install# python 绑定cd bindings/pythonsudo python3 setup.py install还有更多交叉编译选项参考 文档
+git clone https://github.com/unicorn-engine/unicorn.git cd unicorn # UNICORN_ARCHS=&amp;#34;arm aarch64 x86&amp;#34; ./make.sh # 设置要编译的架构 可选 默认6种全编译 (Arm, Arm64, M68K, Mips, Sparc, &amp;amp; X86) ./make.sh sudo ./make.sh install # python 绑定 cd bindings/python sudo python3 setup.py install 还有更多交叉编译选项参考 文档
   0x02 简单使用 C :
-#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unicorn/unicorn.h&amp;gt;// 要模拟的指令#define X86_CODE32 &amp;#34;\x41\x4a&amp;#34; // INC ecx; DEC edx// 起始地址#define ADDRESS 0x1000000int main(int argc, char const *argv[]){// 设置engine uc_engine *uc;uc_err err;//设置寄存器 int r_ecx = 0x1234;int r_edx = 0x5678;printf(&amp;#34;Emulate i386 code\n&amp;#34;);// x86 32bit 初始化 err = uc_open(UC_ARCH_X86, UC_MODE_32, &amp;amp;uc);if (err !" />
+#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unicorn/unicorn.h&amp;gt; // 要模拟的指令 #define X86_CODE32 &amp;#34;\x41\x4a&amp;#34; // INC ecx; DEC edx  // 起始地址 #define ADDRESS 0x1000000  int main(int argc, char const *argv[]){ // 设置engine  uc_engine *uc; uc_err err; //设置寄存器  int r_ecx = 0x1234; int r_edx = 0x5678; printf(&amp;#34;Emulate i386 code\n&amp;#34;); // x86 32bit 初始化  err = uc_open(UC_ARCH_X86, UC_MODE_32, &amp;amp;uc); if (err !" />
 <meta name="keywords" content=", Unicorn, fuzzing" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -49,14 +49,15 @@ git clone https://github.com/unicorn-engine/unicorn.gitcd unicorn# UNICORN_ARC
 
 <meta itemprop="name" content="Unicorn简单学习使用记录">
 <meta itemprop="description" content="Unicorn简单学习使用记录，小工具">
-<meta itemprop="datePublished" content="2020-04-17T19:01:19&#43;08:00" />
-<meta itemprop="dateModified" content="2020-04-17T19:01:19&#43;08:00" />
-<meta itemprop="wordCount" content="555">
+<meta itemprop="datePublished" content="2020-04-17T19:01:19+08:00" />
+<meta itemprop="dateModified" content="2020-04-17T19:01:19+08:00" />
+<meta itemprop="wordCount" content="554">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="Unicorn,fuzzing," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
@@ -179,8 +180,8 @@ sudo python3 setup.py install
 </ol>
 <h3 id="0x02-简单使用">0x02 简单使用</h3>
 <p>C :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unicorn/unicorn.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unicorn/unicorn.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">// 要模拟的指令
 </span><span style="color:#75715e"></span><span style="color:#75715e">#define X86_CODE32 &#34;\x41\x4a&#34; </span><span style="color:#75715e">// INC ecx; DEC edx
@@ -243,24 +244,24 @@ sudo python3 setup.py install
 <span style="color:#f92672">from</span> unicorn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#f92672">from</span> unicorn.x86_const <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-X86_CODE32 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x41\x4a</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e">#INC ecx; DEC edx</span>
+X86_CODE32 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x41\x4a</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e">#INC ecx; DEC edx</span>
 
 ADDRESS <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x1000000</span>
 
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Emulate i386 code&#34;</span>)
 
 <span style="color:#66d9ef">try</span>:
-    <span style="color:#75715e">## 初始化模拟器为x86 32bit</span>
+    <span style="color:#75715e">## 初始化模拟器为x86 32bit</span>
     mu <span style="color:#f92672">=</span> Uc(UC_ARCH_X86,UC_MODE_32)
-    <span style="color:#75715e"># mu = Uc(UC_ARCH_ARM64,UC_MODE_64)</span>
-    <span style="color:#75715e">## 2MB 的memory</span>
+    <span style="color:#75715e"># mu = Uc(UC_ARCH_ARM64,UC_MODE_64)</span>
+    <span style="color:#75715e">## 2MB 的memory</span>
     mu<span style="color:#f92672">.</span>mem_map(ADDRESS,<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span>)
-    <span style="color:#75715e">## </span>
+    <span style="color:#75715e">## </span>
     mu<span style="color:#f92672">.</span>mem_write(ADDRESS,X86_CODE32)
-    <span style="color:#75715e">##</span>
+    <span style="color:#75715e">##</span>
     mu<span style="color:#f92672">.</span>reg_write(UC_X86_REG_ECX,<span style="color:#ae81ff">0x1234</span>)
     mu<span style="color:#f92672">.</span>reg_write(UC_X86_REG_EDX,<span style="color:#ae81ff">0x7890</span>)
-    <span style="color:#75715e">##</span>
+    <span style="color:#75715e">##</span>
     mu<span style="color:#f92672">.</span>emu_start(ADDRESS, ADDRESS <span style="color:#f92672">+</span> len(X86_CODE32))
 
     <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Emulation done. Below is the CPU context&#34;</span>)
@@ -341,7 +342,7 @@ sys<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>a
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>(self):
         <span style="color:#66d9ef">pass</span>
 
-<span style="color:#75715e"># Configure logging</span>
+<span style="color:#75715e"># Configure logging</span>
 logging<span style="color:#f92672">.</span>basicConfig(
     stream<span style="color:#f92672">=</span>sys<span style="color:#f92672">.</span>stdout,
     level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>DEBUG,
@@ -349,18 +350,18 @@ logging<span style="color:#f92672">.</span>basicConfig(
 )
 logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
 
-<span style="color:#75715e">## 先创建java class</span>
+<span style="color:#75715e">## 先创建java class</span>
 
-<span style="color:#75715e">## 初始化emulater</span>
+<span style="color:#75715e">## 初始化emulater</span>
 emulator <span style="color:#f92672">=</span> Emulator(
   vfs_root<span style="color:#f92672">=</span>posixpath<span style="color:#f92672">.</span>join(posixpath<span style="color:#f92672">.</span>dirname(__file__),<span style="color:#e6db74">&#34;vfs&#34;</span>),
   vfp_inst_set<span style="color:#f92672">=</span>True
 )
 
-<span style="color:#75715e">## 注册 java class</span>
+<span style="color:#75715e">## 注册 java class</span>
 emulator<span style="color:#f92672">.</span>java_classloader<span style="color:#f92672">.</span>add_class(MainActivity)
 
-<span style="color:#75715e">## load libraries</span>
+<span style="color:#75715e">## load libraries</span>
 emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libdl.so&#34;</span>)
 emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libc.so&#34;</span>)
 emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libstdc++.so&#34;</span>)
@@ -368,7 +369,7 @@ emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6d
 
 tar_lib <span style="color:#f92672">=</span> emulator<span style="color:#f92672">.</span>load_library(<span style="color:#e6db74">&#34;example_binaries/libtest.so&#34;</span>)
 
-<span style="color:#75715e"># Show loaded modules.</span>
+<span style="color:#75715e"># Show loaded modules.</span>
 logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Loaded modules:&#34;</span>)
 
 <span style="color:#66d9ef">for</span> module <span style="color:#f92672">in</span> emulator<span style="color:#f92672">.</span>modules:
@@ -376,16 +377,16 @@ logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;
 
 
 <span style="color:#66d9ef">try</span>:
-    <span style="color:#75715e">## Run JNI_OnLoad.</span>
+    <span style="color:#75715e">## Run JNI_OnLoad.</span>
     emulator<span style="color:#f92672">.</span>call_symbol(tar_lib, <span style="color:#e6db74">&#39;JNI_OnLoad&#39;</span>, emulator<span style="color:#f92672">.</span>java_vm<span style="color:#f92672">.</span>address_ptr, <span style="color:#ae81ff">0x00</span>)
     emulator<span style="color:#f92672">.</span>mu<span style="color:#f92672">.</span>hook_add(UC_HOOK_MEM_UNMAPPED, debug_utils<span style="color:#f92672">.</span>hook_unmapped)
 
-    <span style="color:#75715e"># Do native stuff.</span>
+    <span style="color:#75715e"># Do native stuff.</span>
     emulator<span style="color:#f92672">.</span>mu<span style="color:#f92672">.</span>hook_add(UC_HOOK_CODE, debug_utils<span style="color:#f92672">.</span>hook_code)
     main_activity <span style="color:#f92672">=</span> MainActivity()
     logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Response from JNI call: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> main_activity<span style="color:#f92672">.</span>string_from_jni(emulator))
 
-    <span style="color:#75715e"># Dump natives found.</span>
+    <span style="color:#75715e"># Dump natives found.</span>
     logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Exited EMU.&#34;</span>)
     logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Native methods registered to MainActivity:&#34;</span>)
 
@@ -420,7 +421,7 @@ logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/unicorn">Unicorn</a></span><span class="tag"><a href="https://kuekiko.top/tags/fuzzing">fuzzing</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>555 Words</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>554 Words</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-04-17 19:01 &#43;0800</p>
         </div>

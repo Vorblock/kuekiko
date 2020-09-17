@@ -21,9 +21,9 @@
       <description>0x00 介绍 Unicorn是一个轻量级, 多平台, 多架构的CPU模拟器框架，基于qemu开发，它可以代替CPU模拟代码的执行，常用于恶意代码分析，Fuzz等。
 0x01 安装   官网有编译好不同平台的二进制包，直接安装就行。但是看了一下时间2017年的，qemu已经升级好几个版本了。api也比较老旧。
   去github看了一下是否有在更新，发现一直有在更新，不过好像也没更新啥，只是修复一些bug，下载git源码，自己编译。目前最新1.0.2rc
-git clone https://github.com/unicorn-engine/unicorn.gitcd unicorn# UNICORN_ARCHS=&amp;#34;arm aarch64 x86&amp;#34; ./make.sh # 设置要编译的架构 可选 默认6种全编译 (Arm, Arm64, M68K, Mips, Sparc, &amp;amp; X86)./make.shsudo ./make.sh install# python 绑定cd bindings/pythonsudo python3 setup.py install还有更多交叉编译选项参考 文档
+git clone https://github.com/unicorn-engine/unicorn.git cd unicorn # UNICORN_ARCHS=&amp;#34;arm aarch64 x86&amp;#34; ./make.sh # 设置要编译的架构 可选 默认6种全编译 (Arm, Arm64, M68K, Mips, Sparc, &amp;amp; X86) ./make.sh sudo ./make.sh install # python 绑定 cd bindings/python sudo python3 setup.py install 还有更多交叉编译选项参考 文档
   0x02 简单使用 C :
-#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unicorn/unicorn.h&amp;gt;// 要模拟的指令#define X86_CODE32 &amp;#34;\x41\x4a&amp;#34; // INC ecx; DEC edx// 起始地址#define ADDRESS 0x1000000int main(int argc, char const *argv[]){// 设置engine uc_engine *uc;uc_err err;//设置寄存器 int r_ecx = 0x1234;int r_edx = 0x5678;printf(&amp;#34;Emulate i386 code\n&amp;#34;);// x86 32bit 初始化 err = uc_open(UC_ARCH_X86, UC_MODE_32, &amp;amp;uc);if (err !</description>
+#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unicorn/unicorn.h&amp;gt; // 要模拟的指令 #define X86_CODE32 &amp;#34;\x41\x4a&amp;#34; // INC ecx; DEC edx  // 起始地址 #define ADDRESS 0x1000000  int main(int argc, char const *argv[]){ // 设置engine  uc_engine *uc; uc_err err; //设置寄存器  int r_ecx = 0x1234; int r_edx = 0x5678; printf(&amp;#34;Emulate i386 code\n&amp;#34;); // x86 32bit 初始化  err = uc_open(UC_ARCH_X86, UC_MODE_32, &amp;amp;uc); if (err !</description>
     </item>
     
   </channel>

@@ -9,7 +9,7 @@
 内容主要来源于《Android软件安全与逆向分析》和《逆向工程权威指南》以及 ARM 汇编 和Azeria-labs
 ARM架构 ARM属于RISC CPU，
  ARM模式 4个字节opcode 32位 Thumb模式 2个字节opcode 16位 Thumb-2模式 同上（只是有部分4个字节的opcode) 64位ARM 4个字节opcode ARM机器码在版本3之前是小端。但是之后默认采用大端格式，但可以设置切换到小端。  数据类型 数据类型在汇编语言中的扩展后缀为**-h**或者**-sh**对应着半字，**-b**或者**-sb**对应着字节，但是对于字并没有对应的扩展
-ldr = 加载字，宽度四字节ldrh = 加载无符号的半字，宽度两字节ldrsh = 加载有符号的半字，宽度两字节ldrb = 加载无符号的字节ldrsb = 加载有符号的字节str = 存储字，宽度四字节strh = 存储无符号的半字，宽度两字节strsh = 存储有符号的半字，宽度两字节strb = 存储无符号的字节strsb = 存储有符号的字节字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
+ldr = 加载字，宽度四字节 ldrh = 加载无符号的半字，宽度两字节 ldrsh = 加载有符号的半字，宽度两字节 ldrb = 加载无符号的字节 ldrsb = 加载有符号的字节 str = 存储字，宽度四字节 strh = 存储无符号的半字，宽度两字节 strsh = 存储有符号的半字，宽度两字节 strb = 存储无符号的字节 strsb = 存储有符号的字节 字节序 在内存中有两种字节排布顺序，大端序(BE)或者小端序(LE)。两者的主要不同是对象中的每个字节在内存中的存储顺序存在差异。一般X86中是小端序，最低的字节存储在最低的地址上。在大端机中最高的字节存储在最低的地址上。
 数据访问时采取大端序还是小端序使用程序状态寄存器(CPSR)的第9比特位来决定的。
 寄存器 37个32位寄存器，其中31个为基础寄存器，6个为状态寄存器。
 用户模式下有
@@ -53,14 +53,15 @@ ldr = 加载字，宽度四字节ldrh = 加载无符号的半字，宽度两字
 
 <meta itemprop="name" content="ARM汇编基础">
 <meta itemprop="description" content="ARM汇编">
-<meta itemprop="datePublished" content="2018-08-10T19:34:10&#43;08:00" />
-<meta itemprop="dateModified" content="2018-08-10T19:34:10&#43;08:00" />
+<meta itemprop="datePublished" content="2018-08-10T19:34:10+08:00" />
+<meta itemprop="dateModified" content="2018-08-10T19:34:10+08:00" />
 <meta itemprop="wordCount" content="852">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="ARM," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
@@ -574,12 +575,12 @@ _start:
  <span style="color:#a6e22e">bkpt</span>
 </code></pre></div><p>计算立即数的有效值脚本：https://raw.githubusercontent.com/azeria-labs/rotator/master/rotator.py</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">azeria@labs:~$ python rotator.py
-Enter the value you want to check: 511
+Enter the value you want to check: <span style="color:#ae81ff">511</span>
 Sorry, <span style="color:#ae81ff">511</span> cannot be used as an immediate number and has to be split.
 azeria@labs:~$ python rotator.py
-Enter the value you want to check: 256
+Enter the value you want to check: <span style="color:#ae81ff">256</span>
 The number <span style="color:#ae81ff">256</span> can be used as a valid immediate number.
-<span style="color:#ae81ff">1</span> ror <span style="color:#ae81ff">24</span> --&gt; 256
+<span style="color:#ae81ff">1</span> ror <span style="color:#ae81ff">24</span> --&gt; <span style="color:#ae81ff">256</span>
 </code></pre></div></li>
 </ul>
 <p>下面的部分指令用到在详细查，记的话脑壳痛</p>

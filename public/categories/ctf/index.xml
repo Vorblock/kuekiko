@@ -22,7 +22,7 @@
  知识点：PWN相关知识点总结
  Linux PWN ARM PWN  题目全部来源于 CTFWiki 上所涉及题目
 Linux PWN 大部分原理参考CTFWiki
-栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); }void vulnerable() {char s[12];gets(s);puts(s);return;}int main(int argc, char **argv) {vulnerable();return 0;}# gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1stack1.c: In function ‘vulnerable’:stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
+栈溢出 基本栈溢出 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;void success() { puts(&amp;#34;You Hava already controlled it.&amp;#34;); } void vulnerable() { char s[12]; gets(s); puts(s); return; } int main(int argc, char **argv) { vulnerable(); return 0; } # gcc -m32 -fno-stack-protector -no-pie stack1.c -o stack1 stack1.c: In function ‘vulnerable’: stack1.c:6:3: warning: implicit declaration of function ‘gets’; did you mean ‘fgets’?</description>
     </item>
     
   </channel>

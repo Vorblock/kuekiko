@@ -6,10 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Kuekiko ">
 <meta name="description" content="0x00 前言 复习一下Android安装frida命令
-adb rootadb push frida-server /data/local/tmpadb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;常用Frida 命令
-frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+adb root adb push frida-server /data/local/tmp adb shell &amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34; adb shell &amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34; 常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程 frida-ps -Ua #列出运行中的应用 frida-ps -Uai #列出已安装的应用列表 frida-ps -D xxx #连接指定的设备 frida-ps -R #在Safari中跟踪recv*和send* API frida-trace -i &amp;#34;recv*&amp;#34; -i &amp;#34;send&amp;#34; Safari #在Safari中跟踪ObjC方法调用 frida-trace -m &amp;#34;-[NSView drawRect:]&amp;#34; Safari #在iPhone上启动SnapChat，跟踪加密API调用 frida-trace -U -f com.app.testing -I &amp;#34;libcommonCrypto*&amp;#34; #当程序启动时，frida跟踪所有open function frida-trace -U -i open com.app.testing 下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
 0x01 简单用例 Frida常用的两种启动方式：
- python 绑定启动  import fridaimport sys,os## package name pkg_name = &amp;#34;com." />
+ python 绑定启动  import frida import sys,os ## package name pkg_name = &amp;#34;com." />
 <meta name="keywords" content=", android安全, HOOK, Frida" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -48,36 +48,37 @@ frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的�
 
 <meta itemprop="name" content="Frida从入门到放弃_2">
 <meta itemprop="description" content="0x00 前言 复习一下Android安装frida命令
-adb rootadb push frida-server /data/local/tmpadb shell &#34;chmod 755 /data/local/tmp/frida-server&#34;adb shell &#34;/data/local/tmp/frida-server &amp;&#34;常用Frida 命令
-frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &#34;recv*&#34; -i &#34;send&#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &#34;-[NSView drawRect:]&#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &#34;libcommonCrypto*&#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+adb root adb push frida-server /data/local/tmp adb shell &#34;chmod 755 /data/local/tmp/frida-server&#34; adb shell &#34;/data/local/tmp/frida-server &amp;&#34; 常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程 frida-ps -Ua #列出运行中的应用 frida-ps -Uai #列出已安装的应用列表 frida-ps -D xxx #连接指定的设备 frida-ps -R #在Safari中跟踪recv*和send* API frida-trace -i &#34;recv*&#34; -i &#34;send&#34; Safari #在Safari中跟踪ObjC方法调用 frida-trace -m &#34;-[NSView drawRect:]&#34; Safari #在iPhone上启动SnapChat，跟踪加密API调用 frida-trace -U -f com.app.testing -I &#34;libcommonCrypto*&#34; #当程序启动时，frida跟踪所有open function frida-trace -U -i open com.app.testing 下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
 0x01 简单用例 Frida常用的两种启动方式：
- python 绑定启动  import fridaimport sys,os## package name pkg_name = &#34;com.">
-<meta itemprop="datePublished" content="2019-02-02T20:39:26&#43;08:00" />
-<meta itemprop="dateModified" content="2019-02-02T20:39:26&#43;08:00" />
+ python 绑定启动  import frida import sys,os ## package name pkg_name = &#34;com.">
+<meta itemprop="datePublished" content="2019-02-02T20:39:26+08:00" />
+<meta itemprop="dateModified" content="2019-02-02T20:39:26+08:00" />
 <meta itemprop="wordCount" content="150">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
 
 <meta itemprop="keywords" content="android安全,HOOK,Frida," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
 <meta name="twitter:title" content="Frida从入门到放弃_2"/>
 <meta name="twitter:description" content="0x00 前言 复习一下Android安装frida命令
-adb rootadb push frida-server /data/local/tmpadb shell &#34;chmod 755 /data/local/tmp/frida-server&#34;adb shell &#34;/data/local/tmp/frida-server &amp;&#34;常用Frida 命令
-frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &#34;recv*&#34; -i &#34;send&#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &#34;-[NSView drawRect:]&#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &#34;libcommonCrypto*&#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+adb root adb push frida-server /data/local/tmp adb shell &#34;chmod 755 /data/local/tmp/frida-server&#34; adb shell &#34;/data/local/tmp/frida-server &amp;&#34; 常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程 frida-ps -Ua #列出运行中的应用 frida-ps -Uai #列出已安装的应用列表 frida-ps -D xxx #连接指定的设备 frida-ps -R #在Safari中跟踪recv*和send* API frida-trace -i &#34;recv*&#34; -i &#34;send&#34; Safari #在Safari中跟踪ObjC方法调用 frida-trace -m &#34;-[NSView drawRect:]&#34; Safari #在iPhone上启动SnapChat，跟踪加密API调用 frida-trace -U -f com.app.testing -I &#34;libcommonCrypto*&#34; #当程序启动时，frida跟踪所有open function frida-trace -U -i open com.app.testing 下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
 0x01 简单用例 Frida常用的两种启动方式：
- python 绑定启动  import fridaimport sys,os## package name pkg_name = &#34;com."/>
+ python 绑定启动  import frida import sys,os ## package name pkg_name = &#34;com."/>
 
 
 
     <meta property="og:title" content="Frida从入门到放弃_2" />
 <meta property="og:description" content="0x00 前言 复习一下Android安装frida命令
-adb rootadb push frida-server /data/local/tmpadb shell &#34;chmod 755 /data/local/tmp/frida-server&#34;adb shell &#34;/data/local/tmp/frida-server &amp;&#34;常用Frida 命令
-frida-ps -U #列出USB设备运行ing的进程frida-ps -Ua #列出运行中的应用frida-ps -Uai #列出已安装的应用列表frida-ps -D xxx #连接指定的设备frida-ps -R#在Safari中跟踪recv*和send* APIfrida-trace -i &#34;recv*&#34; -i &#34;send&#34; Safari #在Safari中跟踪ObjC方法调用frida-trace -m &#34;-[NSView drawRect:]&#34; Safari#在iPhone上启动SnapChat，跟踪加密API调用frida-trace -U -f com.app.testing -I &#34;libcommonCrypto*&#34;#当程序启动时，frida跟踪所有open functionfrida-trace -U -i open com.app.testing下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
+adb root adb push frida-server /data/local/tmp adb shell &#34;chmod 755 /data/local/tmp/frida-server&#34; adb shell &#34;/data/local/tmp/frida-server &amp;&#34; 常用Frida 命令
+frida-ps -U #列出USB设备运行ing的进程 frida-ps -Ua #列出运行中的应用 frida-ps -Uai #列出已安装的应用列表 frida-ps -D xxx #连接指定的设备 frida-ps -R #在Safari中跟踪recv*和send* API frida-trace -i &#34;recv*&#34; -i &#34;send&#34; Safari #在Safari中跟踪ObjC方法调用 frida-trace -m &#34;-[NSView drawRect:]&#34; Safari #在iPhone上启动SnapChat，跟踪加密API调用 frida-trace -U -f com.app.testing -I &#34;libcommonCrypto*&#34; #当程序启动时，frida跟踪所有open function frida-trace -U -i open com.app.testing 下面通过自己创建一个Android APP来学习Frida在Android上的一般用法。
 0x01 简单用例 Frida常用的两种启动方式：
- python 绑定启动  import fridaimport sys,os## package name pkg_name = &#34;com." />
+ python 绑定启动  import frida import sys,os ## package name pkg_name = &#34;com." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kuekiko.top/posts/2019/02/frida%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83_2/" />
 <meta property="og:image" content="https://kuekiko.top"/>
@@ -201,7 +202,7 @@ frida-trace -U -i open com.app.testing
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> frida
 <span style="color:#f92672">import</span> sys<span style="color:#f92672">,</span>os
 
-<span style="color:#75715e">## package name</span>
+<span style="color:#75715e">## package name</span>
 pkg_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.example.xxx&#34;</span>
 js_hook_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xxx.js&#34;</span>
 
@@ -210,7 +211,7 @@ js_hook_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
         <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;[*] {0}&#34;</span><span style="color:#f92672">.</span>format(message[<span style="color:#e6db74">&#39;payload&#39;</span>]))
     <span style="color:#66d9ef">else</span>:
         <span style="color:#66d9ef">print</span>(message)
-<span style="color:#75715e">## 插入js代码 or 加载js文件</span>
+<span style="color:#75715e">## 插入js代码 or 加载js文件</span>
 jscode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
 
 script <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
