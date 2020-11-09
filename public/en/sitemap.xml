@@ -18,7 +18,7 @@
   
   <url>
     <loc>https://kuekiko.top/categories/</loc>
-    <lastmod>2020-07-24T22:47:12+08:00</lastmod>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -32,8 +32,18 @@
   </url>
   
   <url>
+    <loc>https://kuekiko.top/tags/fuzzing/</loc>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/categories/fuzzing/</loc>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://kuekiko.top/</loc>
-    <lastmod>2020-07-24T22:47:12+08:00</lastmod>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -47,12 +57,37 @@
   </url>
   
   <url>
-    <loc>https://kuekiko.top/tags/kvm/</loc>
-    <lastmod>2020-07-24T22:47:12+08:00</lastmod>
+    <loc>https://kuekiko.top/posts/</loc>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://kuekiko.top/posts/</loc>
+    <loc>https://kuekiko.top/tags/syzkaller/</loc>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/posts/2020/09/syzkaller-android/</loc>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/tags/</loc>
+    <lastmod>2020-09-15T11:06:01+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://kuekiko.top/fr/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://kuekiko.top/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://kuekiko.top/tags/kvm/</loc>
     <lastmod>2020-07-24T22:47:12+08:00</lastmod>
   </url>
   
@@ -64,21 +99,6 @@
   <url>
     <loc>https://kuekiko.top/categories/qemu/</loc>
     <lastmod>2020-07-24T22:47:12+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/tags/</loc>
-    <lastmod>2020-07-24T22:47:12+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://kuekiko.top/fr/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://kuekiko.top/tags/"
-                />
   </url>
   
   <url>
@@ -122,11 +142,6 @@
   </url>
   
   <url>
-    <loc>https://kuekiko.top/tags/fuzzing/</loc>
-    <lastmod>2020-04-17T19:01:19+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://kuekiko.top/tags/unicorn/</loc>
     <lastmod>2020-04-17T19:01:19+08:00</lastmod>
   </url>
@@ -139,16 +154,6 @@
   <url>
     <loc>https://kuekiko.top/posts/2020/04/unicorn%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2020-04-17T19:01:19+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/categories/fuzzing/</loc>
-    <lastmod>2020-04-10T18:59:00+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kuekiko.top/tags/syzkaller/</loc>
-    <lastmod>2020-04-10T18:59:00+08:00</lastmod>
   </url>
   
   <url>

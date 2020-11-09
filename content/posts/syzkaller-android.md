@@ -1,7 +1,7 @@
 ---
 title: "Syzkaller-Android"
 date: 2020-09-15T11:06:01+08:00
-draft: true
+draft: false
 toc: true
 images:
 categories:
@@ -201,6 +201,7 @@ description: Syzkaller fuzzing Android 食用教程
 
 查看msg:`adb shell dmesg -w`
 
+`syz-manager -debug ` 查看syz的相关问题。
 
 
 ### 参考

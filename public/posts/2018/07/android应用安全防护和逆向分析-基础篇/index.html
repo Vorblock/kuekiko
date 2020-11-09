@@ -5,10 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Vorblock">
-<meta name="description" content="第一章 Android中锁屏密码加密算法分析 1. 锁屏密码方式：  手势 九宫格连线 输入密码 指纹、人脸、虹膜 可穿戴设备  2. 这儿分析手势密码和输入密码 找到android源代码中的LockPatternUtils,java 这个工具类
-路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget
- 2.1 输入密码算法分析 (5.1版本的源代码 和书上细微差异)
- public byte[] passwordToHash(String password, int userId) {//参数为密码和对应用户ID 默认0  if (password == null) { return null; } try { byte[] saltedPassword = (password &#43; getSalt(userId)).getBytes(); byte[] sha1 = MessageDigest.getInstance(&amp;#34;SHA-1&amp;#34;).digest(saltedPassword); byte[] md5 = MessageDigest.getInstance(&amp;#34;MD5&amp;#34;).digest(saltedPassword); //首先让 password&#43;salt值 再SHA-1和MD5  byte[] combined = new byte[sha1.length &#43; md5.length]; System.arraycopy(sha1, 0, combined, 0, sha1." />
+<meta name="description" content="一、 基础篇② 第二章 Android中NDK的开发 1. 相关环境 相关环境参考另外一篇文章Android安全和开发环境搭建
+2. JNI基础 2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多)) ​	参考文章Android安全和开发环境搭建中的JNI开发章节
+2.2 JNIEnv类型和jobject类型  AS 默认自动生成  public native String stringFromJNI(); Java_com_naivete_jni_1study_MainActivity_stringFromJNI( JNIEnv *env, jobject /* this */) { std::string hello = &amp;#34;Hello from C&#43;&#43;&amp;#34;; return env-&amp;gt;NewStringUTF(hello.c_str());   JNIEnv类型
+通过JNIEnv* 指针就可以对Java端的代码进行操作
+Jni的所有函数可以查看jni.h文件
+下面是一些函数eg：
+  NewObject : 创建Java类中的对象。
+  NewString : 创建Java类中的String对象。
+  NewArray : 创建类型为Type的数组对象
+  GetField: 获取型为Type的字段。
+  SetFileld: 设置类型为Type的字段的值。
+  GetStaticField: 获取类型为Type的static的字段。" />
 <meta name="keywords" content=", android安全, 读书笔记" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -17,7 +25,7 @@
 
     <title>
         
-            Android应用安全防护和逆向分析 基础篇① :: Kuekiko` blog  — Recorded living tip
+            Android应用安全防护和逆向分析 基础篇② :: Kuekiko` blog  — Recorded living tip
         
     </title>
 
@@ -45,11 +53,11 @@
 
 
 
-<meta itemprop="name" content="Android应用安全防护和逆向分析 基础篇①">
-<meta itemprop="description" content="Android中锁屏密码加密算法分析">
-<meta itemprop="datePublished" content="2018-07-02T17:33:05+08:00" />
-<meta itemprop="dateModified" content="2018-07-02T17:33:05+08:00" />
-<meta itemprop="wordCount" content="647">
+<meta itemprop="name" content="Android应用安全防护和逆向分析 基础篇②">
+<meta itemprop="description" content="Android中NDK的开发">
+<meta itemprop="datePublished" content="2018-07-13T15:01:09+08:00" />
+<meta itemprop="dateModified" content="2018-07-13T15:01:09+08:00" />
+<meta itemprop="wordCount" content="894">
 <meta itemprop="image" content="https://kuekiko.top"/>
 
 
@@ -59,18 +67,18 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://kuekiko.top"/>
 
-<meta name="twitter:title" content="Android应用安全防护和逆向分析 基础篇①"/>
-<meta name="twitter:description" content="Android中锁屏密码加密算法分析"/>
+<meta name="twitter:title" content="Android应用安全防护和逆向分析 基础篇②"/>
+<meta name="twitter:description" content="Android中NDK的开发"/>
 
 
 
-    <meta property="og:title" content="Android应用安全防护和逆向分析 基础篇①" />
-<meta property="og:description" content="Android中锁屏密码加密算法分析" />
+    <meta property="og:title" content="Android应用安全防护和逆向分析 基础篇②" />
+<meta property="og:description" content="Android中NDK的开发" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/" />
 <meta property="og:image" content="https://kuekiko.top"/>
-<meta property="article:published_time" content="2018-07-02T17:33:05+08:00" />
-<meta property="article:modified_time" content="2018-07-02T17:33:05+08:00" />
+<meta property="article:published_time" content="2018-07-13T15:01:09+08:00" />
+<meta property="article:modified_time" content="2018-07-13T15:01:09+08:00" />
 
 
 
@@ -81,7 +89,7 @@
 
 
 
-    <meta property="article:published_time" content="2018-07-02 17:33:05 &#43;0800 CST" />
+    <meta property="article:published_time" content="2018-07-13 15:01:09 &#43;0800 CST" />
 
 
 
@@ -142,7 +150,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
 
             
 
@@ -151,309 +159,590 @@
 
         <article>
             <h1 class="post-title">
-                <a href="https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">Android应用安全防护和逆向分析 基础篇①</a>
+                <a href="https://kuekiko.top/posts/2018/07/android%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%92%8C%E9%80%86%E5%90%91%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80%E7%AF%87/">Android应用安全防护和逆向分析 基础篇②</a>
             </h1>
 
             
 
             <div class="post-content">
-                <h2 id="第一章-android中锁屏密码加密算法分析">第一章 Android中锁屏密码加密算法分析</h2>
-<h4 id="1-锁屏密码方式">1. 锁屏密码方式：</h4>
+                <h1 id="一-基础篇">一、 基础篇②</h1>
+<h2 id="第二章-android中ndk的开发">第二章 Android中NDK的开发</h2>
+<h3 id="1--相关环境">1.  相关环境</h3>
+<p>相关环境参考另外一篇文章<a href="https://naivete.cc/post/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Android安全和开发环境搭建</a></p>
+<h3 id="2--jni基础">2.  JNI基础</h3>
+<h4 id="21-第一行代码书上使用eclipse我使用as简单方便很多">2.1 第一行代码(书上使用Eclipse,我使用AS(简单方便很多))</h4>
+<p>​	参考文章<a href="https://naivete.cc/post/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Android安全和开发环境搭建</a>中的JNI开发章节</p>
+<h4 id="22--jnienv类型和jobject类型">2.2  JNIEnv类型和jobject类型</h4>
 <ul>
-<li>手势</li>
-<li>九宫格连线</li>
-<li>输入密码</li>
-<li>指纹、人脸、虹膜</li>
-<li>可穿戴设备</li>
+<li><strong>AS 默认自动生成</strong></li>
 </ul>
-<h4 id="2-这儿分析手势密码和输入密码">2. 这儿分析手势密码和输入密码</h4>
-<p>找到android源代码中的LockPatternUtils,java 这个工具类<br>
-路径：Android-5.1.1\frameworks\base\core\java\com\android\internal\widget</p>
-<blockquote>
-<p>2.1 输入密码算法分析    (5.1版本的源代码 和书上细微差异)</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">passwordToHash</span><span style="color:#f92672">(</span>String password<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> userId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#75715e">//参数为密码和对应用户ID 默认0
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>password <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JAVA" data-lang="JAVA"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">native</span> String <span style="color:#a6e22e">stringFromJNI</span><span style="color:#f92672">();</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Java_com_naivete_jni_1study_MainActivity_stringFromJNI<span style="color:#f92672">(</span>
+        JNIEnv <span style="color:#f92672">*</span>env<span style="color:#f92672">,</span>
+        jobject <span style="color:#75715e">/* this */</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    std<span style="color:#f92672">::</span>string hello <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello from C++&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">return</span> env<span style="color:#f92672">-&gt;</span>NewStringUTF<span style="color:#f92672">(</span>hello<span style="color:#f92672">.</span><span style="color:#a6e22e">c_str</span><span style="color:#f92672">());</span>
+</code></pre></div><ul>
+<li>
+<p><strong>JNIEnv类型</strong></p>
+<p>通过JNIEnv* 指针就可以对Java端的代码进行操作</p>
+<p>Jni的所有函数可以查看jni.h文件</p>
+<p>下面是一些函数eg：</p>
+<ul>
+<li>
+<p>NewObject : 创建Java类中的对象。</p>
+</li>
+<li>
+<p>NewString : 创建Java类中的String对象。</p>
+</li>
+<li>
+<p>New<!-- raw HTML omitted -->Array : 创建类型为Type的数组对象</p>
+</li>
+<li>
+<p>Get<!-- raw HTML omitted -->Field: 获取型为Type的字段。</p>
+</li>
+<li>
+<p>Set<!-- raw HTML omitted -->Fileld: 设置类型为Type的字段的值。</p>
+</li>
+<li>
+<p>GetStatic<!-- raw HTML omitted -->Field: 获取类型为Type的static的字段。</p>
+</li>
+<li>
+<p>SetStatic<!-- raw HTML omitted -->Field:设置类型为Typede的static的字段的值。</p>
+</li>
+<li>
+<p>Call<!-- raw HTML omitted -->Method: 调用返回类型为Type的方法。</p>
+</li>
+<li>
+<p>CallStatic<!-- raw HTML omitted -->Method: 调用返回值类型为Type的Static方法</p>
+<p>&hellip;..</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Jobject参数obj</strong></p>
+<p>如果native 方法不是static ,obj就代表native方法的实例。</p>
+<p>如果narive方法是static,obj 就代表native方法的类的class对象实例。</p>
+</li>
+<li>
+<p><strong>Java和C++中的基本类型的映射关系</strong>：</p>
+<p>具体查看jni.h文件的详细说明</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Java类型</th>
+<th align="center">本地类型</th>
+<th align="center">JNI定义的别名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">int</td>
+<td align="center">long</td>
+<td align="center">jint/jsize</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">_int64</td>
+<td align="center">jlong</td>
+</tr>
+<tr>
+<td align="center">byte</td>
+<td align="center">signed char</td>
+<td align="center">jbyte</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">unsigned char</td>
+<td align="center">jboolean</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">unsigned short</td>
+<td align="center">jchar</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">short</td>
+<td align="center">jshort</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">float</td>
+<td align="center">jfloat</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">double</td>
+<td align="center">jdouble</td>
+</tr>
+<tr>
+<td align="center">Object</td>
+<td align="center">_jobject*</td>
+<td align="center">jobject</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>jclass类型</strong></p>
+<p>jclass 表示java中的class 类：</p>
+<p>JNIEnv 类中有如下几个简单的函数可以取得jclass:</p>
+<ul>
+<li>
+<p>jclass FindClass( const char* clsName):通过类的名称来获取jclass</p>
+</li>
+<li>
+<p>jcalss GetObjectClass( jobject obj ):通过对象实例来获取jcalss,相当于java 中的getclass方法</p>
+</li>
+<li>
+<p>jclass GetSuperClass(jclass obj):通过jclass 可以获取其父类的jclass对象。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>native中访问Java层代码</strong></p>
+<p>常见的应用就是获取类的属性和调用类的方法</p>
+<p>JNi在jni.h头文件中定义了jfieldId、jmethodID类型分别代表JAVA端的属性和方法。</p>
+<p>使用JNI的以下方法来取得相应的jfieldId、jmethodID：</p>
+<ul>
+<li>GetFieldID、GetMethodID</li>
+<li>GetStaticFieldID、GetStaticMethodID</li>
+</ul>
+<p>查看jni.h中源函数</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> GetFieldID<span style="color:#f92672">(</span>jclass clazz<span style="color:#f92672">,</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name<span style="color:#f92672">,</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> sig<span style="color:#f92672">)</span>
+</code></pre></div><p>​	参数说明：</p>
+<ul>
+<li>
+<p>clazz 方法依赖的类对象的class对象</p>
+</li>
+<li>
+<p>name: 字段的名称</p>
+</li>
+<li>
+<p>sig : 字段的签名</p>
+<p>查看签名命令</p>
+<p><code> javap -s -p 字节码.class 文件</code></p>
+</li>
+</ul>
+<p>GetMethodID 也能够会的构造函数的jmethodID，创建一个Java对象是可以调用指定的构造方法，eg：</p>
+<p><code> env-&gt;GetmethodID(data_class,&quot;&lt;init&gt;&quot;,&quot;()v&quot;);</code></p>
+<p>签名的格式：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th>相应的签名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">boolean</td>
+<td>Z</td>
+</tr>
+<tr>
+<td align="center">byte</td>
+<td>B</td>
+</tr>
+<tr>
+<td align="center">chat</td>
+<td>C</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td>S</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td>I</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td>L</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td>F</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td>D</td>
+</tr>
+<tr>
+<td align="center">void</td>
+<td>V</td>
+</tr>
+<tr>
+<td align="center">object</td>
+<td>L用/分割包的完整类名；Ljava/lang/String;</td>
+</tr>
+<tr>
+<td align="center">Array</td>
+<td>[签名 [I [Ljava/lang/Object</td>
+</tr>
+<tr>
+<td align="center">Method</td>
+<td>(参数类型签名··· .) 返回值类型签名</td>
+</tr>
+</tbody>
+</table>
+<p>eg:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> com.naivete.jni_study<span style="color:#f92672">;</span>
 
-        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> saltedPassword <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>password <span style="color:#f92672">+</span> getSalt<span style="color:#f92672">(</span>userId<span style="color:#f92672">)).</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>  
-            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> sha1 <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA-1&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>saltedPassword<span style="color:#f92672">);</span>
-            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> md5 <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;MD5&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>saltedPassword<span style="color:#f92672">);</span>
-<span style="color:#75715e">//首先让 password+salt值 再SHA-1和MD5
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> combined <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>sha1<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">+</span> md5<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">];</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">arraycopy</span><span style="color:#f92672">(</span>sha1<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> combined<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> sha1<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">);</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">arraycopy</span><span style="color:#f92672">(</span>md5<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> combined<span style="color:#f92672">,</span> sha1<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">,</span> md5<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">);</span>
-<span style="color:#75715e">//装换成hex值 再拼接起来
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> hexEncoded <span style="color:#f92672">=</span> HexEncoding<span style="color:#f92672">.</span><span style="color:#a6e22e">encode</span><span style="color:#f92672">(</span>combined<span style="color:#f92672">);</span>
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>hexEncoded<span style="color:#f92672">).</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">(</span>StandardCharsets<span style="color:#f92672">.</span><span style="color:#a6e22e">UTF_8</span><span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>NoSuchAlgorithmException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> AssertionError<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Missing digest algorithm: &#34;</span><span style="color:#f92672">,</span> e<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
+<span style="color:#f92672">import</span> java.util.Date<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hello</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> property<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">function</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> foo<span style="color:#f92672">,</span> Date date<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> arr<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;function&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
     <span style="color:#f92672">}</span>
-</code></pre></div><p>如何获取设备对应的salt值：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">getSalt</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> userId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">long</span> salt <span style="color:#f92672">=</span> getLong<span style="color:#f92672">(</span>LOCK_PASSWORD_SALT_KEY<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> userId<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>salt <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>   <span style="color:#75715e">//值为0  重新生成
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-                salt <span style="color:#f92672">=</span> SecureRandom<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA1PRNG&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">nextLong</span><span style="color:#f92672">();</span>
-                setLong<span style="color:#f92672">(</span>LOCK_PASSWORD_SALT_KEY<span style="color:#f92672">,</span> salt<span style="color:#f92672">,</span> userId<span style="color:#f92672">);</span>  <span style="color:#75715e">//保存值
-</span><span style="color:#75715e"></span>                Log<span style="color:#f92672">.</span><span style="color:#a6e22e">v</span><span style="color:#f92672">(</span>TAG<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Initialized lock password salt for user: &#34;</span> <span style="color:#f92672">+</span> userId<span style="color:#f92672">);</span>
-            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>NoSuchAlgorithmException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalStateException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Couldn&#39;t get SecureRandom number&#34;</span><span style="color:#f92672">,</span> e<span style="color:#f92672">);</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">native</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span>
+JNIEXPORT <span style="color:#66d9ef">void</span> JNICALL
+Java_com_naivete_jni_1study_Hello_test(JNIEnv <span style="color:#f92672">*</span>env, jobject instance) {
+
+    <span style="color:#75715e">// TODO
+</span><span style="color:#75715e"></span>    jclass helloclazz <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetObjectClass(instance);
+    jfieldID field_prop <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetFieldID(helloclazz,<span style="color:#e6db74">&#34;property&#34;</span>,<span style="color:#e6db74">&#34;I&#34;</span>);   <span style="color:#75715e">//取到property字段
+</span><span style="color:#75715e"></span>    jmethodID method_fun <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetMethodID(helloclazz,<span style="color:#e6db74">&#34;function&#34;</span>,<span style="color:#e6db74">&#34;ILjava/util/Date;[I)I&#34;</span>); <span style="color:#75715e">//取到function函数
+</span><span style="color:#75715e"></span>    env<span style="color:#f92672">-&gt;</span>CallIntMethod(instance,method_fun,<span style="color:#ae81ff">0L</span>,NULL,NULL);
+}
+</code></pre></div><p>GetStaticFieldID与GetStaticMethodID这两个方法的用法大同小异。</p>
+<h4 id="23-jnienv类型中方法的使用">2.3 JNIEnv类型中方法的使用</h4>
+<ul>
+<li>在java中定义一个属性，再从C++代码中将其设置成另外的值</li>
+</ul>
+<h5 id="231-native中获取方法的id">2.3.1 native中获取方法的ID</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String TAG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> number <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">native</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sayHello</span><span style="color:#f92672">();</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        Hello hello <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Hello<span style="color:#f92672">();</span>
+        hello<span style="color:#f92672">.</span><span style="color:#a6e22e">sayHello</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>hello<span style="color:#f92672">.</span><span style="color:#a6e22e">number</span><span style="color:#f92672">);</span>
+        Log<span style="color:#f92672">.</span><span style="color:#a6e22e">d</span><span style="color:#f92672">(</span>TAG<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">+</span>hello<span style="color:#f92672">.</span><span style="color:#a6e22e">number</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">JNIEXPORT <span style="color:#66d9ef">void</span> JNICALL
+<span style="color:#a6e22e">Java_com_naivete_jni_1study_Hello_sayHello</span>(JNIEnv <span style="color:#f92672">*</span>env, jobject instance) {
+
+    <span style="color:#75715e">// TODO
+</span><span style="color:#75715e"></span>    jclass helloclazz <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetObjectClass(instance);
+    jfieldID id_number <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetFieldID(helloclazz,<span style="color:#e6db74">&#34;number&#34;</span>,<span style="color:#e6db74">&#34;I&#34;</span>); <span style="color:#75715e">//获取numberID
+</span><span style="color:#75715e"></span>    jint number <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetIntField(instance,id_number); <span style="color:#75715e">//获取number的值;
+</span><span style="color:#75715e"></span>    cout<span style="color:#f92672">&lt;&lt;</span>number<span style="color:#f92672">&lt;&lt;</span>endl;  <span style="color:#75715e">//输出到控制台
+</span><span style="color:#75715e"></span>    env<span style="color:#f92672">-&gt;</span>SetIntField(instance,id_number,<span style="color:#ae81ff">100L</span>); <span style="color:#75715e">//设置number的值;注意jint对应c++ long类型
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-2-1.png" alt="1"></p>
+<p>JNIEnv 还提供了许多Call<!-- raw HTML omitted -->Method 和CallStatic<!-- raw HTML omitted -->Method 还有CallNovirtual<!-- raw HTML omitted -->Method函数，需要通过GetMethodID来取得相应的方法的jmethodId传入到上述函数的参数中</p>
+<p>调用示例方法的三种形式如下：</p>
+<p><code>Call&lt;Type&gt;Method(jobject obj,jmethodID id,id,·······); </code> //常用的方式</p>
+<p><code>Call&lt;Type&gt;Method(jobject obj,jmethodID id,id,va_list lst);</code> //有指向参数表的va_list变量（很少使用）</p>
+<p><code>Call&lt;Type&gt;Method(jobject obj,jmethodID id,id,jvalue * v);</code> //有指向jvalue或jvalue数组指针时用的</p>
+<p>jvalue 是union联合体，定义jvalue数组传递到方法中，这样可以包含多种类型的参数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">union</span> jvalue{
+    jboolean z;
+    jbytpe   b;
+    jchar    c;
+    jshort   s;
+    jint     i;
+    jlong    j;
+    jfloat   f;
+    jdouble  d;
+    jobject  l;
+}jvalue;
+</code></pre></div><p>比如在Java中有这样一个方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">function</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> a<span style="color:#f92672">,</span><span style="color:#66d9ef">double</span> b<span style="color:#f92672">,</span><span style="color:#66d9ef">char</span> c<span style="color:#f92672">){</span>
+
+<span style="color:#960050;background-color:#1e0010">·····</span>
+
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>1）在C++中使用第一种方法调用function方法：</p>
+<p><code>env-&gt;CallbooleanMethod(obj,id_function,10L，3.4，L'a')</code></p>
+<p>obj:functon对象，id_function:functiond的id,10L、3.4、L&rsquo;a&rsquo;是对应的参数。</p>
+<p>L&rsquo;a&rsquo; 中的L是因为Java中的字符是Unicode双字节的，而C++中的字节是单字节的，所以要变成宽字符。</p>
+<p>2）在C++中使用第三种方法function调用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">jvalue<span style="color:#f92672">*</span> args <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Jvalue[<span style="color:#ae81ff">3</span>]
+args[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10L</span>;
+args[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.22</span>;
+args[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">L</span><span style="color:#e6db74">&#39;a&#39;</span>;
+env<span style="color:#f92672">-&gt;</span>GetBooleanMethod(obj,id_function,args);
+<span style="color:#66d9ef">delete</span>[] args;  <span style="color:#75715e">//是否指针堆内存
+</span></code></pre></div><h5 id="232-java和c中的多态机制">2.3.2 Java和C++中的多态机制</h5>
+<p>JNIEnv中的特殊方法CallNovirtual<!-- raw HTML omitted -->Method。来帮助java调用Java中父类的方法。</p>
+<ul>
+<li>介绍了-C++和java多态的基础知识。</li>
+<li>步骤：
+<ul>
+<li>获取obj中对象的class 对象 GetObjectClass(obj)</li>
+<li>获取java中father字段的id GetFieldID()</li>
+<li>获取father字段的对象类型 GetObjectField</li>
+<li>获取father对象的class对象 FindClass</li>
+<li>获取father对象中function方法ID GetMethodID()</li>
+<li>调用父类中的function方法（会执行子类的方法）CallvoidMethod</li>
+<li>调用父类中的function方法（会执行父类的方法）CallNonvirtualVoidMethod()</li>
+</ul>
+</li>
+</ul>
+<h4 id="24-创建java对象及字符串的操作方法">2.4 创建Java对象及字符串的操作方法</h4>
+<h5 id="241-native中创建java对象">2.4.1 native中创建Java对象</h5>
+<p>​	两种方法：</p>
+<ul>
+<li>
+<p>第一种：</p>
+<p><code> jobject Newobject(jclass clazz,jmethodID methodID,·····)</code></p>
+<ul>
+<li>clazz 需要创建的Java对象的Class对象。</li>
+<li>methodID :传递一个方法的ID: 构造方法</li>
+<li>第三个参数：构造函数需要传入的参数值（默认不传递） 默认构造方法返回值签名始终是&rdquo;()V&rdquo;,方法的名称始终是&quot;<!-- raw HTML omitted -->&rdquo;。</li>
+</ul>
+<p>在C++中构造Java中的Date对象调用方法getTime():</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">jclass clazz_date <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>FindClass(<span style="color:#e6db74">&#34;java/util/Date&#34;</span>); <span style="color:#75715e">//获取date对象
+</span><span style="color:#75715e"></span>jmethodID mid_date <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetMethodID(clazz_date,<span style="color:#e6db74">&#34;&lt;init&gt;&#34;</span>,<span style="color:#e6db74">&#34;()V&#34;</span>); <span style="color:#75715e">//获取构造方法的ID
+</span><span style="color:#75715e"></span>jobject now <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>NewObject(clazz_date,mid_date); <span style="color:#75715e">//生成Date对象
+</span><span style="color:#75715e"></span>jmethodID mid_date_getTime <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetMethodID(clazz_date,<span style="color:#e6db74">&#34;getTime()&#34;</span>,<span style="color:#e6db74">&#34;()J&#34;</span>); <span style="color:#75715e">//获取getTime的ID
+</span><span style="color:#75715e"></span>jlong time <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>CallLongMethod(now,mid_date_getTime);<span style="color:#75715e">//调用getTime返回时间
+</span><span style="color:#75715e"></span>printf(<span style="color:#e6db74">&#34;%I64d&#34;</span>,time);
+</code></pre></div></li>
+<li>
+<p>第二种：</p>
+<p>用AllocObject函数创建一个对象，可以根据传入的jclass创建一个java对象，但是状态时未初始化的，在这个对象之前绝对要用CallNonvirtualVoidMethod来调用该jclass的构造函数这样可以延迟构造函数的调用。用的比较少。</p>
+<p>eg：略；</p>
+</li>
+</ul>
+<h5 id="242-native中操作java字符串">2.4.2 native中操作Java字符串</h5>
+<p>​	Java-String对象是Unicode(UTF-16)码 一个字符总是占用两个字节 可以通过JNI接口将Java中的字符串转换到C++的宽字符串（wchar_t*),或者传回一个UTF-8编码的字符串（char * )到C++ 反过来同理。</p>
+<p>JNIEnv中的一些C++方法：</p>
+<p>1）获取字符串的长度：</p>
+<p>​	<code> jsize GetStringLength(jstring j_msg)</code></p>
+<ol>
+<li>将jstring 对象拷贝到const jchar* 指针字符串：</li>
+</ol>
+<p>​	//拷贝Java字符串并以UTF-8编码传入jstr:</p>
+<p>​	<code> env-&gt;GetStringRegion(jstring j_msg.jsize start,jszie len,jchar* jstr);</code></p>
+<p>​	////拷贝Java字符串并以UTF-16编码传入jstr:</p>
+<p>​	<code> env-&gt;GetStringUTFRegion(jstring j_msg.jsize start,jszie len, char* jstr);</code></p>
+<ol start="3">
+<li>生成一个jstring 对象</li>
+</ol>
+<p>​	<code>jobject NewString(const jchar* jstr,int size);</code></p>
+<p>​	将字符串指针jstr转换成jstring。</p>
+<ol start="4">
+<li>将jstring对象转换成const jchar* 字符串指。</li>
+</ol>
+<ul>
+<li>
+<p>GetStringChars 开内存 指针指向先开的内存</p>
+<p><code>const* jchar * GetStringChars(jstring j_msg,jboolean* copied)</code></p>
+<p>返回一个UTF-16编码的宽字符串（jchar*);</p>
+<p>对应的释放内存方法：</p>
+<p><code>ReleaseStringChars(jstring j_msg,const jchar* jstr)</code></p>
+</li>
+<li>
+<p>GetStringUTFChars 不开内存直接指向Java中string的指针</p>
+<p><code> const char* GetStringUTFChars(jstring str,jboolean* copied)</code></p>
+<p>取得UTF-8编码的字符串</p>
+<p>释放：</p>
+<p><code>ReleaseStringUTFChars(jstring j_msg,const jchar* jstr)</code></p>
+</li>
+</ul>
+<ol start="5">
+<li>将jstring 对象转化成const jchar* 字符串指针：</li>
+</ol>
+<p>​	<code>const jchar* GetStringCritical(jstring j_msg,Jboolean* copied)</code></p>
+<p>​	作用:增加直接传回指向Java字符串的指针的可能性（而不是拷贝）；</p>
+<p>​	在<code>GetStringCritical/ReleaseStringCritical</code>之间的关键区域之间不能调用任何其他JNI函数。否则会造成关键区域代码执行期间垃圾回收器停止工作。任何触发垃圾回收器的的线程也将暂停。</p>
+<p>​	释放：</p>
+<p>​	<code>ReleaseStringCritical(jstring j_msg,const jchar* jstr)</code></p>
+<p>实例eg：（与书上不同,思路大概相同）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainActivity</span> <span style="color:#66d9ef">extends</span> AppCompatActivity <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> EditText et<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> TextView tv<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> Button bt<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> String text <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">// Used to load the &#39;native-lib&#39; library on application startup.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">loadLibrary</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;native-lib&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCreate</span><span style="color:#f92672">(</span>Bundle savedInstanceState<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">onCreate</span><span style="color:#f92672">(</span>savedInstanceState<span style="color:#f92672">);</span>
+        setContentView<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">layout</span><span style="color:#f92672">.</span><span style="color:#a6e22e">activity_main</span><span style="color:#f92672">);</span>
+        et <span style="color:#f92672">=</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">editText</span><span style="color:#f92672">);</span>
+        tv <span style="color:#f92672">=</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">tv</span><span style="color:#f92672">);</span>
+        bt <span style="color:#f92672">=</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">button</span><span style="color:#f92672">);</span>
+        bt<span style="color:#f92672">.</span><span style="color:#a6e22e">setOnClickListener</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> View<span style="color:#f92672">.</span><span style="color:#a6e22e">OnClickListener</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#a6e22e">@Override</span>
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">(</span>View v<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                text <span style="color:#f92672">=</span> et<span style="color:#f92672">.</span><span style="color:#a6e22e">getText</span><span style="color:#f92672">().</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">().</span><span style="color:#a6e22e">trim</span><span style="color:#f92672">();</span>
+                callCppFunction<span style="color:#f92672">();</span>
+                tv<span style="color:#f92672">.</span><span style="color:#a6e22e">setText</span><span style="color:#f92672">(</span>text<span style="color:#f92672">);</span>
             <span style="color:#f92672">}</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> Long<span style="color:#f92672">.</span><span style="color:#a6e22e">toHexString</span><span style="color:#f92672">(</span>salt<span style="color:#f92672">);</span>       <span style="color:#75715e">//  hex之后返回
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
-</code></pre></div><p>继续跟踪 看保存的地方</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getLong</span><span style="color:#f92672">(</span>String secureSettingKey<span style="color:#f92672">,</span> <span style="color:#66d9ef">long</span> defaultValue<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> userHandle<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> getLockSettings<span style="color:#f92672">().</span><span style="color:#a6e22e">getLong</span><span style="color:#f92672">(</span>secureSettingKey<span style="color:#f92672">,</span> defaultValue<span style="color:#f92672">,</span> userHandle<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>RemoteException re<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> defaultValue<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>继续跟踪代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@VisibleForTesting</span>
-    <span style="color:#66d9ef">public</span> ILockSettings <span style="color:#a6e22e">getLockSettings</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>mLockSettingsService <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            ILockSettings service <span style="color:#f92672">=</span> ILockSettings<span style="color:#f92672">.</span><span style="color:#a6e22e">Stub</span><span style="color:#f92672">.</span><span style="color:#a6e22e">asInterface</span><span style="color:#f92672">(</span>
-                    ServiceManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getService</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;lock_settings&#34;</span><span style="color:#f92672">));</span>   <span style="color:#75715e">//获取服务来操作
-</span><span style="color:#75715e"></span>            mLockSettingsService <span style="color:#f92672">=</span> service<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> mLockSettingsService<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>在android中 这种获取服务的方式最终实现逻辑都是在XXXService类中</p>
-<p>这里在LockSettingService.java中  找到这个类的getLong方法</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getLong</span><span style="color:#f92672">(</span>String key<span style="color:#f92672">,</span> <span style="color:#66d9ef">long</span> defaultValue<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> userId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        checkReadPermission<span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> userId<span style="color:#f92672">);</span>
-        String value <span style="color:#f92672">=</span> getStringUnchecked<span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> userId<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">return</span> TextUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">(</span>value<span style="color:#f92672">)</span> <span style="color:#f92672">?</span> defaultValue <span style="color:#f92672">:</span> Long<span style="color:#f92672">.</span><span style="color:#a6e22e">parseLong</span><span style="color:#f92672">(</span>value<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>保存在数据库？</p>
-<p>继续跟踪</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Injector</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">});</span>
 
-        <span style="color:#66d9ef">protected</span> Context mContext<span style="color:#f92672">;</span>
-
-        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Injector</span><span style="color:#f92672">(</span>Context context<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            mContext <span style="color:#f92672">=</span> context<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#66d9ef">public</span> Context <span style="color:#a6e22e">getContext</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> mContext<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#66d9ef">public</span> Handler <span style="color:#a6e22e">getHandler</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Handler<span style="color:#f92672">();</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#66d9ef">public</span> LockSettingsStorage <span style="color:#a6e22e">getStorage</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">final</span> LockSettingsStorage storage <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LockSettingsStorage<span style="color:#f92672">(</span>mContext<span style="color:#f92672">);</span>
-            storage<span style="color:#f92672">.</span><span style="color:#a6e22e">setDatabaseOnCreateCallback</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> LockSettingsStorage<span style="color:#f92672">.</span><span style="color:#a6e22e">Callback</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-                <span style="color:#a6e22e">@Override</span>
-                <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initialize</span><span style="color:#f92672">(</span>SQLiteDatabase db<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                    <span style="color:#75715e">// Get the lockscreen default from a system property, if available
-</span><span style="color:#75715e"></span>                    <span style="color:#66d9ef">boolean</span> lockScreenDisable <span style="color:#f92672">=</span> SystemProperties<span style="color:#f92672">.</span><span style="color:#a6e22e">getBoolean</span><span style="color:#f92672">(</span>
-                            <span style="color:#e6db74">&#34;ro.lockscreen.disable.default&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">);</span>
-                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>lockScreenDisable<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                        storage<span style="color:#f92672">.</span><span style="color:#a6e22e">writeKeyValue</span><span style="color:#f92672">(</span>db<span style="color:#f92672">,</span> LockPatternUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">DISABLE_LOCKSCREEN_KEY</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;1&#34;</span><span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
-                    <span style="color:#f92672">}</span>
-                <span style="color:#f92672">}</span>
-            <span style="color:#f92672">});</span>
-            <span style="color:#66d9ef">return</span> storage<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-
-<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">LockSettingsService</span><span style="color:#f92672">(</span>Context context<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">this</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Injector<span style="color:#f92672">(</span>context<span style="color:#f92672">));</span>
     <span style="color:#f92672">}</span>
 
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">native</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">callCppFunction</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;jni.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-</code></pre></div><p>继续  查看LockSettingsStorage.java 类中   存在数据库中</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DatabaseHelper</span> <span style="color:#66d9ef">extends</span> SQLiteOpenHelper <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String TAG <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;LockSettingsDB&#34;</span><span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String DATABASE_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;locksettings.db&#34;</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span>
+JNIEXPORT <span style="color:#66d9ef">void</span> JNICALL
+Java_com_example_naivete_jnidemo_MainActivity_callCppFunction(JNIEnv <span style="color:#f92672">*</span>env, jobject instance) {
 
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> DATABASE_VERSION <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> IDLE_CONNECTION_TIMEOUT_MS <span style="color:#f92672">=</span> 30000<span style="color:#f92672">;</span>
-
-        <span style="color:#66d9ef">private</span> Callback mCallback<span style="color:#f92672">;</span>
-
-        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">DatabaseHelper</span><span style="color:#f92672">(</span>Context context<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>context<span style="color:#f92672">,</span> DATABASE_NAME<span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> DATABASE_VERSION<span style="color:#f92672">);</span>
-            setWriteAheadLoggingEnabled<span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
-            <span style="color:#75715e">// Memory optimization - close idle connections after 30s of inactivity
-</span><span style="color:#75715e"></span>            setIdleConnectionTimeout<span style="color:#f92672">(</span>IDLE_CONNECTION_TIMEOUT_MS<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setCallback</span><span style="color:#f92672">(</span>Callback callback<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            mCallback <span style="color:#f92672">=</span> callback<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">createTable</span><span style="color:#f92672">(</span>SQLiteDatabase db<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            db<span style="color:#f92672">.</span><span style="color:#a6e22e">execSQL</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;CREATE TABLE &#34;</span> <span style="color:#f92672">+</span> TABLE <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; (&#34;</span> <span style="color:#f92672">+</span>
-                    <span style="color:#e6db74">&#34;_id INTEGER PRIMARY KEY AUTOINCREMENT,&#34;</span> <span style="color:#f92672">+</span>
-                    COLUMN_KEY <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; TEXT,&#34;</span> <span style="color:#f92672">+</span>
-                    COLUMN_USERID <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; INTEGER,&#34;</span> <span style="color:#f92672">+</span>
-                    COLUMN_VALUE <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; TEXT&#34;</span> <span style="color:#f92672">+</span>
-                    <span style="color:#e6db74">&#34;);&#34;</span><span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCreate</span><span style="color:#f92672">(</span>SQLiteDatabase db<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            createTable<span style="color:#f92672">(</span>db<span style="color:#f92672">);</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>mCallback <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                mCallback<span style="color:#f92672">.</span><span style="color:#a6e22e">initialize</span><span style="color:#f92672">(</span>db<span style="color:#f92672">);</span>
-            <span style="color:#f92672">}</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#a6e22e">@Override</span>
-        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onUpgrade</span><span style="color:#f92672">(</span>SQLiteDatabase db<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> oldVersion<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> currentVersion<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">int</span> upgradeVersion <span style="color:#f92672">=</span> oldVersion<span style="color:#f92672">;</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>upgradeVersion <span style="color:#f92672">==</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                <span style="color:#75715e">// Previously migrated lock screen widget settings. Now defunct.
-</span><span style="color:#75715e"></span>                upgradeVersion <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
-            <span style="color:#f92672">}</span>
-
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>upgradeVersion <span style="color:#f92672">!=</span> DATABASE_VERSION<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                Log<span style="color:#f92672">.</span><span style="color:#a6e22e">w</span><span style="color:#f92672">(</span>TAG<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Failed to upgrade database!&#34;</span><span style="color:#f92672">);</span>
-            <span style="color:#f92672">}</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>看到了数据库的名字叫作：locksettings.db  保存在了：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String SYSTEM_DIRECTORY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/system/&#34;</span><span style="color:#f92672">;</span>    <span style="color:#75715e">//目录
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String LOCK_PATTERN_FILE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gatekeeper.pattern.key&#34;</span><span style="color:#f92672">;</span>   
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String BASE_ZERO_LOCK_PATTERN_FILE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gatekeeper.gesture.key&#34;</span><span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String LEGACY_LOCK_PATTERN_FILE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gesture.key&#34;</span><span style="color:#f92672">;</span>    <span style="color:#75715e">//key1
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String LOCK_PASSWORD_FILE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gatekeeper.password.key&#34;</span><span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String LEGACY_LOCK_PASSWORD_FILE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;password.key&#34;</span><span style="color:#f92672">;</span>    <span style="color:#75715e">//key2
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String CHILD_PROFILE_LOCK_FILE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gatekeeper.profile.key&#34;</span><span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String SYNTHETIC_PASSWORD_DIRECTORY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;spblob/&#34;</span><span style="color:#f92672">;</span>
-</code></pre></div><p>数据库文件存在/data/system/locksetting.db</p>
-<p>测试  在/data/system/下看到password.key</p>
-<p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-1-1.png" alt=""></p>
-<p>打开看看：<img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-1-2.png" alt=""></p>
-<p>手动简单实现加密算法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">passwordToHash</span><span style="color:#f92672">(</span>String password<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>password <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">byte</span> <span style="color:#f92672">[]</span> hashed <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> saltedPassword <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>password <span style="color:#f92672">+</span> SALT<span style="color:#f92672">).</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>    <span style="color:#75715e">//SALT 值从数据库中得到 拿到之后进行hex转换
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> sha1 <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHA-1&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>saltedPassword<span style="color:#f92672">);</span>
-            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> md5 <span style="color:#f92672">=</span> MessageDigest<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;MD5&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">digest</span><span style="color:#f92672">(</span>saltedPassword<span style="color:#f92672">);</span>
-            hashed <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>toHex<span style="color:#f92672">(</span>sha1<span style="color:#f92672">)+</span>toHex<span style="color:#f92672">(</span>md5<span style="color:#f92672">)).</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span><span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
-            
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> hashed<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">toHex</span><span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> ary<span style="color:#f92672">){</span>
-        <span style="color:#66d9ef">final</span> String hex <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;102031398sjdfklaj&#34;</span><span style="color:#f92672">;</span>
-        String ret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>i<span style="color:#f92672">&lt;</span>ary<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span>i<span style="color:#f92672">++){</span>
-            ret <span style="color:#f92672">+=</span> hex<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">((</span>ary<span style="color:#f92672">[</span>i<span style="color:#f92672">]&gt;&gt;</span> 4<span style="color:#f92672">)&amp;</span> 0xf<span style="color:#f92672">);</span>
-            ret <span style="color:#f92672">+=</span> hex<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>ary<span style="color:#f92672">[</span>i<span style="color:#f92672">]&amp;</span> 0xf<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> ret<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-</code></pre></div><p>SALT 的值可以从数据库中拿到 也可以利用反射获取</p>
-<p>总结：</p>
-<p>​	MD5(输的明文密码+设备的salt).hex+ SHA1(输的的明文密码+设备的salt值).hex</p>
-<blockquote>
-<p>2.2 手势密码分析</p>
-</blockquote>
-<p>大致同上</p>
-<h4 id="3-简要">3. 简要：</h4>
-<p>​	九宫格团装化成字节数组-&gt;sha1 加密  即可</p>
-<p>​	 其实大致流程和分析输入密码差不多   保存到本地的目录、/data/system/gesture.key 文件</p>
-
-            </div>
-        </article>
-
-        <hr />
-
-        <div class="post-info">
-                <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://kuekiko.top/tags/android%E5%AE%89%E5%85%A8">android安全</a></span><span class="tag"><a href="https://kuekiko.top/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0">读书笔记</a></span>
-                </p>
-
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>647 Words</p>
-
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-07-02 17:33 &#43;0800</p>
-        </div>
-
-        
-            <div class="pagination">
-                <div class="pagination__title">
-                    <span class="pagination__title-h"></span>
-                    <hr />
-                </div>
-
-                <div class="pagination__buttons">
-                    
-                        <span class="button previous">
-                            <a href="https://kuekiko.top/posts/2018/07/android%E5%AE%89%E5%85%A8%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Android安全和开发环境搭建</span>
-                            </a>
-                        </span>
-                    
-
-                    
-                        <span class="button next">
-                            <a href="https://kuekiko.top/posts/1/01/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E6%89%8B%E5%8A%A8%E7%BD%AE%E9%A1%B6/">
-                                <span class="button__text">环境记录(手动置顶)</span>
-                                <span class="button__icon">→</span>
-                            </a>
-                        </span>
-                    
-                </div>
-            </div>
-        
-    </main>
-
-            </div>
-
-            
-                <footer class="footer">
-    <div class="footer__inner">
-        <div class="footer__content">
-            <span>&copy; 2020</span>
-            
-                <span><a href="https://kuekiko.top">Kuekiko</a></span>
-            
-            
-                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
-            
-            <span> <a href="https://kuekiko.top/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
-        </div>
-    </div>
-    <div class="footer__inner">
-        <div class="footer__content">
-            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
-            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
-        </div>
-    </div>
-</footer>
-
-            
-        </div>
-
-        
-
-
-
-
-<script type="text/javascript" src="https://kuekiko.top/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
-
-
-
-    </body>
-</html>
-an><span style="color:#f92672">{</span>
+    <span style="color:#75715e">// TODO
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//获取text
+</span><span style="color:#75715e"></span>    jfieldID  fid_tx <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetFieldID(env<span style="color:#f92672">-&gt;</span>GetObjectClass(instance),<span style="color:#e6db74">&#34;text&#34;</span>,<span style="color:#e6db74">&#34;Ljava/lang/String;&#34;</span>);
+    <span style="color:#75715e">//获取ext对象
+</span><span style="color:#75715e"></span>    jstring j_tx <span style="color:#f92672">=</span> (jstring)env<span style="color:#f92672">-&gt;</span>GetObjectField(instance,fid_tx);
+    <span style="color:#75715e">//第一种方式
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//获得字符串指针：
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> jchar<span style="color:#f92672">*</span> jstr1 <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetStringChars(j_tx,NULL);
+    <span style="color:#75715e">//z转换成宽字符
+</span><span style="color:#75715e"></span>    wstring <span style="color:#a6e22e">wstr</span>((<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span><span style="color:#f92672">*</span>)jstr1);
+    <span style="color:#75715e">//释放指针
+</span><span style="color:#75715e"></span>    env<span style="color:#f92672">-&gt;</span>ReleaseStringChars(j_tx,jstr1);
+    <span style="color:#75715e">//第一种END
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//第二种
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> jchar <span style="color:#f92672">*</span> jstr2 <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetStringCritical(j_tx,NULL);
+    wstring <span style="color:#a6e22e">wstr2</span>((<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span><span style="color:#f92672">*</span>)jstr2);
+    env<span style="color:#f92672">-&gt;</span>ReleaseStringCritical(j_tx,jstr2);
+    <span style="color:#75715e">//END
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//第三种
+</span><span style="color:#75715e"></span>    jsize len <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>GetStringLength(j_tx);  <span style="color:#75715e">//获取长度
+</span><span style="color:#75715e"></span>    jchar <span style="color:#f92672">*</span> jstr3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> jchar[len<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+    jstr3[len]<span style="color:#f92672">=</span><span style="color:#e6db74">L</span><span style="color:#e6db74">&#39;\0&#39;</span>;
+    <span style="color:#75715e">//复制
+</span><span style="color:#75715e"></span>    env<span style="color:#f92672">-&gt;</span>GetStringRegion(j_tx,<span style="color:#ae81ff">0</span>,len,jstr3);
+    wstring <span style="color:#a6e22e">wstr3</span>((<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">wchar_t</span><span style="color:#f92672">*</span>)jstr3);
+    <span style="color:#66d9ef">delete</span>[] jstr3;
+    <span style="color:#75715e">//End
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//倒序
+</span><span style="color:#75715e"></span>    reverse(wstr.begin(),wstr.end());
+    jstring j_new_str <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>NewString((<span style="color:#66d9ef">const</span> jchar<span style="color:#f92672">*</span>)wstr.c_str(),(jint)wstr.size());
+    env<span style="color:#f92672">-&gt;</span>SetObjectField(instance,fid_tx,j_new_str);
+}
+</code></pre></div><p><img src="http://my-md-1253484710.coscd.myqcloud.com/android-note-2-2.png" alt=""></p>
+<p>​</p>
+<h4 id="25-cc中操作java中的数组">2.5 C/C++中操作Java中的数组</h4>
+<p>​	在java中数组分为两种：</p>
+<ul>
+<li>
+<p>基本类型数组</p>
+</li>
+<li>
+<p>对象类型数组</p>
+<p>一个能用于两种不同类型数组的函数是：GetArrayLength(jarray array)。</p>
+</li>
+</ul>
+<h5 id="251-操作基本类型的数组">2.5.1 操作基本类型的数组</h5>
+<ol>
+<li>
+<p>Get<!-- raw HTML omitted -->ArrayElements方法<br>
+<code>Get&lt;Type&gt;ArrayElements(&lt;Type&gt;Array arr,jboolean* isCopide)</code></p>
+<p>把Java中的基本类型的数组转换成C++中的数组 两种方式：</p>
+<p>一是拷贝一份传回本地，另外一种是把指向Java数组的指针直接传回到本地代码中</p>
+<p>处理完后，通过Release<!-- raw HTML omitted -->Arrayelements 来释放数组。</p>
+</li>
+<li>
+<p>Release<!-- raw HTML omitted -->Arrayelement 方法<br>
+<code>Release&lt;Type&gt;Arrayelement(Type&gt;Array arr,&lt;Type&gt;* array,jint mode)</code></p>
+<p>这个函数可以选择如何处理Java和C++中的数组，是提交还是撤销····内存是否释放等等。</p>
+<p>mode的取值：</p>
+<ul>
+<li>0：对Java的数组进行更新并且释放C/C++数组</li>
+<li>JNI_COMMIT：更新但是不释放</li>
+<li>JNI_ABOUT：不更新，释放。</li>
+</ul>
+</li>
+<li>
+<p>GetPrimittiveArrayCritical方法<br>
+<code>GetPrimittiveArrayCritical(jarray arr,jboolean* isCopied)</code></p>
+</li>
+<li>
+<p>ReleasePrimittiveArrayCritical方法<br>
+<code>ReleasePrimittiveArrayCritical(jarray arr,void* array,jint mode)</code></p>
+</li>
+<li>
+<p>Get<!-- raw HTML omitted -->ArrayRegion方法<br>
+<code>Get&lt;type&gt;ArrayRegion(&lt;Type&gt;Arryay arr,jsize strat ,jsize len,&lt;Type&gt;* buffer)</code></p>
+<p>在C++中开辟内存，拷贝数组到内存中。</p>
+</li>
+<li>
+<p>Set<!-- raw HTML omitted -->ArrayRegion<br>
+<code>Set&lt;type&gt;ArrayRegion(&lt;Type&gt;Arryay arr,jsize strat ,jsize len,const &lt;Type&gt;* buffer)</code></p>
+<p>把Java基本类型数组中的指定范围的元素用C++数组中的元素来赋值。</p>
+</li>
+<li>
+<p><!-- raw HTML omitted -->ArrayNew方法<br>
+<code>&lt;Type&gt;ArrayNew&lt;Type&gt;Array(jszie sz)</code></p>
+<p>指定一个长度然后返回相应的Java基本类型的数组。</p>
+</li>
+</ol>
+<h5 id="252-操作对象数组类型">2.5.2 操作对象数组类型</h5>
+<p>​	JNI未提供把Java对象数组 直接转到C++对象数组的函数。而是通过<code>Get/SetObjectArrayaElement</code>这样的函数来对java中的对象数组进行操作。因为未拷贝 所以没有释放操作。<code>NewObjectArray</code>可以通过指定长度和初始值来创建某一个类的数组。</p>
+<p>例子：两种类型的操作：</p>
+<p>略·····</p>
+<p>​	注：书本P34-36</p>
+<h4 id="26-cc中的引用类型和id缓存">2.6 C++/C中的引用类型和ID缓存</h4>
+<h5 id="261-引用类型">2.6.1 引用类型</h5>
+<p>​	从Java创建对象传到本地C/C++代码时会产生引用，根据Java的垃圾回收机制，只要存在引用就不会触发改引用所指的Java对象垃圾回收。</p>
+<p>​	几种C/C++中的引用类型：</p>
+<ol>
+<li>
+<p>局部引用：（最常见）</p>
+<p>局部引用只在该native函数中有用，所有在该函数中产生的局部引用，都会在函数返回时自动释放，也可以使用DeleteLocalRef函数手动释放。</p>
+<p>有效期中能传递到别的本地函数中，千万不要用C++全局变量保存它，或者把它定义为C++静态局部变量。</p>
+</li>
+<li>
+<p>全局引用：</p>
+<p>可以跨越当前线程，在对个native函数中有效，需要手动释放。会阻止垃圾回收器回收这个引用所指的对象。</p>
+<p>不同于局部引用，全局引用的创建不是由JNI自动创建的，全局引用是需要调用NewGlobalRef函数，释放使用ReleaseGlobalRef函数。</p>
+</li>
+<li>
+<p>弱全局引用</p>
+<p>与全局引用相似。不一样的为不会阻止垃圾回收器回收这个引用所指对象，使用NewWeakGlobalRef和ReleaseWeakGlobalRef来产生和释放。</p>
+<p>关于引用的一些函数：</p>
+<p><code>jobject NewGlobalRef(jobject obj)</code></p>
+<p><code>jobject NewLocalRef(jobject obj)</code></p>
+<p><code>jobject New WeakGlobalRef(jobject obj)</code></p>
+<p><code>void DeleteGlobalRef(jobject obj)</code></p>
+<p><code>void DeleteLocalRef(jobject obj)</code></p>
+<p><code>void DeleteWeakGlobalRef(jobject obj)</code></p>
+<p>很容易理解上面6个函数</p>
+<p><code>jboolean IsSameObject(jobject obj1,jobject obj2)</code></p>
+<p>这个函数用来比较两个引用是否相等，但是对于弱引用有一个特别的功能，如果把NULL传入要比较的对象中就能判断弱全局引用所指的Java对象是否被回收。</p>
+<p>缓存jfieldID/jmethodID.减小查询开销。</p>
+</li>
+</ol>
+<h5 id="262-缓存方法">2.6.2 缓存方法</h5>
+<ol>
+<li>
+<p>在用的时候缓存</p>
+<p>在native代码中使用static局部变量来保存已经查询过的id,就缓存下了id。</p>
+</li>
+<li>
+<p>在Java类初始化时缓存</p>
+<p>比较好的方法，在native调用前把所有ID全部保存下来。可以让Java代码在第一次加载这个类的时候首先调用本地代码初始化所有的jfildID/jmethodID.这样可以省去多次确定ID是否存在的语句。这些jfildID/jmethodID定义在C++的全局。当java类卸载或者重新加载的时候，也会重新计算ID.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestNative</span><span style="color:#f92672">{</span>
     <span style="color:#66d9ef">static</span><span style="color:#f92672">{</span>
         initNativeIDs<span style="color:#f92672">();</span>  <span style="color:#75715e">//静态代码块进行初始化
 </span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
