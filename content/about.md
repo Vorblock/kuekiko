@@ -12,7 +12,7 @@
 #### Links
 
 - email:  [kuekiko7@gmail.com](kuekiko7@gmail.com)
-- Twitter: [kuekiko](https://twitter.com/kuekiko)
+- Twitter: [kuekiko](https://twitter.com/kuekiko7)
 - Telegram: [Vorblock](https://t.me/Vorblock)
 - github: [gayhub](https://github.com/kuekiko)
 - weibo: [Vorblock](https://weibo.com/u/2952658161)
