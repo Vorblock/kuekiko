@@ -7,10 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 10 Apr 2020 18:59:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2020 11:06:01 +0800</lastBuildDate>
     
 	<atom:link href="https://kuekiko.top/tags/syzkaller/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Syzkaller-Android</title>
+      <link>https://kuekiko.top/posts/2020/09/syzkaller-android/</link>
+      <pubDate>Tue, 15 Sep 2020 11:06:01 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2020/09/syzkaller-android/</guid>
+      <description>0x00 前言 介绍使用syzkaller fuzz Android的配置教程。
+0x01 环境 按要安装好环境
+ go syzkaller 交叉编译aarch64-linux-android、g++-aarch64-linux-gnu、gcc-arm-linux-gnueabihf、g++-arm-linux-gnueabihf  0x02 配置 创建配置文件android.cfg
+{ &amp;#34;target&amp;#34;: &amp;#34;linux/arm64&amp;#34;, // arm &amp;#34;http&amp;#34;: &amp;#34;127.0.0.1:56741&amp;#34;, &amp;#34;workdir&amp;#34;: &amp;#34;$GOPATH/src/github.com/google/syzkaller/workdir&amp;#34;, &amp;#34;kernel_obj&amp;#34;: &amp;#34;$KERNEL&amp;#34;, // 内核路径 &amp;#34;syzkaller&amp;#34;: &amp;#34;$GOPATH/src/github.com/google/syzkaller&amp;#34;, &amp;#34;sandbox&amp;#34;: none, &amp;#34;procs&amp;#34;: 8, &amp;#34;type&amp;#34;: &amp;#34;adb&amp;#34;, &amp;#34;cover&amp;#34;: true, &amp;#34;vm&amp;#34;: { &amp;#34;devices&amp;#34;: [$DEVICES], &amp;#34;battery_check&amp;#34;: true } }   KASAN+KCOV编译内核
+  首先编译要fuzz的Android版本输入手机。（过程省略）[1]
+  下载编译基准内核。[2] ，使用手动编译会报错，使用给KASCAN文档[3]的方法也可能报错。
+## 创建文件夹 mkdir android-kernel &amp;amp;&amp;amp; cd android-kernel ## 切换分支 repo init -u https://android.googlesource.com/kernel/manifest -b BRANCH repo sync ## 修改内核build文件 内核路径下的build.</description>
+    </item>
     
     <item>
       <title>Syzkaller fuzzing 入门</title>

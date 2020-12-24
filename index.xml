@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 24 Jul 2020 22:47:12 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2020 11:06:01 +0800</lastBuildDate>
     
 	<atom:link href="https://kuekiko.top/index.xml" rel="self" type="application/rss+xml" />
     
@@ -68,6 +68,21 @@
 2018-10-09 星期二 满课的一天，还要忙奖学金的事情。今天可以说是最烦的一天。做不完的事情，空闲时间都不知道用来干嘛了。
 2018-10-08 星期一 上课生涯又开始了。早起的开始。无聊啊，这些课都没啥意义，像小白鼠一样的拿来做实验似的。
 招新赛开始，题目还没出完，学了新的东西，忘记了旧的知识。。只打算出两道Android的。</description>
+    </item>
+    
+    <item>
+      <title>Syzkaller-Android</title>
+      <link>https://kuekiko.top/posts/2020/09/syzkaller-android/</link>
+      <pubDate>Tue, 15 Sep 2020 11:06:01 +0800</pubDate>
+      
+      <guid>https://kuekiko.top/posts/2020/09/syzkaller-android/</guid>
+      <description>0x00 前言 介绍使用syzkaller fuzz Android的配置教程。
+0x01 环境 按要安装好环境
+ go syzkaller 交叉编译aarch64-linux-android、g++-aarch64-linux-gnu、gcc-arm-linux-gnueabihf、g++-arm-linux-gnueabihf  0x02 配置 创建配置文件android.cfg
+{ &amp;#34;target&amp;#34;: &amp;#34;linux/arm64&amp;#34;, // arm &amp;#34;http&amp;#34;: &amp;#34;127.0.0.1:56741&amp;#34;, &amp;#34;workdir&amp;#34;: &amp;#34;$GOPATH/src/github.com/google/syzkaller/workdir&amp;#34;, &amp;#34;kernel_obj&amp;#34;: &amp;#34;$KERNEL&amp;#34;, // 内核路径 &amp;#34;syzkaller&amp;#34;: &amp;#34;$GOPATH/src/github.com/google/syzkaller&amp;#34;, &amp;#34;sandbox&amp;#34;: none, &amp;#34;procs&amp;#34;: 8, &amp;#34;type&amp;#34;: &amp;#34;adb&amp;#34;, &amp;#34;cover&amp;#34;: true, &amp;#34;vm&amp;#34;: { &amp;#34;devices&amp;#34;: [$DEVICES], &amp;#34;battery_check&amp;#34;: true } }   KASAN+KCOV编译内核
+  首先编译要fuzz的Android版本输入手机。（过程省略）[1]
+  下载编译基准内核。[2] ，使用手动编译会报错，使用给KASCAN文档[3]的方法也可能报错。
+## 创建文件夹 mkdir android-kernel &amp;amp;&amp;amp; cd android-kernel ## 切换分支 repo init -u https://android.googlesource.com/kernel/manifest -b BRANCH repo sync ## 修改内核build文件 内核路径下的build.</description>
     </item>
     
     <item>
@@ -162,25 +177,6 @@ Compile the kernel with debug infoCompile the kernel with frame pointersProvid
 命令make -jN 进行编译
 之后make all
 make modules编译完成之后，vmlinux在源码根目录、bzImage在./arch/x86/boot/下</description>
-    </item>
-    
-    <item>
-      <title>ARM-PWN从入门到放弃0x00-环境准备</title>
-      <link>https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</link>
-      <pubDate>Sat, 03 Aug 2019 12:26:24 +0800</pubDate>
-      
-      <guid>https://kuekiko.top/posts/2019/08/arm-pwn%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%830x00-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</guid>
-      <description>0x00 前言 学PWN也有一段时间了，x86/x86_64 下算是入了个门，平时接触ARM比较多，正好以ARM架构下再更加深入的学习PWN。
-会用的工具、环境：
- 在Ubuntu 18.04/WSL2 Docker for wsl2 树莓派3B+ qemu unicorn IDA Radare2 GDB+gef+pwndbg+peda pwntools  0x01 环境安装 这里选用的有两种环境
-  ARM设备 树莓派
-之前618买了树莓派，派上用场了。
-把PI的官方系统换成了Ubuntu 18.04。
-安装了GCC 、gdb、gef（经测试只有gef能用），其他也没什么需要装的。
-关闭地址随机化
-sudo cat /proc/sys/kernel/randomize_va_space # 状态查看 2 # 开启中 sudo echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space bash: /proc/sys/kernel/randomize_va_space: Permission denied su echo 0 &amp;gt; /proc/sys/kernel/randomize_va_space cat /proc/sys/kernel/randomize_va_space 0 #这就OK   QEMU 模拟 (WSL2)
-安装
-#防止又出什么乱七八糟的错误和需求，尽量都装上 apt install gdb gdb-multiarch ## apt install qemu ## apt install gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu ##gcc arm 依赖库安装   0x02 启动和调试   树莓派</description>
     </item>
     
   </channel>
